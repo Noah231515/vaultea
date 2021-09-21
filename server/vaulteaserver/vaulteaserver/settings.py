@@ -77,11 +77,12 @@ WSGI_APPLICATION = 'vaulteaserver.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'devdb',
+        'NAME': 'vaultea',
         'USER': 'vaultea',
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '9000',
+        'DATABASE': 'vaultea'
     }
 }
 

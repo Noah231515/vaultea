@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'vaulteaserver.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': { # TODO: read from config
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'vaultea',
         'USER': 'vaultea',

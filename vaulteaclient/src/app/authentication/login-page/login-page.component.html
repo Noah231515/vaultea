@@ -1,6 +1,16 @@
 <mat-card>
-    <h1>Welcome to vaulTea</h1>
-    <br>
-    Your own personal piece of mind
-    <vaultea-input></vaultea-input>
+    <div fxFlex fxLayout="column">
+        <h1>Welcome to vaulTea</h1>
+        <span>Your own piece of mind</span>
+        <div fxFlex fxLayout="column" fxFlexLayoutGap="16px">
+            <vaultea-input
+                label='Username'
+                placeholder='Enter username'
+            ></vaultea-input>
+            <vaultea-input
+                label='Password'
+                placeholder='Enter Password'
+            ></vaultea-input>
+        </div>
+    </div>
 </mat-card>

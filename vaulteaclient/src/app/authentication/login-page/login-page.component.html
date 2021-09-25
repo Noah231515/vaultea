@@ -4,10 +4,12 @@
         <span>Your own piece of mind</span>
         <div fxFlex fxLayout="column" fxFlexLayoutGap="16px">
             <vaultea-input
+                [formControl]='form.get("username")'
                 label='Username'
                 placeholder='Enter username'
             ></vaultea-input>
             <vaultea-input
+                [formControl]='form.get("password")'
                 label='Password'
                 placeholder='Enter Password'
             ></vaultea-input>

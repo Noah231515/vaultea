@@ -1,4 +1,8 @@
 <mat-form-field>
     <mat-label>{{label}}</mat-label>
-    <input matInput [placeholder]=placeholder [value]=formControl?.value>
+    <input matInput 
+        [placeholder]=placeholder
+        [formControl]=formControl
+        [value]=formControl?.value
+    >
 </mat-form-field>

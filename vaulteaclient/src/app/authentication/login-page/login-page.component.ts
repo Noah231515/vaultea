@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'vaultea-login-page',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
+  public form: FormGroup;
 
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      username: ["", Validators.required],
+      password: ["", Validators.required]
+    });
   }
 
 }

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { UiKitModule } from '../ui-kit/ui-kit.module';
 
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -14,7 +15,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
     AuthenticationRoutingModule,
     CommonModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    UiKitModule,
   ]
 })
 export class AuthenticationModule { }

@@ -1,22 +1,28 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputComponent } from './input/input.component';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { ButtonComponent } from './button/button.component';
+import { InputComponent } from './input/input.component';
 
 @NgModule({
   declarations: [
-    InputComponent
+    ButtonComponent,
+    InputComponent,
   ],
   exports: [
+    ButtonComponent,
+    FlexLayoutModule,
     InputComponent,
-    FlexLayoutModule
   ],
   imports: [
     CommonModule,
     FlexLayoutModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,

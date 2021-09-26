@@ -9,7 +9,6 @@ export class FormFooterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
-
 }

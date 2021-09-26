@@ -15,14 +15,10 @@
             </vaultea-form-footer>
             <div fxLayout='row' fxLayoutGap='8px'>
                 <vaultea-button
-                    text='Login'
-                    color='primary'
-                    buttonTypeClass='mat-raised-button'
+                    [buttonInterface]='loginButtonInterface'
                 ></vaultea-button>
                 <vaultea-button
-                    text='Sign Up'
-                    color='secondary'
-                    buttonTypeClass='mat-raised-button'
+                    [buttonInterface]='signUpButtonInterface'
                 ></vaultea-button>
             </div>
         </div>

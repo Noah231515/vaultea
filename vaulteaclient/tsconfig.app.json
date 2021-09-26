@@ -5,7 +5,8 @@
     "outDir": "./out-tsc/app",
     "types": [],
     "paths": {
-      "@ui-kit": ["src/app/ui-kit/index.ts"]
+      "@abstract": ["src/app/abstract/index.ts"],
+      "@ui-kit": ["src/app/ui-kit/index.ts"],
     }
   },
   "files": [

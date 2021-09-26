@@ -19,5 +19,4 @@ export class LoginPageComponent implements OnInit {
       password: ["", Validators.required]
     });
   }
-
 }

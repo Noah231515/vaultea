@@ -1,7 +1,10 @@
 <mat-form-field>
     <mat-label>{{label}}</mat-label>
     <mat-error *ngIf="formControl.hasError('required')">
-        {{label}} is required
+        Please enter a {{label}}
+    </mat-error>
+        <mat-error *ngIf="formControl.hasError('email')">
+        Please enter a properly formatted email
     </mat-error>
     <input matInput 
         [placeholder]=placeholder

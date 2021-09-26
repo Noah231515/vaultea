@@ -5,10 +5,8 @@ import { ButtonsConstant } from '@ui-kit';
   selector: 'vaultea-base',
 })
 export abstract class BaseComponent {
-  constructor() { }
-  public BUTTONS_CONSTANT = ButtonsConstant;
-
-  public SetButtonsConstant(): void {
+  public BUTTONS_CONSTANT: any;
+  constructor() { 
     this.BUTTONS_CONSTANT = ButtonsConstant;
   }
 }

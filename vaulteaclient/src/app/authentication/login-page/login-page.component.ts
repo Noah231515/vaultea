@@ -23,7 +23,6 @@ export class LoginPageComponent extends BaseComponent implements OnInit {
   public ngOnInit(): void {
     this.loginButtonInterface = this.buttonService.getLoginButton();
     this.signUpButtonInterface = this.buttonService.getSignUpButton();
-    this.SetButtonsConstant();
     
 
     this.form = this.formBuilder.group({

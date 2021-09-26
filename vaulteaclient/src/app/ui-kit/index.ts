@@ -5,4 +5,3 @@ export * from "./button/button.interface";
 export * from "./button/buttons.constant"
 
 // Services
-export * from "./button/button.service";

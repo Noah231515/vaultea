@@ -15,4 +15,16 @@ export class ButtonsConstant {
     color: 'secondary',
     text: 'Sign Up'
   };
+
+  public static readonly SUBMIT_BUTTON: ButtonInterface = {
+    buttonTypeClass: 'mat-raised-button',
+    color: 'primary',
+    text: 'Submit'
+  };
+
+  public static readonly CANCEL_BUTTON: ButtonInterface = {
+    buttonTypeClass: 'mat-button',
+    color: 'secondary',
+    text: 'Cancel'
+  };
 }

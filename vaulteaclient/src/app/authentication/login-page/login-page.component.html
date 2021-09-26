@@ -11,16 +11,10 @@
                 [formControl]='form.get("password")'
                 label='Password'
             ></vaultea-input>
-            <vaultea-form-footer>
-            </vaultea-form-footer>
-            <div fxLayout='row' fxLayoutGap='8px'>
-                <vaultea-button
-                    [buttonInterface]='BUTTONS_CONSTANT.LOGIN_BUTTON'
-                ></vaultea-button>
-                <vaultea-button
-                    [buttonInterface]='BUTTONS_CONSTANT.SIGNUP_BUTTON'
-                ></vaultea-button>
-            </div>
+            <vaultea-form-footer
+                [primaryButton]='BUTTONS_CONSTANT.LOGIN_BUTTON'
+                [secondaryButton]='BUTTONS_CONSTANT.SIGNUP_BUTTON'
+            ></vaultea-form-footer>
         </div>
     </div>
 </mat-card>

@@ -10,6 +10,10 @@
 <ng-template #formTemplate>
     <div fxFlex fxLayout="column" fxLayoutGap="8px">
         <vaultea-input
+            [formControl]='form.get("username")'
+            label='Username'
+        ></vaultea-input>
+        <vaultea-input
             [formControl]='form.get("email")'
             label='Email'
         ></vaultea-input>

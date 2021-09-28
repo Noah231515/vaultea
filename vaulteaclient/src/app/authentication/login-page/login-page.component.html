@@ -1,0 +1,24 @@
+<mat-card class='card-position' fxFlex='50%'>
+    <div fxFlex fxLayout='column' fxLayoutAlign='center center' fxLayoutGap='16px'>
+        <h1>Welcome to vaulTea</h1>
+        <span>Your own piece of mind</span>
+        <vaultea-form
+            [formTemplate]='formTemplate'
+            [primaryButton]='BUTTONS_CONSTANT.LOGIN_BUTTON'
+            [secondaryButton]='BUTTONS_CONSTANT.SIGNUP_BUTTON'
+        ></vaultea-form>
+    </div>
+</mat-card>
+
+<ng-template #formTemplate>
+    <div fxFlex fxLayout="column" fxLayoutGap="8px">
+        <vaultea-input
+            [formControl]='form.get("email")'
+            label='Email'
+        ></vaultea-input>
+        <vaultea-input
+            [formControl]='form.get("password")'
+            label='Password'
+        ></vaultea-input>
+    </div>
+</ng-template>

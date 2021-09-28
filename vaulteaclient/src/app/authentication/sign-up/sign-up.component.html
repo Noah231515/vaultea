@@ -2,7 +2,8 @@
     <div fxFlex fxLayout='column' fxLayoutAlign='center center' fxLayoutGap='8px'>
         <h1>Sign up</h1>
         <vaultea-form
-        [formTemplate]='formTemplate'
+            [formTemplate]='formTemplate'
+            (secondaryButtonClicked)='navigateToLogin()'
         ></vaultea-form>
     </div>
 </mat-card>

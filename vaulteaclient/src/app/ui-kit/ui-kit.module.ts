@@ -9,18 +9,21 @@ import { MatInputModule } from '@angular/material/input';
 import { ButtonComponent } from './button/button.component';
 import { FormFooterComponent } from './form-footer/form-footer.component';
 import { InputComponent } from './input/input.component';
+import { FormComponent } from './form/form.component';
 
 @NgModule({
   declarations: [
     ButtonComponent,
     InputComponent,
     FormFooterComponent,
+    FormComponent,
   ],
   exports: [
     ButtonComponent,
     FlexLayoutModule,
     FormFooterComponent,
     InputComponent,
+    FormComponent,
   ],
   imports: [
     CommonModule,

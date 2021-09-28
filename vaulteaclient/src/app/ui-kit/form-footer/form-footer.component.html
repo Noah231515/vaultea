@@ -1,6 +1,12 @@
 <footer>
   <div fxFlex fxLayoutGap='8px'>
-    <vaultea-button [buttonInterface]='primaryButton'></vaultea-button>
-    <vaultea-button [buttonInterface]='secondaryButton'></vaultea-button>
+    <vaultea-button
+      [buttonInterface]='primaryButton'
+      (click)='emitPrimaryButtonClicked()'
+    ></vaultea-button>
+    <vaultea-button
+     [buttonInterface]='secondaryButton'
+     (click)='emitSecondaryButtonClicked()'
+    ></vaultea-button>
   </div>
 </footer>

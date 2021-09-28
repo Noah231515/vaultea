@@ -6,6 +6,7 @@
             [formTemplate]='formTemplate'
             [primaryButton]='BUTTONS_CONSTANT.LOGIN_BUTTON'
             [secondaryButton]='BUTTONS_CONSTANT.SIGNUP_BUTTON'
+            (secondaryButtonClicked)='navigateToSignup()'
         ></vaultea-form>
     </div>
 </mat-card>

@@ -1,1 +1,21 @@
-<p>sign-up works!</p>
+<mat-card class='card-position' fxFlex='50%'>
+    <div fxFlex fxLayout='column' fxLayoutAlign='center center' fxLayoutGap='8px'>
+        <h1>Sign up</h1>
+        <vaultea-form
+        [formTemplate]='formTemplate'
+        ></vaultea-form>
+    </div>
+</mat-card>
+
+<ng-template #formTemplate>
+    <div fxFlex fxLayout="column" fxLayoutGap="8px">
+        <vaultea-input
+            [formControl]='form.get("email")'
+            label='Email'
+        ></vaultea-input>
+        <vaultea-input
+            [formControl]='form.get("password")'
+            label='Password'
+        ></vaultea-input>
+    </div>
+</ng-template>

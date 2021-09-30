@@ -4,4 +4,5 @@ export interface ButtonInterface {
   disabled?: boolean;
   text: string;
   type?: string;
+  ariaLabel: string;
 }

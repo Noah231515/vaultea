@@ -1,4 +1,4 @@
-<mat-form-field appearance="outline">
+<mat-form-field [fxFlex]='flexAmount' appearance="outline">
     <mat-label>{{label}}</mat-label>
     <mat-error *ngIf="formControl.hasError('required')">
         Please enter a {{label}}

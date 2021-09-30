@@ -2,6 +2,7 @@
     <div fxFlex fxLayout='column' fxLayoutAlign='center center' fxLayoutGap='8px'>
         <h1>Sign up</h1>
         <vaultea-form
+            [form]='form'
             [formTemplate]='formTemplate'
             (primaryButtonClicked)='signUp()'
             (secondaryButtonClicked)='navigateToLogin()'

@@ -1,10 +1,9 @@
-<form>
+<form [formGroup]='form' (ngSubmit)='emitPrimaryButtonClicked()'>
   <div fxFlex fxLayout='column' fxLayoutGap='8px'>
     <ng-container [ngTemplateOutlet]='formTemplate'></ng-container> 
     <vaultea-form-footer
       [primaryButton]='primaryButton'
       [secondaryButton]='secondaryButton'
-      (primaryButtonClicked)='emitPrimaryButtonClicked()'
       (secondaryButtonClicked)='emitSecondaryButtonClicked()'
     ></vaultea-form-footer>
   </div>

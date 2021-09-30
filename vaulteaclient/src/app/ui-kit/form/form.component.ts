@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+
 import { ButtonInterface } from '..';
 
 @Component({
@@ -11,8 +12,19 @@ export class FormComponent implements OnInit {
   @Input() public secondaryButton: ButtonInterface;
   @Input() public formTemplate: TemplateRef<any>;
 
+  @Output() public primaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public secondaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();
+
   constructor() { }
 
   public ngOnInit(): void {
+  }
+
+  public emitPrimaryButtonClicked(): void {
+    this.primaryButtonClicked.emit();
+  }
+
+  public emitSecondaryButtonClicked(): void {
+    this.secondaryButtonClicked.emit();
   }
 }

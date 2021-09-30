@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/abstract';
 import { ButtonInterface } from 'src/app/ui-kit';
 
@@ -15,6 +16,7 @@ export class LoginPageComponent extends BaseComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private router: Router
   ) { 
     super()
   }
@@ -24,5 +26,9 @@ export class LoginPageComponent extends BaseComponent implements OnInit {
       email: ["", [Validators.required, Validators.email]],
       password: ["", Validators.required]
     });
+  }
+
+  public navigateToSignup(): void {
+    this.router.navigate(["/signup"])
   }
 }

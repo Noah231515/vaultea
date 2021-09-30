@@ -4,6 +4,8 @@
     <vaultea-form-footer
       [primaryButton]='primaryButton'
       [secondaryButton]='secondaryButton'
+      (primaryButtonClicked)='emitPrimaryButtonClicked()'
+      (secondaryButtonClicked)='emitSecondaryButtonClicked()'
     ></vaultea-form-footer>
   </div>
 </form>

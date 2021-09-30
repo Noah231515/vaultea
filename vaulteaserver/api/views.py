@@ -1,5 +1,8 @@
+
 from django.shortcuts import render
 from rest_framework.decorators import api_view
+from rest_framework import status
+from rest_framework.response import Response
 
 # # Create your views here.
 # @api_view(['GET', 'POST', 'DELETE'])
@@ -24,5 +27,6 @@ from rest_framework.decorators import api_view
 
 @api_view(['POST'])
 def sign_up(request):
+  print('hello')
   print(request)
-     # GET all published tutorials
+  return Response({'key': 'value'}, status=status.HTTP_200_OK)

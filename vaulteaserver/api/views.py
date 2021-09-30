@@ -21,3 +21,8 @@ from rest_framework.decorators import api_view
 # @api_view(['GET'])
 # def tutorial_list_published(request):
 #     # GET all published tutorials
+
+@api_view(['POST'])
+def sign_up(request):
+  print(request)
+     # GET all published tutorials

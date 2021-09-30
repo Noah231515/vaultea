@@ -7,24 +7,28 @@ export class ButtonsConstant {
   public static readonly LOGIN_BUTTON: ButtonInterface = {
     buttonTypeClass: 'mat-raised-button',
     color: 'primary',
-    text: 'Login'
+    text: 'Login',
+    type: 'submit'
   };
 
   public static readonly SIGNUP_BUTTON: ButtonInterface = {
     buttonTypeClass: 'mat-raised-button',
     color: 'secondary',
-    text: 'Sign Up'
+    text: 'Sign Up',
+    type: 'button'
   };
 
   public static readonly SUBMIT_BUTTON: ButtonInterface = {
     buttonTypeClass: 'mat-raised-button',
     color: 'primary',
-    text: 'Submit'
+    text: 'Submit',
+    type: 'submit'
   };
 
   public static readonly CANCEL_BUTTON: ButtonInterface = {
     buttonTypeClass: 'mat-button',
     color: 'secondary',
-    text: 'Cancel'
+    text: 'Cancel',
+    type: 'button'
   };
 }

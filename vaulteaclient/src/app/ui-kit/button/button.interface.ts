@@ -3,4 +3,5 @@ export interface ButtonInterface {
   color: string;
   disabled?: boolean;
   text: string;
+  type?: string;
 }

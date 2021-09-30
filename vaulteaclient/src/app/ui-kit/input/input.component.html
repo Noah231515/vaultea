@@ -12,7 +12,7 @@
         [formControl]=formControl
         [value]=formControl?.value
     >
-    <button mat-icon-button *ngIf='sensitiveDataInput' type='button' matSuffix (click)="toggleHideSensitiveData()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSensitiveData">
+    <button mat-icon-button matSuffix *ngIf='sensitiveDataInput' type='button' (click)="toggleHideSensitiveData()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSensitiveData">
         <mat-icon>{{hideSensitiveData ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
 </mat-form-field>

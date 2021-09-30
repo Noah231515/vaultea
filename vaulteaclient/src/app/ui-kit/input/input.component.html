@@ -6,9 +6,13 @@
         <mat-error *ngIf="formControl.hasError('email')">
         Please enter a properly formatted email
     </mat-error>
-    <input matInput 
+    <input matInput
+        [type]='sensitiveDataInput ? "password" : "text"'
         [placeholder]=placeholder
         [formControl]=formControl
         [value]=formControl?.value
     >
+    <button mat-icon-button matSuffix *ngIf='sensitiveDataInput' (click)="hideSensitiveData = !hideSensitiveData" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSensitiveData">
+        <mat-icon>{{hideSensitiveData ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
 </mat-form-field>

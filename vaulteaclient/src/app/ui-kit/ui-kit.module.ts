@@ -4,12 +4,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 import { ButtonComponent } from './button/button.component';
 import { FormFooterComponent } from './form-footer/form-footer.component';
-import { InputComponent } from './input/input.component';
 import { FormComponent } from './form/form.component';
+import { InputComponent } from './input/input.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { FormComponent } from './form/form.component';
     FlexLayoutModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
   ]

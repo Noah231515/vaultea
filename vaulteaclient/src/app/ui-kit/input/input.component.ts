@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -11,6 +11,9 @@ export class InputComponent implements OnInit {
     @Input() public formControl: any;
     @Input() public label: string;
     @Input() public placeholder: string;
+    @Input() public sensitiveDataInput: boolean = false;
+
+    public hideSensitiveData: boolean = false;
 
   constructor() { }
 

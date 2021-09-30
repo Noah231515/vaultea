@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,7 +19,8 @@ import { AuthenticationModule } from './authentication/authentication.module';
     BrowserAnimationsModule,
     BrowserModule,
     MatToolbarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

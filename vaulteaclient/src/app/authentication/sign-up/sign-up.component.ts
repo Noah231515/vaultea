@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { AuthenticationService } from '../authentication.service';
+
 @Component({
   selector: 'vaultea-sign-up',
   styleUrls: ['./sign-up.component.scss'],
@@ -11,8 +13,9 @@ export class SignUpComponent implements OnInit {
   public form: FormGroup;
 
   constructor(
+    private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
   ) { }
 
   public ngOnInit(): void {
@@ -25,5 +28,12 @@ export class SignUpComponent implements OnInit {
 
   public navigateToLogin(): void {
     this.router.navigate(['/login']);
+  }
+
+  public signUp(): void {
+    this.authenticationService.signUp(this.form.getRawValue()).subscribe(userData => {
+      console.log(userData);
+    });
+    
   }
 }

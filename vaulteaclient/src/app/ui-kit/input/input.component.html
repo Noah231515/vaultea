@@ -1,4 +1,4 @@
-<mat-form-field [fxFlex]='flexAmount' appearance="outline">
+<mat-form-field tabindex="0" [fxFlex]='flexAmount' appearance="outline">
     <mat-label>{{label}}</mat-label>
     <mat-error *ngIf="formControl.hasError('required')">
         Please enter a {{label}}
@@ -6,7 +6,8 @@
         <mat-error *ngIf="formControl.hasError('email')">
         Please enter a properly formatted email
     </mat-error>
-    <input matInput
+    <input
+        matInput
         [type]='sensitiveDataInput && hideSensitiveData ? "password" : "text"'
         [placeholder]=placeholder
         [formControl]=formControl

@@ -17,3 +17,4 @@ def sign_up(request):
     return JsonResponse({'token': token.key}, status=status.HTTP_200_OK)
   else:
     return Response({'key': 'value'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+  

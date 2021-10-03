@@ -11,11 +11,10 @@ export class FocusInvalidInputDirective {
 
   @HostListener('submit')
   private onFormSubmit() {
-    const invalidControl = this.formElementRef.nativeElement.querySelector('.ng-invalid');
+    const invalidInput = this.formElementRef.nativeElement.querySelector('input.ng-invalid');
 
-    if (invalidControl) {
-      invalidControl.focus();
+    if (invalidInput) {
+      invalidInput.focus();
     }
   }
-
 }

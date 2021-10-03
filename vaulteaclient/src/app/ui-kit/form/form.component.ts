@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { ButtonInterface } from '..';
@@ -18,7 +18,6 @@ export class FormComponent implements OnInit {
   @Output() public secondaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   public ngOnInit(): void {
@@ -26,14 +25,12 @@ export class FormComponent implements OnInit {
 
   public emitPrimaryButtonClicked(): void {
     if (this.form && this.form?.valid) {
-      this.primaryButtonClicked.emit();
+      return this.primaryButtonClicked.emit();
     }
 
     if (!this.form) {
-      this.primaryButtonClicked.emit();
+      return this.primaryButtonClicked.emit();
     }
-    this.changeDetectorRef.markForCheck();
-
   }
 
   public emitSecondaryButtonClicked(): void {

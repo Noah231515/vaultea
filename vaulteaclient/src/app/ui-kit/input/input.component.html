@@ -6,7 +6,8 @@
         <mat-error *ngIf="formControl.hasError('email')">
         Please enter a properly formatted email
     </mat-error>
-    <input matInput
+    <input
+        matInput
         [type]='sensitiveDataInput && hideSensitiveData ? "password" : "text"'
         [placeholder]=placeholder
         [formControl]=formControl

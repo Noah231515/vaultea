@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
+import { AbstractModule } from '../abstract/abstract.module';
 import { ButtonComponent } from './button/button.component';
 import { FormFooterComponent } from './form-footer/form-footer.component';
 import { FormComponent } from './form/form.component';
@@ -27,6 +28,7 @@ import { InputComponent } from './input/input.component';
     FormComponent,
   ],
   imports: [
+    AbstractModule,
     CommonModule,
     FlexLayoutModule,
     MatButtonModule,

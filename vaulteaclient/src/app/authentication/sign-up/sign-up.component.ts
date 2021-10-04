@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from "../authentication.service";
 
 @Component({
-  selector: 'vaultea-sign-up',
-  styleUrls: ['./sign-up.component.scss'],
-  templateUrl: './sign-up.component.html',
+  selector: "vaultea-sign-up",
+  styleUrls: ["./sign-up.component.scss"],
+  templateUrl: "./sign-up.component.html",
 })
 export class SignUpComponent implements OnInit {
   public form: FormGroup;
@@ -20,14 +20,14 @@ export class SignUpComponent implements OnInit {
 
   public ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      username: ['', Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", Validators.required],
+      username: ["", Validators.required],
     });
   }
 
   public navigateToLogin(): void {
-    this.router.navigate(['/login']);
+    this.router.navigate(["/login"]);
   }
 
   public signUp(): void {

@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 
-import { ButtonInterface } from '..';
+import { ButtonInterface } from "..";
 
 @Component({
-  selector: 'vaultea-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  selector: "vaultea-form",
+  templateUrl: "./form.component.html",
+  styleUrls: ["./form.component.scss"]
 })
 export class FormComponent implements OnInit {
   @Input() public primaryButton: ButtonInterface;

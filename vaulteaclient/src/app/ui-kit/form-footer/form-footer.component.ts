@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BaseComponent } from 'src/app/abstract';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { BaseComponent } from "src/app/abstract";
 
-import { ButtonInterface } from '..';
+import { ButtonInterface } from "..";
 
 @Component({
-  selector: 'vaultea-form-footer',
-  templateUrl: './form-footer.component.html',
-  styleUrls: ['./form-footer.component.scss']
+  selector: "vaultea-form-footer",
+  templateUrl: "./form-footer.component.html",
+  styleUrls: ["./form-footer.component.scss"]
 })
 export class FormFooterComponent extends BaseComponent implements OnInit {
   @Input() public primaryButton: ButtonInterface;

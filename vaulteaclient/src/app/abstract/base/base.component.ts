@@ -1,8 +1,8 @@
-import { Directive } from '@angular/core';
-import { ButtonsConstant } from '@ui-kit';
+import { Directive } from "@angular/core";
+import { ButtonsConstant } from "@ui-kit";
 
 @Directive({
-  selector: 'vaultea-base',
+  selector: "vaultea-base",
 })
 export abstract class BaseComponent {
   public BUTTONS_CONSTANT: any;

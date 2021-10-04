@@ -31,8 +31,8 @@ export class SignUpComponent implements OnInit {
   }
 
   public signUp(): void {
-    this.authenticationService.signUp(this.form.getRawValue()).subscribe(userData => {
-      console.log(userData);
+    this.authenticationService.signUp(this.form.getRawValue()).subscribe(() => {
+      return; // TODO: Stubbed method
     });
     
   }

@@ -16,8 +16,6 @@ export class ButtonComponent implements OnInit {
   @Input() public ariaLabel: string = "";
   @Input() public buttonInterface: ButtonInterface;
 
-  constructor() { }
-
   public ngOnInit(): void {
     this.buttonTypeClass = this.buttonInterface?.buttonTypeClass ?? this.buttonTypeClass;
     this.color = this.buttonInterface?.color ?? this.color;

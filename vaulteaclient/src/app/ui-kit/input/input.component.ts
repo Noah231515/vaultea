@@ -16,16 +16,14 @@ export class InputComponent implements OnInit {
 
     public hideSensitiveData: boolean;
 
-  constructor() { }
-
-  public ngOnInit(): void {
-    this.hideSensitiveData = this.sensitiveDataInput;
-    if (this.formControl) {
+    public ngOnInit(): void {
+      this.hideSensitiveData = this.sensitiveDataInput;
+      if (this.formControl) {
         this.formControl = this.formControl as FormControl;
+      }
     }
-  }
 
-  public toggleHideSensitiveData(): void {
-    this.hideSensitiveData = !this.hideSensitiveData;
-  }
+    public toggleHideSensitiveData(): void {
+      this.hideSensitiveData = !this.hideSensitiveData;
+    }
 }

@@ -1,7 +1,7 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener } from "@angular/core";
 
 @Directive({
-  selector: '[focusInvalidInput]'
+  selector: "[focusInvalidInput]"
 })
 export class FocusInvalidInputDirective {
 
@@ -9,9 +9,9 @@ export class FocusInvalidInputDirective {
     private formElementRef: ElementRef
   ) { }
 
-  @HostListener('submit')
+  @HostListener("submit")
   private onFormSubmit() {
-    const invalidInput = this.formElementRef.nativeElement.querySelector('input.ng-invalid');
+    const invalidInput = this.formElementRef.nativeElement.querySelector("input.ng-invalid");
 
     if (invalidInput) {
       invalidInput.focus();

@@ -1,0 +1,4 @@
+node_modules
+dist
+main.ts
+test.ts

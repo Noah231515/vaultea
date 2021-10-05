@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 
-import { FocusInvalidInputDirective } from './base/focus-invalid-input/focus-invalid-input.directive';
+import { FocusInvalidInputDirective } from "./base/focus-invalid-input/focus-invalid-input.directive";
 
 @NgModule({
   declarations: [

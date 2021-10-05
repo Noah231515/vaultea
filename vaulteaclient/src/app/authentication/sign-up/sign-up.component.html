@@ -1,11 +1,11 @@
-<mat-card class='card-position' fxFlex='50%'>
-    <div fxFlex fxLayout='column' fxLayoutAlign='center center' fxLayoutGap='8px'>
+<mat-card class="card-position" fxFlex="50%">
+    <div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px">
         <h1>Sign up</h1>
         <vaultea-form
-            [form]='form'
-            [formTemplate]='formTemplate'
-            (primaryButtonClicked)='signUp()'
-            (secondaryButtonClicked)='navigateToLogin()'
+            [form]="form"
+            [formTemplate]="formTemplate"
+            (primaryButtonClicked)="signUp()"
+            (secondaryButtonClicked)="navigateToLogin()"
         ></vaultea-form>
     </div>
 </mat-card>
@@ -13,17 +13,17 @@
 <ng-template #formTemplate>
     <div fxFlex fxLayout="column" fxLayoutGap="8px">
         <vaultea-input
-            [formControl]='form.get("username")'
-            label='Username'
+            [formControl]="form.get('username')"
+            label="Username"
         ></vaultea-input>
         <vaultea-input
-            [formControl]='form.get("email")'
-            label='Email'
+            [formControl]="form.get('email')"
+            label="Email"
         ></vaultea-input>
         <vaultea-input
-            [sensitiveDataInput]='true'
-            [formControl]='form.get("password")'
-            label='Password'
+            [sensitiveDataInput]="true"
+            [formControl]="form.get('password')"
+            label="Password"
         ></vaultea-input>
     </div>
 </ng-template>

@@ -1,4 +1,4 @@
-<mat-form-field tabindex="0" [fxFlex]='flexAmount' appearance="outline">
+<mat-form-field tabindex="0" [fxFlex]="flexAmount" appearance="outline">
     <mat-label>{{label}}</mat-label>
     <mat-error *ngIf="formControl.hasError('required')">
         Please enter a {{label}}
@@ -8,12 +8,12 @@
     </mat-error>
     <input
         matInput
-        [type]='sensitiveDataInput && hideSensitiveData ? "password" : "text"'
+        [type]="sensitiveDataInput && hideSensitiveData ? 'password' : 'text'"
         [placeholder]=placeholder
         [formControl]=formControl
         [value]=formControl?.value
     >
-    <button mat-icon-button matSuffix *ngIf='sensitiveDataInput' type='button' (click)="toggleHideSensitiveData()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSensitiveData">
-        <mat-icon>{{hideSensitiveData ? 'visibility_off' : 'visibility'}}</mat-icon>
+    <button mat-icon-button matSuffix *ngIf="sensitiveDataInput" type="button" (click)="toggleHideSensitiveData()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSensitiveData">
+        <mat-icon>{{hideSensitiveData ? "visibility_off" : "visibility"}}</mat-icon>
     </button>
 </mat-form-field>

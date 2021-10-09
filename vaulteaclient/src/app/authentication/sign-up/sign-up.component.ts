@@ -34,10 +34,10 @@ export class SignUpComponent implements OnInit {
     this.router.navigate(["/login"]);
   }
 
-  public async signUp(): Promise<any> {
-    this.cryptoService.test(this.form.get("password")?.value, this.form.get("email")?.value);
+  public submit(): void {
+    const masterKey = this.cryptoService.generateMasterKey(this.form.get("password")?.value, this.form.get("email")?.value);
     this.authenticationService.signUp(this.form.getRawValue()).subscribe(() => {
-      return; // TODO: Stubbed method
+      // stub
     });
     
   }

@@ -20,12 +20,52 @@ export class CryptoUtil {
     return btoa(result);
   }
 
-  private buffToString(buff: ArrayBuffer): void {
-    
-    const intArray = new Uint8Array(buff);
-    // console.log("from buff");
-    // console.log(
-    //   String.fromCharCode.apply(null, intArray as any).toString()
-    // );
+  /**
+   * Bitwarden's Implementation of hkdfExpand
+   * @param prk 
+   * @param info 
+   * @param outputByteSize 
+   * @param algorithm 
+   * @returns 
+   */
+  public static async hkdfExpand(prk: ArrayBuffer, info: string, outputByteSize: number,
+    algorithm: "sha256" | "sha512"): Promise<ArrayBuffer> {
+    const hashLen = algorithm === "sha256" ? 32 : 64;
+    if (outputByteSize > 255 * hashLen) {
+      throw new Error("outputByteSize is too large.");
+    }
+    const prkArr = new Uint8Array(prk);
+    if (prkArr.length < hashLen) {
+      throw new Error("prk is too small.");
+    }
+    const infoBuf = this.stringToArrayBuffer(info);
+    const infoArr = new Uint8Array(infoBuf);
+    let runningOkmLength = 0;
+    let previousT = new Uint8Array(0);
+    const n = Math.ceil(outputByteSize / hashLen);
+    const okm = new Uint8Array(n * hashLen);
+    for (let i = 0; i < n; i++) {
+      const t = new Uint8Array(previousT.length + infoArr.length + 1);
+      t.set(previousT);
+      t.set(infoArr, previousT.length);
+      t.set([i + 1], t.length - 1);
+      previousT = new Uint8Array(await this.hmac(t.buffer, prk, algorithm));
+      okm.set(previousT, runningOkmLength);
+      runningOkmLength += previousT.length;
+      if (runningOkmLength >= outputByteSize) {
+        break;
+      }
+    }
+    return okm.slice(0, outputByteSize).buffer;
+  }
+
+  public static async hmac(value: ArrayBuffer, key: ArrayBuffer, algorithm: "sha256" | "sha512"): Promise<ArrayBuffer> {
+    const signingAlgorithm = {
+      name: "HMAC",
+      hash: { name: algorithm === "sha256" ? "SHA-256" : "SHA-512" },
+    };
+
+    const impKey = await crypto.subtle.importKey("raw", key, signingAlgorithm, false, ["sign"]);
+    return await crypto.subtle.sign(signingAlgorithm, impKey, value);
   }
 }

@@ -35,10 +35,8 @@ export class SignUpComponent implements OnInit {
   }
 
   public submit(): void {
-    const masterKey = this.cryptoService.generateMasterKey(this.form.get("password")?.value, this.form.get("email")?.value).then(masterKey => {
+      const masterKey = this.cryptoService.generateMasterKey(this.form.get("password")?.value, this.form.get("email")?.value).then(masterKey => {
       const stretchedMasterKey = this.cryptoService.stretchMasterKey(masterKey);
-      // console.log(stretchedMasterKey);
-
     });
 
     this.authenticationService.signUp(this.form.getRawValue()).subscribe(() => {

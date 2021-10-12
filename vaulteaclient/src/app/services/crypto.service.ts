@@ -1,15 +1,14 @@
 import { Injectable } from "@angular/core";
 
-import { Buffer } from "../../../node_modules/buffer";
+import { CryptoSymmetricKeyInterface } from "../utils/crypto-symmetric-key.interface";
 import { CryptoUtil } from "../utils/crypto.util";
-import * as hkdf from "futoin-hkdf";
 
 @Injectable({
   providedIn: "root"
 })
 export class CryptoService {
 
-  public async generateMasterKey(password: string, salt: string): Promise<string> {
+  public async generateMasterKey(password: string, salt: string): Promise<ArrayBuffer> {
     const saltBuffer = CryptoUtil.stringToArrayBuffer(salt);
     const passwordBuffer = CryptoUtil.stringToArrayBuffer(password);
 
@@ -21,13 +20,19 @@ export class CryptoService {
     };
 
     const importKey = await crypto.subtle.importKey("raw", passwordBuffer, { name: "PBKDF2"}, false, ["deriveBits"]);
-    const derivedBits = await crypto.subtle.deriveBits(pbkdf2Params, importKey, 256);
-    return CryptoUtil.arrayBufferToAscii(derivedBits);
+    return await crypto.subtle.deriveBits(pbkdf2Params, importKey, 256); 
   }
 
-  public async stretchMasterKey(masterKey: string): Promise<string> {
-    const stretched = hkdf.expand("sha512", hkdf.hash_length("sha512"), masterKey, 64, "");
-    console.log(stretched);
-    return "";
+  public async stretchMasterKey(masterKey: ArrayBuffer): Promise<CryptoSymmetricKeyInterface> {
+    const newKey = new Uint8Array(64);
+    const encKey = await CryptoUtil.hkdfExpand(masterKey, "enc", 32, "sha256");
+    const macKey = await CryptoUtil.hkdfExpand(masterKey, "mac", 32, "sha256");
+    newKey.set(new Uint8Array(encKey));
+    newKey.set(new Uint8Array(macKey), 32);
+    return {
+      encryptionKey: encKey,
+      macKey: macKey,
+      stretchedMasterKey: newKey
+    };
   }
 }

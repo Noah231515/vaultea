@@ -1,12 +1,16 @@
 import { Injectable } from "@angular/core";
 
-import { CryptoSymmetricKeyInterface } from "../utils/crypto-symmetric-key.interface";
+import { CryptoSymmetricKey } from "../utils/crypto-symmetric-key.interface";
 import { CryptoUtil } from "../utils/crypto.util";
 
 @Injectable({
   providedIn: "root"
 })
 export class CryptoService {
+
+  public async generateStretchedMasterKey(password: string, salt: string): Promise<CryptoSymmetricKey> {
+    return this.stretchMasterKey(await this.generateMasterKey(password, salt));
+  }
 
   public async generateMasterKey(password: string, salt: string): Promise<ArrayBuffer> {
     const saltBuffer = CryptoUtil.stringToArrayBuffer(salt);
@@ -23,7 +27,7 @@ export class CryptoService {
     return await crypto.subtle.deriveBits(pbkdf2Params, importKey, 256); 
   }
 
-  public async stretchMasterKey(masterKey: ArrayBuffer): Promise<CryptoSymmetricKeyInterface> {
+  public async stretchMasterKey(masterKey: ArrayBuffer): Promise<CryptoSymmetricKey> {
     const newKey = new Uint8Array(64);
     const encKey = await CryptoUtil.hkdfExpand(masterKey, "enc", 32, "sha256");
     const macKey = await CryptoUtil.hkdfExpand(masterKey, "mac", 32, "sha256");

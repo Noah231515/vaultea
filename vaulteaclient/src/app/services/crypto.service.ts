@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 import { CryptoSymmetricKey } from "../utils/crypto-symmetric-key.interface";
 import { CryptoUtil } from "../utils/crypto.util";
@@ -38,5 +38,25 @@ export class CryptoService {
       macKey: macKey,
       stretchedMasterKey: newKey
     };
+  }
+
+  public async generateEncryptionKey(stretchedMasterKey: CryptoSymmetricKey): Promise<ArrayBuffer> {
+    const newEncryptionKey = new ArrayBuffer(64);
+    const encryptionKeyView = new Uint8Array(newEncryptionKey);
+    crypto.getRandomValues(encryptionKeyView);
+    return this.encryptData(stretchedMasterKey, encryptionKeyView);
+  }
+
+  public async encryptData(key: CryptoSymmetricKey, data: ArrayBuffer): Promise<ArrayBuffer> {
+    const iv = new Uint8Array(16);
+    crypto.getRandomValues(iv);
+
+    const aesCbCParams: AesCbcParams = {
+      iv: iv,
+      name: "AES-CBC",
+    }
+
+    const importKey = await crypto.subtle.importKey("raw", key.encryptionKey , { name: "AES-CBC"}, false, ["encrypt"]);
+    return crypto.subtle.encrypt(aesCbCParams, importKey, data);
   }
 }

@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 
 import { CryptoService } from "../../services/crypto.service";
 import { AuthenticationService } from "../authentication.service";
+import { CryptoUtil } from '../../utils/crypto.util';
 
 @Component({
   selector: "vaultea-sign-up",
@@ -34,8 +35,9 @@ export class SignUpComponent implements OnInit {
     this.router.navigate(["/login"]);
   }
 
-  public submit(): void {
-    const stretchedMasterKey = this.cryptoService.generateMasterKey(this.form.get("password")?.value, this.form.get("email")?.value);
+  public async submit(): Promise<void> {
+    const stretchedMasterKey = await this.cryptoService.generateStretchedMasterKey(this.form.get("password")?.value, this.form.get("email")?.value);
+    const protectedSymmetricKey = await this.cryptoService.generateEncryptionKey(stretchedMasterKey);
     this.authenticationService.signUp(this.form.getRawValue()).subscribe(() => {
       // stub
     });

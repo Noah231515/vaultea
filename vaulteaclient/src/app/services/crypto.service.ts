@@ -59,4 +59,17 @@ export class CryptoService {
     const importKey = await crypto.subtle.importKey("raw", key.encryptionKey , { name: "AES-CBC"}, false, ["encrypt"]);
     return crypto.subtle.encrypt(aesCbCParams, importKey, data);
   }
+
+  public async decryptData(key: CryptoSymmetricKey, data: ArrayBuffer): Promise<any> {
+    const iv = new Uint8Array(16);
+    crypto.getRandomValues(iv);
+
+    const aesCbCParams: AesCbcParams = {
+      iv: iv,
+      name: "AES-CBC",
+    }
+
+    const importKey = await crypto.subtle.importKey("raw", key.encryptionKey , { name: "AES-CBC"}, false, ["decrypt"]);
+    return crypto.subtle.decrypt(aesCbCParams, importKey, data);
+  }
 }

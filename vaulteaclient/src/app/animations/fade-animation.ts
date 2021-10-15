@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from "@angular/animations";
 
-export const slideInAnimation =
+export const fadeAnimation =
 trigger('routeAnimations', [ 
   transition('* <=> *', [
     style({ opacity: 0 }), 

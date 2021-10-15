@@ -12,6 +12,7 @@ import { ButtonComponent } from "./button/button.component";
 import { FormFooterComponent } from "./form-footer/form-footer.component";
 import { FormComponent } from "./form/form.component";
 import { InputComponent } from "./input/input.component";
+import { LogoFullComponent } from "./logo-full/logo-full.component";
 
 @NgModule({
   declarations: [
@@ -19,13 +20,15 @@ import { InputComponent } from "./input/input.component";
     InputComponent,
     FormFooterComponent,
     FormComponent,
+    LogoFullComponent,
   ],
   exports: [
     ButtonComponent,
     FlexLayoutModule,
+    FormComponent,
     FormFooterComponent,
     InputComponent,
-    FormComponent,
+    LogoFullComponent
   ],
   imports: [
     AbstractModule,

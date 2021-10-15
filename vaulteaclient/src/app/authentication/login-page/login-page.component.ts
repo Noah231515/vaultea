@@ -4,15 +4,10 @@ import { Router } from "@angular/router";
 import { BaseComponent } from "src/app/abstract";
 import { ButtonInterface } from "src/app/ui-kit";
 
-import { slideInAnimation } from "../../animations/slideInAnimation";
-
 @Component({
   selector: "vaultea-login-page",
   templateUrl: "./login-page.component.html",
   styleUrls: ["./login-page.component.scss"],
-  animations: [
-    slideInAnimation
-  ]
 })
 export class LoginPageComponent extends BaseComponent implements OnInit {
   public form: FormGroup;

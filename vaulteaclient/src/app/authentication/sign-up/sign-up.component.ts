@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { slideInAnimation } from "../../animations/slideInAnimation";
 import { CryptoService } from "../../services/crypto.service";
 import { AuthenticationService } from "../authentication.service";
 
@@ -10,9 +9,6 @@ import { AuthenticationService } from "../authentication.service";
   selector: "vaultea-sign-up",
   styleUrls: ["./sign-up.component.scss"],
   templateUrl: "./sign-up.component.html",
-  animations: [
-    slideInAnimation
-  ]
 })
 export class SignUpComponent implements OnInit {
   public form: FormGroup;

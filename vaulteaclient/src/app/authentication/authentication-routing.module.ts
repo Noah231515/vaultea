@@ -8,14 +8,14 @@ const routes: Routes = [
   {
     component: LoginPageComponent,
     data: {
-      animation: "HomePage"
+      animation: "loginPageComponent"
     },
     path: "",
   },
   {
     component: SignUpComponent,
     data: {
-      animation: "AboutPage"
+      animation: "signUpComponent"
     },
     path: "signup",
   },

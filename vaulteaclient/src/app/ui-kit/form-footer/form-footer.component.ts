@@ -11,6 +11,7 @@ import { ButtonInterface } from "..";
 export class FormFooterComponent extends BaseComponent implements OnInit {
   @Input() public primaryButton: ButtonInterface;
   @Input() public secondaryButton: ButtonInterface;
+  @Input() public fxLayout: "column" | "row" = "column"
 
   @Output() public primaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() public secondaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();

@@ -15,7 +15,7 @@ export class AppComponent {
   title = "vaulteaclient";
 
 
-  public prepareRoute(outlet: RouterOutlet): any {
+  public prepareRoute(outlet: RouterOutlet): string {
     return outlet?.activatedRouteData?.animation;
   }
 }

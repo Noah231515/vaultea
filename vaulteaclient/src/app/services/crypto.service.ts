@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 import { CryptoSymmetricKey } from "../utils/crypto-symmetric-key.interface";
 import { CryptoUtil } from "../utils/crypto.util";

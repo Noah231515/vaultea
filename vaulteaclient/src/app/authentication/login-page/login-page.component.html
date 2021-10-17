@@ -1,7 +1,7 @@
-<mat-card class="card-position" fxFlex="50%">
+<div class="card-position" fxFlex="50%">
     <div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
-        <h1>Welcome to vaulTea</h1>
-        <span>Your own piece of mind</span>
+        <vaultea-logo-full></vaultea-logo-full>
+        <h1>Your own piece of mind</h1>
         <vaultea-form
             [form]="form"
             [formTemplate]="formTemplate"
@@ -10,7 +10,7 @@
             (secondaryButtonClicked)="navigateToSignup()"
         ></vaultea-form>
     </div>
-</mat-card>
+</div>
 
 <ng-template #formTemplate>
     <div fxFlex fxLayout="column" fxLayoutGap="8px">

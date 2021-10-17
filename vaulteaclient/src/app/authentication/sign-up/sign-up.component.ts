@@ -4,7 +4,6 @@ import { Router } from "@angular/router";
 
 import { CryptoService } from "../../services/crypto.service";
 import { AuthenticationService } from "../authentication.service";
-import { CryptoUtil } from '../../utils/crypto.util';
 
 @Component({
   selector: "vaultea-sign-up",

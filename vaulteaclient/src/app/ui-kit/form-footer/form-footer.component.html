@@ -1,5 +1,5 @@
-<footer>
-  <div fxFlex fxLayoutGap="8px">
+<footer fxFlex>
+  <div [fxLayout]="fxLayout" fxLayoutGap="8px">
     <vaultea-button
       [buttonInterface]="primaryButton"
       (click)="emitPrimaryButtonClicked()"

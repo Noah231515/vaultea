@@ -1,15 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { BaseComponent } from "src/app/abstract";
-import { ButtonInterface } from "src/app/ui-kit";
+
+import { BaseComponent } from "../../abstract";
+import { ButtonInterface } from "../../ui-kit";
 
 @Component({
-  selector: "vaultea-login-page",
-  templateUrl: "./login-page.component.html",
-  styleUrls: ["./login-page.component.scss"],
+  selector: "vaultea-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
-export class LoginPageComponent extends BaseComponent implements OnInit {
+export class LoginComponent extends BaseComponent implements OnInit {
   public form: FormGroup;
   public loginButtonInterface: ButtonInterface;
   public signUpButtonInterface: ButtonInterface;

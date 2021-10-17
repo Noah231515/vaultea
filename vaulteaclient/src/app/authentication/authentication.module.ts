@@ -5,12 +5,12 @@ import { MatInputModule } from "@angular/material/input";
 
 import { UiKitModule } from "../ui-kit/ui-kit.module";
 import { AuthenticationRoutingModule } from "./authentication-routing.module";
-import { LoginPageComponent } from "./login-page/login-page.component";
+import { LoginComponent } from "./login-page/login.component";
 import { SignUpComponent } from "./sign-up/sign-up.component";
 
 @NgModule({
   declarations: [
-    LoginPageComponent,
+    LoginComponent,
     SignUpComponent
   ],
   imports: [

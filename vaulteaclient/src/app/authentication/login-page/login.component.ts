@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 
 import { BaseComponent } from "../../abstract";
 import { ButtonInterface } from "../../ui-kit";
+import { AuthenticationService } from "../authentication.service";
 
 @Component({
   selector: "vaultea-login",
@@ -17,7 +18,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authenticationService: AuthenticationService
   ) { 
     super()
   }
@@ -31,5 +33,12 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   public navigateToSignup(): void {
     this.router.navigate(["/signup"])
+  }
+
+  public submit(): void {
+    this.authenticationService.login(this.form.getRawValue())
+      .subscribe(x => {
+        console.log(x);
+      });
   }
 }

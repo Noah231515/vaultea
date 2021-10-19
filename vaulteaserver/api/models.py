@@ -6,7 +6,7 @@ from django.conf import settings
 user = settings.AUTH_USER_MODEL
 
 class User(AbstractUser):
-    key = models.CharField(max_length=100, blank=False, null=False)
+    key = models.CharField(max_length=500, blank=False, null=False)
 
 class Vault(models.Model):
     user_id = models.ForeignKey(user, on_delete=models.RESTRICT, blank=False, null=False)

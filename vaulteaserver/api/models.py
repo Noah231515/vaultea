@@ -1,9 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser, User
 from django.db.models.deletion import RESTRICT
+from django.conf import settings
+
+user = settings.AUTH_USER_MODEL
+
+class User(AbstractUser):
+    key = models.CharField(max_length=100, blank=False, null=False)
 
 class Vault(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.RESTRICT, blank=False, null=False)
+    user_id = models.ForeignKey(user, on_delete=models.RESTRICT, blank=False, null=False)
     
 class Folder(models.Model):
     vault_id = models.ForeignKey(Vault, on_delete=models.RESTRICT, blank=False, null=False)

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { CryptoService } from "../../services/crypto.service";
+import { CryptoUtil } from "../../utils/crypto.util";
 import { AuthenticationService } from "../authentication.service";
 
 @Component({
@@ -27,6 +28,7 @@ export class SignUpComponent implements OnInit {
       email: ["", [Validators.required, Validators.email]],
       password: ["", Validators.required],
       username: ["", Validators.required],
+      key: [""]
     });
   }
 
@@ -36,8 +38,9 @@ export class SignUpComponent implements OnInit {
 
   public async submit(): Promise<void> {
     const stretchedMasterKey = await this.cryptoService.generateStretchedMasterKey(this.form.get("password")?.value, this.form.get("email")?.value);
-    const protectedSymmetricKey = await this.cryptoService.generateEncryptionKey(stretchedMasterKey);
-    const decryptedSymmetricKey = await this.cryptoService.decryptData(stretchedMasterKey, protectedSymmetricKey);
+    this.form.get("key")?.setValue(
+      CryptoUtil.arrayBufferToAscii(await this.cryptoService.generateEncryptionKey(stretchedMasterKey))
+    );
 
     this.authenticationService.signUp(this.form.getRawValue()).subscribe(() => {
       // stub

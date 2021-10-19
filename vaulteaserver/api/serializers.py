@@ -4,7 +4,8 @@ class SignUpFormSerializer(serializers.Serializer):
     username = serializers.CharField(required = True, max_length=100)
     password = serializers.CharField(required = True, max_length=100)
     email = serializers.EmailField(required = True, max_length=100)
-
+    key = serializers.CharField(required = True, max_length=500)
+    
 class LoginFormSerializer(serializers.Serializer):
     password = serializers.CharField(required = True, max_length=100)
     email = serializers.EmailField(required = True, max_length=100)

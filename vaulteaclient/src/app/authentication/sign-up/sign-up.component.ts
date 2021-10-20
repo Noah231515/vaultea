@@ -44,7 +44,7 @@ export class SignUpComponent implements OnInit {
       CryptoUtil.arrayBufferToAscii(encryptionKey)
     );
 
-    await this.cryptoService.encryptForm(this.form, encryptionKey, ["key"]);
+    await this.cryptoService.encryptForm(this.form, stretchedMasterKey.encryptionKey, ["key"]);
     this.authenticationService.signUp(this.form.getRawValue()).subscribe(() => {
       // stub
     });

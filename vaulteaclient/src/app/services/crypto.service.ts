@@ -45,19 +45,23 @@ export class CryptoService {
     const newEncryptionKey = new ArrayBuffer(64);
     const encryptionKeyView = new Uint8Array(newEncryptionKey);
     crypto.getRandomValues(encryptionKeyView);
-    return this.encryptData(stretchedMasterKey, encryptionKeyView);
+    return this.encryptData(stretchedMasterKey.encryptionKey, encryptionKeyView);
   }
 
-  public async encryptData(key: CryptoSymmetricKey, data: ArrayBuffer): Promise<ArrayBuffer> {
+  public async encryptData(key: ArrayBuffer, data: ArrayBuffer | string): Promise<ArrayBuffer> {
     const iv = new Uint8Array(16);
     crypto.getRandomValues(iv);
+
+    if (typeof data === "string") {
+      data = CryptoUtil.stringToArrayBuffer(data);
+    }
 
     const aesCbCParams: AesCbcParams = {
       iv: iv,
       name: "AES-CBC",
     }
 
-    const importKey = await crypto.subtle.importKey("raw", key.encryptionKey , { name: "AES-CBC"}, false, ["encrypt"]);
+    const importKey = await crypto.subtle.importKey("raw", key , { name: "AES-CBC"}, false, ["encrypt"]);
     return crypto.subtle.encrypt(aesCbCParams, importKey, data);
   }
 
@@ -75,14 +79,13 @@ export class CryptoService {
   }
 
   
-  public async encryptForm(form: FormGroup, key?: ArrayBuffer, keysToOmit?: string[]) {
+  public async encryptForm(form: FormGroup, encryptionKey: ArrayBuffer, keysToOmit?: string[]) {
     const formKeys = Object.keys(form.controls).filter(key => !keysToOmit?.includes(key));
-    formKeys.forEach(key => {
-      form.get(key)?.setValue(
-        this.encryptData(key,form.get(key)?.value)
-      );
-      console.log(key);
-      // form.get(key)?.setValue()
+    formKeys.forEach(async key => {
+      const encryptedData = await this.encryptData(encryptionKey , form.get(key)?.value);
+
+      form.get(key)?.setValue(CryptoUtil.arrayBufferToAscii(encryptedData));
     });
+    console.log(form);
   }
 }

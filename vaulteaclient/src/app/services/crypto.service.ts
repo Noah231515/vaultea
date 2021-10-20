@@ -41,11 +41,11 @@ export class CryptoService {
     };
   }
 
-  public async generateEncryptionKey(stretchedMasterKey: CryptoSymmetricKey): Promise<ArrayBuffer> {
-    const newEncryptionKey = new ArrayBuffer(64);
+  public async generateEncryptionKey(): Promise<ArrayBuffer> {
+    const newEncryptionKey = new ArrayBuffer(32);
     const encryptionKeyView = new Uint8Array(newEncryptionKey);
     crypto.getRandomValues(encryptionKeyView);
-    return this.encryptData(stretchedMasterKey.encryptionKey, encryptionKeyView);
+    return encryptionKeyView.buffer;
   }
 
   public async encryptData(key: ArrayBuffer, data: ArrayBuffer | string): Promise<ArrayBuffer> {
@@ -78,14 +78,11 @@ export class CryptoService {
     return crypto.subtle.decrypt(aesCbCParams, importKey, data);
   }
 
-  
-  public async encryptForm(form: FormGroup, encryptionKey: ArrayBuffer, keysToOmit?: string[]) {
-    const formKeys = Object.keys(form.controls).filter(key => !keysToOmit?.includes(key));
+  public encryptForm(form: FormGroup, encryptionKey: ArrayBuffer, keysToOmit?: string[]): any {
+    const formKeys = Object.keys(form.getRawValue()).filter(key => !keysToOmit?.includes(key));
     formKeys.forEach(async key => {
       const encryptedData = await this.encryptData(encryptionKey , form.get(key)?.value);
-
       form.get(key)?.setValue(CryptoUtil.arrayBufferToAscii(encryptedData));
     });
-    console.log(form);
   }
 }

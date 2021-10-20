@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 
 import { CryptoSymmetricKey } from "../utils/crypto-symmetric-key.interface";
 import { CryptoUtil } from "../utils/crypto.util";
@@ -71,5 +72,17 @@ export class CryptoService {
 
     const importKey = await crypto.subtle.importKey("raw", key.encryptionKey , { name: "AES-CBC"}, false, ["decrypt"]);
     return crypto.subtle.decrypt(aesCbCParams, importKey, data);
+  }
+
+  
+  public async encryptForm(form: FormGroup, key?: ArrayBuffer, keysToOmit?: string[]) {
+    const formKeys = Object.keys(form.controls).filter(key => !keysToOmit?.includes(key));
+    formKeys.forEach(key => {
+      form.get(key)?.setValue(
+        this.encryptData(key,form.get(key)?.value)
+      );
+      console.log(key);
+      // form.get(key)?.setValue()
+    });
   }
 }

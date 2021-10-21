@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
-import { CryptoSymmetricKey } from "../utils/crypto-symmetric-key.interface";
 import { CryptoUtil } from "../utils/crypto.util";
+import { StretchedMasterKey } from "../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 
 @Injectable({
@@ -10,9 +10,9 @@ import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 })
 export class CryptoService {
 
-  public async generateStretchedMasterKey(password: string, salt: string): Promise<CryptoSymmetricKey> {
+  public async generateStretchedMasterKey(password: string, salt: string): Promise<StretchedMasterKey> {
     const masterKey = await this.computePbkdf2(password, salt);
-    return this.stretchMasterKey(masterKey.keyBuffer);
+    return this.stretchMasterKey(masterKey);
   }
 
   public async computePbkdf2(password: string, salt: string, iterations: number = 10000): Promise<VaulteaCryptoKey> {
@@ -30,17 +30,13 @@ export class CryptoService {
     return new VaulteaCryptoKey(await crypto.subtle.deriveBits(pbkdf2Params, importKey, 256)); 
   }
 
-  public async stretchMasterKey(masterKey: ArrayBuffer): Promise<CryptoSymmetricKey> {
+  public async stretchMasterKey(masterKey: VaulteaCryptoKey): Promise<StretchedMasterKey> {
     const newKey = new Uint8Array(64);
-    const encKey = await CryptoUtil.hkdfExpand(masterKey, "enc", 32, "sha256");
-    const macKey = await CryptoUtil.hkdfExpand(masterKey, "mac", 32, "sha256");
-    newKey.set(new Uint8Array(encKey));
-    newKey.set(new Uint8Array(macKey), 32);
-    return {
-      encryptionKey: encKey,
-      macKey: macKey,
-      stretchedMasterKey: newKey
-    };
+    const encKey = new VaulteaCryptoKey(await CryptoUtil.hkdfExpand(masterKey.keyBuffer, "enc", 32, "sha256"));
+    const macKey = new VaulteaCryptoKey(await CryptoUtil.hkdfExpand(masterKey.keyBuffer, "mac", 32, "sha256"));
+    newKey.set(new Uint8Array(encKey.keyBuffer));
+    newKey.set(new Uint8Array(macKey.keyBuffer), 32);
+    return new StretchedMasterKey(encKey, macKey, new VaulteaCryptoKey(newKey));
   }
 
   public async generateEncryptionKey(): Promise<VaulteaCryptoKey> {
@@ -67,7 +63,7 @@ export class CryptoService {
     return crypto.subtle.encrypt(aesCbCParams, importKey, data);
   }
 
-  public async decryptData(key: CryptoSymmetricKey, data: ArrayBuffer): Promise<any> {
+  public async decryptData(key: VaulteaCryptoKey, data: ArrayBuffer): Promise<any> {
     const iv = new Uint8Array(16);
     crypto.getRandomValues(iv);
 
@@ -76,7 +72,7 @@ export class CryptoService {
       name: "AES-CBC",
     }
 
-    const importKey = await crypto.subtle.importKey("raw", key.encryptionKey , { name: "AES-CBC"}, false, ["decrypt"]);
+    const importKey = await crypto.subtle.importKey("raw", key.keyBuffer , { name: "AES-CBC"}, false, ["decrypt"]);
     return crypto.subtle.decrypt(aesCbCParams, importKey, data);
   }
 

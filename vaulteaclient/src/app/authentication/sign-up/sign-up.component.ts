@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { CryptoService } from "../../services/crypto.service";
-import { CryptoUtil } from "../../utils/crypto.util";
 import { AuthenticationService } from "../authentication.service";
 
 @Component({
@@ -41,7 +40,7 @@ export class SignUpComponent implements OnInit {
     const stretchedMasterKey = await this.cryptoService.generateStretchedMasterKey(this.form.get("password")?.value, this.form.get("email")?.value);
     const encryptionKey = await this.cryptoService.generateEncryptionKey();
     this.form.get("key")?.setValue(
-      CryptoUtil.arrayBufferToAscii(await this.cryptoService.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer))
+      await this.cryptoService.encryptData(stretchedMasterKey.encryptionKey.keyBuffer, encryptionKey.keyBuffer)
     );
 
     const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey.keyBuffer, ["key", "password"]);

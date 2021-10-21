@@ -43,7 +43,7 @@ export class SignUpComponent implements OnInit {
       await this.cryptoService.encryptData(stretchedMasterKey.encryptionKey.keyBuffer, encryptionKey.keyBuffer)
     );
 
-    const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey.keyBuffer, ["key", "password"]);
+    const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey, ["key", "password"]);
     const hashedPassword = await this.cryptoService.computePbkdf2(masterKey.keyString, this.form.get("password")?.value);
     console.log(hashedPassword.keyString);
     this.authenticationService.signUp(encryptedData).subscribe(() => {

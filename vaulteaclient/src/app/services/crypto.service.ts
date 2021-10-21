@@ -76,10 +76,10 @@ export class CryptoService {
     return crypto.subtle.decrypt(aesCbCParams, importKey, data);
   }
 
-  public encryptForm(form: FormGroup, encryptionKey: ArrayBuffer, keysToOmit?: string[]): any {
+  public encryptForm(form: FormGroup, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): void {
     const formKeys = Object.keys(form.getRawValue()).filter(key => !keysToOmit?.includes(key));
     formKeys.forEach(async key => {
-      const encryptedData = await this.encryptData(encryptionKey , form.get(key)?.value);
+      const encryptedData = await this.encryptData(encryptionKey.keyBuffer , form.get(key)?.value);
       form.get(key)?.setValue(CryptoUtil.arrayBufferToAscii(encryptedData));
     });
   }

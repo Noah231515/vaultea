@@ -3,6 +3,7 @@ import { FormGroup } from "@angular/forms";
 
 import { CryptoSymmetricKey } from "../utils/crypto-symmetric-key.interface";
 import { CryptoUtil } from "../utils/crypto.util";
+import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 
 @Injectable({
   providedIn: "root"
@@ -10,10 +11,11 @@ import { CryptoUtil } from "../utils/crypto.util";
 export class CryptoService {
 
   public async generateStretchedMasterKey(password: string, salt: string): Promise<CryptoSymmetricKey> {
-    return this.stretchMasterKey(await this.computePbkdf2(password, salt));
+    const masterKey = await this.computePbkdf2(password, salt);
+    return this.stretchMasterKey(masterKey.keyBuffer);
   }
 
-  public async computePbkdf2(password: string, salt: string, iterations: number = 10000): Promise<ArrayBuffer> {
+  public async computePbkdf2(password: string, salt: string, iterations: number = 10000): Promise<VaulteaCryptoKey> {
     const saltBuffer = CryptoUtil.stringToArrayBuffer(salt);
     const passwordBuffer = CryptoUtil.stringToArrayBuffer(password);
 
@@ -25,7 +27,7 @@ export class CryptoService {
     };
 
     const importKey = await crypto.subtle.importKey("raw", passwordBuffer, { name: "PBKDF2"}, false, ["deriveBits"]);
-    return await crypto.subtle.deriveBits(pbkdf2Params, importKey, 256); 
+    return new VaulteaCryptoKey(await crypto.subtle.deriveBits(pbkdf2Params, importKey, 256)); 
   }
 
   public async stretchMasterKey(masterKey: ArrayBuffer): Promise<CryptoSymmetricKey> {

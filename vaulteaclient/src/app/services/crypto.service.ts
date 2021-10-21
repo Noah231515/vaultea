@@ -43,11 +43,11 @@ export class CryptoService {
     };
   }
 
-  public async generateEncryptionKey(): Promise<ArrayBuffer> {
+  public async generateEncryptionKey(): Promise<VaulteaCryptoKey> {
     const newEncryptionKey = new ArrayBuffer(32);
     const encryptionKeyView = new Uint8Array(newEncryptionKey);
     crypto.getRandomValues(encryptionKeyView);
-    return encryptionKeyView.buffer;
+    return new VaulteaCryptoKey(encryptionKeyView.buffer);
   }
 
   public async encryptData(key: ArrayBuffer, data: ArrayBuffer | string): Promise<ArrayBuffer> {

@@ -42,11 +42,11 @@ export class SignUpComponent implements OnInit {
     this.form.get("key")?.setValue(
       await this.cryptoService.encryptData(stretchedMasterKey.encryptionKey.keyBuffer, encryptionKey.keyBuffer)
     );
-
+    this.form.get("password")?.setValue(
+      await (await this.cryptoService.computePbkdf2(masterKey.keyString, this.form.get("password")?.value)).keyString
+    );
     const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey, ["key", "password"]);
-    const hashedPassword = await this.cryptoService.computePbkdf2(masterKey.keyString, this.form.get("password")?.value);
-    console.log(hashedPassword.keyString);
-    this.authenticationService.signUp(encryptedData).subscribe(() => {
+    this.authenticationService.signUp(this.form.getRawValue()).subscribe(() => {
       // stub
     });
   }

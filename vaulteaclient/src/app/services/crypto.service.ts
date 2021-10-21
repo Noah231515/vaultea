@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 import { CryptoUtil } from "../utils/crypto.util";
+import { EncryptedData } from "../utils/ecnrypted-data.model";
 import { StretchedMasterKey } from "../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 
@@ -46,7 +47,7 @@ export class CryptoService {
     return new VaulteaCryptoKey(encryptionKeyView.buffer);
   }
 
-  public async encryptData(key: ArrayBuffer, data: ArrayBuffer | string): Promise<ArrayBuffer> {
+  public async encryptData(key: ArrayBuffer, data: ArrayBuffer | string): Promise<EncryptedData> {
     const iv = new Uint8Array(16);
     crypto.getRandomValues(iv);
 
@@ -60,7 +61,7 @@ export class CryptoService {
     }
 
     const importKey = await crypto.subtle.importKey("raw", key , { name: "AES-CBC"}, false, ["encrypt"]);
-    return crypto.subtle.encrypt(aesCbCParams, importKey, data);
+    return new EncryptedData(await crypto.subtle.encrypt(aesCbCParams, importKey, data));
   }
 
   public async decryptData(key: VaulteaCryptoKey, data: ArrayBuffer): Promise<any> {
@@ -79,8 +80,8 @@ export class CryptoService {
   public encryptForm(form: FormGroup, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): void {
     const formKeys = Object.keys(form.getRawValue()).filter(key => !keysToOmit?.includes(key));
     formKeys.forEach(async key => {
-      const encryptedData = await this.encryptData(encryptionKey.keyBuffer , form.get(key)?.value);
-      form.get(key)?.setValue(CryptoUtil.arrayBufferToAscii(encryptedData));
+      const encryptedData = await this.encryptData(encryptionKey.keyBuffer, form.get(key)?.value);
+      form.get(key)?.setValue(encryptedData.dataString);
     });
   }
 }

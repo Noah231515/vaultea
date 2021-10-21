@@ -1,9 +1,9 @@
 import { VaulteaCryptoKey } from "./vaultea-crypto-key.model";
 
 export class StretchedMasterKey {
-  encryptionKey: VaulteaCryptoKey;
-  macKey: VaulteaCryptoKey;
-  stretchedKey: VaulteaCryptoKey;
+  public encryptionKey: VaulteaCryptoKey;
+  public macKey: VaulteaCryptoKey;
+  public stretchedKey: VaulteaCryptoKey;
 
   constructor(encryptionKey: VaulteaCryptoKey, macKey: VaulteaCryptoKey, stretchedKey: VaulteaCryptoKey) {
     this.encryptionKey = encryptionKey;

@@ -1,8 +1,8 @@
 import { CryptoUtil } from "./crypto.util";
 
 export class VaulteaCryptoKey {
-  keyBuffer: ArrayBuffer;
-  keyString: string;
+  public keyBuffer: ArrayBuffer;
+  public keyString: string;
 
   public constructor(keyBuffer: ArrayBuffer) {
     this.keyString = CryptoUtil.arrayBufferToAscii(keyBuffer);

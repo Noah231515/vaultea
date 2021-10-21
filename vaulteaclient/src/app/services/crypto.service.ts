@@ -10,10 +10,10 @@ import { CryptoUtil } from "../utils/crypto.util";
 export class CryptoService {
 
   public async generateStretchedMasterKey(password: string, salt: string): Promise<CryptoSymmetricKey> {
-    return this.stretchMasterKey(await this.generateMasterKey(password, salt));
+    return this.stretchMasterKey(await this.computePbkdf2(password, salt));
   }
 
-  public async generateMasterKey(password: string, salt: string, iterations: number = 10000): Promise<ArrayBuffer> {
+  public async computePbkdf2(password: string, salt: string, iterations: number = 10000): Promise<ArrayBuffer> {
     const saltBuffer = CryptoUtil.stringToArrayBuffer(salt);
     const passwordBuffer = CryptoUtil.stringToArrayBuffer(password);
 

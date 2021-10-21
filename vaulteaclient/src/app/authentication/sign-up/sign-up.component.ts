@@ -37,13 +37,15 @@ export class SignUpComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
+    const masterKey = await this.cryptoService.generateMasterKey(this.form.get("password")?.value, this.form.get("email")?.value);
     const stretchedMasterKey = await this.cryptoService.generateStretchedMasterKey(this.form.get("password")?.value, this.form.get("email")?.value);
     const encryptionKey = await this.cryptoService.generateEncryptionKey();
     this.form.get("key")?.setValue(
       CryptoUtil.arrayBufferToAscii(await this.cryptoService.encryptData(stretchedMasterKey.encryptionKey, encryptionKey))
     );
 
-    const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey, ["key"]);
+    const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey, ["key", "password"]);
+    const hashedPassword = await this.cryptoService.generateMasterKey(CryptoUtil.arrayBufferToAscii(stretchedMasterKey.stretchedMasterKey), this.form.get("password")?.value);
     this.authenticationService.signUp(encryptedData).subscribe(() => {
       // stub
     });

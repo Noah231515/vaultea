@@ -13,13 +13,13 @@ export class CryptoService {
     return this.stretchMasterKey(await this.generateMasterKey(password, salt));
   }
 
-  public async generateMasterKey(password: string, salt: string): Promise<ArrayBuffer> {
+  public async generateMasterKey(password: string, salt: string, iterations: number = 10000): Promise<ArrayBuffer> {
     const saltBuffer = CryptoUtil.stringToArrayBuffer(salt);
     const passwordBuffer = CryptoUtil.stringToArrayBuffer(password);
 
     const pbkdf2Params: Pbkdf2Params = {
       hash: "SHA-256",
-      iterations: 100000,
+      iterations: iterations,
       name: "PBKDF2",
       salt: saltBuffer,
     };

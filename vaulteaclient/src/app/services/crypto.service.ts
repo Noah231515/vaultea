@@ -77,11 +77,13 @@ export class CryptoService {
     return crypto.subtle.decrypt(aesCbCParams, importKey, data);
   }
 
-  public encryptForm(form: FormGroup, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): void {
+  public async encryptForm(form: FormGroup, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any> {
     const formKeys = Object.keys(form.getRawValue()).filter(key => !keysToOmit?.includes(key));
-    formKeys.forEach(async key => {
+    const result: any = {};
+    for (const key of formKeys) {
       const encryptedData = await this.encryptData(encryptionKey.keyBuffer, form.get(key)?.value);
-      form.get(key)?.setValue(encryptedData.dataString);
-    });
+      result[key] = encryptedData.dataString;
+    }
+    return Object.assign(form.getRawValue(), result);
   }
 }

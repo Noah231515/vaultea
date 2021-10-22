@@ -26,7 +26,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   public ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
+      username: ["", [Validators.required]],
       password: ["", Validators.required]
     });
   }
@@ -38,7 +38,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   public submit(): void {
     this.authenticationService.login(this.form.getRawValue())
       .subscribe(x => {
-        console.log(x);
+
       });
   }
 }

@@ -31,10 +31,12 @@ def user_login(request):
   serializer = LoginFormSerializer(data=json.loads(request.body))  
   if serializer.is_valid():
     data = serializer.data
-    user_from_db = User.objects.get(email=data['email'])
-    authenticated_user = authenticate(request, username=user_from_db.username, password=data['password'])
+    authenticated_user = authenticate(request, username=data['username'], password=data['password'])
+    print(authenticated_user)
     if authenticated_user:
       login(request, authenticated_user)
       return Response(None, status=status.HTTP_200_OK)
     else:
       return Response({'msg': 'Invalid login'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+  else:
+    return Response({'msg': 'Invalid form'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

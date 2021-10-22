@@ -40,12 +40,12 @@ export class SignUpComponent implements OnInit {
     const stretchedMasterKey = await this.cryptoService.generateStretchedMasterKey(this.form.get("password")?.value, this.form.get("email")?.value);
     const encryptionKey = await this.cryptoService.generateEncryptionKey();
     this.form.get("key")?.setValue(
-      await this.cryptoService.encryptData(stretchedMasterKey.encryptionKey.keyBuffer, encryptionKey.keyBuffer)
+      await (await this.cryptoService.encryptData(stretchedMasterKey.encryptionKey.keyBuffer, encryptionKey.keyBuffer)).dataString
     );
     this.form.get("password")?.setValue(
-      await (await this.cryptoService.computePbkdf2(masterKey.keyString, this.form.get("password")?.value)).keyString
+      (await this.cryptoService.computePbkdf2(masterKey.keyString, this.form.get("password")?.value)).keyString
     );
-    const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey, ["key", "password"]);
+    await this.cryptoService.encryptForm(this.form, encryptionKey, ["key", "password"]);
     this.authenticationService.signUp(this.form.getRawValue()).subscribe(() => {
       // stub
     });

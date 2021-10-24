@@ -14,4 +14,8 @@ export class AuthenticationService {
   public signUp(formData: any): Observable<any> {
     return this.httpClient.post("api/signup", formData);
   }
+
+  public login(formData: any): Observable<any> {
+    return this.httpClient.post("api/login", formData)
+  }
 }

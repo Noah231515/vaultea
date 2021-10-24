@@ -1,5 +1,5 @@
 export class CryptoUtil {
-
+ 
   public static stringToArrayBuffer(string: string): ArrayBuffer {
     // https://stackoverflow.com/questions/30631927/converting-to-base64-in-javascript-without-deprecated-escape-call
     // Helps translate characters outside of utf8 to inside of utf8 to then be converted to ascii

@@ -27,6 +27,7 @@ export class SignUpComponent implements OnInit {
       email: ["", [Validators.required, Validators.email]],
       password: ["", Validators.required],
       username: ["", Validators.required],
+      key: [""]
     });
   }
 
@@ -35,11 +36,17 @@ export class SignUpComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
+    const masterKey = await this.cryptoService.computePbkdf2(this.form.get("password")?.value, this.form.get("email")?.value);
     const stretchedMasterKey = await this.cryptoService.generateStretchedMasterKey(this.form.get("password")?.value, this.form.get("email")?.value);
-    const protectedSymmetricKey = await this.cryptoService.generateEncryptionKey(stretchedMasterKey);
-    const decryptedSymmetricKey = await this.cryptoService.decryptData(stretchedMasterKey, protectedSymmetricKey);
-
-    this.authenticationService.signUp(this.form.getRawValue()).subscribe(() => {
+    const encryptionKey = await this.cryptoService.generateEncryptionKey();
+    this.form.get("key")?.setValue(
+      await (await this.cryptoService.encryptData(stretchedMasterKey.encryptionKey.keyBuffer, encryptionKey.keyBuffer)).dataString
+    );
+    this.form.get("password")?.setValue(
+      (await this.cryptoService.computePbkdf2(masterKey.keyString, this.form.get("password")?.value)).keyString
+    );
+    const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey, ["key", "password"]);
+    this.authenticationService.signUp(encryptedData).subscribe(() => {
       // stub
     });
   }

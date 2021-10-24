@@ -36,9 +36,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   public submit(): void {
+    // TODO: We need to generate master key, stretched master key and create the password hash to check for auth
     this.authenticationService.login(this.form.getRawValue())
       .subscribe(x => {
-
       });
   }
 }

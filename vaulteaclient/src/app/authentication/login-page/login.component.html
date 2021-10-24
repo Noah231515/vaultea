@@ -7,6 +7,7 @@
             [formTemplate]="formTemplate"
             [primaryButton]="BUTTONS_CONSTANT.LOGIN_BUTTON"
             [secondaryButton]="BUTTONS_CONSTANT.SIGNUP_BUTTON"
+            (primaryButtonClicked)="submit()"
             (secondaryButtonClicked)="navigateToSignup()"
         ></vaultea-form>
     </div>
@@ -15,8 +16,8 @@
 <ng-template #formTemplate>
     <div fxFlex fxLayout="column" fxLayoutGap="8px">
         <vaultea-input
-            [formControl]="form.get('email')"
-            label="Email"
+            [formControl]="form.get('username')"
+            label="Username"
         ></vaultea-input>
         <vaultea-input
             [sensitiveDataInput]="true"

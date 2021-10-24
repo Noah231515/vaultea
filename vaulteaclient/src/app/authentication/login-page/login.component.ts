@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 
 import { BaseComponent } from "../../abstract";
 import { ButtonInterface } from "../../ui-kit";
+import { AuthenticationService } from "../authentication.service";
 
 @Component({
   selector: "vaultea-login",
@@ -17,19 +18,27 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authenticationService: AuthenticationService
   ) { 
     super()
   }
 
   public ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
+      username: ["", [Validators.required]],
       password: ["", Validators.required]
     });
   }
 
   public navigateToSignup(): void {
     this.router.navigate(["/signup"])
+  }
+
+  public submit(): void {
+    // TODO: We need to generate master key, stretched master key and create the password hash to check for auth
+    this.authenticationService.login(this.form.getRawValue())
+      .subscribe(x => {
+      });
   }
 }

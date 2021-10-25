@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { CryptoService } from "../../services/crypto.service";
+import { BrowserCryptoService } from "../../services/browser-crypto.service";
 import { AuthenticationService } from "../authentication.service";
 
 @Component({
@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private cryptoService: CryptoService,
+    private cryptoService: BrowserCryptoService,
     private formBuilder: FormBuilder,
     private router: Router,
   ) { }

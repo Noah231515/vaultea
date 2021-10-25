@@ -5,11 +5,12 @@ import { CryptoUtil } from "../utils/crypto.util";
 import { EncryptedData } from "../utils/ecnrypted-data.model";
 import { StretchedMasterKey } from "../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
+import { CryptoService } from "./crypto-service.interface";
 
 @Injectable({
   providedIn: "root"
 })
-export class CryptoService {
+export class BrowserCryptoService implements CryptoService {
 
   public async generateStretchedMasterKey(password: string, salt: string): Promise<StretchedMasterKey> {
     const masterKey = await this.computePbkdf2(password, salt);

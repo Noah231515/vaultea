@@ -11,11 +11,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from os.path import join
 from django.apps import AppConfig
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -97,18 +98,10 @@ WSGI_APPLICATION = 'vaulteaserver.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': { # TODO: read from config
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vaultea',
-        'USER': 'vaultea',
-        'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
-        'PORT': '9000',
-        'DATABASE': 'vaultea'
-    }
-}
-
+DB_CONFIG_PATH = join(BASE_DIR, "vaulteaserver", "db-config.json")
+DB_CONFIG = open(DB_CONFIG_PATH)
+DATABASES = json.load(DB_CONFIG)
+DB_CONFIG.close()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

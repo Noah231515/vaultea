@@ -40,21 +40,11 @@ export class SignUpComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
-    // generate keys
-    // hashPassword
-    // get keys from session storage
-    // issue: store buffer data correctly
     await this.cryptoService.generateKeys(this.form);
-    const stretchedMasterKey = this.userService.getStretchedMasterKey();
     const encryptionKey = this.userService.getEncryptionKey();
-    const masterKey = this.userService.getMasterKey();
 
-    this.form.get("key")?.setValue(
-      await (await this.cryptoService.encryptData(stretchedMasterKey.encryptionKey.keyBuffer, encryptionKey.keyBuffer)).dataString
-    );
-    this.form.get("password")?.setValue(
-      (await this.cryptoService.computePbkdf2(masterKey.keyString, this.form.get("password")?.value, 1)).keyString
-    );
+    this.form.get("key")?.setValue(await this.cryptoService.encryptEncryptionKey(this.form));
+    this.form.get("password")?.setValue(await this.cryptoService.hashPassword(this.form));
     const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey, ["key", "password"]);
     this.authenticationService.signUp(encryptedData).subscribe(() => {
       // stub

@@ -13,4 +13,6 @@ export interface CryptoService {
   encryptData(key: ArrayBuffer, data: ArrayBuffer | string): Promise<EncryptedData>
   decryptData(key: VaulteaCryptoKey, data: ArrayBuffer): Promise<any>;
   encryptForm(form: FormGroup, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any>;
+  hashPassword(form: FormGroup): Promise<string>;
+  encryptEncryptionKey(form: FormGroup): Promise<string>;
 }

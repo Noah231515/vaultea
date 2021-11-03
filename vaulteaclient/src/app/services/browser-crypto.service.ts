@@ -103,4 +103,15 @@ export class BrowserCryptoService implements CryptoService {
     this.userService.setStretchedMasterKey(stretchedMasterKey);
     this.userService.setEncryptionKey(encryptionKey);
   }
+
+  public async hashPassword(form: FormGroup): Promise<string> {
+    const masterKey = this.userService.getMasterKey()
+    return (await this.computePbkdf2(masterKey.keyString, form.get("password")?.value, 1)).keyString
+  }
+
+  public async encryptEncryptionKey(form: FormGroup): Promise<string> {
+    const encryptionKey = this.userService.getEncryptionKey();
+    const stretchedMasterKey = this.userService.getStretchedMasterKey();
+    return (await this.encryptData(stretchedMasterKey.encryptionKey.keyBuffer, encryptionKey.keyBuffer)).dataString
+  }
 }

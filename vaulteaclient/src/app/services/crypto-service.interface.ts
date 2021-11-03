@@ -9,6 +9,7 @@ export interface CryptoService {
   computePbkdf2(password: string, salt: string, iterations: number): Promise<VaulteaCryptoKey>;
   stretchMasterKey(masterKey: VaulteaCryptoKey): Promise<StretchedMasterKey>;
   generateEncryptionKey(): Promise<VaulteaCryptoKey>;
+  generateKeys(form: FormGroup): Promise<void>;
   encryptData(key: ArrayBuffer, data: ArrayBuffer | string): Promise<EncryptedData>
   decryptData(key: VaulteaCryptoKey, data: ArrayBuffer): Promise<any>;
   encryptForm(form: FormGroup, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any>;

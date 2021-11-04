@@ -42,14 +42,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
-    // TODO: We need to generate master key, stretched master key and create the password hash to check for auth
-    // TODO: We need to implmement some key management around logging in, failed login attempts and logging out
-    // TODO: sing up not working
     await this.cryptoService.generateKeys(this.form);
+
     this.form.get("password")?.setValue(await this.cryptoService.hashPassword(this.form));
-    const encryptedData = await this.cryptoService.encryptForm(this.form, this.userService.getEncryptionKey(), ["password", "username"]);
-    this.authenticationService.login(encryptedData)
-      .subscribe(x => {
-      });
+    this.authenticationService.login(this.form.getRawValue()).subscribe(x => {
+      // stub
+    });
   }
 }

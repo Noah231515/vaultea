@@ -34,7 +34,6 @@ export class LoginComponent extends BaseComponent implements OnInit {
     this.form = this.formBuilder.group({
       username: ["", [Validators.required]],
       password: ["", Validators.required],
-      email: ["noah231515@gmail.com", Validators.required]
     });
   }
 
@@ -48,7 +47,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     // TODO: sing up not working
     await this.cryptoService.generateKeys(this.form);
     this.form.get("password")?.setValue(await this.cryptoService.hashPassword(this.form));
-    const encryptedData = await this.cryptoService.encryptForm(this.form, this.userService.getEncryptionKey(), ["email","password", "username"]);
+    const encryptedData = await this.cryptoService.encryptForm(this.form, this.userService.getEncryptionKey(), ["password", "username"]);
     this.authenticationService.login(encryptedData)
       .subscribe(x => {
       });

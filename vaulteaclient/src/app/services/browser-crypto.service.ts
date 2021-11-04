@@ -95,8 +95,8 @@ export class BrowserCryptoService implements CryptoService {
   }
 
   public async generateKeys(form: FormGroup): Promise<void> {
-    const masterKey = await this.computePbkdf2(form.get("password")?.value, form.get("email")?.value, 1);
-    const stretchedMasterKey = await this.generateStretchedMasterKey(form.get("password")?.value, form.get("email")?.value);
+    const masterKey = await this.computePbkdf2(form.get("password")?.value, form.get("username")?.value, 1);
+    const stretchedMasterKey = await this.generateStretchedMasterKey(form.get("password")?.value, form.get("username")?.value);
     const encryptionKey = await this.generateEncryptionKey();
 
     this.userService.setMasterKey(masterKey);

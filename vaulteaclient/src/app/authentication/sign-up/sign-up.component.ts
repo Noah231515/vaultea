@@ -45,7 +45,7 @@ export class SignUpComponent implements OnInit {
 
     this.form.get("key")?.setValue(await this.cryptoService.encryptEncryptionKey(this.form));
     this.form.get("password")?.setValue(await this.cryptoService.hashPassword(this.form));
-    const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey, ["key", "password"]);
+    const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey, ["email", "key", "password", "username"]);
     this.authenticationService.signUp(encryptedData).subscribe(() => {
       // stub
     });

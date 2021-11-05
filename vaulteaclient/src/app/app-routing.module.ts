@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import("./authentication/authentication.module").then(m => m.AuthenticationModule)
   },
   {
+    path: "vault",
+    loadChildren: () => import("./vault/vault.module").then(m => m.VaultModule)
+  },
+  {
     path: "",
     redirectTo: "login",
     pathMatch: "full",

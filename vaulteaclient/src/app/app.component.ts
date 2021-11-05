@@ -14,7 +14,6 @@ import { fadeAnimation } from "./animations/fade-animation";
 export class AppComponent {
   title = "vaulteaclient";
 
-
   public prepareRoute(outlet: RouterOutlet): string {
     return outlet?.activatedRouteData?.animation;
   }

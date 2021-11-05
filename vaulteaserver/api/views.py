@@ -16,7 +16,7 @@ def sign_up(request):
   serializer = SignUpFormSerializer(data=json.loads(request.body))
   if serializer.is_valid():
     data = serializer.data
-    new_user = User.objects.create(username=data['username'], email=data['email'], is_active=True)
+    new_user = User.objects.create(username=data['username'], is_active=True)
     new_user.key = data["key"]
     User.set_password(new_user, data['password'])
     new_user.save()

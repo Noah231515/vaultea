@@ -1,8 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { CRYPTO_SERVICE } from "@abstract";
+import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { CryptoService } from "../../services/crypto.service";
+import { USER_SERVICE } from "../../abstract/tokens/user-service.token";
+import { CryptoService } from "../../services/crypto-service.interface";
+import { UserService } from "../../services/user-service";
 import { AuthenticationService } from "../authentication.service";
 
 @Component({
@@ -17,14 +20,14 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private cryptoService: CryptoService,
+    @Inject(CRYPTO_SERVICE) private cryptoService: CryptoService,
+    @Inject(USER_SERVICE) private userService: UserService,
     private formBuilder: FormBuilder,
     private router: Router,
   ) { }
 
   public ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
       password: ["", Validators.required],
       username: ["", Validators.required],
       key: [""]
@@ -36,17 +39,11 @@ export class SignUpComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
-    const masterKey = await this.cryptoService.computePbkdf2(this.form.get("password")?.value, this.form.get("email")?.value);
-    const stretchedMasterKey = await this.cryptoService.generateStretchedMasterKey(this.form.get("password")?.value, this.form.get("email")?.value);
-    const encryptionKey = await this.cryptoService.generateEncryptionKey();
-    this.form.get("key")?.setValue(
-      await (await this.cryptoService.encryptData(stretchedMasterKey.encryptionKey.keyBuffer, encryptionKey.keyBuffer)).dataString
-    );
-    this.form.get("password")?.setValue(
-      (await this.cryptoService.computePbkdf2(masterKey.keyString, this.form.get("password")?.value)).keyString
-    );
-    const encryptedData = await this.cryptoService.encryptForm(this.form, encryptionKey, ["key", "password"]);
-    this.authenticationService.signUp(encryptedData).subscribe(() => {
+    await this.cryptoService.generateKeys(this.form);
+
+    this.form.get("key")?.setValue(await this.cryptoService.encryptEncryptionKey(this.form));
+    this.form.get("password")?.setValue(await this.cryptoService.hashPassword(this.form));
+    this.authenticationService.signUp(this.form.getRawValue()).subscribe(() => {
       // stub
     });
   }

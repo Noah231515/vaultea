@@ -9,6 +9,7 @@ import { MatInputModule } from "@angular/material/input";
 
 import { AbstractModule } from "../abstract/abstract.module";
 import { ButtonComponent } from "./button/button.component";
+import { CardComponent } from "./card/card.component";
 import { FormFooterComponent } from "./form-footer/form-footer.component";
 import { FormComponent } from "./form/form.component";
 import { InputComponent } from "./input/input.component";
@@ -17,18 +18,20 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
 @NgModule({
   declarations: [
     ButtonComponent,
-    InputComponent,
-    FormFooterComponent,
+    CardComponent,
     FormComponent,
+    FormFooterComponent,
+    InputComponent,
     LogoFullComponent,
   ],
   exports: [
     ButtonComponent,
+    CardComponent,
     FlexLayoutModule,
     FormComponent,
     FormFooterComponent,
     InputComponent,
-    LogoFullComponent
+    LogoFullComponent,
   ],
   imports: [
     AbstractModule,

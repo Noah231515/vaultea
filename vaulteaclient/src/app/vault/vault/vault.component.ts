@@ -6,7 +6,6 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ['./vault.component.scss']
 })
 export class VaultComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {

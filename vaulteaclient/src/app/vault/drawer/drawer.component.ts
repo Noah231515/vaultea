@@ -6,7 +6,6 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ['./drawer.component.scss']
 })
 export class DrawerComponent implements OnInit {
-  public showFiller: boolean = false;
   constructor() { }
 
   ngOnInit(): void {

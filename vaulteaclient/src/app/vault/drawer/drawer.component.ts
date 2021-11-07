@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'vaultea-drawer',
+  styleUrls: ['./drawer.component.scss'],
   templateUrl: './drawer.component.html',
-  styleUrls: ['./drawer.component.scss']
 })
 export class DrawerComponent implements OnInit {
   constructor() { }

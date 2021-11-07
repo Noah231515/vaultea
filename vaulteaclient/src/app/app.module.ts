@@ -2,6 +2,7 @@ import { CRYPTO_SERVICE } from "@abstract";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -22,9 +23,10 @@ import { BrowserUserService } from "./services/browser-user.service";
     AuthenticationModule,
     BrowserAnimationsModule,
     BrowserModule,
-    MatToolbarModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule,
+    MatToolbarModule,
   ],
   providers: [
     {provide: CRYPTO_SERVICE, useClass: BrowserCryptoService},

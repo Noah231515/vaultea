@@ -1,7 +1,9 @@
 <div fxLayout="column">
   <div fxFlex>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" fxLayoutGap="8px">
       <img class="logo-minimal" src="../assets/logo-minimal.svg">
+      <mat-icon class="toolbar-item">add</mat-icon>
+      <mat-icon class="toolbar-item">search</mat-icon>
     </mat-toolbar>
   </div>
   <div [@routeAnimations]="prepareRoute(outlet)" class="global-foreground">

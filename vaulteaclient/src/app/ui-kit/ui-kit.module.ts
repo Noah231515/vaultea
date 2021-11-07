@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
@@ -42,6 +43,7 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatCardModule,
   ]
 })
 export class UiKitModule { }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'vaultea-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']

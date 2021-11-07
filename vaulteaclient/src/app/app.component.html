@@ -1,9 +1,18 @@
 <div fxLayout="column">
   <div fxFlex>
-    <mat-toolbar color="primary" fxLayoutGap="8px">
-      <img class="logo-minimal" src="../assets/logo-minimal.svg">
-      <mat-icon class="toolbar-item">add</mat-icon>
-      <mat-icon class="toolbar-item">search</mat-icon>
+    <mat-toolbar fxFlex color="primary">
+      <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
+        <div fxFlex fxLayoutGap="8px">
+          <img class="logo-minimal" src="../assets/logo-minimal.svg">
+          <mat-icon class="toolbar-item">add</mat-icon>
+          <mat-icon class="toolbar-item">search</mat-icon>
+        </div>
+        <div fxFlex fxLayoutGap="8px" fxLayoutAlign="end">
+          <span>Tools</span>
+          <span>Options</span>
+          <span>User Stuff</span>
+        </div>
+      </div>
     </mat-toolbar>
   </div>
   <div [@routeAnimations]="prepareRoute(outlet)" class="global-foreground">

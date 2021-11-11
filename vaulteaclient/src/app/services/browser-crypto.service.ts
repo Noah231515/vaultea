@@ -61,6 +61,10 @@ export class BrowserCryptoService implements CryptoService {
     if (typeof data === "string") {
       data = CryptoUtil.stringToArrayBuffer(data);
     }
+  
+    const dataWithIv = new Uint8Array(iv.length + data.byteLength);
+    dataWithIv.set(iv, 0);
+    dataWithIv.set(new Uint8Array(data), iv.length);
 
     const aesCbCParams: AesCbcParams = {
       iv: iv,
@@ -68,15 +72,12 @@ export class BrowserCryptoService implements CryptoService {
     }
 
     const importKey = await crypto.subtle.importKey("raw", key , { name: "AES-CBC"}, false, ["encrypt"]);
-    return new EncryptedData(await crypto.subtle.encrypt(aesCbCParams, importKey, data));
+    return new EncryptedData(await crypto.subtle.encrypt(aesCbCParams, importKey, dataWithIv.buffer));
   }
 
   public async decryptData(key: VaulteaCryptoKey, data: ArrayBuffer): Promise<any> {
-    const iv = new Uint8Array(16);
-    crypto.getRandomValues(iv);
-
     const aesCbCParams: AesCbcParams = {
-      iv: iv,
+      iv: data.slice(0, 16),
       name: "AES-CBC",
     }
 

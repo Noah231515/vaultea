@@ -4,6 +4,7 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { CRYPTO_SERVICE } from "../abstract";
 import { USER_SERVICE } from "../abstract/tokens/user-service.token";
+import { CryptoUtil } from "../utils/crypto.util";
 import { StretchedMasterKey } from "../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 import { BrowserCryptoService } from "./browser-crypto.service";
@@ -44,7 +45,7 @@ describe("BrowserCryptoService", () => {
     const cleartext = "Hello World";
     const encryptedData = await cryptoService.encryptData(encryptionKey.keyBuffer, cleartext);
     const decryptedText = await cryptoService.decryptData(encryptionKey, encryptedData.dataBuffer);
-    // console.log(decryptedText);
+    console.log(CryptoUtil.arrayBufferToAscii(decryptedText));
     expect(1).toBe(1);
   });
 });

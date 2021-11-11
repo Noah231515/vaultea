@@ -10,6 +10,6 @@ export class EncryptedData {
     newDataBuffer.set(new Uint8Array(encryptedDataBuffer), iv.byteLength);
 
     this.dataBuffer = newDataBuffer;
-    this.dataString = CryptoUtil.arrayBufferToAscii(encryptedDataBuffer);
+    this.dataString = CryptoUtil.arrayBufferToUtf8(encryptedDataBuffer);
   }
 }

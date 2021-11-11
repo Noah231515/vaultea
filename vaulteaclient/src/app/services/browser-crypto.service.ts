@@ -79,7 +79,7 @@ export class BrowserCryptoService implements CryptoService {
     }
 
     const importKey = await crypto.subtle.importKey("raw", key.keyBuffer , { name: "AES-CBC"}, false, ["decrypt"]);
-    return CryptoUtil.arrayBufferToAscii(await crypto.subtle.decrypt(aesCbCParams, importKey, data.slice(iv.byteLength)));
+    return CryptoUtil.arrayBufferToUtf8(await crypto.subtle.decrypt(aesCbCParams, importKey, data.slice(iv.byteLength)));
   }
 
   public async encryptForm(form: FormGroup, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any> {

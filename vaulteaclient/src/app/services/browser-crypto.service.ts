@@ -61,10 +61,6 @@ export class BrowserCryptoService implements CryptoService {
     if (typeof data === "string") {
       data = CryptoUtil.stringToArrayBuffer(data);
     }
-  
-    const dataWithIv = new Uint8Array(iv.length + data.byteLength);
-    dataWithIv.set(iv, 0);
-    dataWithIv.set(new Uint8Array(data), iv.length);
 
     const aesCbCParams: AesCbcParams = {
       iv: iv,
@@ -72,17 +68,18 @@ export class BrowserCryptoService implements CryptoService {
     }
 
     const importKey = await crypto.subtle.importKey("raw", key , { name: "AES-CBC"}, false, ["encrypt"]);
-    return new EncryptedData(await crypto.subtle.encrypt(aesCbCParams, importKey, dataWithIv.buffer));
+    return  new EncryptedData(await crypto.subtle.encrypt(aesCbCParams, importKey, data), iv);
   }
 
-  public async decryptData(key: VaulteaCryptoKey, data: ArrayBuffer): Promise<any> {
+  public async decryptData(key: VaulteaCryptoKey, data: ArrayBuffer): Promise<string> {
+    const iv = data.slice(0, 16);
     const aesCbCParams: AesCbcParams = {
-      iv: data.slice(0, 16),
+      iv: iv,
       name: "AES-CBC",
     }
 
     const importKey = await crypto.subtle.importKey("raw", key.keyBuffer , { name: "AES-CBC"}, false, ["decrypt"]);
-    return crypto.subtle.decrypt(aesCbCParams, importKey, data);
+    return CryptoUtil.arrayBufferToAscii(await crypto.subtle.decrypt(aesCbCParams, importKey, data.slice(iv.byteLength)));
   }
 
   public async encryptForm(form: FormGroup, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any> {

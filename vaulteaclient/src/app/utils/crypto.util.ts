@@ -17,7 +17,7 @@ export class CryptoUtil {
     for (let i = 0; i < byteArray.length; i++) {
       result += String.fromCharCode(byteArray[i]); // Appends each ascii glyph from raw decimal data
     }
-    return btoa(result);
+    return result;
   }
 
   /**

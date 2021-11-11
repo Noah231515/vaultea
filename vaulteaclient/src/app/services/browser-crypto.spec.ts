@@ -4,7 +4,6 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { CRYPTO_SERVICE } from "../abstract";
 import { USER_SERVICE } from "../abstract/tokens/user-service.token";
-import { CryptoUtil } from "../utils/crypto.util";
 import { StretchedMasterKey } from "../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 import { BrowserCryptoService } from "./browser-crypto.service";
@@ -34,18 +33,17 @@ describe("BrowserCryptoService", () => {
     cryptoService = TestBed.inject(BrowserCryptoService);
 
     form = formBuilder.group({
-      username: "test",
-      password: "test"
+      username: "test user",
+      password: "testPassword!@#%457~+939"
     });
     stretchedMasterKey = await cryptoService.generateStretchedMasterKey(form.get("password")?.value, form.get("username")?.value);
     encryptionKey = await cryptoService.generateEncryptionKey();
   });
-  
-  it("should return the same cleartext", async () => {
+
+  it("decrypt the encrypted string correctly", async () => {
     const cleartext = "Hello World";
     const encryptedData = await cryptoService.encryptData(encryptionKey.keyBuffer, cleartext);
     const decryptedText = await cryptoService.decryptData(encryptionKey, encryptedData.dataBuffer);
-    console.log(CryptoUtil.arrayBufferToAscii(decryptedText));
-    expect(1).toBe(1);
+    expect(cleartext).toBe(decryptedText);
   });
 });

@@ -1,5 +1,6 @@
 import { Directive } from "@angular/core";
-import { ButtonsConstant } from "@ui-kit";
+
+import { ButtonsConstant } from "../../ui-kit/button/buttons.constant";
 
 @Directive({
   selector: "vaultea-base",

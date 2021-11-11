@@ -5,7 +5,7 @@ export class VaulteaCryptoKey {
   public keyString: string;
 
   public constructor(keyBuffer: ArrayBuffer) {
-    this.keyString = CryptoUtil.arrayBufferToAscii(keyBuffer);
+    this.keyString = CryptoUtil.arrayBufferToUtf8(keyBuffer);
     this.keyBuffer = keyBuffer;
   }
 }

@@ -11,13 +11,13 @@ export class CryptoUtil {
     return bufferView;
   }
 
-  public static arrayBufferToAscii(buffer: ArrayBuffer): string {
+  public static arrayBufferToUtf8(buffer: ArrayBuffer): string {
     const byteArray = new Uint8Array(buffer); // Raw binary data is chunked into bytes, stored as decimal representation
     let result = "";
     for (let i = 0; i < byteArray.length; i++) {
       result += String.fromCharCode(byteArray[i]); // Appends each ascii glyph from raw decimal data
     }
-    return btoa(result);
+    return result;
   }
 
   /**

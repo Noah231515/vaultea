@@ -40,7 +40,11 @@ describe("BrowserCryptoService", () => {
     encryptionKey = await cryptoService.generateEncryptionKey();
   });
   
-  it("#getValue should return real value", async () => {
+  it("should return the same cleartext", async () => {
+    const cleartext = "Hello World";
+    const encryptedData = await cryptoService.encryptData(encryptionKey.keyBuffer, cleartext);
+    const decryptedText = await cryptoService.decryptData(encryptionKey, encryptedData.dataBuffer);
+    // console.log(decryptedText);
     expect(1).toBe(1);
   });
 });

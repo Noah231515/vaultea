@@ -38,6 +38,7 @@ describe("BrowserCryptoService", () => {
   it("should decrypt the encrypted string correctly", async () => {
     const cleartext = "Hello World";
     const encryptedData = await cryptoService.encryptData(encryptionKey, cleartext);
+    expect(encryptedData.dataString === cleartext).toBeFalse();
     const decryptedText = await cryptoService.decryptData(encryptionKey, encryptedData.dataBuffer);
     expect(cleartext).toBe(decryptedText);
   });

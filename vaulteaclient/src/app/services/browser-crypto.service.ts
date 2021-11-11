@@ -54,7 +54,7 @@ export class BrowserCryptoService implements CryptoService {
     return new VaulteaCryptoKey(encryptionKeyView.buffer);
   }
 
-  public async encryptData(key: ArrayBuffer, data: ArrayBuffer | string): Promise<EncryptedData> {
+  public async encryptData(key: VaulteaCryptoKey, data: ArrayBuffer | string): Promise<EncryptedData> {
     const iv = new Uint8Array(16);
     crypto.getRandomValues(iv);
 
@@ -67,7 +67,7 @@ export class BrowserCryptoService implements CryptoService {
       name: "AES-CBC",
     }
 
-    const importKey = await crypto.subtle.importKey("raw", key , { name: "AES-CBC"}, false, ["encrypt"]);
+    const importKey = await crypto.subtle.importKey("raw", key.keyBuffer, { name: "AES-CBC"}, false, ["encrypt"]);
     return  new EncryptedData(await crypto.subtle.encrypt(aesCbCParams, importKey, data), iv);
   }
 
@@ -86,7 +86,7 @@ export class BrowserCryptoService implements CryptoService {
     const formKeys = Object.keys(form.getRawValue()).filter(key => !keysToOmit?.includes(key));
     const result: any = {};
     for (const key of formKeys) {
-      const encryptedData = await this.encryptData(encryptionKey.keyBuffer, form.get(key)?.value);
+      const encryptedData = await this.encryptData(encryptionKey, form.get(key)?.value);
       result[key] = encryptedData.dataString;
     }
     return Object.assign(form.getRawValue(), result);
@@ -110,6 +110,6 @@ export class BrowserCryptoService implements CryptoService {
   public async encryptEncryptionKey(form: FormGroup): Promise<string> {
     const encryptionKey = this.userService.getEncryptionKey();
     const stretchedMasterKey = this.userService.getStretchedMasterKey();
-    return (await this.encryptData(stretchedMasterKey.encryptionKey.keyBuffer, encryptionKey.keyBuffer)).dataString
+    return (await this.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer)).dataString
   }
 }

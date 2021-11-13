@@ -60,17 +60,15 @@ describe("BrowserCryptoService", () => {
     expect(encryptedData.dataString).toBe(computedDataString);
   });
 
-
-  // it("should decrypt object correctly", async () => {
-  //   const object = {
-  //     "note": "this is an object note",
-  //     "field": "field",
-  //     "cost": 1821381,
-  //     "date": new Date()
-  //   };
-  //   const encryptedObject = await cryptoService.encryptObject(object, encryptionKey);
-  //   const decryptedObject = await cryptoService.decryptObject(encryptedObject, encryptionKey);
-  //   console.log(encryptedObject);
-  //   console.log(decryptedObject);
-  // });
+  it("should decrypt object correctly", async () => {
+    const object = {
+      "note": "this is an object note",
+      "field": "field",
+      "cost": "1821381",
+      "date": new Date().toString()
+    };
+    const encryptedObject = await cryptoService.encryptObject(object, encryptionKey);
+    const decryptedObject = await cryptoService.decryptObject(encryptedObject, encryptionKey);
+    expect(object).toEqual(decryptedObject);
+  });
 });

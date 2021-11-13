@@ -103,7 +103,7 @@ export class BrowserCryptoService implements CryptoService {
 
     for (const key of keysToDecrypt) {
       const decryptedData = await this.decryptData(encryptionKey, atob(object[key]));
-      //result[key] = decryptedData;
+      result[key] = decryptedData;
     }
     return result;
   }

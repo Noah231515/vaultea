@@ -36,13 +36,13 @@ describe("BrowserCryptoService", () => {
     encryptionKey = await cryptoService.generateEncryptionKey();
   });
 
-  // it("should decrypt the encrypted string correctly", async () => {
-  //   const cleartext = "Hello World";
-  //   const encryptedData = await cryptoService.encryptData(encryptionKey, cleartext);
-  //   expect(encryptedData.dataString === cleartext).toBeFalse();
-  //   const decryptedText = await cryptoService.decryptData(encryptionKey, encryptedData.dataBuffer);
-  //   expect(cleartext).toBe(decryptedText);
-  // });
+  it("should decrypt the encrypted string correctly", async () => {
+    const cleartext = "Hello World";
+    const encryptedData = await cryptoService.encryptData(encryptionKey, cleartext);
+    expect(encryptedData.dataString === cleartext).toBeFalse();
+    const decryptedText = await cryptoService.decryptData(encryptionKey, encryptedData.dataBuffer);
+    expect(cleartext).toBe(decryptedText);
+  });
 
   it("should recreate correct data buffer from encrypted string", async () => {
     const text = "Hello Big World";
@@ -52,13 +52,13 @@ describe("BrowserCryptoService", () => {
     expect(computedArrayBuffer.buffer).toEqual(encryptedData.dataBuffer);
   });
 
-  // it("should recreate the correct string from encrypted data's array buffer", async () => {
-  //   const text = "Hello Big World!@!@!!";
-  //   const encryptedData = await cryptoService.encryptData(encryptionKey, text);
-  //   const computedDataString = CryptoUtil.arrayBufferToUtf8(encryptedData.dataBuffer);
+  it("should recreate the correct string from encrypted data's array buffer", async () => {
+    const text = "Hello Big World!@!@!!";
+    const encryptedData = await cryptoService.encryptData(encryptionKey, text);
+    const computedDataString = CryptoUtil.arrayBufferToBase64(encryptedData.dataBuffer);
 
-  //   expect(encryptedData.dataString).toBe(computedDataString);
-  // });
+    expect(encryptedData.dataString).toBe(computedDataString);
+  });
 
 
   // it("should decrypt object correctly", async () => {

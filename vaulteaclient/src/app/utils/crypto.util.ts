@@ -22,6 +22,10 @@ export class CryptoUtil {
     return result;
   }
 
+  public static arrayBufferToBase64(buffer: ArrayBuffer): string {
+    return btoa(this.arrayBufferToUtf8(buffer));
+  }
+
   /**
    * Bitwarden's Implementation of hkdfExpand
    * @param prk 

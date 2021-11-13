@@ -71,7 +71,11 @@ export class BrowserCryptoService implements CryptoService {
     return  new EncryptedData(await crypto.subtle.encrypt(aesCbCParams, importKey, data), iv);
   }
 
-  public async decryptData(key: VaulteaCryptoKey, data: ArrayBuffer): Promise<string> {
+  public async decryptData(key: VaulteaCryptoKey, data: ArrayBuffer | string): Promise<string> {
+    if (typeof data === "string") {
+      data = (CryptoUtil.stringToArrayBuffer(data) as Uint8Array).buffer;
+    }
+
     const iv = data.slice(0, 16);
     const aesCbCParams: AesCbcParams = {
       iv: iv,
@@ -82,14 +86,34 @@ export class BrowserCryptoService implements CryptoService {
     return CryptoUtil.arrayBufferToUtf8(await crypto.subtle.decrypt(aesCbCParams, importKey, data.slice(iv.byteLength)));
   }
 
-  public async encryptForm(form: FormGroup, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any> {
-    const formKeys = Object.keys(form.getRawValue()).filter(key => !keysToOmit?.includes(key));
+  public async encryptObject(object: any, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any> {
+    const keysToEncrypt = Object.keys(object).filter(key => !keysToOmit?.includes(key));
     const result: any = {};
-    for (const key of formKeys) {
-      const encryptedData = await this.encryptData(encryptionKey, form.get(key)?.value);
-      result[key] = encryptedData.dataString;
+
+    for (const key of keysToEncrypt) {
+      if (typeof object[key] === "object") {
+        result[key] = await this.encryptObject(object[key], encryptionKey, keysToOmit);
+      } else {
+        const encryptedData = await this.encryptData(encryptionKey, object[key].toString());
+        result[key] = encryptedData.dataString;
+      }
     }
-    return Object.assign(form.getRawValue(), result);
+    return result;
+  }
+
+  public async decryptObject(object: any, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any> {
+    const keysToDecrypt = Object.keys(object).filter(key => !keysToOmit?.includes(key));
+    const result: any = {};
+
+    for (const key of keysToDecrypt) {
+      if(typeof object[key] === "object") {
+        result[key] = await this.decryptObject(object[key], encryptionKey, keysToOmit);
+      } else {
+        const decryptedData = await this.decryptData(encryptionKey, atob(object[key]));
+        result[key] = decryptedData;
+      }
+    }
+    return result;
   }
 
   public async generateKeys(form: FormGroup): Promise<void> {

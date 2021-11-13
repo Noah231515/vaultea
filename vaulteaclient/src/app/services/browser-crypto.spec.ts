@@ -57,7 +57,7 @@ describe("BrowserCryptoService", () => {
     const encryptedData = await cryptoService.encryptData(encryptionKey, text);
     const computedDataString = CryptoUtil.arrayBufferToBase64(encryptedData.dataBuffer);
 
-    expect(encryptedData.dataString).toBe(computedDataString);
+    expect(2).toBe(1);
   });
 
   it("should decrypt object correctly", async () => {

@@ -13,8 +13,7 @@ jobs:
           node-version: 14.x
 
       - name: Setup
-        run: npm ci
-        working-directory: ${{env.working-directory}}
+        run: ls ../../ -a
 
       - name: Test
         run: |

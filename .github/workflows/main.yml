@@ -2,7 +2,6 @@ name: CI Angular app through Github Actions
 on: push
 jobs:
   build:
-    working-directory: vaulteaclient
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

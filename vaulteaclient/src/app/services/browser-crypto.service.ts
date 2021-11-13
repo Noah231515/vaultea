@@ -91,8 +91,12 @@ export class BrowserCryptoService implements CryptoService {
     const result: any = {};
 
     for (const key of keysToEncrypt) {
-      const encryptedData = await this.encryptData(encryptionKey, object[key].toString());
-      result[key] = encryptedData.dataString;
+      if (typeof object[key] === "object") {
+        result[key] = await this.encryptObject(object[key], encryptionKey, keysToOmit);
+      } else {
+        const encryptedData = await this.encryptData(encryptionKey, object[key].toString());
+        result[key] = encryptedData.dataString;
+      }
     }
     return result;
   }
@@ -102,8 +106,12 @@ export class BrowserCryptoService implements CryptoService {
     const result: any = {};
 
     for (const key of keysToDecrypt) {
-      const decryptedData = await this.decryptData(encryptionKey, atob(object[key]));
-      result[key] = decryptedData;
+      if(typeof object[key] === "object") {
+        result[key] = await this.decryptObject(object[key], encryptionKey, keysToOmit);
+      } else {
+        const decryptedData = await this.decryptData(encryptionKey, atob(object[key]));
+        result[key] = decryptedData;
+      }
     }
     return result;
   }

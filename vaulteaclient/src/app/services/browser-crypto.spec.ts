@@ -65,10 +65,23 @@ describe("BrowserCryptoService", () => {
       "note": "this is an object note",
       "field": "field",
       "cost": "1821381",
-      "date": new Date().toString()
+      "date": new Date().toString(),
+      "nestedObject": {
+        "color": "blue",
+        "smell": "good",
+        "anotherObject": {
+          "shape": "triangle",
+          "size": "large",
+          "yetAnotherObject": {
+            "favoritePizza": "hawaiian",
+            "favoriteCrust": "butterGarlic"
+          }
+        }
+      }
     };
     const encryptedObject = await cryptoService.encryptObject(object, encryptionKey);
     const decryptedObject = await cryptoService.decryptObject(encryptedObject, encryptionKey);
+
     expect(object).toEqual(decryptedObject);
   });
 });

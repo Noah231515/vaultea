@@ -3,7 +3,7 @@ on: push
 jobs:
   build:
     env:
-      working-directory: ../../vaulteaclient
+      working-directory: ./vaulteaclient
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -13,7 +13,8 @@ jobs:
           node-version: 14.x
 
       - name: Setup
-        run: ls ./ -a
+        run: npm ci
+        working-directory: ${{env.working-directory}}
 
       - name: Test
         run: |

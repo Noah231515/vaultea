@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
+import { CryptoService } from "../abstract/services/crypto.service";
+import { UserService } from "../abstract/services/user.service";
 import { CryptoUtil } from "../utils/crypto.util";
 import { EncryptedData } from "../utils/ecnrypted-data.model";
 import { StretchedMasterKey } from "../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
-import { CryptoService } from "./crypto-service.interface";
-import { UserService } from "./user-service";
 
 @Injectable({
   providedIn: "root"

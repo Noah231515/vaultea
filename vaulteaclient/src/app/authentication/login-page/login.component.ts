@@ -1,10 +1,8 @@
+import { BaseComponent, CryptoService, UserService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { BaseComponent } from "../../abstract";
-import { CryptoService } from "../../services/crypto-service.interface";
-import { UserService } from "../../services/user-service";
 import { ButtonInterface } from "../../ui-kit";
 import { AuthenticationService } from "../authentication.service";
 

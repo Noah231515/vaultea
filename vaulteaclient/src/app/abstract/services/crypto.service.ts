@@ -1,8 +1,8 @@
 import { FormGroup } from "@angular/forms";
 
-import { EncryptedData } from "../utils/ecnrypted-data.model";
-import { StretchedMasterKey } from "../utils/stretched-master-key.model";
-import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
+import { EncryptedData } from "../../utils/ecnrypted-data.model";
+import { StretchedMasterKey } from "../../utils/stretched-master-key.model";
+import { VaulteaCryptoKey } from "../../utils/vaultea-crypto-key.model";
 
 export abstract class CryptoService {
   public abstract generateStretchedMasterKey(password: string, salt: string): Promise<StretchedMasterKey>;

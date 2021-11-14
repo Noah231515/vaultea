@@ -2,11 +2,11 @@ import { TestBed } from "@angular/core/testing";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 
+import { CryptoService } from "../abstract/services/crypto.service";
+import { UserService } from "../abstract/services/user.service";
 import { CryptoUtil } from "../utils/crypto.util";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 import { BrowserCryptoService } from "./browser-crypto.service";
-import { CryptoService } from "./crypto-service.interface";
-import { UserService } from "./user-service";
 
 describe("BrowserCryptoService", () => {
   let cryptoService: CryptoService;

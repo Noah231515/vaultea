@@ -6,12 +6,10 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { USER_SERVICE } from "./abstract/tokens/user-service.token";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AuthenticationModule } from "./authentication/authentication.module";
 import { BrowserCryptoService } from "./services/browser-crypto.service";
-import { BrowserUserService } from "./services/browser-user.service";
 import { CryptoService } from "./services/crypto-service.interface";
 
 @NgModule({
@@ -30,7 +28,6 @@ import { CryptoService } from "./services/crypto-service.interface";
   ],
   providers: [
     { provide: CryptoService, useClass: BrowserCryptoService },
-    {provide: USER_SERVICE, useClass: BrowserUserService}
   ],
   bootstrap: [AppComponent]
 })

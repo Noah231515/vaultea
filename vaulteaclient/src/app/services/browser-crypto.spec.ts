@@ -2,12 +2,11 @@ import { TestBed } from "@angular/core/testing";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 
-import { USER_SERVICE } from "../abstract/tokens/user-service.token";
 import { CryptoUtil } from "../utils/crypto.util";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 import { BrowserCryptoService } from "./browser-crypto.service";
-import { BrowserUserService } from "./browser-user.service";
 import { CryptoService } from "./crypto-service.interface";
+import { UserService } from "./user-service";
 
 describe("BrowserCryptoService", () => {
   let cryptoService: CryptoService;
@@ -22,7 +21,7 @@ describe("BrowserCryptoService", () => {
       ],
       providers: [
         FormBuilder,
-        { provide: USER_SERVICE, useClass: BrowserUserService },
+        { provide: UserService },
         { provide: CryptoService, useClass: BrowserCryptoService },
       ] 
     });

@@ -1,26 +1,20 @@
-import { Injectable } from "@angular/core";
+import { StretchedMasterKey } from "../../utils/stretched-master-key.model";
+import { VaulteaCryptoKey } from "../../utils/vaultea-crypto-key.model";
 
-import { StretchedMasterKey } from "../utils/stretched-master-key.model";
-import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
-import { UserService } from "./user-service";
-
-@Injectable({
-  providedIn: "root"
-})
-export class BrowserUserService implements UserService {
-  masterKey: VaulteaCryptoKey;
-  stretchedMasterKey: StretchedMasterKey;
-  encryptionKey: VaulteaCryptoKey;
+export abstract class UserService {
+  private masterKey: VaulteaCryptoKey;
+  private stretchedMasterKey: StretchedMasterKey;
+  private encryptionKey: VaulteaCryptoKey;
 
   public getMasterKey(): VaulteaCryptoKey {
-    return this.masterKey;
+    return this.masterKey
   }
 
   public getStretchedMasterKey(): StretchedMasterKey {
     return this.stretchedMasterKey;
   }
 
-  public getEncryptionKey(): VaulteaCryptoKey {
+  public  getEncryptionKey(): VaulteaCryptoKey {
     return this.encryptionKey;
   }
 

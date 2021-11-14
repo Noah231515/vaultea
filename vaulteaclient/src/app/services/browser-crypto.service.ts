@@ -1,13 +1,12 @@
-import { Inject, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
-import { USER_SERVICE } from "../abstract/tokens/user-service.token";
+import { CryptoService } from "../abstract/services/crypto.service";
+import { UserService } from "../abstract/services/user.service";
 import { CryptoUtil } from "../utils/crypto.util";
 import { EncryptedData } from "../utils/ecnrypted-data.model";
 import { StretchedMasterKey } from "../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
-import { CryptoService } from "./crypto-service.interface";
-import { UserService } from "./user-service";
 
 @Injectable({
   providedIn: "root"
@@ -15,7 +14,7 @@ import { UserService } from "./user-service";
 export class BrowserCryptoService implements CryptoService {
 
   public constructor(
-    @Inject(USER_SERVICE) public userService: UserService
+    private userService: UserService
   ) { }
 
   public async generateStretchedMasterKey(password: string, salt: string): Promise<StretchedMasterKey> {

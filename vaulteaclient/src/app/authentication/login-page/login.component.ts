@@ -1,12 +1,8 @@
-import { CRYPTO_SERVICE } from "@abstract";
-import { Component, Inject, OnInit } from "@angular/core";
+import { BaseComponent, CryptoService, UserService } from "@abstract";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { BaseComponent } from "../../abstract";
-import { USER_SERVICE } from "../../abstract/tokens/user-service.token";
-import { CryptoService } from "../../services/crypto-service.interface";
-import { UserService } from "../../services/user-service";
 import { ButtonInterface } from "../../ui-kit";
 import { AuthenticationService } from "../authentication.service";
 
@@ -24,8 +20,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
-    @Inject(CRYPTO_SERVICE) private cryptoService: CryptoService,
-    @Inject(USER_SERVICE) private userService: UserService,
+    private cryptoService: CryptoService,
+    private userService: UserService,
   ) { 
     super()
   }

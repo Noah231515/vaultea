@@ -2,15 +2,15 @@ import { TestBed } from "@angular/core/testing";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 
-import { CRYPTO_SERVICE } from "../abstract";
 import { USER_SERVICE } from "../abstract/tokens/user-service.token";
 import { CryptoUtil } from "../utils/crypto.util";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 import { BrowserCryptoService } from "./browser-crypto.service";
 import { BrowserUserService } from "./browser-user.service";
+import { CryptoService } from "./crypto-service.interface";
 
 describe("BrowserCryptoService", () => {
-  let cryptoService: BrowserCryptoService;
+  let cryptoService: CryptoService;
   let formBuilder: FormBuilder;
   let form: FormGroup;
   let encryptionKey: VaulteaCryptoKey;
@@ -22,8 +22,8 @@ describe("BrowserCryptoService", () => {
       ],
       providers: [
         FormBuilder,
-        {provide: USER_SERVICE, useClass: BrowserUserService},
-        {provide: CRYPTO_SERVICE, useClass: BrowserCryptoService},
+        { provide: USER_SERVICE, useClass: BrowserUserService },
+        { provide: CryptoService, useClass: BrowserCryptoService },
       ] 
     });
     formBuilder = TestBed.inject(FormBuilder);

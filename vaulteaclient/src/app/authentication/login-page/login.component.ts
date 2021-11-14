@@ -1,4 +1,3 @@
-import { CRYPTO_SERVICE } from "@abstract";
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -24,7 +23,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
-    @Inject(CRYPTO_SERVICE) private cryptoService: CryptoService,
+    private cryptoService: CryptoService,
     @Inject(USER_SERVICE) private userService: UserService,
   ) { 
     super()

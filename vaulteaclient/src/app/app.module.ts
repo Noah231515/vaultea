@@ -1,4 +1,3 @@
-import { CRYPTO_SERVICE } from "@abstract";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -13,6 +12,7 @@ import { AppComponent } from "./app.component";
 import { AuthenticationModule } from "./authentication/authentication.module";
 import { BrowserCryptoService } from "./services/browser-crypto.service";
 import { BrowserUserService } from "./services/browser-user.service";
+import { CryptoService } from "./services/crypto-service.interface";
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { BrowserUserService } from "./services/browser-user.service";
     MatToolbarModule,
   ],
   providers: [
-    {provide: CRYPTO_SERVICE, useClass: BrowserCryptoService},
+    { provide: CryptoService, useClass: BrowserCryptoService },
     {provide: USER_SERVICE, useClass: BrowserUserService}
   ],
   bootstrap: [AppComponent]

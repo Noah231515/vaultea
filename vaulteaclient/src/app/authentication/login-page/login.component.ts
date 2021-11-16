@@ -41,8 +41,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
     await this.cryptoService.generateKeys(this.form);
 
     this.form.get("password")?.setValue(await this.cryptoService.hashPassword(this.form));
-    this.authenticationService.login(this.form.getRawValue()).subscribe(x => {
-      // stub
+    this.authenticationService.login(this.form.getRawValue()).subscribe(user => {
+      this.authenticationService.setUser(user);
+      this.router.navigate(["/vault"]);
     });
   }
 }

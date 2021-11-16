@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import Cookies from "js-cookie";
 import { Observable } from "rxjs";
 
 import { User } from "../shared/models/user.model";
@@ -27,10 +28,11 @@ export class AuthenticationService {
   }
 
   public isLoggedIn(): boolean {
-    return !!this.user; // also check for crsf token
+    return !!(this.user && Cookies.get("csrftoken"));
   }
 
   public logout(): void {
     this.user = undefined;
+    Cookies.remove("csrftoken");
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 
 import { User } from "../shared/models/user.model";
 
@@ -10,6 +10,8 @@ import { User } from "../shared/models/user.model";
 })
 export class AuthenticationService {
   private user?: User;
+  private isLoggedInBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isLoggedInObservable: Observable<boolean> = this.isLoggedInBehaviorSubject.asObservable();
 
   constructor(
     private httpClient: HttpClient
@@ -25,6 +27,7 @@ export class AuthenticationService {
 
   public setUser(user: User): void {
     this.user = user;
+    this.updateIsLoggedIn();
   }
 
   public isLoggedIn(): boolean {
@@ -33,7 +36,14 @@ export class AuthenticationService {
   }
 
   public logout(): void {
+    // TODO: Remove crsftoken
     this.user = undefined;
+    this.updateIsLoggedIn();
+  }
+
+  private updateIsLoggedIn(): void {
+    const crsfToken = true;
+    this.isLoggedInBehaviorSubject.next(!!(this.user && crsfToken));
   }
 
   private getLoggedInUser(): Observable<User> {

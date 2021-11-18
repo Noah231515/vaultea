@@ -27,29 +27,16 @@ export class AuthenticationService {
     this.user = user;
   }
 
-  public isLoggedIn(): Observable<boolean> {
+  public isLoggedIn(): boolean {
     const result = new AsyncSubject<boolean>();
     const csrfToken = true;
 
     if (!csrfToken) {
       result.next(false);
       result.complete();
-      return result.asObservable();
     }
 
-    if (this.user) {
-      result.next(true);
-      result.complete();
-      return result.asObservable();
-    } else {
-      this.getLoggedInUser()
-        .subscribe(user => {
-          this.setUser(user);
-          result.next(!!this.user);
-          result.complete();
-        });
-    }
-    return result.asObservable();
+    return !!(this.user && csrfToken);
   }
 
   public logout(): void {

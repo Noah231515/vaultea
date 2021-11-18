@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { AsyncSubject, Observable } from "rxjs";
+import { Observable } from "rxjs";
 
 import { User } from "../shared/models/user.model";
 
@@ -28,14 +28,7 @@ export class AuthenticationService {
   }
 
   public isLoggedIn(): boolean {
-    const result = new AsyncSubject<boolean>();
     const csrfToken = true;
-
-    if (!csrfToken) {
-      result.next(false);
-      result.complete();
-    }
-
     return !!(this.user && csrfToken);
   }
 

@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import Cookies from "js-cookie";
-import { Observable } from "rxjs";
+import { AsyncSubject, Observable } from "rxjs";
 
 import { User } from "../shared/models/user.model";
+
 
 @Injectable({
   providedIn: "root"
@@ -27,12 +27,36 @@ export class AuthenticationService {
     this.user = user;
   }
 
-  public isLoggedIn(): boolean {
-    return !!(this.user && Cookies.get("csrftoken"));
+  public isLoggedIn(): Observable<boolean> {
+    const result = new AsyncSubject<boolean>();
+    const csrfToken = true;
+
+    if (!csrfToken) {
+      result.next(false);
+      result.complete();
+      return result.asObservable();
+    }
+
+    if (this.user) {
+      result.next(true);
+      result.complete();
+      return result.asObservable();
+    } else {
+      this.getLoggedInUser()
+        .subscribe(user => {
+          this.setUser(user);
+          result.next(!!this.user);
+          result.complete();
+        });
+    }
+    return result.asObservable();
   }
 
   public logout(): void {
     this.user = undefined;
-    Cookies.remove("csrftoken");
+  }
+
+  private getLoggedInUser(): Observable<User> {
+    return this.httpClient.get<User>("api/loggedInUser");
   }
 }

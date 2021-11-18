@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate, login, logout
 from api.serializers import LoginFormSerializer, SignUpFormSerializer
+from api.user_service import UserService
 import json
 
 @api_view(['POST'])
@@ -43,3 +44,13 @@ def user_login(request):
       return Response({'msg': 'Invalid login'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
   else:
     return Response({'msg': 'Invalid form'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+@ensure_csrf_cookie
+def get_logged_in_user(request):
+  if request.user.is_authenticated:
+    user_service = UserService()
+    return JsonResponse(user_service.get_user_info(request.user), status=status.HTTP_200_OK)
+  else:
+    return Response({'msg': 'Not authenticated'}, status=status.HTTP_403_FORBIDDEN)
+  

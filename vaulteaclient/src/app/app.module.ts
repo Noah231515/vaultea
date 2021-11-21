@@ -7,6 +7,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { CryptoService } from "./abstract/services/crypto.service";
+import { UserService } from "./abstract/services/user.service";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AuthenticationModule } from "./authentication/authentication.module";
@@ -27,6 +28,7 @@ import { BrowserCryptoService } from "./services/browser-crypto.service";
     MatToolbarModule,
   ],
   providers: [
+    UserService,
     { provide: CryptoService, useClass: BrowserCryptoService },
   ],
   bootstrap: [AppComponent]

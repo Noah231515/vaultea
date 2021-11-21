@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
+import { AuthGuard } from "../shared/guards/auth.guard";
 import { DrawerComponent } from "./drawer/drawer.component";
 import { VaultComponent } from "./vault/vault.component";
 
@@ -8,6 +9,8 @@ const routes: Routes = [
   {
     path: "",
     component: DrawerComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: "",

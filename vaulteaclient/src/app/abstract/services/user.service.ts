@@ -1,7 +1,7 @@
 import { StretchedMasterKey } from "../../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../../utils/vaultea-crypto-key.model";
 
-export abstract class UserService {
+export class UserService {
   private masterKey: VaulteaCryptoKey;
   private stretchedMasterKey: StretchedMasterKey;
   private encryptionKey: VaulteaCryptoKey;

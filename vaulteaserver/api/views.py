@@ -6,12 +6,14 @@ from api.models import User
 from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from rest_framework.permissions import AllowAny
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from api.serializers import LoginFormSerializer, SignUpFormSerializer
+from api.user_service import UserService
 import json
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
+@csrf_exempt
 def sign_up(request):
   serializer = SignUpFormSerializer(data=json.loads(request.body))
   if serializer.is_valid():
@@ -32,11 +34,23 @@ def user_login(request):
   if serializer.is_valid():
     data = serializer.data
     authenticated_user = authenticate(request, username=data['username'], password=data['password'])
-    print(authenticated_user)
     if authenticated_user:
       login(request, authenticated_user)
-      return Response(None, status=status.HTTP_200_OK)
+      return JsonResponse({"id": authenticated_user.id,
+                          "username": authenticated_user.username,
+                          },
+                          status=status.HTTP_200_OK)
     else:
       return Response({'msg': 'Invalid login'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
   else:
     return Response({'msg': 'Invalid form'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+@ensure_csrf_cookie
+def get_logged_in_user(request):
+  if request.user.is_authenticated:
+    user_service = UserService()
+    return JsonResponse(user_service.get_user_info(request.user), status=status.HTTP_200_OK)
+  else:
+    return Response({'msg': 'Not authenticated'}, status=status.HTTP_403_FORBIDDEN)
+  

@@ -24,6 +24,7 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
+    this.authenticationService.logout();
     this.form = this.formBuilder.group({
       password: ["", Validators.required],
       username: ["", Validators.required],

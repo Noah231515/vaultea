@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
+import Cookies from "js-cookie";
 import { User } from "../shared/models/user.model";
 
 
@@ -37,6 +38,8 @@ export class AuthenticationService {
 
   public logout(): void {
     // TODO: Remove crsftoken
+    // window.Cookies.remove("csrftoken");
+    // window.Cookies.remove("sessionid");
     this.user = undefined;
     this.updateIsLoggedIn();
   }

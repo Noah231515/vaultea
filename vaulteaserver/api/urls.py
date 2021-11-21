@@ -6,5 +6,4 @@ urlpatterns = [
     #url(r'^api/tutorials/(?P<pk>[0-9]+)$', views.tutorial_detail),
     url(r'^api/signup', views.sign_up),
     url(r'^api/login', views.user_login),
-    url(r'^api/loggedInUser', views.get_logged_in_user)
 ]

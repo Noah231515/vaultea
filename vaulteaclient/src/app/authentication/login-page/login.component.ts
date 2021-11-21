@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 
 import { ButtonInterface } from "../../ui-kit";
 import { AuthenticationService } from "../authentication.service";
+import { User } from '../../shared/models/user.model';
 
 @Component({
   selector: "vaultea-login",
@@ -42,7 +43,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     await this.cryptoService.generateKeys(this.form);
 
     this.form.get("password")?.setValue(await this.cryptoService.hashPassword(this.form));
-    this.authenticationService.login(this.form.getRawValue()).subscribe(user => {
+    this.authenticationService.login(this.form.getRawValue()).subscribe((user: User) => {
       this.authenticationService.setUser(user);
       this.router.navigate(["/vault"]);
     });

@@ -2,10 +2,10 @@ import { BaseComponent, CryptoService, UserService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { User } from "@shared";
 
 import { ButtonInterface } from "../../ui-kit";
 import { AuthenticationService } from "../authentication.service";
-import { User } from '../../shared/models/user.model';
 
 @Component({
   selector: "vaultea-login",

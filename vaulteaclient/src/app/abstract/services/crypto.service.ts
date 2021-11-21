@@ -14,6 +14,6 @@ export abstract class CryptoService {
   public abstract decryptData(key: VaulteaCryptoKey, data: ArrayBuffer | string): Promise<string>;
   public abstract encryptObject(object: any, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any>;
   public abstract decryptObject(object: any, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any>;
-  public abstract hashPassword(form: FormGroup): Promise<string>;
+  public abstract hashPassword(password: string): Promise<string>;
   public abstract encryptEncryptionKey(form: FormGroup): Promise<string>;
 }

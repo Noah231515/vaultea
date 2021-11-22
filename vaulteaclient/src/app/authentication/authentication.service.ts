@@ -2,9 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
-import Cookies from "js-cookie";
 import { User } from "../shared/models/user.model";
-
 
 @Injectable({
   providedIn: "root"
@@ -32,21 +30,16 @@ export class AuthenticationService {
   }
 
   public isLoggedIn(): boolean {
-    const csrfToken = true;
-    return !!(this.user && csrfToken);
+    return this.isLoggedInBehaviorSubject.getValue();
   }
 
   public logout(): void {
-    // TODO: Remove crsftoken
-    // window.Cookies.remove("csrftoken");
-    // window.Cookies.remove("sessionid");
     this.user = undefined;
     this.updateIsLoggedIn();
   }
 
   private updateIsLoggedIn(): void {
-    const crsfToken = true;
-    this.isLoggedInBehaviorSubject.next(!!(this.user && crsfToken));
+    this.isLoggedInBehaviorSubject.next(!!this.user && !!this.user?.accessToken);
   }
 
   private getLoggedInUser(): Observable<User> {

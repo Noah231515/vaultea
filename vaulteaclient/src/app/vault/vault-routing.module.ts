@@ -1,7 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { AuthGuard } from "../shared/guards/auth.guard";
+import { AuthGuard } from "@shared";
+
 import { DrawerComponent } from "./drawer/drawer.component";
 import { VaultComponent } from "./vault/vault.component";
 

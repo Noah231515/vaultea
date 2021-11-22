@@ -2,6 +2,7 @@ import { BaseComponent, CryptoService, UserService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { User } from "@shared";
 
 import { ButtonInterface } from "../../ui-kit";
 import { AuthenticationService } from "../authentication.service";
@@ -27,7 +28,6 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.authenticationService.logout();
     this.form = this.formBuilder.group({
       username: ["", [Validators.required]],
       password: ["", Validators.required],
@@ -41,8 +41,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
   public async submit(): Promise<void> {
     await this.cryptoService.generateKeys(this.form);
 
-    this.form.get("password")?.setValue(await this.cryptoService.hashPassword(this.form));
-    this.authenticationService.login(this.form.getRawValue()).subscribe(user => {
+    const rawData = Object.assign({}, this.form.getRawValue());
+    rawData.password = await this.cryptoService.hashPassword(rawData.password);
+
+    this.authenticationService.login(rawData).subscribe((user: User) => {
       this.authenticationService.setUser(user);
       this.router.navigate(["/vault"]);
     });

@@ -5,10 +5,6 @@
     "outDir": "./out-tsc/app",
     "types": ["node"],
     "typeRoots": ["node_modules/@types"],
-    "paths": {
-      "@abstract": ["src/app/abstract/index.ts"],
-      "@ui-kit": ["src/app/ui-kit/index.ts"],
-    }
   },
   "files": [
     "src/main.ts",

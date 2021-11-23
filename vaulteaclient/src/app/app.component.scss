@@ -3,9 +3,14 @@
   padding: 24px;
 }
 
+.toolbar {
+  background-color: white;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)!important;
+}
+
 .toolbar-item {
   width: 32px;
   height: 32px;
   font-size: 32px;
-  color: black;
+  color: green;
 }

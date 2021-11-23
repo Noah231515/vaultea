@@ -1,21 +1,20 @@
 <div fxLayout="column">
   <div fxFlex>
-    <mat-toolbar fxFlex color="primary">
+    <mat-toolbar fxFlex class="toolbar">
       <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
-        <div *ngIf="isLoggedIn" fxFlex fxLayoutGap="8px">
+        <div *ngIf="isLoggedIn" fxFlex fxLayoutGap="24px" fxLayoutAlign=" center">
           <img class="logo-minimal" src="../assets/logo-minimal.svg">
-          <mat-icon class="toolbar-item">add</mat-icon>
           <mat-icon class="toolbar-item">search</mat-icon>
         </div>
-        <div *ngIf="isLoggedIn" fxFlex fxLayoutGap="8px" fxLayoutAlign="end">
-          <span>Tools</span>
-          <span>Options</span>
-          <span>User Stuff</span>
+        <div *ngIf="isLoggedIn" fxFlex fxLayoutGap="24px" fxLayoutAlign="end center">
+          <mat-icon class="toolbar-item">build</mat-icon>
+          <mat-icon class="toolbar-item">settings</mat-icon>
+          <mat-icon class="toolbar-item">notifications</mat-icon>
         </div>
       </div>
     </mat-toolbar>
   </div>
-  <div [@routeAnimations]="prepareRoute(outlet)" class="global-foreground">
+  <div fxFlex [@routeAnimations]="prepareRoute(outlet)" class="global-foreground">
     <router-outlet #outlet="outlet"></router-outlet>
   </div>
 </div>

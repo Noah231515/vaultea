@@ -35,4 +35,12 @@ export class ButtonsConstant {
     type: "button",
     ariaLabel: "Cancel"
   };
+
+  public static readonly ADD_BUTTON: ButtonInterface = {
+    buttonTypeClass: "mat-button",
+    color: "primary",
+    text: "Add",
+    type: "button",
+    ariaLabel: "Add"
+  };
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { BaseComponent } from "@abstract";
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -6,10 +7,8 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
   styleUrls: ["./drawer.component.scss"],
   templateUrl: "./drawer.component.html",
 })
-export class DrawerComponent implements OnInit {
-  constructor() { }
-
-  ngOnInit(): void {
+export class DrawerComponent extends BaseComponent {
+  constructor() { 
+    super();
   }
-
 }

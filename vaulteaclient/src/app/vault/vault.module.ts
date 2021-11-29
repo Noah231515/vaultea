@@ -7,6 +7,7 @@ import { UiKitModule } from "../ui-kit/ui-kit.module";
 import { VaultRoutingModule } from "./vault-routing.module";
 import { VaultComponent } from "./vault/vault.component";
 import { DrawerComponent } from "./drawer/drawer.component";
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { DrawerComponent } from "./drawer/drawer.component";
   ],
   imports: [
     CommonModule,
+    MatDividerModule,
     MatGridListModule,
     MatSidenavModule,
     UiKitModule,

@@ -8,6 +8,9 @@ import { VaultRoutingModule } from "./vault-routing.module";
 import { VaultComponent } from "./vault/vault.component";
 import { DrawerComponent } from "./drawer/drawer.component";
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -16,9 +19,12 @@ import { MatDividerModule } from '@angular/material/divider';
   ],
   imports: [
     CommonModule,
+    MatButtonModule,
     MatDividerModule,
     MatGridListModule,
+    MatIconModule,
     MatSidenavModule,
+    MatTreeModule,
     UiKitModule,
     VaultRoutingModule,
   ]

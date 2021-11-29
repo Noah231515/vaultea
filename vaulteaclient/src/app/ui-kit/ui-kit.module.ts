@@ -39,11 +39,11 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     CommonModule,
     FlexLayoutModule,
     MatButtonModule,
+    MatCardModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatCardModule,
   ]
 })
 export class UiKitModule { }

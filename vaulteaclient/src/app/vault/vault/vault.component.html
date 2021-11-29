@@ -1,19 +1,28 @@
-<div fxFlex fxLayout="column">
+<div class="m-3" fxFlex fxLayout="column">
   <div fxFlex class="p-3" fxLayout="row" fxLayoutAlign="space-between">
     <span>breadcrumb</span>
     <span>view options (list/grid)</span>
   </div>
-  <mat-grid-list fxFlex cols="8">
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-    <mat-grid-tile class="card-size"><vaultea-card></vaultea-card></mat-grid-tile>
-  </mat-grid-list>
+  <div fxLayoutAlign="space-between">
+    <h1>Folders</h1>
+    <span>Sort</span>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="m-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
+    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="24px">
+      <vaultea-card></vaultea-card>
+      <vaultea-card></vaultea-card>
+      <vaultea-card></vaultea-card>
+      <vaultea-card></vaultea-card>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="24px">
+      <vaultea-card></vaultea-card>
+      <vaultea-card></vaultea-card>
+      <vaultea-card></vaultea-card>
+      <vaultea-card></vaultea-card>
+    </div>
+    <div fxLayout="row" fxLayoutGap="24px">
+      <vaultea-card></vaultea-card>
+    </div>
+  </div>
 </div>

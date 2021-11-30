@@ -41,6 +41,7 @@ const TREE_DATA: FoodNode[] = [
 export class DrawerComponent extends BaseComponent {
   public treeControl = new NestedTreeControl<FoodNode>(node => node.children);
   public dataSource = new MatTreeNestedDataSource<FoodNode>();
+  public opened = true;
   
   constructor() {
     super();
@@ -48,5 +49,7 @@ export class DrawerComponent extends BaseComponent {
   }
 
   public hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
-  
+  public toggleSidenav(): void {
+    this.opened = !this.opened;
+  }
 }

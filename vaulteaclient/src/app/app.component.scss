@@ -1,11 +1,19 @@
+@import "../styles.scss";
+
 .global-foreground {
   border-radius: 4px;
   padding: 24px;
+  height: 100%;
+}
+
+.toolbar {
+  background-color: white;
+  box-shadow: 0px, 3px;
 }
 
 .toolbar-item {
   width: 32px;
   height: 32px;
   font-size: 32px;
-  color: black;
+  color: $secondary-dark-green;
 }

@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 @import "~mdb-ui-kit/css/mdb.min.css";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Cabin; }
 
 .logo-full {
   width: 256px;
@@ -17,3 +18,50 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body {
   background-color: lightgray;
 }
+
+$primary-green: #6FCFB8;
+$primary-yellow: #FFBD12;
+$error-red: #FF5B5B;
+$success-blue: #5E65CE;
+$primary-grey: #C4C4C4;
+$primary-black: #52616B;
+
+$secondary-dark-green: #0ABA90;
+$active-light-green: #0ABA90;
+$hover-grey: #000000;
+
+$primary-palette: (
+  200: $secondary-dark-green,
+  contrast: (
+    200: rgba(black, 0.87)
+  )
+);
+
+$secondary-palette: (
+  200: $primary-yellow,
+  contrast: (
+    200: rgba(black, 0.87)
+  )
+);
+
+$warn-palette: (
+  200: $error-red,
+  contrast: (
+    200: rgba(black, 0.87)
+  )
+);
+
+$primary: mat.define-palette($primary-palette, 200);
+$secondary: mat.define-palette($secondary-palette, 200);
+$warn: mat.define-palette($warn-palette, 200);
+
+
+$vaultea-theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $secondary,
+    warn: $warn
+  )
+));
+
+@include mat.all-component-themes($vaultea-theme);

@@ -12,11 +12,13 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
+import { AddFolderComponent } from './drawer/add-folder/add-folder.component';
 
 @NgModule({
   declarations: [
     VaultComponent,
     DrawerComponent,
+    AddFolderComponent,
   ],
   imports: [
     CommonModule,

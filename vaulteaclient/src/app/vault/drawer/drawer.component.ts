@@ -3,6 +3,7 @@ import { BaseComponent } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { MatDialog } from "@angular/material/dialog";
+import { AddFolderComponent } from './add-folder/add-folder.component';
 
 /**
  * Food data with nested structure.
@@ -58,6 +59,6 @@ export class DrawerComponent extends BaseComponent {
   }
 
   public openAddFolderDialog(): void {
-
+    this.dialog.open(AddFolderComponent);
   }
 }

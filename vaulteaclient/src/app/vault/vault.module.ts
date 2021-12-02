@@ -11,6 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MatButtonModule } from "@angular/material/button";
   imports: [
     CommonModule,
     MatButtonModule,
+    MatDialogModule,
     MatDividerModule,
     MatGridListModule,
     MatIconModule,

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { BaseComponent } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { MatDialog } from "@angular/material/dialog";
 
 /**
  * Food data with nested structure.
@@ -43,13 +44,20 @@ export class DrawerComponent extends BaseComponent {
   public dataSource = new MatTreeNestedDataSource<FoodNode>();
   public opened = true;
   
-  constructor() {
+  constructor(
+    private dialog: MatDialog
+  ) {
     super();
     this.dataSource.data = TREE_DATA;
   }
 
   public hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
+
   public toggleSidenav(): void {
     this.opened = !this.opened;
+  }
+
+  public openAddFolderDialog(): void {
+
   }
 }

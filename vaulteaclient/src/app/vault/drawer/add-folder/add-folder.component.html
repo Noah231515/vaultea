@@ -3,6 +3,10 @@
   [formTemplate]="formTemplate"
   [primaryButton]="BUTTONS_CONSTANT.SUBMIT_BUTTON"
   [secondaryButton]="BUTTONS_CONSTANT.CANCEL_BUTTON"
+  [formHeader]="{
+    headerText: 'Create a Folder',
+    hLevel: 'h2'
+  }"
   (primaryButtonClicked)="submit()"
   (secondaryButtonClicked)="cancel()"
 ></vaultea-form>

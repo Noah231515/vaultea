@@ -1,5 +1,9 @@
 <form focusInvalidInput [formGroup]="form" (ngSubmit)="emitPrimaryButtonClicked()">
   <div fxFlex fxLayout="column" fxLayoutGap="8px">
+    <vaultea-form-header
+      *ngIf="formHeader"
+      [formHeader]="formHeader"
+    ></vaultea-form-header>
     <ng-container [ngTemplateOutlet]="formTemplate"></ng-container> 
     <vaultea-form-footer
       [primaryButton]="primaryButton"

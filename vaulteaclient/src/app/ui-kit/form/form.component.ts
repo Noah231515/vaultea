@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, TemplateRef } from "@angular/co
 import { FormGroup } from "@angular/forms";
 
 import { ButtonInterface } from "..";
+import { FormHeader } from "../form-header/form-header.interface";
 
 @Component({
   selector: "vaultea-form",
@@ -13,6 +14,7 @@ export class FormComponent {
   @Input() public secondaryButton: ButtonInterface;
   @Input() public formTemplate: TemplateRef<any>;
   @Input() public form: FormGroup;
+  @Input() public formHeader: FormHeader;
 
   @Output() public primaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() public secondaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();

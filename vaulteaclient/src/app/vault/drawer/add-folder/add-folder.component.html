@@ -1,13 +1,22 @@
 <vaultea-form
   [form]="form"
   [formTemplate]="formTemplate"
-  [primaryButton]="BUTTONS_CONSTANT.LOGIN_BUTTON"
-  [secondaryButton]="BUTTONS_CONSTANT.SIGNUP_BUTTON"
+  [primaryButton]="BUTTONS_CONSTANT.SUBMIT_BUTTON"
+  [secondaryButton]="BUTTONS_CONSTANT.CANCEL_BUTTON"
   (primaryButtonClicked)="submit()"
   (secondaryButtonClicked)="cancel()"
 ></vaultea-form>
 
 <ng-template #formTemplate>
-  Hello World
+  <div fxFlex fxLayout="column" fxLayoutGap="8px">
+    <vaultea-input
+      label="Name"
+      [formControl]="form.get('name')"
+    ></vaultea-input>
+    <vaultea-input
+      label="Description"
+      [formControl]="form.get('description')"
+    ></vaultea-input>
+  </div>
 </ng-template>
 

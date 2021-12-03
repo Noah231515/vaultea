@@ -1,6 +1,6 @@
 import { BaseComponent } from "@abstract";
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: "vaultea-add-folder",
@@ -19,7 +19,8 @@ export class AddFolderComponent extends BaseComponent implements OnInit {
 
   private initForm(): void {
     this.form = this.formBuilder.group({
-
+      name: ["", Validators.required],
+      description: [""]
     });
   }
 

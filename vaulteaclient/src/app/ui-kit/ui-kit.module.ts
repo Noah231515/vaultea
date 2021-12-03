@@ -15,6 +15,7 @@ import { FormFooterComponent } from "./form-footer/form-footer.component";
 import { FormComponent } from "./form/form.component";
 import { InputComponent } from "./input/input.component";
 import { LogoFullComponent } from "./logo-full/logo-full.component";
+import { FormHeaderComponent } from "./form-header/form-header.component";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     FormFooterComponent,
     InputComponent,
     LogoFullComponent,
+    FormHeaderComponent,
   ],
   exports: [
     ButtonComponent,

@@ -13,6 +13,7 @@ export class InputComponent implements OnInit {
     @Input() public placeholder: string;
     @Input() public sensitiveDataInput: boolean = false;
     @Input() public flexAmount: string = "100%";
+    @Input() public maxLength: number = 100;
 
     public hideSensitiveData: boolean;
 

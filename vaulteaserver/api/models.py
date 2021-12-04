@@ -10,7 +10,7 @@ class User(AbstractUser):
 
 class Vault(models.Model):
     user_id = models.ForeignKey(user, on_delete=models.RESTRICT, blank=False, null=False)
-    
+
 class Folder(models.Model):
     vault_id = models.ForeignKey(Vault, on_delete=models.RESTRICT, blank=False, null=False)
     name = models.CharField(max_length=100, blank=False, null=False)
@@ -26,4 +26,3 @@ class Password(models.Model):
     name = models.CharField(max_length=100, blank=False, null=False)
     password = models.CharField(max_length=512, blank=False, null=False)
     expire_date = models.DateTimeField(blank=True, null=True)
-    

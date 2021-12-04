@@ -1,22 +1,20 @@
-from django.http.response import JsonResponse
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework import status, views
-from rest_framework.response import Response
-from api.models import User, Vault
-from rest_framework.authtoken.models import Token
-from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
-from rest_framework.permissions import AllowAny
-from django.contrib.auth import authenticate, login, logout
-from api.serializers import auth_serializer
-from api.user_service import UserService
-from rest_framework_simplejwt.tokens import RefreshToken
 import json
+from django.http.response import JsonResponse
+from django.contrib.auth import authenticate
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.tokens import RefreshToken
+from api.models import User, Vault
+from api.user_service import UserService
+from api.serializers.auth_serializer import SignUpFormSerializer, LoginFormSerializer
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def sign_up(request):
-  serializer = auth_serializer.SignUpFormSerializer(data=json.loads(request.body))
-  if serializer.is_valid():
+  serializer = SignUpFormSerializer(data=json.loads(request.body))
+  if serializer.is_valid(raise_exception=True):
     data = serializer.data
 
     new_user = User.objects.create(username=data['username'], is_active=True)
@@ -35,8 +33,8 @@ def sign_up(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
-  serializer = auth_serializer.LoginFormSerializer(data=json.loads(request.body))  
-  if serializer.is_valid():
+  serializer = LoginFormSerializer(data=json.loads(request.body))  
+  if serializer.is_valid(raise_exception=True):
     data = serializer.data
     authenticated_user = authenticate(request, username=data['username'], password=data['password'])
     if authenticated_user:
@@ -45,5 +43,3 @@ def login(request):
       return JsonResponse(user_service.get_user_info(authenticated_user, refreshToken), status=status.HTTP_200_OK)
     else:
       return Response({'msg': 'Invalid login'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-  else:
-    return Response({'msg': 'Invalid form'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

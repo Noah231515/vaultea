@@ -1,9 +1,13 @@
 
+import json
 from rest_framework.decorators import api_view
-
+from api.serializers.folder_serializer import FolderSerializer
 
 @api_view(['POST'])
 def create(request):
-  #serializer = SignUpFormSerializer(data=json.loads(request.body))
-  pass
-  
+  serializer = FolderSerializer(data=json.loads(request.body))
+  if serializer.is_valid(raise_exception=True):
+    serializer.create()
+
+  return serializer.data()
+

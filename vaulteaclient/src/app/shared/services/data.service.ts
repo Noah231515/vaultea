@@ -1,7 +1,7 @@
 import { CryptoService, UserService } from "@abstract";
 import { Injectable } from "@angular/core";
-import { FormGroup } from '@angular/forms';
-import { AuthenticationService } from '../../authentication/authentication.service';
+import { FormGroup } from "@angular/forms";
+import { AuthenticationService } from "../../authentication/authentication.service";
 
 @Injectable({
   providedIn: "root"

@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AddFolderComponent } from './add-folder.component';
+import { AddFolderComponent } from "./add-folder.component";
 
-describe('AddFolderComponent', () => {
+describe("AddFolderComponent", () => {
   let component: AddFolderComponent;
   let fixture: ComponentFixture<AddFolderComponent>;
 
@@ -10,7 +10,7 @@ describe('AddFolderComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ AddFolderComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('AddFolderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

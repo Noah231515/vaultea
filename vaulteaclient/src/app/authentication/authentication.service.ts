@@ -42,7 +42,7 @@ export class AuthenticationService {
     this.isLoggedInBehaviorSubject.next(!!this.user && !!this.user?.accessToken);
   }
 
-  private getLoggedInUser(): Observable<User> {
-    return this.httpClient.get<User>("api/loggedInUser");
+  public getLoggedInUser(): User | undefined {
+    return this.user;
   }
 }

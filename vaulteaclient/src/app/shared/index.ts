@@ -7,3 +7,6 @@ export * from "./models/user.model";
 
 // Services
 export * from "./services/folder.service";
+
+// Interceptors
+export * from "./interceptors/auth.interceptor";

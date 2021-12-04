@@ -2,6 +2,7 @@ import { BaseComponent, CryptoService, UserService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FolderService } from "@shared";
+import { AuthenticationService } from '../../../authentication/authentication.service';
 
 @Component({
   selector: "vaultea-add-folder",
@@ -15,7 +16,8 @@ export class AddFolderComponent extends BaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private folderService: FolderService,
     private cryptoService: CryptoService,
-    private userService: UserService
+    private userService: UserService,
+    private authenticationService: AuthenticationService
   ) {
     super(); 
   }
@@ -26,13 +28,14 @@ export class AddFolderComponent extends BaseComponent implements OnInit {
 
   private initForm(): void {
     this.form = this.formBuilder.group({
+      vaultId: [this.authenticationService.getLoggedInUser()?.vaultId],
       name: ["", Validators.required],
       description: [""]
     });
   }
 
   public async submit(): Promise<void> {
-    const encryptedData = await this.cryptoService.encryptObject(this.form.getRawValue(), this.userService.getEncryptionKey());
+    const encryptedData = await this.cryptoService.encryptObject(this.form.getRawValue(), this.userService.getEncryptionKey(), ["vaultId"]);
     this.folderService.create(encryptedData).subscribe(createdFolder => {
       console.log(createdFolder);
     });

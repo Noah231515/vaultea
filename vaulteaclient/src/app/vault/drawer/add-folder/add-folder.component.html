@@ -1,0 +1,27 @@
+<vaultea-form
+  [form]="form"
+  [formTemplate]="formTemplate"
+  [primaryButton]="BUTTONS_CONSTANT.SUBMIT_BUTTON"
+  [secondaryButton]="BUTTONS_CONSTANT.CANCEL_BUTTON"
+  [formHeader]="{
+    headerText: 'Create a Folder',
+    hLevel: 'h2'
+  }"
+  (primaryButtonClicked)="submit()"
+  (secondaryButtonClicked)="cancel()"
+></vaultea-form>
+
+<ng-template #formTemplate>
+  <div fxFlex fxLayout="column" fxLayoutGap="8px">
+    <vaultea-input
+      label="Name"
+      [formControl]="form.get('name')"
+      [required]="true"
+    ></vaultea-input>
+    <vaultea-input
+      label="Description"
+      [formControl]="form.get('description')"
+    ></vaultea-input>
+  </div>
+</ng-template>
+

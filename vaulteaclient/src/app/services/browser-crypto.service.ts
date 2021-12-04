@@ -97,6 +97,12 @@ export class BrowserCryptoService implements CryptoService {
         result[key] = encryptedData.dataString;
       }
     }
+
+    if (keysToOmit) {
+      for (const key of keysToOmit) {
+        result[key] = object[key];
+      }
+    }
     return result;
   }
 

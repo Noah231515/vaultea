@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { BaseComponent } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { MatDialog } from "@angular/material/dialog";
+import { AddFolderComponent } from "./add-folder/add-folder.component";
 
 /**
  * Food data with nested structure.
@@ -14,19 +16,19 @@ interface FoodNode {
 
 const TREE_DATA: FoodNode[] = [
   {
-    name: 'Fruit',
-    children: [{name: 'Apple'}, {name: 'Banana'}, {name: 'Fruit loops'}],
+    name: "Fruit",
+    children: [{name: "Apple"}, {name: "Banana"}, {name: "Fruit loops"}],
   },
   {
-    name: 'Vegetables',
+    name: "Vegetables",
     children: [
       {
-        name: 'Green',
-        children: [{name: 'Broccoli'}, {name: 'Brussels sprouts'}],
+        name: "Green",
+        children: [{name: "Broccoli"}, {name: "Brussels sprouts"}],
       },
       {
-        name: 'Orange',
-        children: [{name: 'Pumpkins'}, {name: 'Carrots'}],
+        name: "Orange",
+        children: [{name: "Pumpkins"}, {name: "Carrots"}],
       },
     ],
   },
@@ -43,13 +45,20 @@ export class DrawerComponent extends BaseComponent {
   public dataSource = new MatTreeNestedDataSource<FoodNode>();
   public opened = true;
   
-  constructor() {
+  constructor(
+    private dialog: MatDialog
+  ) {
     super();
     this.dataSource.data = TREE_DATA;
   }
 
   public hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
+
   public toggleSidenav(): void {
     this.opened = !this.opened;
+  }
+
+  public openAddFolderDialog(): void {
+    this.dialog.open(AddFolderComponent);
   }
 }

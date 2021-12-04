@@ -1,10 +1,11 @@
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AuthInterceptor } from "@shared";
 
 import { CryptoService } from "./abstract/services/crypto.service";
 import { UserService } from "./abstract/services/user.service";
@@ -30,6 +31,7 @@ import { BrowserCryptoService } from "./services/browser-crypto.service";
   providers: [
     UserService,
     { provide: CryptoService, useClass: BrowserCryptoService },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

@@ -7,16 +7,15 @@ from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate, login, logout
-from api.serializers import LoginFormSerializer, SignUpFormSerializer
+from api.serializers import auth_serializer
 from api.user_service import UserService
 from rest_framework_simplejwt.tokens import RefreshToken
 import json
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
-@csrf_exempt
 def sign_up(request):
-  serializer = SignUpFormSerializer(data=json.loads(request.body))
+  serializer = auth_serializer.SignUpFormSerializer(data=json.loads(request.body))
   if serializer.is_valid():
     data = serializer.data
 
@@ -35,8 +34,8 @@ def sign_up(request):
   
 @api_view(['POST'])
 @permission_classes([AllowAny])
-def user_login(request):
-  serializer = LoginFormSerializer(data=json.loads(request.body))  
+def login(request):
+  serializer = auth_serializer.LoginFormSerializer(data=json.loads(request.body))  
   if serializer.is_valid():
     data = serializer.data
     authenticated_user = authenticate(request, username=data['username'], password=data['password'])

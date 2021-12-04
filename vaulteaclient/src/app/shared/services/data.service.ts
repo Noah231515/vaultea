@@ -19,6 +19,24 @@ export class DataService {
     if (provideVaultId) {
       encryptedData["vaultId"] = this.authenticationService.getLoggedInUser()?.vaultId;
     }
+    this.objectKeysToSnakeCase(encryptedData);
     return encryptedData;
+  }
+  
+  public camelCaseToSnakeCase(string: string): string {
+    if (string.match(/[A-Z]/g)) {
+      return string.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+    }
+    return string;
+  }
+
+  public objectKeysToSnakeCase(object: any): void {
+    Object.keys(object).forEach(key => {
+      const camelCase = this.camelCaseToSnakeCase(key);
+      if (camelCase != key) {
+        object[this.camelCaseToSnakeCase(key)] = object[key];
+        delete object[key];
+      }
+    });
   }
 }

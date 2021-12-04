@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { UiKitModule } from "../ui-kit.module";
 
 import { FormHeaderComponent } from "./form-header.component";
 
@@ -8,7 +9,8 @@ describe("FormHeaderComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormHeaderComponent ]
+      declarations: [ FormHeaderComponent ],
+      imports: [ UiKitModule]
     })
       .compileComponents();
   });
@@ -16,6 +18,10 @@ describe("FormHeaderComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FormHeaderComponent);
     component = fixture.componentInstance;
+    component.formHeader = {
+      hLevel: "h2",
+      headerText: "Hello World"
+    }
     fixture.detectChanges();
   });
 

@@ -1,8 +1,7 @@
-import { BaseComponent, CryptoService, UserService } from "@abstract";
+import { BaseComponent } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DataService, FolderService } from "@shared";
-import { AuthenticationService } from "../../../authentication/authentication.service";
 
 @Component({
   selector: "vaultea-add-folder",
@@ -34,11 +33,10 @@ export class AddFolderComponent extends BaseComponent implements OnInit {
   public async submit(): Promise<void> {
     const preparedData = await this.dataService.prepareForSubmit(this.form.getRawValue(), true);
     this.folderService.create(preparedData).subscribe(createdFolder => {
-      console.log(createdFolder);
     });
   }
 
   public cancel(): void {
-    
+    // Close drawer
   }
 }

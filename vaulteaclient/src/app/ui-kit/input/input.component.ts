@@ -11,9 +11,12 @@ export class InputComponent implements OnInit {
     @Input() public formControl: any;
     @Input() public label: string;
     @Input() public placeholder: string;
-    @Input() public sensitiveDataInput: boolean = false;
     @Input() public flexAmount: string = "100%";
+
     @Input() public maxLength: number = 100;
+
+    @Input() public sensitiveDataInput: boolean = false;
+    @Input() public required: boolean = false;
 
     public hideSensitiveData: boolean;
 

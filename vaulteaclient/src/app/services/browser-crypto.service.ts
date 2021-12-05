@@ -97,12 +97,8 @@ export class BrowserCryptoService implements CryptoService {
         result[key] = encryptedData.dataString;
       }
     }
+    this.addOmittedKeysToResult(object, result, keysToOmit);
 
-    if (keysToOmit) {
-      for (const key of keysToOmit) {
-        result[key] = object[key];
-      }
-    }
     return result;
   }
 
@@ -118,7 +114,17 @@ export class BrowserCryptoService implements CryptoService {
         result[key] = decryptedData;
       }
     }
+    this.addOmittedKeysToResult(object, result, keysToOmit);
+
     return result;
+  }
+
+  private addOmittedKeysToResult(object: any, result: any, keysToOmit?: string[]): void {
+    if (keysToOmit) {
+      for (const key of keysToOmit) {
+        result[key] = object[key];
+      }
+    }
   }
 
   public async generateKeys(form: FormGroup): Promise<void> {

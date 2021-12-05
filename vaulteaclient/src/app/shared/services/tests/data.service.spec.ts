@@ -1,10 +1,9 @@
-import { UserService, CryptoService } from '@abstract';
+import { UserService, CryptoService } from "@abstract";
 import { TestBed } from "@angular/core/testing";
-import { BrowserModule } from "@angular/platform-browser";
-import { DataService } from '@shared';
-import { AuthenticationService } from '../../../authentication/authentication.service';
-import { BrowserCryptoService } from '../../../services/browser-crypto.service';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { DataService } from "@shared";
+import { AuthenticationService } from "../../../authentication/authentication.service";
+import { BrowserCryptoService } from "../../../services/browser-crypto.service";
+import { HttpClient, HttpHandler } from "@angular/common/http";
 
 describe("DataService", () => {
   let dataService: DataService;

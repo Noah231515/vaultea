@@ -1,5 +1,4 @@
 import { TestBed } from "@angular/core/testing";
-import { FormBuilder, FormGroup } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 
 import { CryptoService } from "../abstract/services/crypto.service";
@@ -10,8 +9,6 @@ import { BrowserCryptoService } from "./browser-crypto.service";
 
 describe("BrowserCryptoService", () => {
   let cryptoService: CryptoService;
-  let formBuilder: FormBuilder;
-  let form: FormGroup;
   let encryptionKey: VaulteaCryptoKey;
 
   beforeEach(async () => {
@@ -20,18 +17,11 @@ describe("BrowserCryptoService", () => {
         BrowserModule
       ],
       providers: [
-        FormBuilder,
         { provide: UserService },
         { provide: CryptoService, useClass: BrowserCryptoService },
       ] 
     });
-    formBuilder = TestBed.inject(FormBuilder);
     cryptoService = TestBed.inject(BrowserCryptoService);
-
-    form = formBuilder.group({
-      username: "test user",
-      password: "testPassword!@#%457~+939"
-    });
     encryptionKey = await cryptoService.generateEncryptionKey();
   });
 
@@ -81,6 +71,18 @@ describe("BrowserCryptoService", () => {
     const encryptedObject = await cryptoService.encryptObject(object, encryptionKey);
     const decryptedObject = await cryptoService.decryptObject(encryptedObject, encryptionKey);
 
+    expect(object).toEqual(decryptedObject);
+  });
+
+  it("should decrypt object correctly with keysOmitted provided", async () => {
+    const object = {
+      "catPaws": "2",
+      "purrTime": new Date().toString(),
+      "catWeight": "30lbs"
+    };
+    const encryptedObject = await cryptoService.encryptObject(object, encryptionKey, ["purrTime"]);
+    expect(object.purrTime).toEqual(encryptedObject.purrTime);
+    const decryptedObject = await cryptoService.decryptObject(encryptedObject, encryptionKey, ["purrTime"]);
     expect(object).toEqual(decryptedObject);
   });
 });

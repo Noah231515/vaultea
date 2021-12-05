@@ -9,13 +9,13 @@ import { AuthenticationService } from "../../authentication/authentication.servi
 export class DataService {
 
   constructor(
-    private cryptoService: CryptoBusinessLogicService,
+    private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
     private userService: UserService,
     private authenticationService: AuthenticationService
   ) { }
 
   public async prepareForSubmit(object: any, provideVaultId: boolean = false, keysToOmit: string[] = []): Promise<any> {
-    const encryptedData = await this.cryptoService.encryptObject(object, this.userService.getEncryptionKey(), keysToOmit);
+    const encryptedData = await this.browserCryptoBusinessLogicService.encryptObject(object, this.userService.getEncryptionKey(), keysToOmit);
     if (provideVaultId) {
       encryptedData["vaultId"] = this.authenticationService.getLoggedInUser()?.vaultId;
     }

@@ -4,7 +4,7 @@ import { TestBed } from "@angular/core/testing";
 import { DataService } from "@shared";
 
 import { AuthenticationService } from "../../../authentication/authentication.service";
-import { BrowserCryptoService } from "../../../services/browser-crypto.service";
+import { BrowserCryptoBusinessLogicService } from "../browser-crypto-business-logic.service";
 import { BrowserCryptoFunctionService } from "../browser-crypto-function.service";
 
 describe("DataService", () => {
@@ -21,7 +21,7 @@ describe("DataService", () => {
         HttpClient,
         HttpHandler,
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
-        { provide: CryptoBusinessLogicService, useClass: BrowserCryptoService },
+        { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
       ] 
     });
     dataService = TestBed.inject(DataService);

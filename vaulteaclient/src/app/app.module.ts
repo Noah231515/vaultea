@@ -11,7 +11,7 @@ import { AuthInterceptor } from "@shared";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AuthenticationModule } from "./authentication/authentication.module";
-import { BrowserCryptoService } from "./services/browser-crypto.service";
+import { BrowserCryptoBusinessLogicService } from "./shared/services/browser-crypto-business-logic.service";
 import { BrowserCryptoFunctionService } from "./shared/services/browser-crypto-function.service";
 
 @NgModule({
@@ -30,7 +30,7 @@ import { BrowserCryptoFunctionService } from "./shared/services/browser-crypto-f
   ],
   providers: [
     UserService,
-    { provide: CryptoBusinessLogicService, useClass: BrowserCryptoService },
+    { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
     { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],

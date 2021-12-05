@@ -2,16 +2,16 @@ import { CryptoFunctionService } from "@abstract";
 import { TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 
-import { CryptoBusinessLogicService } from "../abstract/services/crypto-business-logic.service";
-import { UserService } from "../abstract/services/user.service";
-import { BrowserCryptoFunctionService } from "../shared/services/browser-crypto-function.service";
-import { CryptoUtil } from "../utils/crypto.util";
-import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
-import { BrowserCryptoService } from "./browser-crypto.service";
+import { CryptoBusinessLogicService } from "../../../abstract/services/crypto-business-logic.service";
+import { UserService } from "../../../abstract/services/user.service";
+import { CryptoUtil } from "../../../utils/crypto.util";
+import { VaulteaCryptoKey } from "../../../utils/vaultea-crypto-key.model";
+import { BrowserCryptoBusinessLogicService } from "../browser-crypto-business-logic.service";
+import { BrowserCryptoFunctionService } from "../browser-crypto-function.service";
 
-describe("BrowserCryptoService", () => {
+describe("BrowserCryptoBusinessLogicService", () => {
   let cryptoFunctionService: CryptoFunctionService;
-  let cryptoService: CryptoBusinessLogicService;
+  let browserCryptoBusinessLogicService: CryptoBusinessLogicService;
   let encryptionKey: VaulteaCryptoKey;
 
   beforeEach(async () => {
@@ -22,13 +22,13 @@ describe("BrowserCryptoService", () => {
       providers: [
         { provide: UserService },
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
-        { provide: CryptoBusinessLogicService, useClass: BrowserCryptoService },
+        { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
       ] 
     });
 
     cryptoFunctionService = TestBed.inject(CryptoFunctionService);
-    cryptoService = TestBed.inject(CryptoBusinessLogicService);
-    encryptionKey = await cryptoService.generateEncryptionKey();
+    browserCryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
+    encryptionKey = await browserCryptoBusinessLogicService.generateEncryptionKey();
   });
 
   it("should decrypt the encrypted string correctly", async () => {
@@ -74,8 +74,8 @@ describe("BrowserCryptoService", () => {
         }
       }
     };
-    const encryptedObject = await cryptoService.encryptObject(object, encryptionKey);
-    const decryptedObject = await cryptoService.decryptObject(encryptedObject, encryptionKey);
+    const encryptedObject = await browserCryptoBusinessLogicService.encryptObject(object, encryptionKey);
+    const decryptedObject = await browserCryptoBusinessLogicService.decryptObject(encryptedObject, encryptionKey);
 
     expect(object).toEqual(decryptedObject);
   });
@@ -86,9 +86,9 @@ describe("BrowserCryptoService", () => {
       "purrTime": new Date().toString(),
       "catWeight": "30lbs"
     };
-    const encryptedObject = await cryptoService.encryptObject(object, encryptionKey, ["purrTime"]);
+    const encryptedObject = await browserCryptoBusinessLogicService.encryptObject(object, encryptionKey, ["purrTime"]);
     expect(object.purrTime).toEqual(encryptedObject.purrTime);
-    const decryptedObject = await cryptoService.decryptObject(encryptedObject, encryptionKey, ["purrTime"]);
+    const decryptedObject = await browserCryptoBusinessLogicService.decryptObject(encryptedObject, encryptionKey, ["purrTime"]);
     expect(object).toEqual(decryptedObject);
   });
 });

@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private cryptoService: CryptoBusinessLogicService,
+    private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
     private userService: UserService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -37,11 +37,11 @@ export class SignUpComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
-    await this.cryptoService.generateKeys(this.form);
+    await this.browserCryptoBusinessLogicService.generateKeys(this.form);
     const rawData = Object.assign({}, this.form.getRawValue());
 
-    rawData.key = await this.cryptoService.encryptEncryptionKey(this.form);
-    rawData.password = await this.cryptoService.hashPassword(rawData.password);
+    rawData.key = await this.browserCryptoBusinessLogicService.encryptEncryptionKey(this.form);
+    rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(rawData.password);
     this.authenticationService.signUp(rawData).subscribe(() => {
       // stub
     });

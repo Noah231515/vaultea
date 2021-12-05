@@ -21,7 +21,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private cryptoService: CryptoBusinessLogicService,
+    private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
     private userService: UserService,
   ) { 
     super()
@@ -39,10 +39,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
-    await this.cryptoService.generateKeys(this.form);
+    await this.browserCryptoBusinessLogicService.generateKeys(this.form);
 
     const rawData = Object.assign({}, this.form.getRawValue());
-    rawData.password = await this.cryptoService.hashPassword(rawData.password);
+    rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(rawData.password);
 
     this.authenticationService.login(rawData).subscribe((user: User) => {
       this.authenticationService.setUser(user);

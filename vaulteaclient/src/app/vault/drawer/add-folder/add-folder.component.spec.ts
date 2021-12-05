@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DataService, FolderService } from "@shared";
 
 import { AuthenticationService } from "../../../authentication/authentication.service";
-import { BrowserCryptoService } from "../../../services/browser-crypto.service";
+import { BrowserCryptoBusinessLogicService } from "../../../shared/services/browser-crypto-business-logic.service";
 import { BrowserCryptoFunctionService } from "../../../shared/services/browser-crypto-function.service";
 import { VaultModule } from "../../vault.module";
 import { AddFolderComponent } from "./add-folder.component";
@@ -24,7 +24,7 @@ describe("AddFolderComponent", () => {
       ],
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
-        { provide: CryptoBusinessLogicService, useClass: BrowserCryptoService },
+        { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
         AuthenticationService,
         DataService,
         FolderService,

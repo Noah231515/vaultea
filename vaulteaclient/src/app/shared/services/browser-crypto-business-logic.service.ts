@@ -2,15 +2,15 @@ import { CryptoFunctionService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
-import { CryptoBusinessLogicService } from "../abstract/services/crypto-business-logic.service";
-import { UserService } from "../abstract/services/user.service";
-import { StretchedMasterKey } from "../utils/stretched-master-key.model";
-import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
+import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
+import { UserService } from "../../abstract/services/user.service";
+import { StretchedMasterKey } from "../../utils/stretched-master-key.model";
+import { VaulteaCryptoKey } from "../../utils/vaultea-crypto-key.model";
 
 @Injectable({
   providedIn: "root"
 })
-export class BrowserCryptoService implements CryptoBusinessLogicService {
+export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicService {
 
   public constructor(
     private cryptoFunctionService: CryptoFunctionService,

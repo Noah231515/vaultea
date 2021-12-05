@@ -1,14 +1,14 @@
 import { TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 
-import { CryptoService } from "../abstract/services/crypto.service";
+import { CryptoBusinessLogicService } from "../abstract/services/crypto-business-logic.service";
 import { UserService } from "../abstract/services/user.service";
 import { CryptoUtil } from "../utils/crypto.util";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 import { BrowserCryptoService } from "./browser-crypto.service";
 
 describe("BrowserCryptoService", () => {
-  let cryptoService: CryptoService;
+  let cryptoService: CryptoBusinessLogicService;
   let encryptionKey: VaulteaCryptoKey;
 
   beforeEach(async () => {
@@ -18,7 +18,7 @@ describe("BrowserCryptoService", () => {
       ],
       providers: [
         { provide: UserService },
-        { provide: CryptoService, useClass: BrowserCryptoService },
+        { provide: CryptoBusinessLogicService, useClass: BrowserCryptoService },
       ] 
     });
     cryptoService = TestBed.inject(BrowserCryptoService);

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
-import { CryptoService } from "../abstract/services/crypto.service";
+import { CryptoBusinessLogicService } from "../abstract/services/crypto-business-logic.service";
 import { UserService } from "../abstract/services/user.service";
 import { CryptoUtil } from "../utils/crypto.util";
 import { EncryptedData } from "../utils/ecnrypted-data.model";
@@ -11,7 +11,7 @@ import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 @Injectable({
   providedIn: "root"
 })
-export class BrowserCryptoService implements CryptoService {
+export class BrowserCryptoService implements CryptoBusinessLogicService {
 
   public constructor(
     private userService: UserService

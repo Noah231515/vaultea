@@ -4,7 +4,7 @@ import { EncryptedData } from "../../utils/ecnrypted-data.model";
 import { StretchedMasterKey } from "../../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../../utils/vaultea-crypto-key.model";
 
-export abstract class CryptoService {
+export abstract class CryptoBusinessLogicService {
   public abstract generateStretchedMasterKey(password: string, salt: string): Promise<StretchedMasterKey>;
   public abstract computePbkdf2(password: string, salt: string, iterations: number): Promise<VaulteaCryptoKey>;
   public abstract stretchMasterKey(masterKey: VaulteaCryptoKey): Promise<StretchedMasterKey>;

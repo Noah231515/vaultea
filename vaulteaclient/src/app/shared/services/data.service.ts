@@ -1,5 +1,6 @@
-import { CryptoService, UserService } from "@abstract";
+import { CryptoBusinessLogicService, UserService } from "@abstract";
 import { Injectable } from "@angular/core";
+
 import { AuthenticationService } from "../../authentication/authentication.service";
 
 @Injectable({
@@ -8,7 +9,7 @@ import { AuthenticationService } from "../../authentication/authentication.servi
 export class DataService {
 
   constructor(
-    private cryptoService: CryptoService,
+    private cryptoService: CryptoBusinessLogicService,
     private userService: UserService,
     private authenticationService: AuthenticationService
   ) { }

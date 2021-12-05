@@ -1,9 +1,10 @@
-import { UserService, CryptoService } from "@abstract";
+import { CryptoBusinessLogicService, UserService } from "@abstract";
+import { HttpClient, HttpHandler } from "@angular/common/http";
 import { TestBed } from "@angular/core/testing";
 import { DataService } from "@shared";
+
 import { AuthenticationService } from "../../../authentication/authentication.service";
 import { BrowserCryptoService } from "../../../services/browser-crypto.service";
-import { HttpClient, HttpHandler } from "@angular/common/http";
 
 describe("DataService", () => {
   let dataService: DataService;
@@ -18,7 +19,7 @@ describe("DataService", () => {
         DataService,
         HttpClient,
         HttpHandler,
-        { provide: CryptoService, useClass: BrowserCryptoService },
+        { provide: CryptoBusinessLogicService, useClass: BrowserCryptoService },
       ] 
     });
     dataService = TestBed.inject(DataService);

@@ -1,10 +1,11 @@
-import { CryptoBusinessLogicService, UserService } from "@abstract";
+import { CryptoBusinessLogicService, CryptoFunctionService, UserService } from "@abstract";
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { TestBed } from "@angular/core/testing";
 import { DataService } from "@shared";
 
 import { AuthenticationService } from "../../../authentication/authentication.service";
 import { BrowserCryptoService } from "../../../services/browser-crypto.service";
+import { BrowserCryptoFunctionService } from "../browser-crypto-function.service";
 
 describe("DataService", () => {
   let dataService: DataService;
@@ -19,6 +20,7 @@ describe("DataService", () => {
         DataService,
         HttpClient,
         HttpHandler,
+        { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoService },
       ] 
     });

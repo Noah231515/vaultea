@@ -1,10 +1,9 @@
+import { CryptoFunctionService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 import { CryptoBusinessLogicService } from "../abstract/services/crypto-business-logic.service";
 import { UserService } from "../abstract/services/user.service";
-import { CryptoUtil } from "../utils/crypto.util";
-import { EncryptedData } from "../utils/ecnrypted-data.model";
 import { StretchedMasterKey } from "../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 
@@ -14,33 +13,19 @@ import { VaulteaCryptoKey } from "../utils/vaultea-crypto-key.model";
 export class BrowserCryptoService implements CryptoBusinessLogicService {
 
   public constructor(
-    private userService: UserService
+    private cryptoFunctionService: CryptoFunctionService,
+    private userService: UserService,
   ) { }
 
   public async generateStretchedMasterKey(password: string, salt: string): Promise<StretchedMasterKey> {
-    const masterKey = await this.computePbkdf2(password, salt);
+    const masterKey = await this.cryptoFunctionService.computePbkdf2(password, salt, this.cryptoFunctionService.defaultIterations);
     return this.stretchMasterKey(masterKey);
-  }
-
-  public async computePbkdf2(password: string, salt: string, iterations: number = 10000): Promise<VaulteaCryptoKey> {
-    const saltBuffer = CryptoUtil.stringToArrayBuffer(salt);
-    const passwordBuffer = CryptoUtil.stringToArrayBuffer(password);
-
-    const pbkdf2Params: Pbkdf2Params = {
-      hash: "SHA-256",
-      iterations: iterations,
-      name: "PBKDF2",
-      salt: saltBuffer,
-    };
-
-    const importKey = await crypto.subtle.importKey("raw", passwordBuffer, { name: "PBKDF2"}, false, ["deriveBits"]);
-    return new VaulteaCryptoKey(await crypto.subtle.deriveBits(pbkdf2Params, importKey, 256)); 
   }
 
   public async stretchMasterKey(masterKey: VaulteaCryptoKey): Promise<StretchedMasterKey> {
     const newKey = new Uint8Array(64);
-    const encKey = new VaulteaCryptoKey(await CryptoUtil.hkdfExpand(masterKey.keyBuffer, "enc", 32, "sha256"));
-    const macKey = new VaulteaCryptoKey(await CryptoUtil.hkdfExpand(masterKey.keyBuffer, "mac", 32, "sha256"));
+    const encKey = new VaulteaCryptoKey(await this.cryptoFunctionService.hkdfExpand(masterKey.keyBuffer, "enc", 32, "sha256"));
+    const macKey = new VaulteaCryptoKey(await this.cryptoFunctionService.hkdfExpand(masterKey.keyBuffer, "mac", 32, "sha256"));
     newKey.set(new Uint8Array(encKey.keyBuffer));
     newKey.set(new Uint8Array(macKey.keyBuffer), 32);
     return new StretchedMasterKey(encKey, macKey, new VaulteaCryptoKey(newKey));
@@ -53,38 +38,6 @@ export class BrowserCryptoService implements CryptoBusinessLogicService {
     return new VaulteaCryptoKey(encryptionKeyView.buffer);
   }
 
-  public async encryptData(key: VaulteaCryptoKey, data: ArrayBuffer | string): Promise<EncryptedData> {
-    const iv = new Uint8Array(16);
-    crypto.getRandomValues(iv);
-
-    if (typeof data === "string") {
-      data = CryptoUtil.stringToArrayBuffer(data);
-    }
-
-    const aesCbCParams: AesCbcParams = {
-      iv: iv,
-      name: "AES-CBC",
-    }
-
-    const importKey = await crypto.subtle.importKey("raw", key.keyBuffer, { name: "AES-CBC"}, false, ["encrypt"]);
-    return  new EncryptedData(await crypto.subtle.encrypt(aesCbCParams, importKey, data), iv);
-  }
-
-  public async decryptData(key: VaulteaCryptoKey, data: ArrayBuffer | string): Promise<string> {
-    if (typeof data === "string") {
-      data = (CryptoUtil.stringToArrayBuffer(data) as Uint8Array).buffer;
-    }
-
-    const iv = data.slice(0, 16);
-    const aesCbCParams: AesCbcParams = {
-      iv: iv,
-      name: "AES-CBC",
-    }
-
-    const importKey = await crypto.subtle.importKey("raw", key.keyBuffer , { name: "AES-CBC"}, false, ["decrypt"]);
-    return CryptoUtil.arrayBufferToUtf8(await crypto.subtle.decrypt(aesCbCParams, importKey, data.slice(iv.byteLength)));
-  }
-
   public async encryptObject(object: any, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any> {
     const keysToEncrypt = Object.keys(object).filter(key => !keysToOmit?.includes(key));
     const result: any = {};
@@ -93,7 +46,7 @@ export class BrowserCryptoService implements CryptoBusinessLogicService {
       if (typeof object[key] === "object") {
         result[key] = await this.encryptObject(object[key], encryptionKey, keysToOmit);
       } else {
-        const encryptedData = await this.encryptData(encryptionKey, object[key].toString());
+        const encryptedData = await this.cryptoFunctionService.encryptData(encryptionKey, object[key].toString());
         result[key] = encryptedData.dataString;
       }
     }
@@ -110,7 +63,7 @@ export class BrowserCryptoService implements CryptoBusinessLogicService {
       if(typeof object[key] === "object") {
         result[key] = await this.decryptObject(object[key], encryptionKey, keysToOmit);
       } else {
-        const decryptedData = await this.decryptData(encryptionKey, atob(object[key]));
+        const decryptedData = await this.cryptoFunctionService.decryptData(encryptionKey, atob(object[key]));
         result[key] = decryptedData;
       }
     }
@@ -128,7 +81,7 @@ export class BrowserCryptoService implements CryptoBusinessLogicService {
   }
 
   public async generateKeys(form: FormGroup): Promise<void> {
-    const masterKey = await this.computePbkdf2(form.get("password")?.value, form.get("username")?.value, 1);
+    const masterKey = await this.cryptoFunctionService.computePbkdf2(form.get("password")?.value, form.get("username")?.value, 1);
     const stretchedMasterKey = await this.generateStretchedMasterKey(form.get("password")?.value, form.get("username")?.value);
     const encryptionKey = await this.generateEncryptionKey();
 
@@ -139,12 +92,12 @@ export class BrowserCryptoService implements CryptoBusinessLogicService {
 
   public async hashPassword(password: string): Promise<string> {
     const masterKey = this.userService.getMasterKey()
-    return (await this.computePbkdf2(masterKey.keyString, password, 1)).keyString
+    return (await this.cryptoFunctionService.computePbkdf2(masterKey.keyString, password, 1)).keyString
   }
 
   public async encryptEncryptionKey(form: FormGroup): Promise<string> {
     const encryptionKey = this.userService.getEncryptionKey();
     const stretchedMasterKey = this.userService.getStretchedMasterKey();
-    return (await this.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer)).dataString
+    return (await this.cryptoFunctionService.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer)).dataString
   }
 }

@@ -1,4 +1,4 @@
-import { CryptoBusinessLogicService, UserService } from "@abstract";
+import { CryptoBusinessLogicService, CryptoFunctionService, UserService } from "@abstract";
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
@@ -7,6 +7,7 @@ import { DataService, FolderService } from "@shared";
 
 import { AuthenticationService } from "../../../authentication/authentication.service";
 import { BrowserCryptoService } from "../../../services/browser-crypto.service";
+import { BrowserCryptoFunctionService } from "../../../shared/services/browser-crypto-function.service";
 import { VaultModule } from "../../vault.module";
 import { AddFolderComponent } from "./add-folder.component";
 
@@ -22,6 +23,7 @@ describe("AddFolderComponent", () => {
         VaultModule,
       ],
       providers: [
+        { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoService },
         AuthenticationService,
         DataService,

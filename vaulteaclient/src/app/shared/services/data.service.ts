@@ -30,6 +30,18 @@ export class DataService {
     return string;
   }
 
+  public snakeCaseToCamelCase(string: string): string {
+    if (string.includes("_")) {
+      const parts = string.split("_");
+      for (let i = 1; i < parts.length; i++) {
+        const part = parts[i];
+        parts[i] = part.replace(part.charAt(0), part.charAt(0).toUpperCase());
+      }
+      return parts.join("");
+    }
+    return string;
+  }
+
   public objectKeysToSnakeCase(object: any): void {
     Object.keys(object).forEach(key => {
       const camelCase = this.camelCaseToSnakeCase(key);

@@ -1,7 +1,5 @@
 import { FormGroup } from "@angular/forms";
-
-import { StretchedMasterKey } from "../../utils/stretched-master-key.model";
-import { VaulteaCryptoKey } from "../../utils/vaultea-crypto-key.model";
+import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
 
 export abstract class CryptoBusinessLogicService {
   public abstract generateStretchedMasterKey(password: string, salt: string): Promise<StretchedMasterKey>;

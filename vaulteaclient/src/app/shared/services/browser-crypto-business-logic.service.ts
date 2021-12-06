@@ -1,11 +1,9 @@
-import { CryptoFunctionService } from "@abstract";
+import { CryptoFunctionService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
 
 import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
-import { UserKeyService } from "../../abstract/services/user-key.service";
-import { StretchedMasterKey } from "../../utils/stretched-master-key.model";
-import { VaulteaCryptoKey } from "../../utils/vaultea-crypto-key.model";
 
 @Injectable({
   providedIn: "root"

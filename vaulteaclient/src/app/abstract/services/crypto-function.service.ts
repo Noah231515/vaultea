@@ -1,5 +1,4 @@
-import { EncryptedData } from "../../utils/ecnrypted-data.model";
-import { VaulteaCryptoKey } from "../../utils/vaultea-crypto-key.model";
+import { EncryptedData, VaulteaCryptoKey } from "@shared";
 
 export abstract class CryptoFunctionService {
   public defaultIterations: number;

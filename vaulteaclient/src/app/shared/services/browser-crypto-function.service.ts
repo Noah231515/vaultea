@@ -1,7 +1,6 @@
 import { CryptoFunctionService } from "@abstract";
-import { CryptoUtil } from "src/app/utils/crypto.util";
-import { EncryptedData } from "src/app/utils/ecnrypted-data.model";
-import { VaulteaCryptoKey } from "src/app/utils/vaultea-crypto-key.model";
+import { EncryptedData, VaulteaCryptoKey } from "@shared";
+import { CryptoUtil } from "@util";
 
 export class BrowserCryptoFunctionService implements CryptoFunctionService {
   public defaultIterations: number = 100000;

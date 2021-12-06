@@ -1,5 +1,4 @@
-import { StretchedMasterKey } from "../../utils/stretched-master-key.model";
-import { VaulteaCryptoKey } from "../../utils/vaultea-crypto-key.model";
+import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
 
 export abstract class UserKeyService {
   private masterKey: VaulteaCryptoKey;

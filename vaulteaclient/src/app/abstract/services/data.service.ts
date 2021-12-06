@@ -6,7 +6,7 @@ import { AuthenticationService } from "../../authentication/authentication.servi
 @Injectable({
   providedIn: "root"
 })
-export class DataService {
+export abstract class DataService {
 
   constructor(
     private cryptoBusinessLogicService: CryptoBusinessLogicService,

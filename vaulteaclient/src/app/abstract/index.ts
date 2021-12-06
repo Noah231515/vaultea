@@ -4,3 +4,4 @@ export * from "./base/base.component";
 export * from "./services/crypto-business-logic.service";
 export * from "./services/user.service";
 export * from "./services/crypto-function.service";
+export * from "./services/data.service";

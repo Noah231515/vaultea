@@ -1,7 +1,6 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, UserService } from "@abstract";
+import { CryptoBusinessLogicService, CryptoFunctionService, DataService, UserService } from "@abstract";
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { TestBed } from "@angular/core/testing";
-import { DataService } from "@shared";
 
 import { AuthenticationService } from "../../../authentication/authentication.service";
 import { BrowserCryptoBusinessLogicService } from "../browser-crypto-business-logic.service";

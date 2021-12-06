@@ -1,9 +1,10 @@
-import { CryptoFunctionService, UserKeyService } from "@abstract";
+import { CryptoFunctionService, DataService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
 
 import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
+import { AuthenticationService } from "../../authentication/authentication.service";
 
 @Injectable({
   providedIn: "root"
@@ -11,6 +12,7 @@ import { CryptoBusinessLogicService } from "../../abstract/services/crypto-busin
 export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicService {
 
   public constructor(
+    private authenticationService: AuthenticationService,
     private cryptoFunctionService: CryptoFunctionService,
     private userKeyService: UserKeyService,
   ) { }
@@ -97,5 +99,14 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     const encryptionKey = this.userKeyService.getEncryptionKey();
     const stretchedMasterKey = this.userKeyService.getStretchedMasterKey();
     return (await this.cryptoFunctionService.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer)).dataString
+  }
+
+  public async prepareForSubmit(object: any, provideVaultId: boolean = false, keysToOmit: string[] = []): Promise<any> {
+    const encryptedData = await this.encryptObject(object, this.userKeyService.getEncryptionKey(), keysToOmit);
+    if (provideVaultId) {
+      encryptedData["vaultId"] = this.authenticationService.getLoggedInUser()?.vaultId;
+    }
+    DataService.objectKeysToSnakeCase(encryptedData);
+    return encryptedData;
   }
 }

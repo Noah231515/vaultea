@@ -1,4 +1,5 @@
 import { CryptoFunctionService } from "@abstract";
+import { HttpClientModule } from "@angular/common/http";
 import { TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 import { VaulteaCryptoKey } from "@shared";
@@ -17,7 +18,8 @@ describe("BrowserCryptoBusinessLogicService", () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({ 
       imports: [
-        BrowserModule
+        BrowserModule,
+        HttpClientModule
       ],
       providers: [
         { provide: UserKeyService },

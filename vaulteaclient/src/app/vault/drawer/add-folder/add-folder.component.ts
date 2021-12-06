@@ -1,4 +1,4 @@
-import { BaseComponent, DataService } from "@abstract";
+import { BaseComponent, CryptoBusinessLogicService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { FolderService } from "@shared";
@@ -14,7 +14,7 @@ export class AddFolderComponent extends BaseComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private folderService: FolderService,
-    private dataService: DataService
+    private cryptoBusinessLogicService: CryptoBusinessLogicService
   ) {
     super(); 
   }
@@ -31,7 +31,7 @@ export class AddFolderComponent extends BaseComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
-    const preparedData = await this.dataService.prepareForSubmit(this.form.getRawValue(), true);
+    const preparedData = await this.cryptoBusinessLogicService.prepareForSubmit(this.form.getRawValue(), true, []);
     this.folderService.create(preparedData).subscribe(createdFolder => {
     });
   }

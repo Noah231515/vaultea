@@ -1,6 +1,6 @@
-import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
+import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { AuthenticationService } from "../authentication.service";
@@ -10,10 +10,7 @@ import { AuthenticationService } from "../authentication.service";
   styleUrls: ["./sign-up.component.scss"],
   templateUrl: "./sign-up.component.html",
 })
-export class SignUpComponent implements OnInit {
-  public form: FormGroup;
-  public pbkdf2Params: Pbkdf2Params;
-  public keyUsage: KeyUsage[] = ["encrypt", "decrypt"];
+export class SignUpComponent extends BaseFormComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -21,10 +18,16 @@ export class SignUpComponent implements OnInit {
     private userKeyService: UserKeyService,
     private formBuilder: FormBuilder,
     private router: Router,
-  ) { }
+  ) { 
+    super();
+  }
 
   public ngOnInit(): void {
     this.authenticationService.logout();
+    this.initForm();
+  }
+  
+  protected initForm(): void {
     this.form = this.formBuilder.group({
       password: ["", Validators.required],
       username: ["", Validators.required],
@@ -43,7 +46,12 @@ export class SignUpComponent implements OnInit {
     rawData.key = await this.browserCryptoBusinessLogicService.encryptEncryptionKey(this.form);
     rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(rawData.password);
     this.authenticationService.signUp(rawData).subscribe(() => {
-      // stub
+      // TODO: Do something
     });
   }
+
+  public cancel(): void {
+    throw new Error("Method not implemented.");
+  }
+
 }

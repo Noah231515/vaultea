@@ -1,6 +1,6 @@
 from api.models import User, Vault
 
-class UserService:
+class UserKeyService:
   
   @staticmethod
   def get_user_info(user, refreshToken):

@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.models import User, Vault
-from api.user_service import UserService
+from api.user_service import UserKeyService
 from api.serializers.auth_serializer import SignUpFormSerializer, LoginFormSerializer
 
 @api_view(['POST'])
@@ -38,7 +38,7 @@ def login(request):
     data = serializer.data
     authenticated_user = authenticate(request, username=data['username'], password=data['password'])
     if authenticated_user:
-      user_service = UserService()
+      user_service = UserKeyService()
       refreshToken = RefreshToken.for_user(authenticated_user)
       return JsonResponse(user_service.get_user_info(authenticated_user, refreshToken), status=status.HTTP_200_OK)
     else:

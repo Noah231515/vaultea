@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
-import { UserService } from "../../abstract/services/user.service";
+import { UserKeyService } from "../../abstract/services/user-key.service";
 import { StretchedMasterKey } from "../../utils/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../../utils/vaultea-crypto-key.model";
 
@@ -14,7 +14,7 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
 
   public constructor(
     private cryptoFunctionService: CryptoFunctionService,
-    private userService: UserService,
+    private userKeyService: UserKeyService,
   ) { }
 
   public async generateStretchedMasterKey(password: string, salt: string): Promise<StretchedMasterKey> {
@@ -85,19 +85,19 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     const stretchedMasterKey = await this.generateStretchedMasterKey(form.get("password")?.value, form.get("username")?.value);
     const encryptionKey = await this.generateEncryptionKey();
 
-    this.userService.setMasterKey(masterKey);
-    this.userService.setStretchedMasterKey(stretchedMasterKey);
-    this.userService.setEncryptionKey(encryptionKey);
+    this.userKeyService.setMasterKey(masterKey);
+    this.userKeyService.setStretchedMasterKey(stretchedMasterKey);
+    this.userKeyService.setEncryptionKey(encryptionKey);
   }
 
   public async hashPassword(password: string): Promise<string> {
-    const masterKey = this.userService.getMasterKey()
+    const masterKey = this.userKeyService.getMasterKey()
     return (await this.cryptoFunctionService.computePbkdf2(masterKey.keyString, password, 1)).keyString
   }
 
   public async encryptEncryptionKey(form: FormGroup): Promise<string> {
-    const encryptionKey = this.userService.getEncryptionKey();
-    const stretchedMasterKey = this.userService.getStretchedMasterKey();
+    const encryptionKey = this.userKeyService.getEncryptionKey();
+    const stretchedMasterKey = this.userKeyService.getStretchedMasterKey();
     return (await this.cryptoFunctionService.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer)).dataString
   }
 }

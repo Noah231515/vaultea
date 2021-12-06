@@ -1,4 +1,4 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, DataService, UserService } from "@abstract";
+import { CryptoBusinessLogicService, CryptoFunctionService, DataService, UserKeyService } from "@abstract";
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { TestBed } from "@angular/core/testing";
 
@@ -14,7 +14,7 @@ describe("DataService", () => {
       imports: [
       ],
       providers: [
-        UserService,
+        UserKeyService,
         AuthenticationService,
         DataService,
         HttpClient,

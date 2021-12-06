@@ -1,4 +1,4 @@
-import { CryptoBusinessLogicService, UserService } from "@abstract";
+import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
 
 import { AuthenticationService } from "../../authentication/authentication.service";
@@ -10,12 +10,12 @@ export abstract class DataService {
 
   constructor(
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
-    private userService: UserService,
+    private userKeyService: UserKeyService,
     private authenticationService: AuthenticationService
   ) { }
 
   public async prepareForSubmit(object: any, provideVaultId: boolean = false, keysToOmit: string[] = []): Promise<any> {
-    const encryptedData = await this.cryptoBusinessLogicService.encryptObject(object, this.userService.getEncryptionKey(), keysToOmit);
+    const encryptedData = await this.cryptoBusinessLogicService.encryptObject(object, this.userKeyService.getEncryptionKey(), keysToOmit);
     if (provideVaultId) {
       encryptedData["vaultId"] = this.authenticationService.getLoggedInUser()?.vaultId;
     }

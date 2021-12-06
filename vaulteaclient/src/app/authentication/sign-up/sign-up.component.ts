@@ -1,4 +1,4 @@
-import { CryptoBusinessLogicService, UserService } from "@abstract";
+import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -18,7 +18,7 @@ export class SignUpComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
-    private userService: UserService,
+    private userKeyService: UserKeyService,
     private formBuilder: FormBuilder,
     private router: Router,
   ) { }

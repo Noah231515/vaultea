@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 
 import { CryptoBusinessLogicService } from "../../../abstract/services/crypto-business-logic.service";
-import { UserService } from "../../../abstract/services/user.service";
+import { UserKeyService } from "../../../abstract/services/user-key.service";
 import { CryptoUtil } from "../../../utils/crypto.util";
 import { VaulteaCryptoKey } from "../../../utils/vaultea-crypto-key.model";
 import { BrowserCryptoBusinessLogicService } from "../browser-crypto-business-logic.service";
@@ -20,7 +20,7 @@ describe("BrowserCryptoBusinessLogicService", () => {
         BrowserModule
       ],
       providers: [
-        { provide: UserService },
+        { provide: UserKeyService },
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
       ] 

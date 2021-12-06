@@ -1,6 +1,6 @@
 import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
 
-export abstract class UserKeyService {
+export class UserKeyService {
   private masterKey: VaulteaCryptoKey;
   private stretchedMasterKey: StretchedMasterKey;
   private encryptionKey: VaulteaCryptoKey;

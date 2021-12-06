@@ -5,7 +5,7 @@ import { FocusInvalidInputDirective } from "./base/focus-invalid-input/focus-inv
 
 @NgModule({
   declarations: [
-    FocusInvalidInputDirective
+    FocusInvalidInputDirective,
   ],
   exports: [
     FocusInvalidInputDirective

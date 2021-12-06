@@ -1,14 +1,13 @@
-import { BaseComponent, CryptoBusinessLogicService } from "@abstract";
+import { BaseFormComponent, CryptoBusinessLogicService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { FolderService } from "@shared";
 
 @Component({
   selector: "vaultea-folder-form",
   templateUrl: "./folder-form.component.html",
 })
-export class FolderFormComponent extends BaseComponent implements OnInit {
-  public form: FormGroup;
+export class FolderFormComponent extends BaseFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,7 +21,7 @@ export class FolderFormComponent extends BaseComponent implements OnInit {
     this.initForm();
   }
 
-  private initForm(): void {
+  protected initForm(): void {
     this.form = this.formBuilder.group({
       name: ["", Validators.required],
       description: [""]

@@ -7,7 +7,8 @@ export * from "./models/user.model";
 
 // Services
 export * from "./services/folder.service";
-export * from "./services/data.service";
+export * from "./services/browser-crypto-function.service";
+export * from "./services/browser-crypto-business-logic.service";
 
 // Interceptors
 export * from "./interceptors/auth.interceptor";

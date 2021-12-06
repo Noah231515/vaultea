@@ -1,7 +1,7 @@
-import { BaseComponent } from "@abstract";
+import { BaseComponent, DataService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { DataService, FolderService } from "@shared";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FolderService } from "@shared";
 
 @Component({
   selector: "vaultea-add-folder",

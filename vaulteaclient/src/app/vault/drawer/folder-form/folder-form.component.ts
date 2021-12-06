@@ -4,11 +4,10 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { FolderService } from "@shared";
 
 @Component({
-  selector: "vaultea-add-folder",
-  templateUrl: "./add-folder.component.html",
-  styleUrls: ["./add-folder.component.scss"]
+  selector: "vaultea-folder-form",
+  templateUrl: "./folder-form.component.html",
 })
-export class AddFolderComponent extends BaseComponent implements OnInit {
+export class FolderFormComponent extends BaseComponent implements OnInit {
   public form: FormGroup;
 
   constructor(

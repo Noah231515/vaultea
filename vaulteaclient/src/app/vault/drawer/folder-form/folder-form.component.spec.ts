@@ -9,15 +9,15 @@ import { AuthenticationService } from "../../../authentication/authentication.se
 import { BrowserCryptoBusinessLogicService } from "../../../shared/services/browser-crypto-business-logic.service";
 import { BrowserCryptoFunctionService } from "../../../shared/services/browser-crypto-function.service";
 import { VaultModule } from "../../vault.module";
-import { AddFolderComponent } from "./add-folder.component";
+import { FolderFormComponent } from "./folder-form.component";
 
-describe("AddFolderComponent", () => {
-  let component: AddFolderComponent;
-  let fixture: ComponentFixture<AddFolderComponent>;
+describe("FolderFormComponent", () => {
+  let component: FolderFormComponent;
+  let fixture: ComponentFixture<FolderFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddFolderComponent ],
+      declarations: [ FolderFormComponent ],
       imports: [
         BrowserAnimationsModule,
         VaultModule,
@@ -37,7 +37,7 @@ describe("AddFolderComponent", () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddFolderComponent);
+    fixture = TestBed.createComponent(FolderFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

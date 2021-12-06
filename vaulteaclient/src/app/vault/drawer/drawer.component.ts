@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { BaseComponent } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
-import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { Component, ViewEncapsulation } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { AddFolderComponent } from "./add-folder/add-folder.component";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+
+import { FolderFormComponent } from "./folder-form/folder-form.component";
+
 
 /**
  * Food data with nested structure.
@@ -59,6 +61,6 @@ export class DrawerComponent extends BaseComponent {
   }
 
   public openAddFolderDialog(): void {
-    this.dialog.open(AddFolderComponent);
+    this.dialog.open(FolderFormComponent);
   }
 }

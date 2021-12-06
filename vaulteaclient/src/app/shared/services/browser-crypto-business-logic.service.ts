@@ -1,7 +1,8 @@
-import { CryptoFunctionService, DataService, UserKeyService } from "@abstract";
+import { CryptoFunctionService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
+import { DataUtil } from "@util";
 
 import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
 import { AuthenticationService } from "../../authentication/authentication.service";
@@ -106,7 +107,7 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     if (provideVaultId) {
       encryptedData["vaultId"] = this.authenticationService.getLoggedInUser()?.vaultId;
     }
-    DataService.objectKeysToSnakeCase(encryptedData);
+    DataUtil.objectKeysToSnakeCase(encryptedData);
     return encryptedData;
   }
 }

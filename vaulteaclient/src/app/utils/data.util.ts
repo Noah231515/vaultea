@@ -1,9 +1,4 @@
-import { Injectable } from "@angular/core";
-
-@Injectable({
-  providedIn: "root"
-})
-export abstract class DataService {
+export abstract class DataUtil {
 
   public static camelCaseToSnakeCase(string: string): string {
     if (string.match(/[A-Z]/g)) {

@@ -1,4 +1,4 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, DataService, UserKeyService } from "@abstract";
+import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
@@ -26,7 +26,6 @@ describe("AddFolderComponent", () => {
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
         AuthenticationService,
-        DataService,
         FolderService,
         FormBuilder,
         HttpClient,

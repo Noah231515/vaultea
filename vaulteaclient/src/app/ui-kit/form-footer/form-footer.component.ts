@@ -1,5 +1,5 @@
+import { BaseComponent } from "@abstract";
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { BaseComponent } from "src/app/abstract";
 
 import { ButtonInterface } from "..";
 

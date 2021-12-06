@@ -1,6 +1,6 @@
 import { FormGroup } from "@angular/forms";
 
-import { BaseComponent } from "../base.component";
+import { BaseComponent } from "../base-component/base.component";
 
 export abstract class BaseFormComponent extends BaseComponent {
   public form: FormGroup;

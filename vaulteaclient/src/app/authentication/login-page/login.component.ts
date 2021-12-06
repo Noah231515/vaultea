@@ -1,8 +1,9 @@
-import { BaseComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
+import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { User } from "@shared";
+import { BaseComponent } from "src/app/abstract/base/base-component/base.component";
 
 import { ButtonInterface } from "../../ui-kit";
 import { AuthenticationService } from "../authentication.service";

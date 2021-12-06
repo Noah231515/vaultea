@@ -1,8 +1,8 @@
-import { BaseComponent } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
 import { Component, ViewEncapsulation } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { BaseComponent } from "src/app/abstract/base/base-component/base.component";
 
 import { FolderFormComponent } from "./folder-form/folder-form.component";
 

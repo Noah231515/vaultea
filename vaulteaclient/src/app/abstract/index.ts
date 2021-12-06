@@ -1,5 +1,5 @@
 // Base classes
-export * from "./base/base.component";
+export * from "../abstract/base/base-component/base.component";
 export * from "./base/base-form/base-form.component";
 
 // Services

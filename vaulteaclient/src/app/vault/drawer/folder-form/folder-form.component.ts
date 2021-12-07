@@ -31,10 +31,11 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public async submit(): Promise<void> {
     const preparedData = await this.cryptoBusinessLogicService.prepareForSubmit(this.form.getRawValue(), true, []);
     this.folderService.create(preparedData).subscribe(createdFolder => {
+      // TODO: Do something
     });
   }
 
   public cancel(): void {
-    // Close drawer
+    // TODO: Do something
   }
 }

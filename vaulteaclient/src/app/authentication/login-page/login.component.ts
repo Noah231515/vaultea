@@ -1,4 +1,4 @@
-import { BaseComponent, CryptoBusinessLogicService, UserService } from "@abstract";
+import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -12,7 +12,7 @@ import { AuthenticationService } from "../authentication.service";
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent extends BaseComponent implements OnInit {
+export class LoginComponent extends BaseFormComponent implements OnInit {
   public form: FormGroup;
   public loginButtonInterface: ButtonInterface;
   public signUpButtonInterface: ButtonInterface;
@@ -22,12 +22,16 @@ export class LoginComponent extends BaseComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
-    private userService: UserService,
+    private userKeyService: UserKeyService,
   ) { 
     super()
   }
 
   public ngOnInit(): void {
+    this.initForm();
+  }
+  
+  protected initForm(): void {
     this.form = this.formBuilder.group({
       username: ["test1", [Validators.required]],
       password: ["test", Validators.required],
@@ -48,5 +52,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.authenticationService.setUser(user);
       this.router.navigate(["/vault"]);
     });
+  }
+
+  public cancel(): void {
+    throw new Error("Method not implemented.");
   }
 }

@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { BaseComponent } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
-import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { Component, ViewEncapsulation } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { AddFolderComponent } from "./add-folder/add-folder.component";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { BaseComponent } from "src/app/abstract/base/base-component/base.component";
+
+import { FolderFormComponent } from "./folder-form/folder-form.component";
+
 
 /**
  * Food data with nested structure.
@@ -52,6 +54,7 @@ export class DrawerComponent extends BaseComponent {
     this.dataSource.data = TREE_DATA;
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
 
   public toggleSidenav(): void {
@@ -59,6 +62,6 @@ export class DrawerComponent extends BaseComponent {
   }
 
   public openAddFolderDialog(): void {
-    this.dialog.open(AddFolderComponent);
+    this.dialog.open(FolderFormComponent);
   }
 }

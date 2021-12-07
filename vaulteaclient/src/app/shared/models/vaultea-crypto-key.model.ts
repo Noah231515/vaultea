@@ -1,4 +1,4 @@
-import { CryptoUtil } from "./crypto.util";
+import { CryptoUtil } from "@util";
 
 export class VaulteaCryptoKey {
   public keyBuffer: ArrayBuffer;

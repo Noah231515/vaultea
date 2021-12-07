@@ -1,4 +1,4 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, DataService, UserService } from "@abstract";
+import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
@@ -9,15 +9,15 @@ import { AuthenticationService } from "../../../authentication/authentication.se
 import { BrowserCryptoBusinessLogicService } from "../../../shared/services/browser-crypto-business-logic.service";
 import { BrowserCryptoFunctionService } from "../../../shared/services/browser-crypto-function.service";
 import { VaultModule } from "../../vault.module";
-import { AddFolderComponent } from "./add-folder.component";
+import { FolderFormComponent } from "./folder-form.component";
 
-describe("AddFolderComponent", () => {
-  let component: AddFolderComponent;
-  let fixture: ComponentFixture<AddFolderComponent>;
+describe("FolderFormComponent", () => {
+  let component: FolderFormComponent;
+  let fixture: ComponentFixture<FolderFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddFolderComponent ],
+      declarations: [ FolderFormComponent ],
       imports: [
         BrowserAnimationsModule,
         VaultModule,
@@ -26,19 +26,18 @@ describe("AddFolderComponent", () => {
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
         AuthenticationService,
-        DataService,
         FolderService,
         FormBuilder,
         HttpClient,
         HttpHandler,
-        UserService,
+        UserKeyService,
       ]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddFolderComponent);
+    fixture = TestBed.createComponent(FolderFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,4 +1,4 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, UserService } from "@abstract";
+import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -29,7 +29,7 @@ import { BrowserCryptoFunctionService } from "./shared/services/browser-crypto-f
     MatToolbarModule,
   ],
   providers: [
-    UserService,
+    UserKeyService,
     { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
     { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

@@ -12,7 +12,7 @@ import { FormHeader } from "../form-header/form-header.interface";
 export class FormComponent {
   @Input() public primaryButton: ButtonInterface;
   @Input() public secondaryButton: ButtonInterface;
-  @Input() public formTemplate: TemplateRef<any>;
+  @Input() public formTemplate: TemplateRef<unknown>;
   @Input() public form: FormGroup;
   @Input() public formHeader: FormHeader;
 

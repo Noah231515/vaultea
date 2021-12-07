@@ -54,6 +54,7 @@ export class DrawerComponent extends BaseComponent {
     this.dataSource.data = TREE_DATA;
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
 
   public toggleSidenav(): void {

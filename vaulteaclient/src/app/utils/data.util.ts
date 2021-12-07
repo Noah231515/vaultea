@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export abstract class DataUtil {
 
   public static camelCaseToSnakeCase(string: string): string {

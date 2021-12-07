@@ -1,7 +1,8 @@
 import { BaseFormComponent, CryptoBusinessLogicService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { FolderService } from "@shared";
+
+import { FolderService } from "../folder.service";
 
 @Component({
   selector: "vaultea-folder-form",

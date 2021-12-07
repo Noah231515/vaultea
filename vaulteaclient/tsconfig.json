@@ -27,6 +27,7 @@
       "@shared": ["src/app/shared/index.ts"],
       "@ui-kit": ["src/app/ui-kit/index.ts"],
       "@util": ["src/app/utils/index.ts"],
+      "@vault": ["src/app/vault/index.ts"],
     }
   },
   "angularCompilerOptions": {

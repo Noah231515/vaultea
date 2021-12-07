@@ -10,7 +10,7 @@ import { MatTreeModule } from "@angular/material/tree";
 
 import { UiKitModule } from "../ui-kit/ui-kit.module";
 import { DrawerComponent } from "./drawer/drawer.component";
-import { FolderFormComponent } from "./drawer/folder-form/folder-form.component";
+import { FolderFormComponent } from "./folder/folder-form/folder-form.component";
 import { VaultRoutingModule } from "./vault-routing.module";
 import { VaultComponent } from "./vault/vault.component";
 

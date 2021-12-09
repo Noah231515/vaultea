@@ -3,11 +3,10 @@ import { HttpClient, HttpHandler } from "@angular/common/http";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AuthenticationService } from "@authentication";
+import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
-import { AuthenticationService } from "../../../authentication/authentication.service";
-import { BrowserCryptoBusinessLogicService } from "../../../shared/services/browser-crypto-business-logic.service";
-import { BrowserCryptoFunctionService } from "../../../shared/services/browser-crypto-function.service";
-import { VaultModule } from "../../../vault/vault.module";
+import { UiKitModule } from "../../ui-kit/ui-kit.module";
 import { FolderService } from "../folder.service";
 import { FolderFormComponent } from "./folder-form.component";
 
@@ -20,7 +19,7 @@ describe("FolderFormComponent", () => {
       declarations: [ FolderFormComponent ],
       imports: [
         BrowserAnimationsModule,
-        VaultModule,
+        UiKitModule
       ],
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },

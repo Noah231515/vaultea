@@ -2,9 +2,8 @@ import { NestedTreeControl } from "@angular/cdk/tree";
 import { Component, ViewEncapsulation } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { FolderFormComponent } from "@folder";
 import { BaseComponent } from "src/app/abstract/base/base-component/base.component";
-
-import { FolderFormComponent } from "..";
 
 /**
  * Food data with nested structure.

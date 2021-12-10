@@ -7,10 +7,10 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
+import { FolderModule } from "@folder";
 
 import { UiKitModule } from "../ui-kit/ui-kit.module";
 import { DrawerComponent } from "./drawer/drawer.component";
-import { FolderFormComponent } from "./drawer/folder-form/folder-form.component";
 import { VaultRoutingModule } from "./vault-routing.module";
 import { VaultComponent } from "./vault/vault.component";
 
@@ -18,10 +18,10 @@ import { VaultComponent } from "./vault/vault.component";
   declarations: [
     VaultComponent,
     DrawerComponent,
-    FolderFormComponent,
   ],
   imports: [
     CommonModule,
+    FolderModule,
     MatButtonModule,
     MatDialogModule,
     MatDividerModule,

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CryptoFunctionService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
@@ -8,6 +6,8 @@ import { DataUtil } from "@util";
 import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
 import { AuthenticationService } from "../../authentication/authentication.service";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 @Injectable({
   providedIn: "root"
 })
@@ -92,8 +92,7 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     this.userKeyService.setEncryptionKey(encryptionKey);
   }
 
-  public async hashPassword(password: string): Promise<string> {
-    const masterKey = this.userKeyService.getMasterKey()
+  public async hashPassword(masterKey: VaulteaCryptoKey,  password: string): Promise<string> {
     return (await this.cryptoFunctionService.computePbkdf2(masterKey.keyString, password, 1)).keyString
   }
 

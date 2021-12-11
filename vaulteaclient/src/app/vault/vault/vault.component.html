@@ -10,7 +10,13 @@
   <mat-divider></mat-divider>
   <div class="m-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
     <div fxFlex fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="24px">
-      <vaultea-card *ngFor="let folder of folders" ></vaultea-card>
+      <vaultea-card 
+      *ngFor="let folder of folders"
+      [cardData]="{
+        title:folder.name,
+        description: folder.description
+      }"
+      ></vaultea-card>
     </div>
   </div>
 </div>

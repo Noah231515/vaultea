@@ -10,7 +10,7 @@ import { User } from "./user.model";
   providedIn: "root"
 })
 export class AuthenticationService {
-  private user?: User;
+  private user: User;
   private isLoggedInBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isLoggedInObservable: Observable<boolean> = this.isLoggedInBehaviorSubject.asObservable();
 
@@ -36,15 +36,15 @@ export class AuthenticationService {
   }
 
   public logout(): void {
-    this.user = undefined;
+    this.user = new User();
     this.updateIsLoggedIn();
   }
 
   private updateIsLoggedIn(): void {
-    this.isLoggedInBehaviorSubject.next(!!this.user && !!this.user?.accessToken);
+    this.isLoggedInBehaviorSubject.next(!!this.user?.id && !!this.user?.accessToken);
   }
 
-  public getLoggedInUser(): User | undefined {
+  public getLoggedInUser(): User {
     return this.user;
   }
 }

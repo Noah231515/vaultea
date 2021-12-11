@@ -11,6 +11,7 @@ class UserService:
     return {
       "id": user.id,
       "username": user.username,
+      "key": user.key,
       "accessToken": str(refreshToken.access_token),
       "vaultId": vault.id,
       "folders": [folder for folder in folders]

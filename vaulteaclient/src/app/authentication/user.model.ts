@@ -4,6 +4,7 @@ export class User {
   id: string;
   username: string;
   accessToken: string;
+  key: string;
   vaultId: string;
   folders: Folder[];
 }

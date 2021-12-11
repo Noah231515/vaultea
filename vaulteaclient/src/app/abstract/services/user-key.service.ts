@@ -1,5 +1,9 @@
+import { Inject } from "@angular/core";
 import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
 
+@Inject({
+  providedIn: "root"
+})
 export class UserKeyService {
   private masterKey: VaulteaCryptoKey;
   private stretchedMasterKey: StretchedMasterKey;

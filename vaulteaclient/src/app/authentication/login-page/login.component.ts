@@ -43,10 +43,10 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
-    await this.browserCryptoBusinessLogicService.generateKeys(this.form);
+    await this.browserCryptoBusinessLogicService.generateKeys(this.form.get("username")?.value, this.form.get("password")?.value);
 
     const rawData = Object.assign({}, this.form.getRawValue());
-    rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(rawData.password);
+    rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(this.userKeyService.getMasterKey(), rawData.password);
 
     this.authenticationService.login(rawData).subscribe((user: User) => {
       this.authenticationService.setUser(user);

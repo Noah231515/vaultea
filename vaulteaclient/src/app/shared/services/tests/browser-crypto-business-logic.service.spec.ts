@@ -1,19 +1,19 @@
-import { CryptoFunctionService } from "@abstract";
+import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
 import { HttpClientModule } from "@angular/common/http";
 import { TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
-import { VaulteaCryptoKey } from "@shared";
+import { CryptoUtil } from "@util";
 
-import { CryptoBusinessLogicService } from "../../../abstract/services/crypto-business-logic.service";
-import { UserKeyService } from "../../../abstract/services/user-key.service";
-import { CryptoUtil } from "../../../utils/crypto.util";
 import { BrowserCryptoBusinessLogicService } from "../browser-crypto-business-logic.service";
 import { BrowserCryptoFunctionService } from "../browser-crypto-function.service";
 
 describe("BrowserCryptoBusinessLogicService", () => {
+  const username: string = "test";
+  const password: string = "test1"
+
   let cryptoFunctionService: CryptoFunctionService;
-  let browserCryptoBusinessLogicService: CryptoBusinessLogicService;
-  let encryptionKey: VaulteaCryptoKey;
+  let cryptoBusinessLogicService: CryptoBusinessLogicService;
+  let userKeyService: UserKeyService;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({ 
@@ -28,22 +28,23 @@ describe("BrowserCryptoBusinessLogicService", () => {
       ] 
     });
 
+    userKeyService = TestBed.inject(UserKeyService);
     cryptoFunctionService = TestBed.inject(CryptoFunctionService);
-    browserCryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
-    encryptionKey = await browserCryptoBusinessLogicService.generateEncryptionKey();
+    cryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
+    await cryptoBusinessLogicService.generateKeys(username, password);
   });
 
   it("should decrypt the encrypted string correctly", async () => {
     const cleartext = "Hello World";
-    const encryptedData = await cryptoFunctionService.encryptData(encryptionKey, cleartext);
+    const encryptedData = await cryptoFunctionService.encryptData(userKeyService.getEncryptionKey(), cleartext);
     expect(encryptedData.dataString === cleartext).toBeFalse();
-    const decryptedText = await cryptoFunctionService.decryptData(encryptionKey, encryptedData.dataBuffer);
+    const decryptedText = await cryptoFunctionService.decryptData(userKeyService.getEncryptionKey(), encryptedData.dataBuffer);
     expect(cleartext).toBe(decryptedText);
   });
 
   it("should recreate correct data buffer from encrypted string", async () => {
     const text = "Hello Big World";
-    const encryptedData = await cryptoFunctionService.encryptData(encryptionKey, text);
+    const encryptedData = await cryptoFunctionService.encryptData(userKeyService.getEncryptionKey(), text);
     const computedArrayBuffer = CryptoUtil.stringToArrayBuffer(encryptedData.dataString, true);
 
     expect(computedArrayBuffer.buffer).toEqual(encryptedData.dataBuffer);
@@ -51,7 +52,7 @@ describe("BrowserCryptoBusinessLogicService", () => {
 
   it("should recreate the correct string from encrypted data's array buffer", async () => {
     const text = "Hello Big World!@!@!!";
-    const encryptedData = await cryptoFunctionService.encryptData(encryptionKey, text);
+    const encryptedData = await cryptoFunctionService.encryptData(userKeyService.getEncryptionKey(), text);
     const computedDataString = CryptoUtil.arrayBufferToBase64(encryptedData.dataBuffer);
 
     expect(encryptedData.dataString).toBe(computedDataString);
@@ -76,8 +77,8 @@ describe("BrowserCryptoBusinessLogicService", () => {
         }
       }
     };
-    const encryptedObject = await browserCryptoBusinessLogicService.encryptObject(object, encryptionKey);
-    const decryptedObject = await browserCryptoBusinessLogicService.decryptObject(encryptedObject, encryptionKey);
+    const encryptedObject = await cryptoBusinessLogicService.encryptObject(object, userKeyService.getEncryptionKey());
+    const decryptedObject = await cryptoBusinessLogicService.decryptObject(encryptedObject, userKeyService.getEncryptionKey());
 
     expect(object).toEqual(decryptedObject);
   });
@@ -88,9 +89,9 @@ describe("BrowserCryptoBusinessLogicService", () => {
       "purrTime": new Date().toString(),
       "catWeight": "30lbs"
     };
-    const encryptedObject = await browserCryptoBusinessLogicService.encryptObject(object, encryptionKey, ["purrTime"]);
+    const encryptedObject = await cryptoBusinessLogicService.encryptObject(object, userKeyService.getEncryptionKey(), ["purrTime"]);
     expect(object.purrTime).toEqual(encryptedObject.purrTime);
-    const decryptedObject = await browserCryptoBusinessLogicService.decryptObject(encryptedObject, encryptionKey, ["purrTime"]);
+    const decryptedObject = await cryptoBusinessLogicService.decryptObject(encryptedObject, userKeyService.getEncryptionKey(), ["purrTime"]);
     expect(object).toEqual(decryptedObject);
   });
 });

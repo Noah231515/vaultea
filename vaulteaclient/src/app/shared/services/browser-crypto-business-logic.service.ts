@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CryptoFunctionService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
-import { FormGroup } from "@angular/forms";
 import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
 import { DataUtil } from "@util";
 
 import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
 import { AuthenticationService } from "../../authentication/authentication.service";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 @Injectable({
   providedIn: "root"
 })
@@ -83,9 +82,9 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     }
   }
 
-  public async generateKeys(form: FormGroup): Promise<void> {
-    const masterKey = await this.cryptoFunctionService.computePbkdf2(form.get("password")?.value, form.get("username")?.value, 1);
-    const stretchedMasterKey = await this.generateStretchedMasterKey(form.get("password")?.value, form.get("username")?.value);
+  public async generateKeys(username: string, password: string): Promise<void> {
+    const masterKey = await this.cryptoFunctionService.computePbkdf2(password, username, 1);
+    const stretchedMasterKey = await this.generateStretchedMasterKey(password, username);
     const encryptionKey = await this.generateEncryptionKey();
 
     this.userKeyService.setMasterKey(masterKey);
@@ -93,19 +92,16 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     this.userKeyService.setEncryptionKey(encryptionKey);
   }
 
-  public async hashPassword(password: string): Promise<string> {
-    const masterKey = this.userKeyService.getMasterKey()
+  public async hashPassword(masterKey: VaulteaCryptoKey,  password: string): Promise<string> {
     return (await this.cryptoFunctionService.computePbkdf2(masterKey.keyString, password, 1)).keyString
   }
 
-  public async encryptEncryptionKey(form: FormGroup): Promise<string> {
-    const encryptionKey = this.userKeyService.getEncryptionKey();
-    const stretchedMasterKey = this.userKeyService.getStretchedMasterKey();
+  public async encryptEncryptionKey(stretchedMasterKey: StretchedMasterKey, encryptionKey: VaulteaCryptoKey): Promise<string> {
     return (await this.cryptoFunctionService.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer)).dataString
   }
 
-  public async prepareForSubmit(object: any, provideVaultId: boolean = false, keysToOmit: string[] = []): Promise<any> {
-    const encryptedData = await this.encryptObject(object, this.userKeyService.getEncryptionKey(), keysToOmit);
+  public async prepareForSubmit(encryptionKey: VaulteaCryptoKey, object: any, provideVaultId: boolean = false, keysToOmit: string[] = []): Promise<any> {
+    const encryptedData = await this.encryptObject(object, encryptionKey, keysToOmit);
     if (provideVaultId) {
       encryptedData["vaultId"] = this.authenticationService.getLoggedInUser()?.vaultId;
     }

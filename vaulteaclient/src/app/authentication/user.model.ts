@@ -5,5 +5,5 @@ export class User {
   username: string;
   accessToken: string;
   vaultId: string;
-  folder: Folder[]
+  folders: Folder[];
 }

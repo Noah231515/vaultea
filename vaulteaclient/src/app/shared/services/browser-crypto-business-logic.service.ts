@@ -100,8 +100,8 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     return (await this.cryptoFunctionService.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer)).dataString
   }
 
-  public async prepareForSubmit(object: any, provideVaultId: boolean = false, keysToOmit: string[] = []): Promise<any> {
-    const encryptedData = await this.encryptObject(object, this.userKeyService.getEncryptionKey(), keysToOmit);
+  public async prepareForSubmit(encryptionKey: VaulteaCryptoKey, object: any, provideVaultId: boolean = false, keysToOmit: string[] = []): Promise<any> {
+    const encryptedData = await this.encryptObject(object, encryptionKey, keysToOmit);
     if (provideVaultId) {
       encryptedData["vaultId"] = this.authenticationService.getLoggedInUser()?.vaultId;
     }

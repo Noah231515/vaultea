@@ -11,5 +11,5 @@ export abstract class CryptoBusinessLogicService {
   public abstract decryptObject(object: any, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any>;
   public abstract hashPassword(masterKey: VaulteaCryptoKey, password: string): Promise<string>;
   public abstract encryptEncryptionKey(stretchedMasterKey: StretchedMasterKey, encryptionKey: VaulteaCryptoKey): Promise<string>;
-  public abstract prepareForSubmit(object: any, provideVaultId: boolean, keysToOmit: string[]): Promise<any>;
+  public abstract prepareForSubmit(encryptionKey: VaulteaCryptoKey, object: any, provideVaultId: boolean, keysToOmit: string[]): Promise<any>;
 }

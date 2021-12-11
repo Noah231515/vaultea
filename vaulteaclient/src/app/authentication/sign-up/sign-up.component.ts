@@ -43,8 +43,8 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
     await this.browserCryptoBusinessLogicService.generateKeys(this.form.get("username")?.value, this.form.get("password")?.value);
     const rawData = Object.assign({}, this.form.getRawValue());
 
-    rawData.key = await this.browserCryptoBusinessLogicService.encryptEncryptionKey(this.userKeyService.getEncryptionKey());
-    rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(rawData.password);
+    rawData.key = await this.browserCryptoBusinessLogicService.encryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), this.userKeyService.getEncryptionKey());
+    rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(this.userKeyService.getMasterKey(), rawData.password);
     this.authenticationService.signUp(rawData).subscribe(() => {
       // TODO: Do something
     });

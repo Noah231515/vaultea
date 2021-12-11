@@ -96,8 +96,7 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     return (await this.cryptoFunctionService.computePbkdf2(masterKey.keyString, password, 1)).keyString
   }
 
-  public async encryptEncryptionKey(encryptionKey: VaulteaCryptoKey): Promise<string> {
-    const stretchedMasterKey = this.userKeyService.getStretchedMasterKey();
+  public async encryptEncryptionKey(stretchedMasterKey: StretchedMasterKey, encryptionKey: VaulteaCryptoKey): Promise<string> {
     return (await this.cryptoFunctionService.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer)).dataString
   }
 

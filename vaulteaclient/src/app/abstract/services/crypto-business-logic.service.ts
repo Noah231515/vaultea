@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { FormGroup } from "@angular/forms";
 import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
 
 export abstract class CryptoBusinessLogicService {
@@ -11,6 +10,6 @@ export abstract class CryptoBusinessLogicService {
   public abstract encryptObject(object: any, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any>;
   public abstract decryptObject(object: any, encryptionKey: VaulteaCryptoKey, keysToOmit?: string[]): Promise<any>;
   public abstract hashPassword(password: string): Promise<string>;
-  public abstract encryptEncryptionKey(form: FormGroup): Promise<string>;
+  public abstract encryptEncryptionKey(encryptionKey: VaulteaCryptoKey): Promise<string>;
   public abstract prepareForSubmit(object: any, provideVaultId: boolean, keysToOmit: string[]): Promise<any>;
 }

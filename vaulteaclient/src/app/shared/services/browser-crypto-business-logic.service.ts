@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CryptoFunctionService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
-import { FormGroup } from "@angular/forms";
 import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
 import { DataUtil } from "@util";
 
@@ -98,8 +97,7 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     return (await this.cryptoFunctionService.computePbkdf2(masterKey.keyString, password, 1)).keyString
   }
 
-  public async encryptEncryptionKey(form: FormGroup): Promise<string> {
-    const encryptionKey = this.userKeyService.getEncryptionKey();
+  public async encryptEncryptionKey(encryptionKey: VaulteaCryptoKey): Promise<string> {
     const stretchedMasterKey = this.userKeyService.getStretchedMasterKey();
     return (await this.cryptoFunctionService.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer)).dataString
   }

@@ -83,9 +83,9 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     }
   }
 
-  public async generateKeys(form: FormGroup): Promise<void> {
-    const masterKey = await this.cryptoFunctionService.computePbkdf2(form.get("password")?.value, form.get("username")?.value, 1);
-    const stretchedMasterKey = await this.generateStretchedMasterKey(form.get("password")?.value, form.get("username")?.value);
+  public async generateKeys(username: string, password: string): Promise<void> {
+    const masterKey = await this.cryptoFunctionService.computePbkdf2(password, username, 1);
+    const stretchedMasterKey = await this.generateStretchedMasterKey(password, username);
     const encryptionKey = await this.generateEncryptionKey();
 
     this.userKeyService.setMasterKey(masterKey);

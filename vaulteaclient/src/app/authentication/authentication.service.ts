@@ -29,7 +29,7 @@ export class AuthenticationService {
     return this.httpClient.post("api/login", formData)
   }
 
-  public async setUser(user: User, encryptionKey: VaulteaCryptoKey): Promise<void> {
+  public setUser(user: User, encryptionKey: VaulteaCryptoKey): void {
     this.user = user;
     this.userKeyService.setEncryptionKey(encryptionKey);
     this.updateIsLoggedIn();

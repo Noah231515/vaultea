@@ -50,7 +50,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
 
     this.authenticationService.login(rawData).subscribe(async (user: User) => {
       const encryptionKey = await this.browserCryptoBusinessLogicService.decryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), user.key)
-      await this.authenticationService.setUser(user, encryptionKey);
+      this.authenticationService.setUser(user, encryptionKey);
       this.router.navigate(["/vault"]);
     });
   }

@@ -48,8 +48,9 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     const rawData = Object.assign({}, this.form.getRawValue());
     rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(this.userKeyService.getMasterKey(), rawData.password);
 
-    this.authenticationService.login(rawData).subscribe((user: User) => {
-      this.authenticationService.setUser(user);
+    this.authenticationService.login(rawData).subscribe(async (user: User) => {
+      const encryptionKey = await this.browserCryptoBusinessLogicService.decryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), user.key)
+      await this.authenticationService.setUser(user, encryptionKey);
       this.router.navigate(["/vault"]);
     });
   }

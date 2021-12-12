@@ -1,5 +1,7 @@
+import { UserKeyService } from "@abstract";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { VaulteaCryptoKey } from "@shared";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { User } from "./user.model";
@@ -15,7 +17,8 @@ export class AuthenticationService {
   public isLoggedInObservable: Observable<boolean> = this.isLoggedInBehaviorSubject.asObservable();
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private userKeyService: UserKeyService
   ) { }
 
   public signUp(formData: any): Observable<any> {
@@ -26,8 +29,9 @@ export class AuthenticationService {
     return this.httpClient.post("api/login", formData)
   }
 
-  public setUser(user: User): void {
+  public async setUser(user: User, encryptionKey: VaulteaCryptoKey): Promise<void> {
     this.user = user;
+    this.userKeyService.setEncryptionKey(encryptionKey);
     this.updateIsLoggedIn();
   }
 
@@ -38,6 +42,7 @@ export class AuthenticationService {
   public logout(): void {
     this.user = new User();
     this.updateIsLoggedIn();
+    // TODO: Clear out keys
   }
 
   private updateIsLoggedIn(): void {

@@ -32,6 +32,7 @@ describe("BrowserCryptoBusinessLogicService", () => {
     cryptoFunctionService = TestBed.inject(CryptoFunctionService);
     cryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
     await cryptoBusinessLogicService.generateKeys(username, password);
+    userKeyService.setEncryptionKey(await cryptoBusinessLogicService.generateEncryptionKey());
   });
 
   it("should decrypt the encrypted string correctly", async () => {

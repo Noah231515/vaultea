@@ -1,3 +1,13 @@
 vaultea-vault {
   width: 100%;
+
+  vaultea-card {
+    margin: 8px;
+  }
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%;
 }

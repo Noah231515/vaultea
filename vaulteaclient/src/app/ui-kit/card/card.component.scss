@@ -10,3 +10,17 @@
   height: 100px!important; 
   color: blue;
 }
+
+.card-width {
+  min-width: 50%;
+}
+
+vaultea-card {
+  mat-card {
+    border-radius: 20px!important;
+  }
+
+  .mat-card-header-text {
+    display: none;
+  }
+}

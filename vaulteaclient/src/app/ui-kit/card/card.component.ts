@@ -1,4 +1,6 @@
-import { Component, ViewEncapsulation } from "@angular/core";
+import { Component, Input, ViewEncapsulation } from "@angular/core";
+
+import { Card } from "./card.model";
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -7,4 +9,5 @@ import { Component, ViewEncapsulation } from "@angular/core";
   styleUrls: ["./card.component.scss"]
 })
 export class CardComponent {
+  @Input() cardData: Card;
 }

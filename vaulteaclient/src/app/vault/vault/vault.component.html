@@ -9,20 +9,14 @@
   </div>
   <mat-divider></mat-divider>
   <div class="m-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
-    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="24px">
-      <vaultea-card></vaultea-card>
-      <vaultea-card></vaultea-card>
-      <vaultea-card></vaultea-card>
-      <vaultea-card></vaultea-card>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="24px">
-      <vaultea-card></vaultea-card>
-      <vaultea-card></vaultea-card>
-      <vaultea-card></vaultea-card>
-      <vaultea-card></vaultea-card>
-    </div>
-    <div fxLayout="row" fxLayoutGap="24px">
-      <vaultea-card></vaultea-card>
+    <div class="container">
+      <vaultea-card 
+        *ngFor="let folder of folders"
+        [cardData]="{
+          title:folder.name,
+          description: folder.description
+        }"
+      ></vaultea-card>
     </div>
   </div>
 </div>

@@ -32,6 +32,7 @@ describe("BrowserCryptoBusinessLogicService", () => {
     cryptoFunctionService = TestBed.inject(CryptoFunctionService);
     cryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
     await cryptoBusinessLogicService.generateKeys(username, password);
+    userKeyService.setEncryptionKey(await cryptoBusinessLogicService.generateEncryptionKey());
   });
 
   it("should decrypt the encrypted string correctly", async () => {
@@ -56,6 +57,15 @@ describe("BrowserCryptoBusinessLogicService", () => {
     const computedDataString = CryptoUtil.arrayBufferToBase64(encryptedData.dataBuffer);
 
     expect(encryptedData.dataString).toBe(computedDataString);
+  });
+
+  it("should decrypt encryption key correctly", async () => {
+    const encryptionKey = Object.assign({}, userKeyService.getEncryptionKey());
+    const encryptedEncryptionKey = await cryptoBusinessLogicService.encryptEncryptionKey(userKeyService.getStretchedMasterKey(), encryptionKey);
+    const decryptedEncryptionKey = await cryptoBusinessLogicService.decryptEncryptionKey(userKeyService.getStretchedMasterKey(), encryptedEncryptionKey);
+
+    expect(encryptionKey.keyString).toEqual(decryptedEncryptionKey.keyString);
+    expect(btoa(encryptionKey.keyString)).toEqual(btoa(decryptedEncryptionKey.keyString));
   });
 
   it("should decrypt object correctly", async () => {

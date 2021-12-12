@@ -1,10 +1,6 @@
 <mat-card fxFlex class="card-width">
   <mat-card-header class="header-text-margin">
-    <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
-      <div>
-        <mat-card-title>Website Passwords</mat-card-title>
-        <mat-card-subtitle>2 Items</mat-card-subtitle>
-      </div>
+    <div fxFlex fxLayout="row" fxLayoutAlign="end">
       <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
         <mat-icon aria-hidden="false" aria-label="More Options">more_vert</mat-icon>
       </button>
@@ -13,9 +9,14 @@
   <mat-card-content>
     <div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
       <mat-icon class="icon-style" aria-hidden="false" aria-label="Folder Icon">folder</mat-icon>
-      <p>
-        Passwords for various websites
-      </p>
+      <mat-card-subtitle>{{cardData.description}}</mat-card-subtitle>
     </div>
   </mat-card-content>
+  <mat-card-actions>
+    <mat-card-header fxFlex>
+      <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+        <h2>{{cardData.title}}</h2>
+      </div>
+    </mat-card-header>
+  </mat-card-actions>
 </mat-card>

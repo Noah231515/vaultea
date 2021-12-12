@@ -1,7 +1,7 @@
 import { CryptoFunctionService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
-import { DataUtil } from "@util";
+import { CryptoUtil, DataUtil } from "@util";
 
 import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
 import { AuthenticationService } from "../../authentication/authentication.service";
@@ -85,11 +85,9 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
   public async generateKeys(username: string, password: string): Promise<void> {
     const masterKey = await this.cryptoFunctionService.computePbkdf2(password, username, 1);
     const stretchedMasterKey = await this.generateStretchedMasterKey(password, username);
-    const encryptionKey = await this.generateEncryptionKey();
 
     this.userKeyService.setMasterKey(masterKey);
     this.userKeyService.setStretchedMasterKey(stretchedMasterKey);
-    this.userKeyService.setEncryptionKey(encryptionKey);
   }
 
   public async hashPassword(masterKey: VaulteaCryptoKey,  password: string): Promise<string> {
@@ -98,6 +96,13 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
 
   public async encryptEncryptionKey(stretchedMasterKey: StretchedMasterKey, encryptionKey: VaulteaCryptoKey): Promise<string> {
     return (await this.cryptoFunctionService.encryptData(stretchedMasterKey.encryptionKey, encryptionKey.keyBuffer)).dataString
+  }
+
+  public async decryptEncryptionKey(stretchedMasterKey: StretchedMasterKey, encryptionKey: string): Promise<VaulteaCryptoKey> {
+    const keyString =  await this.cryptoFunctionService.decryptData(stretchedMasterKey.encryptionKey, atob(encryptionKey));
+    return new VaulteaCryptoKey(
+      CryptoUtil.stringToArrayBuffer(keyString)
+    );
   }
 
   public async prepareForSubmit(encryptionKey: VaulteaCryptoKey, object: any, provideVaultId: boolean = false, keysToOmit: string[] = []): Promise<any> {

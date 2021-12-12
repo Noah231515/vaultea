@@ -2,8 +2,8 @@ import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { User } from "@shared";
 
+import { User } from "..";
 import { ButtonInterface } from "../../ui-kit";
 import { AuthenticationService } from "../authentication.service";
 
@@ -48,8 +48,9 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     const rawData = Object.assign({}, this.form.getRawValue());
     rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(this.userKeyService.getMasterKey(), rawData.password);
 
-    this.authenticationService.login(rawData).subscribe((user: User) => {
-      this.authenticationService.setUser(user);
+    this.authenticationService.login(rawData).subscribe(async (user: User) => {
+      const encryptionKey = await this.browserCryptoBusinessLogicService.decryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), user.key)
+      this.authenticationService.setUser(user, encryptionKey);
       this.router.navigate(["/vault"]);
     });
   }

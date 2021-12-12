@@ -59,6 +59,15 @@ describe("BrowserCryptoBusinessLogicService", () => {
     expect(encryptedData.dataString).toBe(computedDataString);
   });
 
+  it("should decrypt encryption key correctly", async () => {
+    const encryptionKey = Object.assign({}, userKeyService.getEncryptionKey());
+    const encryptedEncryptionKey = await cryptoBusinessLogicService.encryptEncryptionKey(userKeyService.getStretchedMasterKey(), encryptionKey);
+    const decryptedEncryptionKey = await cryptoBusinessLogicService.decryptEncryptionKey(userKeyService.getStretchedMasterKey(), encryptedEncryptionKey);
+
+    expect(encryptionKey.keyString).toEqual(decryptedEncryptionKey.keyString);
+    expect(btoa(encryptionKey.keyString)).toEqual(btoa(decryptedEncryptionKey.keyString));
+  });
+
   it("should decrypt object correctly", async () => {
     const object = {
       "note": "this is an object note",

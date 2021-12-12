@@ -55,13 +55,18 @@ $primary: mat.define-palette($primary-palette, 200);
 $secondary: mat.define-palette($secondary-palette, 200);
 $warn: mat.define-palette($warn-palette, 200);
 
+$vaultea-typography: mat.define-typography-config(
+  $font-family: 'Cabin'
+);
+
 
 $vaultea-theme: mat.define-light-theme((
   color: (
     primary: $primary,
     accent: $secondary,
     warn: $warn
-  )
+  ),
+  typography: $vaultea-typography
 ));
 
 @include mat.all-component-themes($vaultea-theme);

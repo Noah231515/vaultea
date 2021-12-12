@@ -16,6 +16,14 @@
 }
 
 vaultea-card {
-  height: 250px;
-  width: 250px;
+  height: 30vh;
+  width: 30vh;
+
+  mat-card {
+    border-radius: 20px!important;
+  }
+
+  .mat-card-header-text {
+    display: none;
+  }
 }

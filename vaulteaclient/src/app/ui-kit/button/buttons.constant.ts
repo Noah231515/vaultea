@@ -45,10 +45,10 @@ export class ButtonsConstant {
   };
 
   public static readonly FLOATING_ADD_BUTTON: ButtonInterface = {
-    buttonTypeClass: "mat-button",
+    buttonTypeClass: "mat-fab",
     color: "primary",
-    text: "",
     type:"button",
-    ariaLabel: "Add"
+    ariaLabel: "Add",
+    icon: "add"
   }
 }

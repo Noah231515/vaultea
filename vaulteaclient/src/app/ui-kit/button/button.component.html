@@ -1,8 +1,8 @@
 <button 
   fxFlex
   mat-button
-  [class]="buttonTypeClass"
-  [color]="color"
-  [attr.aria-label]="text"
-> {{text}}
+  [class]="buttonData.buttonTypeClass"
+  [color]="buttonData.color"
+  [attr.aria-label]="buttonData.text"
+> {{buttonData.text}}
 </button>

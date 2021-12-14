@@ -1,3 +1,4 @@
+import { ComponentPortal } from "@angular/cdk/portal";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
@@ -16,7 +17,11 @@ export class VaultDynamicDrawerService {
     return this.stateBehaviorSubject.asObservable();
   }
 
-  public setPortalComponent(component: any): void {
+  public getPortalStateObservable(): Observable<any> {
+    return this.portalBehaviorSubject.asObservable();
+  }
+
+  public setPortalComponent(component: ComponentPortal<any>): void {
     this.portalBehaviorSubject.next(component);
   }
 

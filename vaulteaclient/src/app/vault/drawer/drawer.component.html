@@ -10,10 +10,8 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-
 <ng-template #sidenavContent>
   <div fxFlex fxLayout="column">
-    <vaultea-button [buttonData]="BUTTONS_CONSTANT.ADD_BUTTON" (click)="openAddFolderDialog()"></vaultea-button>
     <div fxFlex class="mr-3">
       <ng-container *ngTemplateOutlet="vaultTree"></ng-container>
     </div>

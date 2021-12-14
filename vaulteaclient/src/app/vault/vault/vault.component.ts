@@ -1,6 +1,7 @@
 import { BaseComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Folder } from "@folder";
+import { VaultDynamicDrawerService } from "@shared";
 
 import { AuthenticationService } from "../../authentication/authentication.service";
 
@@ -12,12 +13,14 @@ import { AuthenticationService } from "../../authentication/authentication.servi
 })
 export class VaultComponent extends BaseComponent implements OnInit {
   public folders: Folder[] = [];
+  public isDrawerOpened: boolean = false;
   
   public constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private authenticationService: AuthenticationService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
-    private userKeyService: UserKeyService
+    private userKeyService: UserKeyService,
+    private vaultDynamicDrawerService: VaultDynamicDrawerService
   ) {
     super();
   }
@@ -26,6 +29,17 @@ export class VaultComponent extends BaseComponent implements OnInit {
     this.authenticationService.getLoggedInUser().folders.forEach(async folder => {
       this.folders.push(await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), ["id", "vault_id_id"]));
     });
+    this.listenToDrawerState();
     this.changeDetectorRef.markForCheck();
+  }
+
+  private listenToDrawerState(): void {
+    this.vaultDynamicDrawerService.getIsOpenObservable().subscribe((isOpen: boolean) => {
+      this.isDrawerOpened = isOpen;
+    })
+  }
+
+  public addItem(): void {
+    this.vaultDynamicDrawerService.setState(true);
   }
 }

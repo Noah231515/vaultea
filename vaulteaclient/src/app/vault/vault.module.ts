@@ -14,11 +14,13 @@ import { UiKitModule } from "../ui-kit/ui-kit.module";
 import { DrawerComponent } from "./drawer/drawer.component";
 import { VaultRoutingModule } from "./vault-routing.module";
 import { VaultComponent } from "./vault/vault.component";
+import { ContentDrawerComponent } from './content-drawer/content-drawer.component';
 
 @NgModule({
   declarations: [
     VaultComponent,
     DrawerComponent,
+    ContentDrawerComponent,
   ],
   imports: [
     CommonModule,

@@ -5,6 +5,7 @@
       (click)="emitPrimaryButtonClicked()"
     ></vaultea-button>
     <vaultea-button
+      *ngIf="secondaryButton"
       [buttonData]="secondaryButton"
       (click)="emitSecondaryButtonClicked()"
     ></vaultea-button>

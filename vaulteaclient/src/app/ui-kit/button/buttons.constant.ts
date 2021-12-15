@@ -51,4 +51,12 @@ export class ButtonsConstant {
     ariaLabel: "Add",
     icon: "add"
   }
+
+  public static readonly DRAWER_CANCEL_BUTTON: ButtonInterface = {
+    buttonTypeClass: "mat-icon-button",
+    color: "primary",
+    type:"button",
+    ariaLabel: "Cancel",
+    icon: "close"
+  }
 }

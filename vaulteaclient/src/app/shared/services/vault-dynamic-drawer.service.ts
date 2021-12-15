@@ -26,6 +26,9 @@ export class VaultDynamicDrawerService {
   }
 
   public setState(isOpened: boolean): void {
-    this.stateBehaviorSubject.next(true);
+    if (!isOpened) {
+      this.portalBehaviorSubject.next(null);
+    }
+    this.stateBehaviorSubject.next(isOpened);
   }
 }

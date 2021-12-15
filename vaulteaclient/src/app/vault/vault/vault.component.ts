@@ -27,6 +27,9 @@ export class VaultComponent extends BaseComponent implements OnInit {
     super();
   }
 
+  // TODO: Handle data injection maybe?
+  // TODO: Implement close on drawer
+
   public async ngOnInit(): Promise<void> {
     this.authenticationService.getLoggedInUser().folders.forEach(async folder => {
       this.folders.push(await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), ["id", "vault_id_id"]));
@@ -51,5 +54,9 @@ export class VaultComponent extends BaseComponent implements OnInit {
   public addItem(): void {
     this.vaultDynamicDrawerService.setPortalComponent(new ComponentPortal(FolderFormComponent));
     this.vaultDynamicDrawerService.setState(true);
+  }
+
+  public closeDrawer(): void {
+    this.vaultDynamicDrawerService.setState(false);
   }
 }

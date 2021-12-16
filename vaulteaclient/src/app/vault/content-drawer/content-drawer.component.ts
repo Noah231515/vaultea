@@ -1,6 +1,6 @@
 import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { VaultDynamicDrawerService } from "@shared";
 
 @Component({
@@ -13,7 +13,8 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
   public drawerPortal: ComponentPortal<any>;
 
   constructor(
-    private vaultDynamicDrawerService: VaultDynamicDrawerService
+    private vaultDynamicDrawerService: VaultDynamicDrawerService,
+    private changeDetectorRef: ChangeDetectorRef
   ) { 
     super();
   }
@@ -26,12 +27,14 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
   private listenToDrawerState(): void {
     this.vaultDynamicDrawerService.getIsOpenObservable().subscribe((isOpen: boolean) => {
       this.isDrawerOpened = isOpen;
+      this.changeDetectorRef.detectChanges();
     })
   }
 
   private listenToPortalState(): void {
     this.vaultDynamicDrawerService.getPortalStateObservable().subscribe((portal: ComponentPortal<any>) => {
       this.drawerPortal = portal;
+      this.changeDetectorRef.detectChanges();
     })
   }
 

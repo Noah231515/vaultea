@@ -18,7 +18,7 @@ export class FormFooterComponent extends BaseComponent implements OnInit {
 
 
   constructor() { 
-    super()  
+    super();
   }
 
   public ngOnInit(): void {

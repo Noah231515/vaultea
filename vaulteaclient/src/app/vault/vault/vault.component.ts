@@ -1,12 +1,14 @@
 import { BaseComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Folder, FolderFormComponent } from "@folder";
-import { VaultDynamicDrawerService } from "@shared";
+import { KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
 
+import { UserDataService } from "../../abstract/services/user-data.service";
 import { AuthenticationService } from "../../authentication/authentication.service";
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   selector: "vaultea-vault",
   styleUrls: ["./vault.component.scss"],
@@ -19,19 +21,33 @@ export class VaultComponent extends BaseComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
-    private vaultDynamicDrawerService: VaultDynamicDrawerService
+    private vaultDynamicDrawerService: VaultDynamicDrawerService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private userDataService: UserDataService
   ) {
     super();
   }
 
   // TODO: Handle data injection maybe?
-  // TODO: Implement close on drawer
-
   public async ngOnInit(): Promise<void> {
-    this.authenticationService.getLoggedInUser().folders.forEach(async folder => {
-      this.folders.push(await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), ["id", "vault_id_id"]));
-    });
+    this.initFolders();
+    this.listenForDataChanges();
+  }
 
+  private initFolders(): void {
+    this.authenticationService.getLoggedInUser().folders.forEach(async folder => {
+      this.folders.push(await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER));
+      this.changeDetectorRef.markForCheck();
+    });
+  }
+
+  private listenForDataChanges(): void {
+    this.userDataService.folderUpdatedObservable.subscribe(async (folder: Folder) => {
+      if (folder.id) {
+        this.folders.push(await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER));
+        this.changeDetectorRef.markForCheck();
+      }
+    });
   }
 
 

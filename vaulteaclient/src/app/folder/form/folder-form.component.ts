@@ -1,4 +1,4 @@
-import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
+import { BaseFormComponent, CryptoBusinessLogicService, UserDataService, UserKeyService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { VaultDynamicDrawerService } from "@shared";
@@ -15,7 +15,8 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private folderService: FolderService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
-    private vaultDynamicDrawerService: VaultDynamicDrawerService
+    private vaultDynamicDrawerService: VaultDynamicDrawerService,
+    private userDataService: UserDataService
   ) {
     super(); 
   }
@@ -33,8 +34,9 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
 
   public async submit(): Promise<void> {
     const preparedData = await this.cryptoBusinessLogicService.prepareForSubmit(this.userKeyService.getEncryptionKey(), this.form.getRawValue(), true, []);
-    this.folderService.create(preparedData).subscribe(createdFolder => {
+    this.folderService.create(preparedData).subscribe(async createdFolder => {
       this.vaultDynamicDrawerService.setState(false);
+      this.userDataService.updateFolders(createdFolder, true);
     });
   }
 

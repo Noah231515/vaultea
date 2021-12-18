@@ -15,4 +15,4 @@ def create(request):
   if serializer.is_valid(raise_exception=True):
     new_folder = serializer.create(serializer.data)
 
-  return JsonResponse(model_to_dict(new_folder), status=status.HTTP_200_OK, safe=False)
+  return JsonResponse(model_to_dict(new_folder), status=status.HTTP_200_OK)

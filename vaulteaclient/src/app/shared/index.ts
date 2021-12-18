@@ -11,7 +11,7 @@ export * from ".//models/vaultea-crypto-key.model";
 export * from "./services/browser-crypto-function.service";
 export * from "./services/browser-crypto-business-logic.service";
 export * from "./services/vault-dynamic-drawer.service";
-export * from "./services/snack-bar.service";
+export * from "../ui-kit/services/snack-bar.service";
 
 // Interceptors
 export * from "./interceptors/auth.interceptor";

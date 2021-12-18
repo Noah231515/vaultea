@@ -6,6 +6,7 @@ import { KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
 
 import { UserDataService } from "../../abstract/services/user-data.service";
 import { AuthenticationService } from "../../authentication/authentication.service";
+import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,7 +24,8 @@ export class VaultComponent extends BaseComponent implements OnInit {
     private userKeyService: UserKeyService,
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private changeDetectorRef: ChangeDetectorRef,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
+    private snackBarService: SnackBarService
   ) {
     super();
   }
@@ -31,7 +33,7 @@ export class VaultComponent extends BaseComponent implements OnInit {
   // TODO: Handle data injection maybe?
   public async ngOnInit(): Promise<void> {
     this.initFolders();
-    this.listenForDataChanges();
+    this.listenForFolderChanges();
   }
 
   private initFolders(): void {
@@ -41,15 +43,21 @@ export class VaultComponent extends BaseComponent implements OnInit {
     });
   }
 
-  private listenForDataChanges(): void {
+  private listenForFolderChanges(): void {
     this.userDataService.folderUpdatedObservable.subscribe(async (folder: Folder) => {
       if (folder.id) {
-        this.folders.push(await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER));
+        if (this.folders.find(x => x.id === folder.id)) {
+          // TODO: Implement replacing folder with updated folder
+        } else {
+          let newFolder = await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER);
+          this.folders.push(newFolder);
+          this.snackBarService.open(`${newFolder.name} successfully added`);
+          newFolder = null;
+        }
         this.changeDetectorRef.markForCheck();
       }
     });
   }
-
 
   public addItem(): void {
     this.vaultDynamicDrawerService.setPortalComponent(new ComponentPortal(FolderFormComponent));

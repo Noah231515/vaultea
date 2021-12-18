@@ -5,3 +5,4 @@ export * from "./button/button.interface";
 export * from "./button/buttons.constant"
 
 // Services
+export * from "./services/snack-bar.service";

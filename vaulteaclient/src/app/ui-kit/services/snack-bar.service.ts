@@ -14,6 +14,7 @@ export class SnackBarService {
     this.defaultSnackBarConfig.horizontalPosition = "center";
     this.defaultSnackBarConfig.verticalPosition = "top";
     this.defaultSnackBarConfig.duration = 5000;
+    this.defaultSnackBarConfig.politeness = "polite"
   }
 
   public open(message: string): void {

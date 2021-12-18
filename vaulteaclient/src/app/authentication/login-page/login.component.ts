@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 
 import { User } from "..";
 import { ButtonInterface } from "../../ui-kit";
+import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 import { AuthenticationService } from "../authentication.service";
 
 @Component({
@@ -23,6 +24,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
+    private snackBarService: SnackBarService
   ) { 
     super()
   }
@@ -52,7 +54,10 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
       const encryptionKey = await this.browserCryptoBusinessLogicService.decryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), user.key)
       this.authenticationService.setUser(user, encryptionKey);
       this.router.navigate(["/vault"]);
-    });
+    }, err => {
+      this.snackBarService.open(err.error.msg);
+    }
+    );
   }
 
   public cancel(): void {

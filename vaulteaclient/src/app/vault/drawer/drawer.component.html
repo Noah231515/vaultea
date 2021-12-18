@@ -3,17 +3,15 @@
     <ng-container *ngTemplateOutlet="sidenavContent"></ng-container>
   </mat-sidenav>
   <mat-sidenav-content class="content-background-color">
-  <vaultea-button [buttonInterface]="BUTTONS_CONSTANT.ADD_BUTTON" (click)="toggleSidenav()"></vaultea-button>
+  <vaultea-button [buttonData]="BUTTONS_CONSTANT.ADD_BUTTON" (click)="toggleSidenav()"></vaultea-button>
   <div fxFlex fxLayout="row">
     <router-outlet name="sidenavContent"></router-outlet>
   </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-
 <ng-template #sidenavContent>
   <div fxFlex fxLayout="column">
-    <vaultea-button [buttonInterface]="BUTTONS_CONSTANT.ADD_BUTTON" (click)="openAddFolderDialog()"></vaultea-button>
     <div fxFlex class="mr-3">
       <ng-container *ngTemplateOutlet="vaultTree"></ng-container>
     </div>

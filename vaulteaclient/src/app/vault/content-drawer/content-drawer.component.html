@@ -1,0 +1,8 @@
+<mat-sidenav-container fxFlex>
+  <mat-sidenav [opened]="isDrawerOpened && !!drawerPortal" mode="side" position="end">
+    <div fxLayoutAlign="end">
+      <vaultea-button [buttonData]="BUTTONS_CONSTANT.DRAWER_CANCEL_BUTTON" (click)="closeDrawer()"></vaultea-button>
+    </div>
+    <ng-template [cdkPortalOutlet]="drawerPortal"></ng-template>
+  </mat-sidenav>
+</mat-sidenav-container>

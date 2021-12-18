@@ -2,9 +2,12 @@ import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { of } from "rxjs";
+import { catchError } from "rxjs/operators";
 
 import { User } from "..";
 import { ButtonInterface } from "../../ui-kit";
+import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 import { AuthenticationService } from "../authentication.service";
 
 @Component({
@@ -23,6 +26,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
+    private snackBarService: SnackBarService
   ) { 
     super()
   }
@@ -48,11 +52,15 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     const rawData = Object.assign({}, this.form.getRawValue());
     rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(this.userKeyService.getMasterKey(), rawData.password);
 
-    this.authenticationService.login(rawData).subscribe(async (user: User) => {
-      const encryptionKey = await this.browserCryptoBusinessLogicService.decryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), user.key)
-      this.authenticationService.setUser(user, encryptionKey);
-      this.router.navigate(["/vault"]);
-    });
+    this.authenticationService.login(rawData)
+      .pipe(
+        catchError(err => of(this.snackBarService.open(err.error.msg)))
+      )
+      .subscribe(async (user: User) => {
+        const encryptionKey = await this.browserCryptoBusinessLogicService.decryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), user.key)
+        this.authenticationService.setUser(user, encryptionKey);
+        this.router.navigate(["/vault"]);
+      });
   }
 
   public cancel(): void {

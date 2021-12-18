@@ -2,7 +2,6 @@ import { NestedTreeControl } from "@angular/cdk/tree";
 import { Component, ViewEncapsulation } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
-import { FolderFormComponent } from "@folder";
 import { BaseComponent } from "src/app/abstract/base/base-component/base.component";
 
 /**
@@ -57,9 +56,5 @@ export class DrawerComponent extends BaseComponent {
 
   public toggleSidenav(): void {
     this.opened = !this.opened;
-  }
-
-  public openAddFolderDialog(): void {
-    this.dialog.open(FolderFormComponent);
   }
 }

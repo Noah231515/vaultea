@@ -1,6 +1,7 @@
-import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
+import { BaseFormComponent, CryptoBusinessLogicService, UserDataService, UserKeyService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { VaultDynamicDrawerService } from "@shared";
 
 import { FolderService } from "../folder.service";
 
@@ -9,12 +10,13 @@ import { FolderService } from "../folder.service";
   templateUrl: "./folder-form.component.html",
 })
 export class FolderFormComponent extends BaseFormComponent implements OnInit {
-
   constructor(
     private formBuilder: FormBuilder,
     private folderService: FolderService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
-    private userKeyService: UserKeyService
+    private userKeyService: UserKeyService,
+    private vaultDynamicDrawerService: VaultDynamicDrawerService,
+    private userDataService: UserDataService
   ) {
     super(); 
   }
@@ -32,12 +34,14 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
 
   public async submit(): Promise<void> {
     const preparedData = await this.cryptoBusinessLogicService.prepareForSubmit(this.userKeyService.getEncryptionKey(), this.form.getRawValue(), true, []);
-    this.folderService.create(preparedData).subscribe(createdFolder => {
-      // TODO: Do something
+    this.folderService.create(preparedData).subscribe(async createdFolder => {
+      this.vaultDynamicDrawerService.setState(false);
+      this.userDataService.updateFolders(createdFolder, true);
     });
   }
 
   public cancel(): void {
-    // TODO: Do something
+    throw new Error("Method not implemented.");
   }
+
 }

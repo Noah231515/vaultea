@@ -18,15 +18,12 @@ export class FormFooterComponent extends BaseComponent implements OnInit {
 
 
   constructor() { 
-    super()  
+    super();
   }
 
   public ngOnInit(): void {
     if (!this.primaryButton) {
       this.primaryButton = this.BUTTONS_CONSTANT.SUBMIT_BUTTON;
-    }
-    if (!this.secondaryButton) {
-      this.secondaryButton = this.BUTTONS_CONSTANT.CANCEL_BUTTON
     }
   }
 

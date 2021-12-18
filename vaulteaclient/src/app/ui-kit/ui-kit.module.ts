@@ -7,15 +7,16 @@ import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { AbstractModule } from "../abstract/abstract.module";
 import { ButtonComponent } from "./button/button.component";
 import { CardComponent } from "./card/card.component";
 import { FormFooterComponent } from "./form-footer/form-footer.component";
+import { FormHeaderComponent } from "./form-header/form-header.component";
 import { FormComponent } from "./form/form.component";
 import { InputComponent } from "./input/input.component";
 import { LogoFullComponent } from "./logo-full/logo-full.component";
-import { FormHeaderComponent } from "./form-header/form-header.component";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { FormHeaderComponent } from "./form-header/form-header.component";
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
-  ]
+  ],
 })
 export class UiKitModule { }

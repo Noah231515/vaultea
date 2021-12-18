@@ -1,6 +1,7 @@
 import { UserKeyService } from "@abstract";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Folder } from "@folder";
 import { VaulteaCryptoKey } from "@shared";
 import { BehaviorSubject, Observable } from "rxjs";
 
@@ -51,5 +52,11 @@ export class AuthenticationService {
 
   public getLoggedInUser(): User {
     return this.user;
+  }
+
+  public updateFolders(folder: Folder, newFolder: boolean): void {
+    if (newFolder) {
+      this.user.folders.push(folder);
+    }
   }
 }

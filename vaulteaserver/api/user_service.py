@@ -1,4 +1,5 @@
-import json
+from django.forms.models import model_to_dict
+
 from api.models import Folder, User, Vault
 
 class UserService:
@@ -6,7 +7,7 @@ class UserService:
   @staticmethod
   def get_user_info(user, refreshToken):
     vault = Vault.objects.filter(user_id=user.id).first()
-    folders = Folder.objects.filter(vault_id=vault).values()
+    folders = Folder.objects.filter(vault_id=vault)
     
     return {
       "id": user.id,
@@ -14,5 +15,5 @@ class UserService:
       "key": user.key,
       "accessToken": str(refreshToken.access_token),
       "vaultId": vault.id,
-      "folders": [folder for folder in folders]
+      "folders": [model_to_dict(folder) for folder in folders]
     }

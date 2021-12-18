@@ -43,4 +43,20 @@ export class ButtonsConstant {
     type: "button",
     ariaLabel: "Add"
   };
+
+  public static readonly FLOATING_ADD_BUTTON: ButtonInterface = {
+    buttonTypeClass: "mat-fab",
+    color: "primary",
+    type:"button",
+    ariaLabel: "Add",
+    icon: "add"
+  }
+
+  public static readonly DRAWER_CANCEL_BUTTON: ButtonInterface = {
+    buttonTypeClass: "mat-icon-button",
+    color: "primary",
+    type:"button",
+    ariaLabel: "Cancel",
+    icon: "close"
+  }
 }

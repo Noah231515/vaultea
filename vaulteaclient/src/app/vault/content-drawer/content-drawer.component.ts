@@ -28,6 +28,9 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
   private listenToDrawerState(): void {
     this.vaultDynamicDrawerService.getIsOpenObservable().subscribe((isOpen: boolean) => {
       this.isDrawerOpened = isOpen;
+      if (isOpen) {
+        window.scrollTo({top: 0, behavior: "smooth"});
+      }
       this.changeDetectorRef.detectChanges();
     })
   }

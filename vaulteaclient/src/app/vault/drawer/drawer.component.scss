@@ -11,7 +11,7 @@ vaultea-drawer {
     border-bottom-left-radius: $radius-amount;
     width: $width;
     max-width: $max-width;
-  }  
+  }
 }
 
 .global-foreground {
@@ -49,9 +49,6 @@ vaultea-drawer {
 .list-option {
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
-  .mat-focus-indicator {
-    background-color: red;
-  }
   :focus {
     background-color: $secondary-dark-green;
   }

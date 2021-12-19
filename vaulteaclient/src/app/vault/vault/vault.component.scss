@@ -6,6 +6,10 @@ vaultea-vault {
   vaultea-card {
     margin: 8px;
   }
+
+  mat-divider {
+    background-color: $secondary-dark-green;
+  }
 }
 
 .container {

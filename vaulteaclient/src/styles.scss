@@ -2,7 +2,7 @@
 @use '@angular/material' as mat;
 @import "~mdb-ui-kit/css/mdb.min.css";
 
-html, body { height: 100%; }
+html, body { height: 100vh; }
 body { margin: 0; font-family: Cabin; }
 
 .logo-full {

@@ -10,7 +10,8 @@
 
 .sidenav {
   // min-width: 50%;
-  border-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .example-tree ul,
@@ -34,4 +35,24 @@
  */
 .example-tree div[role=group] > .mat-tree-node {
   padding-left: 40px;
+}
+
+.list-option {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  .mat-focus-indicator {
+    background-color: red;
+  }
+  :focus {
+    background-color: $secondary-dark-green;
+  }
+}
+
+.mat-list-single-selected-option {
+  background-color: $secondary-dark-green!important;
+}
+
+.mat-list-item-ripple {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
 }

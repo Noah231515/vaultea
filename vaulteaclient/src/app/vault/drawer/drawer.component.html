@@ -5,7 +5,11 @@
   </mat-sidenav>
 
   <mat-sidenav-content class="content-background-color">
-  <vaultea-button [buttonData]="BUTTONS_CONSTANT.ADD_BUTTON" (click)="toggleSidenav()"></vaultea-button>
+    <div fxLayoutAlign=" center" (click)="toggleSidenav()">
+      <mat-card class="pull-tab" fxLayoutAlign="center center">
+        <mat-icon> {{opened ? 'navigate_before' : 'navigate_next'}}</mat-icon>
+      </mat-card>
+    </div>
   <div fxFlex fxLayout="row">
     <router-outlet name="sidenavContent"></router-outlet>
   </div>

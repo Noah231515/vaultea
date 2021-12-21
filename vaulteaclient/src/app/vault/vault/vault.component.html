@@ -1,16 +1,19 @@
-<div class="m-3" fxFlex fxLayout="column">
-  <div fxFlex class="p-3" fxLayout="row" fxLayoutAlign="space-between">
-    <span>breadcrumb</span>
-    <span>view options (list/grid)</span>
-  </div>
+<div class="m-3 content-background-color" fxFlex fxLayout="column">
   <div fxLayoutAlign="space-between">
-    <h1>Folders</h1>
-    <span>Sort</span>
+    <h1>Vault</h1>
+    <div fxFlex fxLayoutAlign="end center" fxLayoutGap="24px">
+
+      <mat-chip-list>
+        <mat-chip>Sort By</mat-chip>
+      </mat-chip-list>
+
+      <mat-icon>view_list</mat-icon>
+    </div>
   </div>
   <mat-divider></mat-divider>
   <div class="m-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
     <div class="container">
-      <vaultea-card 
+      <vaultea-card
         *ngFor="let folder of folders"
         [cardData]="{
           title:folder.name,

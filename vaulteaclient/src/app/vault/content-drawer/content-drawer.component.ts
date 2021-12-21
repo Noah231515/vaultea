@@ -1,12 +1,13 @@
 import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { VaultDynamicDrawerService } from "@shared";
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: "vaultea-content-drawer",
+  styleUrls: ["./content-drawer.component.scss"],
   templateUrl: "./content-drawer.component.html",
-  styleUrls: ["./content-drawer.component.scss"]
 })
 export class ContentDrawerComponent extends BaseComponent implements OnInit {
   public isDrawerOpened: boolean = false;
@@ -27,6 +28,9 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
   private listenToDrawerState(): void {
     this.vaultDynamicDrawerService.getIsOpenObservable().subscribe((isOpen: boolean) => {
       this.isDrawerOpened = isOpen;
+      if (isOpen) {
+        window.scrollTo({top: 0, behavior: "smooth"});
+      }
       this.changeDetectorRef.detectChanges();
     })
   }

@@ -1,8 +1,14 @@
+@import "../../../styles.scss";
+
 vaultea-vault {
   width: 100%;
 
   vaultea-card {
     margin: 8px;
+  }
+
+  mat-divider {
+    background-color: $secondary-dark-green;
   }
 }
 
@@ -13,5 +19,6 @@ vaultea-vault {
 }
 
 .button-wrapper {
-  width: 80rem;
+  position: fixed;
+  bottom: 2vh;
 }

@@ -1,5 +1,17 @@
-.content-background-color {
-  background-color: lightgray;
+@import "../../../styles.scss";
+@import "../../styles//drawer.scss";
+
+vaultea-drawer {
+  mat-sidenav {
+    border-top-right-radius: $radius-amount;
+    border-bottom-right-radius: $radius-amount;
+  }
+  .mat-drawer-inner-container {
+    border-top-left-radius: $radius-amount;
+    border-bottom-left-radius: $radius-amount;
+    width: $width;
+    max-width: $max-width;
+  }
 }
 
 .global-foreground {
@@ -10,9 +22,6 @@
   display: none;
 }
 
-.sidenav {
-  min-width: 50%;
-}
 
 .example-tree ul,
 .example-tree li {
@@ -35,4 +44,29 @@
  */
 .example-tree div[role=group] > .mat-tree-node {
   padding-left: 40px;
+}
+
+.list-option {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  :focus {
+    background-color: $secondary-dark-green;
+  }
+}
+
+.mat-list-single-selected-option {
+  background-color: $secondary-dark-green!important;
+}
+
+.mat-list-item-ripple {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.pull-tab {
+  height: 100px;
+  width: 25px;
+  border-top-right-radius: 50px!important;
+  border-bottom-right-radius: 50px!important;
+  cursor: pointer;
 }

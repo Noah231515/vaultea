@@ -1,3 +1,24 @@
+@import "../../styles/drawer.scss";
+
 mat-sidenav-content {
-  display: none;
+  border-radius: $radius-amount;
 }
+
+vaultea-content-drawer {
+  mat-sidenav-container {
+    border-top-left-radius: $radius-amount;
+    border-bottom-left-radius: $radius-amount;
+    display: none;
+  }
+  .mat-drawer-inner-container {
+      border-top-left-radius: $radius-amount;
+      border-bottom-left-radius: $radius-amount;
+      width: $width;
+      max-width: $max-width;
+    }    
+}
+
+.content-margin {
+  padding-left: 5vw;
+}
+

@@ -17,7 +17,7 @@ import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 })
 export class VaultComponent extends BaseComponent implements OnInit {
   public folders: Folder[] = [];
-  
+
   public constructor(
     private authenticationService: AuthenticationService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
@@ -57,6 +57,10 @@ export class VaultComponent extends BaseComponent implements OnInit {
         this.changeDetectorRef.markForCheck();
       }
     });
+  }
+
+  public deleteFolder(folderId: string): void {
+    console.log(folderId);
   }
 
   public addItem(): void {

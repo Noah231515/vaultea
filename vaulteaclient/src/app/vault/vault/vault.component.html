@@ -16,9 +16,11 @@
       <vaultea-card
         *ngFor="let folder of folders"
         [cardData]="{
-          title:folder.name,
+          objectId: folder.id,
+          title: folder.name,
           description: folder.description
         }"
+        (deleteOptionClicked)="deleteFolder($event)"
       ></vaultea-card>
     </div>
     <div class="button-wrapper" fxLayoutAlign="end">

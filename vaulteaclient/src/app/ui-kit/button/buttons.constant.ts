@@ -44,6 +44,14 @@ export class ButtonsConstant {
     ariaLabel: "Add"
   };
 
+  public static readonly DELETE_BUTTON: ButtonInterface = {
+    buttonTypeClass: "mat-button",
+    color: "primary",
+    text: "Delete",
+    type: "button",
+    ariaLabel: "Delete"
+  };
+
   public static readonly FLOATING_ADD_BUTTON: ButtonInterface = {
     buttonTypeClass: "mat-fab",
     color: "primary",

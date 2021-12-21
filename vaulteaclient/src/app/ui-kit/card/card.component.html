@@ -2,7 +2,10 @@
   <mat-card-header class="header-text-margin">
     <div fxFlex fxLayout="row" fxLayoutAlign="end">
       <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-        <mat-icon aria-hidden="false" aria-label="More Options">more_vert</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="More Options" [matMenuTriggerFor]="menu">more_vert</mat-icon>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="deleteOptionClicked.emit(cardData.objectId)">Delete</button>
+        </mat-menu>
       </button>
     </div>
   </mat-card-header>

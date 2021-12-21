@@ -16,3 +16,8 @@ def create(request):
     new_folder = serializer.create(serializer.data)
 
   return JsonResponse(model_to_dict(new_folder), status=status.HTTP_200_OK)
+
+@api_view(['DELETE'])
+def delete(request, id):
+  print(id)
+  

@@ -1,8 +1,10 @@
 import { BaseComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { Folder, FolderFormComponent } from "@folder";
+import { Folder, FolderFormComponent, FolderService } from "@folder";
 import { KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
+import { of } from "rxjs";
+import { catchError } from "rxjs/operators";
 
 import { UserDataService } from "../../abstract/services/user-data.service";
 import { AuthenticationService } from "../../authentication/authentication.service";
@@ -25,7 +27,8 @@ export class VaultComponent extends BaseComponent implements OnInit {
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private changeDetectorRef: ChangeDetectorRef,
     private userDataService: UserDataService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private folderService: FolderService
   ) {
     super();
   }
@@ -60,7 +63,13 @@ export class VaultComponent extends BaseComponent implements OnInit {
   }
 
   public deleteFolder(folderId: string): void {
-    console.log(folderId);
+    this.folderService.delete(folderId)
+      .pipe(
+        catchError(err => of(this.snackBarService.open(err.error.msg)))
+      )
+      .subscribe(folderId => {
+        this.snackBarService.open("Folder successfully deleted");
+      });
   }
 
   public addItem(): void {

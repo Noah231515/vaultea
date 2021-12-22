@@ -18,6 +18,6 @@ def create(request):
   return JsonResponse(model_to_dict(new_folder), status=status.HTTP_200_OK)
 
 @api_view(['DELETE'])
-def delete(request, id):
-  print(id)
+def delete(request, folder_id):
+  print(folder_id)
   

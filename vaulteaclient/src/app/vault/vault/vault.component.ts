@@ -69,6 +69,7 @@ export class VaultComponent extends BaseComponent implements OnInit {
       )
       .subscribe(folderId => {
         this.snackBarService.open("Folder successfully deleted");
+        this.userDataService.removeFolder(folderId as string);
       });
   }
 

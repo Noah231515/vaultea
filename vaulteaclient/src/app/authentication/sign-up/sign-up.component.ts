@@ -18,7 +18,7 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
     private userKeyService: UserKeyService,
     private formBuilder: FormBuilder,
     private router: Router,
-  ) { 
+  ) {
     super();
   }
 
@@ -26,7 +26,7 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
     this.authenticationService.logout();
     this.initForm();
   }
-  
+
   protected initForm(): void {
     this.form = this.formBuilder.group({
       password: ["", Validators.required],
@@ -53,5 +53,7 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
   public cancel(): void {
     throw new Error("Method not implemented.");
   }
-
+  public setState(): void {
+    throw new Error("Method not implemented.");
+  }
 }

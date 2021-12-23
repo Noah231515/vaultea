@@ -3,7 +3,6 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { VaultDynamicDrawerService } from "@shared";
 
-import { Folder } from "../folder.model";
 import { FolderService } from "../folder.service";
 
 @Component({
@@ -11,7 +10,6 @@ import { FolderService } from "../folder.service";
   templateUrl: "./folder-form.component.html",
 })
 export class FolderFormComponent extends BaseFormComponent implements OnInit {
-  public existingObject?: Folder;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,7 +23,14 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.setState();
     this.initForm();
+  }
+
+  public setState(): void {
+    if (this.existingObject) {
+      this.formState = this.formStateEnum.EDIT;
+    }
   }
 
   protected initForm(): void {

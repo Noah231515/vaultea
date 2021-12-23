@@ -1,7 +1,6 @@
-import { BaseComponent } from "@abstract";
+import { BaseComponent, BaseFormComponent } from "@abstract";
 import { CdkPortalOutletAttachedRef, ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectorRef, Component, ComponentRef, OnInit, ViewEncapsulation } from "@angular/core";
-import { FolderFormComponent } from "@folder";
 import { VaultDynamicDrawerService } from "@shared";
 
 @Component({
@@ -45,8 +44,8 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
 
   public setComponentData(ref: CdkPortalOutletAttachedRef): void {
     const existingObject = this.vaultDynamicDrawerService.getExistingObject();
-    if (existingObject) { // TODO: make generic
-      (ref as ComponentRef<FolderFormComponent>).instance.existingObject = existingObject;
+    if (existingObject) {
+      (ref as ComponentRef<BaseFormComponent>).instance.existingObject = existingObject;
     }
   }
 

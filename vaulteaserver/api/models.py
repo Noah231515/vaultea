@@ -5,6 +5,12 @@ from django.conf import settings
 
 user = settings.AUTH_USER_MODEL
 
+# TODO: Refactor Note/Password to use base class with audit data, expire_date, note will compress our tables down
+# Additional, more specific data dan be foreign keyed to it
+# Additional data would extend base data
+# So we have Item with data
+# MetaData with data type of pattern
+
 class User(AbstractUser):
     key = models.CharField(max_length=500, blank=False, null=False)
 

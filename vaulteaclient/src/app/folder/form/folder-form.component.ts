@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { VaultDynamicDrawerService } from "@shared";
 
+import { Folder } from "../folder.model";
 import { FolderService } from "../folder.service";
 
 @Component({
@@ -10,6 +11,8 @@ import { FolderService } from "../folder.service";
   templateUrl: "./folder-form.component.html",
 })
 export class FolderFormComponent extends BaseFormComponent implements OnInit {
+  public existingObject?: Folder;
+
   constructor(
     private formBuilder: FormBuilder,
     private folderService: FolderService,
@@ -18,7 +21,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private userDataService: UserDataService
   ) {
-    super(); 
+    super();
   }
 
   public ngOnInit(): void {
@@ -27,8 +30,8 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
 
   protected initForm(): void {
     this.form = this.formBuilder.group({
-      name: ["", Validators.required],
-      description: [""]
+      name: [this.existingObject?.name ?? "", Validators.required],
+      description: [this.existingObject?.description ?? ""]
     });
   }
 
@@ -43,5 +46,4 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public cancel(): void {
     throw new Error("Method not implemented.");
   }
-
 }

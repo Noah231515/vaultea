@@ -22,4 +22,10 @@ export abstract class UserDataService {
     }
     this.folderUpdatedBehaviorSubject.next(folder);
   }
+
+  public removeFolder(folderId: string): void {
+    const user = this.authenticationService.getLoggedInUser();
+    const index = user.folders.findIndex(x => x.id === folderId);
+    user.folders.splice(index, 1);
+  }
 }

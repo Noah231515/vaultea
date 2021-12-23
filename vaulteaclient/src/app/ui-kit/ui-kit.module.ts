@@ -7,6 +7,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatMenuModule } from "@angular/material/menu";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { AbstractModule } from "../abstract/abstract.module";
@@ -46,6 +47,7 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatSnackBarModule,
     ReactiveFormsModule,
   ],

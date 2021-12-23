@@ -16,4 +16,8 @@ export class FolderService {
   public create(folder: Folder): Observable<Folder> {
     return this.httpClient.post<Folder>("api/folder", folder);
   }
+
+  public delete(folderId: string): Observable<string> {
+    return this.httpClient.delete<string>(`api/folder/${folderId}`);
+  }
 }

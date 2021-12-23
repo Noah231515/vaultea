@@ -18,7 +18,8 @@
         [cardData]="{
           objectId: folder.id,
           title: folder.name,
-          description: folder.description
+          description: folder.description,
+          type: typeEnum.FOLDER
         }"
         (deleteOptionClicked)="deleteFolder($event)"
       ></vaultea-card>

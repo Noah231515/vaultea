@@ -2,7 +2,7 @@ import { BaseComponent, CryptoBusinessLogicService, UserKeyService } from "@abst
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Folder, FolderFormComponent, FolderService } from "@folder";
-import { KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
+import { KeysToOmitConstant, TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
 
@@ -19,6 +19,7 @@ import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 })
 export class VaultComponent extends BaseComponent implements OnInit {
   public folders: Folder[] = [];
+  public typeEnum = TypeEnum;
 
   public constructor(
     private authenticationService: AuthenticationService,

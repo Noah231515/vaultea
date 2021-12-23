@@ -18,3 +18,6 @@ export * from "./interceptors/auth.interceptor";
 
 // Constants
 export * from "./constants/keys-to-omit.constant";
+
+// Enums
+export * from "./enums/type.enum";

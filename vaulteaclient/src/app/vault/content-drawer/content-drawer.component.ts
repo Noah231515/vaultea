@@ -45,7 +45,7 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
 
   public setComponentData(ref: CdkPortalOutletAttachedRef): void {
     const existingObject = this.vaultDynamicDrawerService.getExistingObject();
-    if (existingObject) {
+    if (existingObject) { // TODO: make generic
       (ref as ComponentRef<FolderFormComponent>).instance.existingObject = existingObject;
     }
   }

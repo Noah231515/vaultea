@@ -3,5 +3,5 @@ import { TypeEnum } from "@shared";
 
 export interface Card {
   object: Folder;
-  type: TypeEnum
+  type: TypeEnum;
 }

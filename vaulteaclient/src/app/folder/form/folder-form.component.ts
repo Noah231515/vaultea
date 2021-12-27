@@ -11,6 +11,8 @@ import { FolderService } from "../folder.service";
 })
 export class FolderFormComponent extends BaseFormComponent implements OnInit {
 
+  public headerText: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private folderService: FolderService,
@@ -30,6 +32,9 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public setState(): void {
     if (this.existingObject) {
       this.formState = this.formStateEnum.EDIT;
+      this.headerText = `Edit ${this.existingObject.name}`;
+    } else {
+      this.headerText = "Create a Folder";
     }
   }
 

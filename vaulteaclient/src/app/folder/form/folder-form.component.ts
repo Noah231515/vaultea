@@ -1,7 +1,7 @@
 import { BaseFormComponent, CryptoBusinessLogicService, UserDataService, UserKeyService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { VaultDynamicDrawerService } from "@shared";
+import { FormStateEnum, KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
 
 import { FolderService } from "../folder.service";
 
@@ -40,16 +40,35 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
 
   protected initForm(): void {
     this.form = this.formBuilder.group({
+      description: [this.existingObject?.description ?? ""],
+      id: [this.existingObject?.id ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
-      description: [this.existingObject?.description ?? ""]
+      vaultId: [this.existingObject?.vaultId ?? 1], // TODO: have the backend change field names to camelCase
     });
   }
 
   public async submit(): Promise<void> {
-    const preparedData = await this.cryptoBusinessLogicService.prepareForSubmit(this.userKeyService.getEncryptionKey(), this.form.getRawValue(), true, []);
-    this.folderService.create(preparedData).subscribe(async createdFolder => {
+    const preparedData = await this.cryptoBusinessLogicService.prepareForSubmit(this.userKeyService.getEncryptionKey(), this.form.getRawValue(), true, KeysToOmitConstant.FOLDER);
+    if (this.formState === FormStateEnum.EDIT) {
+      this.update(preparedData);
+    }
+
+    if (this.formState === FormStateEnum.CREATE) {
+      this.create(preparedData);
+    }
+  }
+
+  private create(preparedData: any): void {
+    this.folderService.create(preparedData).subscribe(createdFolder => {
       this.vaultDynamicDrawerService.setState(false);
       this.userDataService.updateFolders(createdFolder, true);
+    });
+  }
+
+  private update(preparedData: any): void {
+    this.folderService.update(this.existingObject.id, preparedData).subscribe(updatedFolder => {
+      this.vaultDynamicDrawerService.setState(false);
+      this.userDataService.updateFolders(updatedFolder, false);
     });
   }
 

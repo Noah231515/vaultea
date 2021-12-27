@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^api/login', auth_view.login),
     path('api/folder', folder_view.create),
     path('api/folder/<int:folder_id>', folder_view.delete),
+    path('api/folder/<int:folder_id>', folder_view.update),
 ]

@@ -47,10 +47,12 @@ export class VaultComponent extends BaseComponent implements OnInit {
     });
   }
 
-  private listenForFolderChanges(): void {
+  private listenForFolderChanges(): void { // TODO: make global methods on dat sets
     this.userDataService.folderUpdatedObservable.subscribe(async (folder: Folder) => {
       if (folder.id) {
-        if (this.folders.find(x => x.id === folder.id)) {
+        const index = this.folders.findIndex(x => x.id === folder.id);
+        if (this.folders.find(x => x.id === folder.id)) { // TODO: make global folder find
+          this.folders.splice(index, 1, await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER))
           // TODO: Implement replacing folder with updated folder
         } else {
           let newFolder = await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER);

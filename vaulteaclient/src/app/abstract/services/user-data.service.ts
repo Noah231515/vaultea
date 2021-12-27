@@ -19,6 +19,9 @@ export abstract class UserDataService {
     const user = this.authenticationService.getLoggedInUser();
     if (newFolder) {
       user.folders.push(folder); // TODO: sort in currently sorted order. not yet implemented atm
+    } else {
+      const index = user.folders.findIndex(x => x.id === folder.id);
+      user.folders.splice(index, 1, folder);
     }
     this.folderUpdatedBehaviorSubject.next(folder);
   }

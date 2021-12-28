@@ -8,7 +8,6 @@ urlpatterns = [
     #url(r'^api/tutorials/(?P<pk>[0-9]+)$', views.tutorial_detail),
     url(r'^api/signup', auth_view.sign_up),
     url(r'^api/login', auth_view.login),
-    path('api/folder', folder_view.create),
-    path('api/folder/<int:folder_id>', folder_view.delete),
-    path('api/folder/<int:folder_id>', folder_view.update),
+    path('api/folder', folder_view.FolderCrud.as_view()),
+    path('api/folder/<int:folder_id>', folder_view.FolderCrud.as_view()),
 ]

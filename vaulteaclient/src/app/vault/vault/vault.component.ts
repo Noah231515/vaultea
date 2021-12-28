@@ -51,9 +51,11 @@ export class VaultComponent extends BaseComponent implements OnInit {
     this.userDataService.folderUpdatedObservable.subscribe(async (folder: Folder) => {
       if (folder.id) {
         const index = this.folders.findIndex(x => x.id === folder.id);
-        if (this.folders.find(x => x.id === folder.id)) { // TODO: make global folder find
-          this.folders.splice(index, 1, await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER))
-          // TODO: Implement replacing folder with updated folder
+        if (index >= 0) { // TODO: make global folder find
+          let updatedFolder = await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER);
+          this.folders.splice(index, 1, updatedFolder);
+          this.snackBarService.open(`${updatedFolder.name} successfully updated`);
+          updatedFolder = null;
         } else {
           let newFolder = await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER);
           this.folders.push(newFolder);

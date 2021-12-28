@@ -34,6 +34,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
       this.formState = this.formStateEnum.EDIT;
       this.headerText = `Edit ${this.existingObject.name}`;
     } else {
+      this.formState = this.formStateEnum.CREATE;
       this.headerText = "Create a Folder";
     }
   }
@@ -41,7 +42,6 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   protected initForm(): void {
     this.form = this.formBuilder.group({
       description: [this.existingObject?.description ?? ""],
-      id: [this.existingObject?.id ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
       vaultId: [this.existingObject?.vaultId ?? 1], // TODO: have the backend change field names to camelCase
     });

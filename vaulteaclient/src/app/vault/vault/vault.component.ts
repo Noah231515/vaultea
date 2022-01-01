@@ -1,4 +1,4 @@
-import { BaseComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
+import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { User } from "@authentication";
@@ -20,13 +20,10 @@ import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 })
 export class VaultComponent extends BaseComponent implements OnInit {
   public user: User;
-  public folders: Folder[] = [];
   public typeEnum = TypeEnum;
 
   public constructor(
     private authenticationService: AuthenticationService,
-    private cryptoBusinessLogicService: CryptoBusinessLogicService,
-    private userKeyService: UserKeyService,
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private changeDetectorRef: ChangeDetectorRef,
     private userDataService: UserDataService,
@@ -60,8 +57,6 @@ export class VaultComponent extends BaseComponent implements OnInit {
       .subscribe(folderId => {
         this.snackBarService.open("Folder successfully deleted");
         this.userDataService.removeFolder(folderId as string);
-        const index = this.folders.findIndex(x => x.id === folderId);
-        this.folders.splice(index, 1);
         this.changeDetectorRef.markForCheck();
       });
   }

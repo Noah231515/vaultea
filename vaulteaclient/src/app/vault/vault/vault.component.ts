@@ -2,7 +2,7 @@ import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { User } from "@authentication";
-import { Folder, FolderFormComponent, FolderService } from "@folder";
+import { FolderFormComponent, FolderService } from "@folder";
 import { TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -44,9 +44,7 @@ export class VaultComponent extends BaseComponent implements OnInit {
   }
 
   private listenForFolderChanges(): void {
-    this.userDataService.folderUpdatedObservable.subscribe(async (folder: Folder) => {
-      this.changeDetectorRef.markForCheck();
-    });
+    this.userDataService.folderUpdatedObservable.subscribe(() => this.changeDetectorRef.markForCheck());
   }
 
   public deleteFolder(folderId: string): void {

@@ -43,7 +43,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       description: [this.existingObject?.description ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
-      vaultId: [this.existingObject?.vaultId ?? 1], // TODO: have the backend change field names to camelCase
+      vaultId: [this.existingObject?.vaultId ?? null],
     });
   }
 

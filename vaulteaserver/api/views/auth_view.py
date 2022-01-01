@@ -40,6 +40,6 @@ def login(request):
     if authenticated_user:
       user_service = UserService()
       refreshToken = RefreshToken.for_user(authenticated_user)
-      return JsonResponse(user_service.get_user_info(authenticated_user, refreshToken), status=status.HTTP_200_OK)
+      return Response(user_service.get_user_info(authenticated_user, refreshToken), status=status.HTTP_200_OK)
     else:
       return Response({'msg': 'Invalid login'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

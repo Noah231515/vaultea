@@ -1,12 +1,13 @@
 import { BaseFormComponent, CryptoBusinessLogicService, UserDataService, UserKeyService } from "@abstract";
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AuthenticationService } from "@authentication";
-import { FormStateEnum, KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
+import { FormStateEnum, KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
 
 import { FolderService } from "../folder.service";
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "vaultea-folder-form",
   templateUrl: "./folder-form.component.html",
 })
@@ -21,7 +22,8 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private userKeyService: UserKeyService,
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private userDataService: UserDataService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private snackbarService: SnackBarService
   ) {
     super();
   }
@@ -61,16 +63,18 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   }
 
   private create(preparedData: any): void {
-    this.folderService.create(preparedData).subscribe(createdFolder => {
+    this.folderService.create(preparedData).subscribe(async createdFolder => {
       this.vaultDynamicDrawerService.setState(false);
-      this.userDataService.updateFolders(createdFolder, true);
+      await this.userDataService.updateFolders(createdFolder, true);
+      this.snackbarService.open("Folder successfully created");
     });
   }
 
   private update(preparedData: any): void {
-    this.folderService.update(this.existingObject.id, preparedData).subscribe(updatedFolder => {
+    this.folderService.update(this.existingObject.id, preparedData).subscribe(async updatedFolder => {
       this.vaultDynamicDrawerService.setState(false);
-      this.userDataService.updateFolders(updatedFolder, false);
+      await this.userDataService.updateFolders(updatedFolder, false);
+      this.snackbarService.open("Folder successfully updated");
     });
   }
 

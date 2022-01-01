@@ -3,7 +3,7 @@ import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { User } from "@authentication";
 import { Folder, FolderFormComponent, FolderService } from "@folder";
-import { KeysToOmitConstant, TypeEnum, VaultDynamicDrawerService } from "@shared";
+import { TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
 
@@ -46,23 +46,9 @@ export class VaultComponent extends BaseComponent implements OnInit {
     this.user = this.authenticationService.getLoggedInUser();
   }
 
-  private listenForFolderChanges(): void { // TODO: make global methods on dat sets
+  private listenForFolderChanges(): void {
     this.userDataService.folderUpdatedObservable.subscribe(async (folder: Folder) => {
-      if (folder.id) {
-        const index = this.folders.findIndex(x => x.id === folder.id);
-        if (index >= 0) { // TODO: make global folder find
-          let updatedFolder = await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER);
-          this.folders.splice(index, 1, updatedFolder);
-          this.snackBarService.open(`${updatedFolder.name} successfully updated`);
-          updatedFolder = null;
-        } else {
-          let newFolder = await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER);
-          this.folders.push(newFolder);
-          this.snackBarService.open(`${newFolder.name} successfully added`);
-          newFolder = null;
-        }
-        this.changeDetectorRef.markForCheck();
-      }
+      this.changeDetectorRef.markForCheck();
     });
   }
 

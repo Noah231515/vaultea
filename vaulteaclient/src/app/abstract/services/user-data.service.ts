@@ -1,6 +1,8 @@
+import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { AuthenticationService } from "@authentication";
 import { Folder } from "@folder";
+import { KeysToOmitConstant } from "@shared";
 import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
@@ -13,15 +15,23 @@ export abstract class UserDataService {
 
   constructor(
     private authenticationService: AuthenticationService,
+    private cryptoBusinessLogicService: CryptoBusinessLogicService,
+    private userKeyService: UserKeyService
   ) { }
 
-  public updateFolders(folder: Folder, newFolder: boolean): void {
+  public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> {
     const user = this.authenticationService.getLoggedInUser();
     if (newFolder) {
-      user.folders.push(folder); // TODO: sort in currently sorted order. not yet implemented atm
+      user.folders.push(
+        await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
+      ); // TODO: sort in currently sorted order. not yet implemented atm
     } else {
       const index = user.folders.findIndex(x => x.id === folder.id);
-      user.folders.splice(index, 1, folder);
+      user.folders.splice(
+        index,
+        1,
+        await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
+      );
     }
     this.folderUpdatedBehaviorSubject.next(folder);
   }

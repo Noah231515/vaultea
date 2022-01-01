@@ -10,8 +10,8 @@ import { BehaviorSubject, Observable } from "rxjs";
 })
 export abstract class UserDataService {
 
-  private folderUpdatedBehaviorSubject: BehaviorSubject<Folder> = new BehaviorSubject<Folder>(new Folder());
-  public folderUpdatedObservable: Observable<Folder> = this.folderUpdatedBehaviorSubject.asObservable();
+  private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: figure out this issue. Should be able to me null
+  public refreshDataObservable: Observable<null> = this.refreshDataBehaviorSubject.asObservable();
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -33,12 +33,13 @@ export abstract class UserDataService {
         await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
       );
     }
-    this.folderUpdatedBehaviorSubject.next(folder);
+    this.refreshDataBehaviorSubject.next(null);
   }
 
   public removeFolder(folderId: string): void {
     const user = this.authenticationService.getLoggedInUser();
     const index = user.folders.findIndex(x => x.id === folderId);
     user.folders.splice(index, 1);
+    this.refreshDataBehaviorSubject.next(null);
   }
 }

@@ -36,15 +36,15 @@ export class VaultComponent extends BaseComponent implements OnInit {
   // TODO: Handle data injection maybe?
   public async ngOnInit(): Promise<void> {
     this.initFolders();
-    this.listenForFolderChanges();
+    this.listenForDataChanges();
   }
 
   private initFolders(): void {
     this.user = this.authenticationService.getLoggedInUser();
   }
 
-  private listenForFolderChanges(): void {
-    this.userDataService.folderUpdatedObservable.subscribe(() => this.changeDetectorRef.markForCheck());
+  private listenForDataChanges(): void {
+    this.userDataService.refreshDataObservable.subscribe(() => this.changeDetectorRef.markForCheck());
   }
 
   public deleteFolder(folderId: string): void {
@@ -55,7 +55,6 @@ export class VaultComponent extends BaseComponent implements OnInit {
       .subscribe(folderId => {
         this.snackBarService.open("Folder successfully deleted");
         this.userDataService.removeFolder(folderId as string);
-        this.changeDetectorRef.markForCheck();
       });
   }
 

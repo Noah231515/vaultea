@@ -1,5 +1,6 @@
 import { ComponentPortal } from "@angular/cdk/portal";
 import { Injectable } from "@angular/core";
+import { Folder } from "@folder";
 import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
@@ -8,6 +9,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 export class VaultDynamicDrawerService {
   private stateBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private portalBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private existingObject: Folder | null = null;
 
   public getIsOpen(): boolean {
     return this.stateBehaviorSubject.value;
@@ -21,7 +23,8 @@ export class VaultDynamicDrawerService {
     return this.portalBehaviorSubject.asObservable();
   }
 
-  public setPortalComponent(component: ComponentPortal<any>): void {
+  public setPortalComponent(component: ComponentPortal<any>, existingObject: Folder | null = null): void {
+    this.existingObject = existingObject;
     this.portalBehaviorSubject.next(component);
   }
 
@@ -30,5 +33,9 @@ export class VaultDynamicDrawerService {
       this.portalBehaviorSubject.next(null);
     }
     this.stateBehaviorSubject.next(isOpened);
+  }
+
+  public getExistingObject(): Folder | null {
+    return this.existingObject;
   }
 }

@@ -1,5 +1,7 @@
+import { Folder } from "@folder";
+import { TypeEnum } from "@shared";
+
 export interface Card {
-  objectId?: string;
-  title: string;
-  description: string
+  object: Folder;
+  type: TypeEnum;
 }

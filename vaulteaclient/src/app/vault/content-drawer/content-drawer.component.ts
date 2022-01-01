@@ -1,6 +1,6 @@
-import { BaseComponent } from "@abstract";
-import { ComponentPortal } from "@angular/cdk/portal";
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { BaseComponent, BaseFormComponent } from "@abstract";
+import { CdkPortalOutletAttachedRef, ComponentPortal } from "@angular/cdk/portal";
+import { ChangeDetectorRef, Component, ComponentRef, OnInit, ViewEncapsulation } from "@angular/core";
 import { VaultDynamicDrawerService } from "@shared";
 
 @Component({
@@ -16,7 +16,7 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
   constructor(
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private changeDetectorRef: ChangeDetectorRef
-  ) { 
+  ) {
     super();
   }
 
@@ -40,6 +40,13 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
       this.drawerPortal = portal;
       this.changeDetectorRef.detectChanges();
     })
+  }
+
+  public setComponentData(ref: CdkPortalOutletAttachedRef): void {
+    const existingObject = this.vaultDynamicDrawerService.getExistingObject();
+    if (existingObject) {
+      (ref as ComponentRef<BaseFormComponent>).instance.existingObject = existingObject;
+    }
   }
 
   public closeDrawer(): void {

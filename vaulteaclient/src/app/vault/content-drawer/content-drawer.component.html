@@ -4,7 +4,7 @@
       <vaultea-button [buttonData]="BUTTONS_CONSTANT.DRAWER_CANCEL_BUTTON" (click)="closeDrawer()"></vaultea-button>
     </div>
     <div class="m-3">
-      <ng-template [cdkPortalOutlet]="drawerPortal"></ng-template>
+      <ng-template [cdkPortalOutlet]="drawerPortal" (attached)="setComponentData($event)"></ng-template>
     </div>
   </mat-sidenav>
 </mat-sidenav-container>

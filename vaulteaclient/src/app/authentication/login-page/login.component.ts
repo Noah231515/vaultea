@@ -16,6 +16,7 @@ import { AuthenticationService } from "../authentication.service";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent extends BaseFormComponent implements OnInit {
+
   public form: FormGroup;
   public loginButtonInterface: ButtonInterface;
   public signUpButtonInterface: ButtonInterface;
@@ -27,14 +28,14 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
     private snackBarService: SnackBarService
-  ) { 
+  ) {
     super()
   }
 
   public ngOnInit(): void {
     this.initForm();
   }
-  
+
   protected initForm(): void {
     this.form = this.formBuilder.group({
       username: ["test1", [Validators.required]],
@@ -64,6 +65,9 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
   }
 
   public cancel(): void {
+    throw new Error("Method not implemented.");
+  }
+  public setState(): void {
     throw new Error("Method not implemented.");
   }
 }

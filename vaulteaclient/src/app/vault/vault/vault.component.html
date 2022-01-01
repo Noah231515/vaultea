@@ -16,9 +16,8 @@
       <vaultea-card
         *ngFor="let folder of folders"
         [cardData]="{
-          objectId: folder.id,
-          title: folder.name,
-          description: folder.description
+          object: folder,
+          type: typeEnum.FOLDER
         }"
         (deleteOptionClicked)="deleteFolder($event)"
       ></vaultea-card>

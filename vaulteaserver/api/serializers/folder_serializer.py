@@ -11,3 +11,7 @@ class FolderSerializer(serializers.Serializer):
         vault.id = validated_data['vault_id']
         validated_data['vault_id'] = vault
         return Folder.objects.create(**validated_data)
+    
+    def update(self, validated_data, folder_id):
+        Folder.objects.filter(id=folder_id).update(**validated_data)
+        return Folder.objects.get(id=folder_id)

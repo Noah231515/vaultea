@@ -2,7 +2,7 @@ import { BaseComponent, CryptoBusinessLogicService, UserKeyService } from "@abst
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Folder, FolderFormComponent, FolderService } from "@folder";
-import { KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
+import { KeysToOmitConstant, TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
 
@@ -19,6 +19,7 @@ import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 })
 export class VaultComponent extends BaseComponent implements OnInit {
   public folders: Folder[] = [];
+  public typeEnum = TypeEnum;
 
   public constructor(
     private authenticationService: AuthenticationService,
@@ -46,11 +47,15 @@ export class VaultComponent extends BaseComponent implements OnInit {
     });
   }
 
-  private listenForFolderChanges(): void {
+  private listenForFolderChanges(): void { // TODO: make global methods on dat sets
     this.userDataService.folderUpdatedObservable.subscribe(async (folder: Folder) => {
       if (folder.id) {
-        if (this.folders.find(x => x.id === folder.id)) {
-          // TODO: Implement replacing folder with updated folder
+        const index = this.folders.findIndex(x => x.id === folder.id);
+        if (index >= 0) { // TODO: make global folder find
+          let updatedFolder = await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER);
+          this.folders.splice(index, 1, updatedFolder);
+          this.snackBarService.open(`${updatedFolder.name} successfully updated`);
+          updatedFolder = null;
         } else {
           let newFolder = await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER);
           this.folders.push(newFolder);

@@ -1,6 +1,7 @@
 import { BaseComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { User } from "@authentication";
 import { Folder, FolderFormComponent, FolderService } from "@folder";
 import { KeysToOmitConstant, TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { of } from "rxjs";
@@ -18,6 +19,7 @@ import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
   templateUrl: "./vault.component.html",
 })
 export class VaultComponent extends BaseComponent implements OnInit {
+  public user: User;
   public folders: Folder[] = [];
   public typeEnum = TypeEnum;
 
@@ -41,10 +43,7 @@ export class VaultComponent extends BaseComponent implements OnInit {
   }
 
   private initFolders(): void {
-    this.authenticationService.getLoggedInUser().folders.forEach(async folder => {
-      this.folders.push(await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER));
-      this.changeDetectorRef.markForCheck();
-    });
+    this.user = this.authenticationService.getLoggedInUser();
   }
 
   private listenForFolderChanges(): void { // TODO: make global methods on dat sets

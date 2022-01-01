@@ -1,6 +1,7 @@
 import { BaseFormComponent, CryptoBusinessLogicService, UserDataService, UserKeyService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { AuthenticationService } from "@authentication";
 import { FormStateEnum, KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
 
 import { FolderService } from "../folder.service";
@@ -19,7 +20,8 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
+    private authenticationService: AuthenticationService
   ) {
     super();
   }
@@ -43,12 +45,12 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       description: [this.existingObject?.description ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
-      vaultId: [this.existingObject?.vaultId ?? null],
+      vaultId: [this.existingObject?.vaultId ?? this.authenticationService.getLoggedInUser().vaultId],
     });
   }
 
   public async submit(): Promise<void> {
-    const preparedData = await this.cryptoBusinessLogicService.prepareForSubmit(this.userKeyService.getEncryptionKey(), this.form.getRawValue(), true, KeysToOmitConstant.FOLDER);
+    const preparedData = await this.cryptoBusinessLogicService.prepareForSubmit(this.userKeyService.getEncryptionKey(), this.form.getRawValue(), KeysToOmitConstant.FOLDER);
     if (this.formState === FormStateEnum.EDIT) {
       this.update(preparedData);
     }

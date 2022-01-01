@@ -4,7 +4,6 @@ import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
 import { CryptoUtil, DataUtil } from "@util";
 
 import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
-import { AuthenticationService } from "../../authentication/authentication.service";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -14,7 +13,6 @@ import { AuthenticationService } from "../../authentication/authentication.servi
 export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicService {
 
   public constructor(
-    private authenticationService: AuthenticationService,
     private cryptoFunctionService: CryptoFunctionService,
     private userKeyService: UserKeyService,
   ) { }
@@ -105,11 +103,9 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
     );
   }
 
-  public async prepareForSubmit(encryptionKey: VaulteaCryptoKey, object: any, provideVaultId: boolean = false, keysToOmit: string[] = []): Promise<any> {
+  public async prepareForSubmit(encryptionKey: VaulteaCryptoKey, object: any, keysToOmit: string[] = []): Promise<any> {
     const encryptedData = await this.encryptObject(object, encryptionKey, keysToOmit);
-    if (provideVaultId) {
-      encryptedData["vaultId"] = this.authenticationService.getLoggedInUser()?.vaultId;
-    }
+
     DataUtil.objectKeysToSnakeCase(encryptedData);
     return encryptedData;
   }

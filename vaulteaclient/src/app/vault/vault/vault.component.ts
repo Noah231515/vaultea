@@ -40,7 +40,7 @@ export class VaultComponent extends BaseComponent implements OnInit {
   }
 
   private initFolders(): void {
-    this.user = this.authenticationService.getLoggedInUser();
+    this.user = this.authenticationService.getLoggedInUser() ?? new User(); // TODO: Fix in tests, this should return a stubbed value
   }
 
   private listenForDataChanges(): void {

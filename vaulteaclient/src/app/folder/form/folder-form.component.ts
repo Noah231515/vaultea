@@ -47,7 +47,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       description: [this.existingObject?.description ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
-      vaultId: [this.existingObject?.vaultId ?? this.authenticationService.getLoggedInUser().vaultId],
+      vaultId: [this.existingObject?.vaultId ?? this.authenticationService?.getLoggedInUser()?.vaultId], // TODO: Fix in tests, this should return a stubbed value.
     });
   }
 

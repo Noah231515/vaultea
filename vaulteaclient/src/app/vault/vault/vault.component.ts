@@ -1,8 +1,9 @@
-import { BaseComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
+import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { Folder, FolderFormComponent, FolderService } from "@folder";
-import { KeysToOmitConstant, TypeEnum, VaultDynamicDrawerService } from "@shared";
+import { User } from "@authentication";
+import { FolderFormComponent, FolderService } from "@folder";
+import { TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
 
@@ -18,13 +19,11 @@ import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
   templateUrl: "./vault.component.html",
 })
 export class VaultComponent extends BaseComponent implements OnInit {
-  public folders: Folder[] = [];
+  public user: User;
   public typeEnum = TypeEnum;
 
   public constructor(
     private authenticationService: AuthenticationService,
-    private cryptoBusinessLogicService: CryptoBusinessLogicService,
-    private userKeyService: UserKeyService,
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private changeDetectorRef: ChangeDetectorRef,
     private userDataService: UserDataService,
@@ -37,34 +36,15 @@ export class VaultComponent extends BaseComponent implements OnInit {
   // TODO: Handle data injection maybe?
   public async ngOnInit(): Promise<void> {
     this.initFolders();
-    this.listenForFolderChanges();
+    this.listenForDataChanges();
   }
 
   private initFolders(): void {
-    this.authenticationService.getLoggedInUser().folders.forEach(async folder => {
-      this.folders.push(await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER));
-      this.changeDetectorRef.markForCheck();
-    });
+    this.user = this.authenticationService.getLoggedInUser() ?? new User(); // TODO: Fix in tests, this should return a stubbed value
   }
 
-  private listenForFolderChanges(): void { // TODO: make global methods on dat sets
-    this.userDataService.folderUpdatedObservable.subscribe(async (folder: Folder) => {
-      if (folder.id) {
-        const index = this.folders.findIndex(x => x.id === folder.id);
-        if (index >= 0) { // TODO: make global folder find
-          let updatedFolder = await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER);
-          this.folders.splice(index, 1, updatedFolder);
-          this.snackBarService.open(`${updatedFolder.name} successfully updated`);
-          updatedFolder = null;
-        } else {
-          let newFolder = await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER);
-          this.folders.push(newFolder);
-          this.snackBarService.open(`${newFolder.name} successfully added`);
-          newFolder = null;
-        }
-        this.changeDetectorRef.markForCheck();
-      }
-    });
+  private listenForDataChanges(): void {
+    this.userDataService.refreshDataObservable.subscribe(() => this.changeDetectorRef.markForCheck());
   }
 
   public deleteFolder(folderId: string): void {
@@ -75,9 +55,6 @@ export class VaultComponent extends BaseComponent implements OnInit {
       .subscribe(folderId => {
         this.snackBarService.open("Folder successfully deleted");
         this.userDataService.removeFolder(folderId as string);
-        const index = this.folders.findIndex(x => x.id === folderId);
-        this.folders.splice(index, 1);
-        this.changeDetectorRef.markForCheck();
       });
   }
 

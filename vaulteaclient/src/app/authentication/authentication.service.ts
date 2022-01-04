@@ -1,10 +1,10 @@
-import { UserKeyService } from "@abstract";
+import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Folder } from "@folder";
-import { VaulteaCryptoKey } from "@shared";
 import { BehaviorSubject, Observable } from "rxjs";
 
+import { KeysToOmitConstant } from "../shared/constants/keys-to-omit.constant";
 import { User } from "./user.model";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -19,7 +19,8 @@ export class AuthenticationService {
 
   constructor(
     private httpClient: HttpClient,
-    private userKeyService: UserKeyService
+    private userKeyService: UserKeyService,
+    private cryptoBusinessLogicService: CryptoBusinessLogicService
   ) { }
 
   public signUp(formData: any): Observable<any> {
@@ -30,9 +31,15 @@ export class AuthenticationService {
     return this.httpClient.post("api/login", formData)
   }
 
-  public setUser(user: User, encryptionKey: VaulteaCryptoKey): void {
+  public async setUser(user: User): Promise<void> {
     this.user = user;
-    this.userKeyService.setEncryptionKey(encryptionKey);
+    this.userKeyService.setEncryptionKey(await this.cryptoBusinessLogicService.decryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), user.key));
+
+    const folderPromises = this.user.folders.map(async folder => {
+      return (await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER) as Folder)
+    });
+
+    this.user.folders = await Promise.all(folderPromises);
     this.updateIsLoggedIn();
   }
 

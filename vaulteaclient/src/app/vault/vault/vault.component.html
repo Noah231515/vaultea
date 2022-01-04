@@ -14,7 +14,7 @@
   <div class="m-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
     <div class="container">
       <vaultea-card
-        *ngFor="let folder of folders"
+        *ngFor="let folder of user.folders"
         [cardData]="{
           object: folder,
           type: typeEnum.FOLDER

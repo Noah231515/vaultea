@@ -58,8 +58,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
         catchError(err => of(this.snackBarService.open(err.error.msg)))
       )
       .subscribe(async (user: User) => {
-        const encryptionKey = await this.browserCryptoBusinessLogicService.decryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), user.key)
-        this.authenticationService.setUser(user, encryptionKey);
+        await this.authenticationService.setUser(user);
         this.router.navigate(["/vault"]);
       });
   }

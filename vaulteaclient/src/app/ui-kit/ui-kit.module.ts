@@ -39,6 +39,7 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     FormFooterComponent,
     InputComponent,
     LogoFullComponent,
+    FolderTreeComponent
   ],
   imports: [
     AbstractModule,

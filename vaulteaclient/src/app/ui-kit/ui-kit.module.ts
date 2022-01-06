@@ -9,6 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatTreeModule } from "@angular/material/tree";
 
 import { AbstractModule } from "../abstract/abstract.module";
 import { ButtonComponent } from "./button/button.component";
@@ -52,6 +53,7 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     MatInputModule,
     MatMenuModule,
     MatSnackBarModule,
+    MatTreeModule,
     ReactiveFormsModule,
   ],
 })

@@ -4,4 +4,5 @@ export class Folder {
   public name: string;
   public description: string;
   public parentFolderId: string;
+  public childFolders: Folder[];
 }

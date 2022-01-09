@@ -34,16 +34,40 @@ export abstract class DataUtil {
     });
   }
 
-  public static transformToNestedState(folders: Folder[]): Folder[] {
+  public static transformToNestedState(folders: Folder[]): Folder[] { // TODO: Fix broken children on adding a folder
     folders.forEach(folder => {
       folder.childFolders = [];
-      if (folder.parentFolderId) {
+
+      if (folder.parentFolderId) { // If folder is a child
+        folder.pathNodes = [];
         const parentFolder = folders.find(f => f.id === folder.parentFolderId);
+
         if (parentFolder) {
           parentFolder.childFolders.push(folder);
+          if (!parentFolder.pathNodes) { // If parent hasn't been iterated over yet
+            parentFolder.pathNodes = this.getPathNodes(folders, folder);
+          }
+          folder.pathNodes = folder.pathNodes.concat(parentFolder.pathNodes);
+          folder.pathNodes.push(parentFolder);
         }
+      } else { // If folder is a root
+        folder.pathNodes = [];
       }
     });
     return folders.filter(f => !f.parentFolderId);
+  }
+
+  private static getPathNodes(folders: Folder[], folder: Folder): Folder[] {
+    let parentFolderId: any = folder.parentFolderId;
+
+    const results: Folder[] =  [];
+    while (parentFolderId) {
+      const parentFolder = folders.find(f => f.id === parentFolderId);
+      if (parentFolder) {
+        results.push(parentFolder);
+      }
+      parentFolderId = parentFolder?.parentFolderId;
+    }
+    return results;
   }
 }

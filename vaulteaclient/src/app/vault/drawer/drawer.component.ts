@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
 import { BaseComponent } from "src/app/abstract/base/base-component/base.component";
 
 @Component({
@@ -11,9 +10,7 @@ import { BaseComponent } from "src/app/abstract/base/base-component/base.compone
 export class DrawerComponent extends BaseComponent {
   public opened = true;
 
-  constructor(
-    private dialog: MatDialog
-  ) {
+  constructor() {
     super();
   }
 

@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { AuthenticationService } from "@authentication";
 import { Folder } from "@folder";
 import { KeysToOmitConstant } from "@shared";
+import { DataUtil } from "@util";
 import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
@@ -22,6 +23,7 @@ export abstract class UserDataService {
   public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> {
     const user = this.authenticationService.getLoggedInUser();
     if (newFolder) {
+
       user.folders.push(
         await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
       ); // TODO: sort in currently sorted order. not yet implemented atm
@@ -33,6 +35,8 @@ export abstract class UserDataService {
         await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
       );
     }
+
+    user.folders = DataUtil.transformToNestedState(user.folders);
     this.refreshDataBehaviorSubject.next(null);
   }
 

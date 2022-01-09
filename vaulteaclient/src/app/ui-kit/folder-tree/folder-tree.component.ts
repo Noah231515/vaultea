@@ -1,3 +1,4 @@
+import { UserDataService } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
@@ -16,13 +17,24 @@ export class FolderTreeComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private userDataService: UserDataService
   ) {
   }
 
   public ngOnInit(): void {
     this.dataSource.data = this.authenticationService.getLoggedInUser().folders;
+    this.listenForDataChanges();
     this.changeDetectorRef.markForCheck();
+  }
+
+  private listenForDataChanges(): void {
+    this.userDataService.refreshDataObservable.subscribe(() => {
+      this.treeControl = new NestedTreeControl<Folder>(folder => folder.childFolders);
+      this.dataSource = new MatTreeNestedDataSource<Folder>();
+      this.dataSource.data = this.authenticationService.getLoggedInUser().folders;
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   public hasChild(_: number, node: Folder): boolean {

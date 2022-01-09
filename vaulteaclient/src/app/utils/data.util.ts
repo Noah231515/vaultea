@@ -1,4 +1,7 @@
+import { Folder } from "@folder";
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export abstract class DataUtil {
 
@@ -29,5 +32,18 @@ export abstract class DataUtil {
         delete object[key];
       }
     });
+  }
+
+  public static transformToNestedState(folders: Folder[]): Folder[] {
+    folders.forEach(folder => {
+      folder.childFolders = [];
+      if (folder.parentFolderId) {
+        const parentFolder = folders.find(f => f.id === folder.parentFolderId);
+        if (parentFolder) {
+          parentFolder.childFolders.push(folder);
+        }
+      }
+    });
+    return folders.filter(f => !f.parentFolderId);
   }
 }

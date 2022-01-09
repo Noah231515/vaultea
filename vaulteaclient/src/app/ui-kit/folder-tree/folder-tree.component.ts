@@ -1,48 +1,31 @@
 import { NestedTreeControl } from "@angular/cdk/tree";
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
-
-
-interface FoodNode {
-  name: string;
-  children?: FoodNode[];
-}
-
-const TREE_DATA: FoodNode[] = [
-  {
-    name: 'Fruit',
-    children: [{name: 'Apple'}, {name: 'Banana'}, {name: 'Fruit loops'}],
-  },
-  {
-    name: 'Vegetables',
-    children: [
-      {
-        name: 'Green',
-        children: [{name: 'Broccoli'}, {name: 'Brussels sprouts'}],
-      },
-      {
-        name: 'Orange',
-        children: [{name: 'Pumpkins'}, {name: 'Carrots'}],
-      },
-    ],
-  },
-];
+import { AuthenticationService } from "@authentication";
+import { Folder } from "@folder";
 
 @Component({
-  selector: 'vaultea-folder-tree',
-  templateUrl: './folder-tree.component.html',
-  styleUrls: ['./folder-tree.component.scss']
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: "vaultea-folder-tree",
+  templateUrl: "./folder-tree.component.html",
+  styleUrls: ["./folder-tree.component.scss"]
 })
 export class FolderTreeComponent implements OnInit {
-  treeControl = new NestedTreeControl<FoodNode>(node => node.children);
-  dataSource = new MatTreeNestedDataSource<FoodNode>();
+  public treeControl = new NestedTreeControl<Folder>(folder => folder.childFolders);
+  public dataSource = new MatTreeNestedDataSource<Folder>();
 
-  constructor() {
-    this.dataSource.data = TREE_DATA;
+  constructor(
+    private authenticationService: AuthenticationService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.dataSource.data = this.authenticationService.getLoggedInUser().folders;
+    this.changeDetectorRef.markForCheck();
   }
 
-  hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
+  public hasChild(_: number, node: Folder): boolean {
+    return !!node.childFolders[0];
+  }
 }

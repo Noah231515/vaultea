@@ -6,7 +6,6 @@ import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 import { User } from "..";
-import { FolderService } from "../../folder/folder.service";
 import { ButtonInterface } from "../../ui-kit";
 import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 import { AuthenticationService } from "../authentication.service";
@@ -29,7 +28,6 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
     private snackBarService: SnackBarService,
-    private folderService: FolderService,
   ) {
     super()
   }
@@ -60,7 +58,6 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
         catchError(err => of(this.snackBarService.open(err.error.msg)))
       )
       .subscribe(async (user: User) => {
-        user.folders = this.folderService.transformToNestedState(user.folders);
         await this.authenticationService.setUser(user);
         this.router.navigate(["/vault"]);
       });

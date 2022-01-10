@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ReactiveFormsModule } from "@angular/forms";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -49,6 +50,7 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     AbstractModule,
     CommonModule,
     FlexLayoutModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,

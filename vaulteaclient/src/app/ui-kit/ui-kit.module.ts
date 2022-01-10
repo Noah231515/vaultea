@@ -12,6 +12,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTreeModule } from "@angular/material/tree";
 
 import { AbstractModule } from "../abstract/abstract.module";
+import { AutocompleteComponent } from "./autocomplete/autocomplete.component";
 import { ButtonComponent } from "./button/button.component";
 import { CardComponent } from "./card/card.component";
 import { FolderTreeComponent } from "./folder-tree/folder-tree.component";
@@ -31,16 +32,18 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     LogoFullComponent,
     FormHeaderComponent,
     FolderTreeComponent,
+    AutocompleteComponent,
   ],
   exports: [
+    AutocompleteComponent,
     ButtonComponent,
     CardComponent,
     FlexLayoutModule,
+    FolderTreeComponent,
     FormComponent,
     FormFooterComponent,
     InputComponent,
     LogoFullComponent,
-    FolderTreeComponent
   ],
   imports: [
     AbstractModule,

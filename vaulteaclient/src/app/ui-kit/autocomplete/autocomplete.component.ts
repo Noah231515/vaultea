@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
+
+import { AutocompleteData } from "./autocomplete-data.interface";
 
 @Component({
   selector: 'vaultea-autocomplete',
@@ -9,6 +11,7 @@ import { map, startWith } from "rxjs/operators";
   styleUrls: ['./autocomplete.component.scss']
 })
 export class AutocompleteComponent implements OnInit {
+  @Input() public autocompleteData: AutocompleteData
 
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];

@@ -20,14 +20,15 @@ export abstract class UserDataService {
     private userKeyService: UserKeyService
   ) { }
 
-  public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> {
+  public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> { // TODO: IF new folder, folder path data will tell us where to put it
     const user = this.authenticationService.getLoggedInUser();
     if (newFolder) {
 
       user.folders.push(
         await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
       ); // TODO: sort in currently sorted order. not yet implemented atm
-    } else {
+    } else { // TODO: FOLDER FINDS WILL FAIL FOR NESTED FOLDERS
+      // TODO: Pass in path data to find folder and traverse the tree
       const index = user.folders.findIndex(x => x.id === folder.id);
       user.folders.splice(
         index,

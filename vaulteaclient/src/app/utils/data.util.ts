@@ -34,6 +34,7 @@ export abstract class DataUtil {
     });
   }
 
+  // TODO: Make unit test
   public static transformToNestedState(folders: Folder[]): Folder[] { // TODO: Fix broken children on adding a folder
     folders.forEach(folder => {
       folder.childFolders = [];

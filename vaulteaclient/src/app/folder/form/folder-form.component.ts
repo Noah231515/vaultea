@@ -32,7 +32,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public ngOnInit(): void {
     this.setState();
     this.initForm();
-    this.buildOptions();
+    this.autocompleteOptions = this.buildOptions();
   }
 
   public setState(): void {
@@ -81,9 +81,9 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     });
   }
 
-  private buildOptions(): void {
+  private buildOptions(): AutocompleteOption[] {
     const flatFolders = this.userDataService.getFlatFolders();
-    this.autocompleteOptions = flatFolders.map(folder => {
+    return flatFolders.map(folder => {
       return {
         value: folder.id,
         displayValue: folder.name

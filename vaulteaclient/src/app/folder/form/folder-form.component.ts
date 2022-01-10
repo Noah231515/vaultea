@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { AuthenticationService } from "@authentication";
 import { FormStateEnum, KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteOption } from "@ui-kit";
+import { DataUtil } from "@util";
 
 import { FolderService } from "../folder.service";
 
@@ -86,9 +87,10 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     return flatFolders.map(folder => {
       return {
         value: folder.id,
-        displayValue: folder.name
+        displayValue: folder.name,
+        subtitle: DataUtil.buildPathString(folder)
       }
-    })
+    });
   }
 
   public cancel(): void {

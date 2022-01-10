@@ -20,7 +20,12 @@
       label="Description"
       [formControl]="form.get('description')"
     ></vaultea-input>
-    <vaultea-autocomplete>
-    </vaultea-autocomplete>
+    <vaultea-autocomplete
+      [autocompleteData]="{
+        label: 'Location',
+        formControl: form.get('parentFolderId'),
+        options: []
+      }"
+    ></vaultea-autocomplete>
   </div>
 </ng-template>

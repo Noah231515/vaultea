@@ -47,4 +47,25 @@ export abstract class UserDataService {
     user.folders.splice(index, 1);
     this.refreshDataBehaviorSubject.next(null);
   }
+
+  public getFolders(): Folder[] {
+    return this.authenticationService.getLoggedInUser().folders;
+  }
+
+  public getFlatFolders(): Folder[] {
+    let folders = Array.from(this.getFolders());
+    let index = 0;
+
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const folder = folders[index];
+      if (folder) {
+        folders = folders.concat(folder.childFolders);
+      } else {
+        break;
+      }
+      index++;
+    }
+    return folders;
+  }
 }

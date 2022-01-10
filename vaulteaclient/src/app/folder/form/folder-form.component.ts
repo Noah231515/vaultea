@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AuthenticationService } from "@authentication";
 import { FormStateEnum, KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
+import { AutocompleteOption } from "@ui-kit";
 
 import { FolderService } from "../folder.service";
 
@@ -12,8 +13,8 @@ import { FolderService } from "../folder.service";
   templateUrl: "./folder-form.component.html",
 })
 export class FolderFormComponent extends BaseFormComponent implements OnInit {
-
   public headerText: string;
+  public autocompleteOptions: AutocompleteOption[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,6 +32,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public ngOnInit(): void {
     this.setState();
     this.initForm();
+    this.buildOptions();
   }
 
   public setState(): void {
@@ -48,6 +50,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
       description: [this.existingObject?.description ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
       vaultId: [this.existingObject?.vaultId ?? this.authenticationService?.getLoggedInUser()?.vaultId], // TODO: Fix in tests, this should return a stubbed value.
+      parentFolderId: [this.existingObject?.parentFolderId ?? null]
     });
   }
 
@@ -76,6 +79,16 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
       await this.userDataService.updateFolders(updatedFolder, false);
       this.snackbarService.open("Folder successfully updated");
     });
+  }
+
+  private buildOptions(): void {
+    const flatFolders = this.userDataService.getFlatFolders();
+    this.autocompleteOptions = flatFolders.map(folder => {
+      return {
+        value: folder.id,
+        displayValue: folder.name
+      }
+    })
   }
 
   public cancel(): void {

@@ -35,6 +35,6 @@ export class AutocompleteComponent implements OnInit {
     if (value) {
       filterValue = value.toString().toLowerCase();
     }
-    return this.autocompleteData.options.filter(option => option.displayValue.toLowerCase().includes(filterValue ?? ""));
+    return this.autocompleteData.options.filter(option => option.displayValue.toLowerCase().includes(filterValue ?? "") || option.subtitle?.toLowerCase().includes(filterValue));
   }
 }

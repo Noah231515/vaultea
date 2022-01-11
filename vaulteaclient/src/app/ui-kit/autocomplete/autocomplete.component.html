@@ -10,7 +10,10 @@
   >
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="getDisplayValue">
     <mat-option *ngFor="let option of filteredOptions | async | slice:0:maxValuesToDisplay" [value]="option.value">
-      {{option.displayValue}}
+      <div fxLayout="column">
+        <span>{{option.displayValue}}</span>
+        <small *ngIf="option.subtitle"><strong>{{option.subtitle}}</strong></small>
+      </div>
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

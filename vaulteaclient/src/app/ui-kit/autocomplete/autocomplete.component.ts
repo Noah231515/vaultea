@@ -12,7 +12,7 @@ import { AutocompleteOption } from "./autocomplete-option.interface";
   styleUrls: ["./autocomplete.component.scss"]
 })
 export class AutocompleteComponent implements OnInit {
-  @Input() public autocompleteData: AutocompleteData
+  @Input() public autocompleteData: AutocompleteData // TODO: Implement required
 
   public filteredOptions: Observable<AutocompleteOption[]>;
   public maxValuesToDisplay: number = 25;

@@ -14,12 +14,12 @@ import { AutocompleteOption } from "./autocomplete-option.interface";
 export class AutocompleteComponent implements OnInit {
   @Input() public autocompleteData: AutocompleteData
 
-  public myControl = new FormControl();
   public filteredOptions: Observable<AutocompleteOption[]>;
   public maxValuesToDisplay: number = 25;
 
   public ngOnInit(): void {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    const formControl: FormControl = this.autocompleteData.formControl;
+    this.filteredOptions = formControl.valueChanges.pipe(
       startWith(""),
       map(value => this.filter(value)),
     );

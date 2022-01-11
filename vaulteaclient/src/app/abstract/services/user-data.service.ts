@@ -21,8 +21,20 @@ export abstract class UserDataService {
   ) { }
 
   public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> { // TODO: IF new folder, folder path data will tell us where to put it
-    const user = this.authenticationService.getLoggedInUser();
+    const user = this.authenticationService.getLoggedInUser(); // TODO: It is likely we could use the pathNodes to speed up the find
+    const flatFolders = this.getFlatFolders();
+
     if (newFolder) {
+      folder.childFolders = [];
+      if (folder.parentFolderId) {
+        const parent = flatFolders.find(f => f.id === folder.parentFolderId);
+        parent?.childFolders.push(folder);
+        folder.pathNodes = parent?.pathNodes.length ? Array.from(parent.pathNodes) : [];
+
+        if (parent) {
+          folder.pathNodes.push(parent);
+        }
+      }
 
       user.folders.push(
         await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)

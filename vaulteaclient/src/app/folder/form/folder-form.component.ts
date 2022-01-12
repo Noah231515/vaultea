@@ -77,6 +77,8 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   private update(preparedData: any): void {
     this.folderService.update(this.existingObject.id, preparedData).subscribe(async updatedFolder => {
       this.vaultDynamicDrawerService.setState(false);
+      updatedFolder.childFolders = this.existingObject.childFolders;
+      updatedFolder.pathNodes = this.existingObject.pathNodes;
       await this.userDataService.updateFolders(updatedFolder, false);
       this.snackbarService.open("Folder successfully updated");
     });

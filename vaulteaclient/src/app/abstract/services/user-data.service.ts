@@ -20,7 +20,7 @@ export abstract class UserDataService {
     private userKeyService: UserKeyService
   ) { }
 
-  public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> { // TODO: IF new folder, folder path data will tell us where to put it
+  public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> {
     const user = this.authenticationService.getLoggedInUser(); // TODO: It is likely we could use the pathNodes to speed up the find
     const flatFolders = this.getFlatFolders();
 
@@ -36,21 +36,25 @@ export abstract class UserDataService {
         }
       }
 
+      // TODO: sort in currently sorted order. not yet implemented atm
       user.folders.push(
         await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
-      ); // TODO: sort in currently sorted order. not yet implemented atm
-    } else { // TODO: FOLDER FINDS WILL FAIL FOR NESTED FOLDERS
-      // TODO: Pass in path data to find folder and traverse the tree
-      const index = user.folders.findIndex(x => x.id === folder.id);
-      user.folders.splice(
-        index,
-        1,
-        await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
       );
+    } else {
+      this.updateFolder(flatFolders, folder);
     }
 
     user.folders = DataUtil.transformToNestedState(user.folders);
     this.refreshDataBehaviorSubject.next(null);
+  }
+
+  private async updateFolder(flatFolders: Folder[], folder: Folder): Promise<void> {
+    const index = flatFolders.findIndex(x => x.id === folder.id);
+    flatFolders.splice(
+      index,
+      1,
+      await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
+    );
   }
 
   public removeFolder(folderId: string): void {

@@ -53,7 +53,8 @@ describe("AutocompleteComponent", () => {
       label: "Test",
       options: options,
       formControl: formControl,
-      required: false
+      required: false,
+      displaySubtitle: false
     };
     fixture.detectChanges();
   });

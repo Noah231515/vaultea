@@ -5,4 +5,5 @@ export interface AutocompleteData {
   formControl: any; // TODO: Type this
   options: AutocompleteOption[];
   required: boolean;
+  displaySubtitle: boolean;
 }

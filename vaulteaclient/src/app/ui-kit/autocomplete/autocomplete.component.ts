@@ -31,7 +31,12 @@ export class AutocompleteComponent implements OnInit {
 
   public getDisplayValue = (value: string): string => {
     const option = this.autocompleteData.options.find(o => o.value === value);
-    return option ? option.displayValue : "";
+    if (this.autocompleteData.displaySubtitle) {
+      return option?.subtitle ?? "";
+    } else {
+
+      return option?.displayValue ?? "";
+    }
   }
 
   private filter(value: string): AutocompleteOption[] {

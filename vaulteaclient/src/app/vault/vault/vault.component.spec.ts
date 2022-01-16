@@ -19,6 +19,7 @@ import { AuthenticationService } from "@authentication";
 import { FolderModule } from "@folder";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
+import { AuthenticationMockService } from "../../mock-service/mocks/authentication-mock.service";
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
 import { ContentDrawerComponent } from "../content-drawer/content-drawer.component";
 import { DrawerComponent } from "../drawer/drawer.component";
@@ -55,7 +56,7 @@ describe("VaultComponent", () => {
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
-        AuthenticationService,
+        { provide: AuthenticationService, useClass: AuthenticationMockService },
         FormBuilder,
         HttpClient,
         HttpHandler,
@@ -83,7 +84,7 @@ describe("VaultComponent", () => {
     expect(form).toBeTruthy();
     expect(form.querySelector("h2").textContent).toBeTruthy();
     expect(form.querySelector("button").type).toEqual("submit");
-    expect(inputs.length).toEqual(2);
+    expect(inputs.length).toEqual(3);
     inputs.forEach(input => {
       expect(input.value).toEqual("");
     });

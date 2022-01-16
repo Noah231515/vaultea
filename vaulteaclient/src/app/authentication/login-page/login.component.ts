@@ -27,7 +27,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
   ) {
     super()
   }

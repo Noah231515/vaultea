@@ -1,0 +1,19 @@
+<mat-form-field fxFlex appearance="standard">
+  <mat-label>{{autocompleteData.label}}</mat-label>
+  <input
+    type="text"
+    placeholder="Select a {{autocompleteData.label}}"
+    aria-label="Number"
+    matInput
+    [formControl]="autocompleteData.formControl"
+    [matAutocomplete]="auto"
+  >
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="getDisplayValue">
+    <mat-option *ngFor="let option of filteredOptions | async | slice:0:maxValuesToDisplay" [value]="option.value">
+      <div fxLayout="column">
+        <span>{{option.displayValue}}</span>
+        <small *ngIf="option.subtitle"><strong>{{option.subtitle}}</strong></small>
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

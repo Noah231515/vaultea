@@ -15,6 +15,11 @@ body { margin: 0; font-family: Cabin; }
   height: 64px;
 }
 
+app-root {
+  display: block;
+  height: 100%;
+}
+
 $primary-green: #6FCFB8;
 $primary-yellow: #FFBD12;
 $error-red: #FF5B5B;

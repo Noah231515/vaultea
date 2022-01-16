@@ -1,10 +1,10 @@
-<div fxLayout="column">
-  <div fxFlex>
+<div fxLayout="column" class="max-height">
+  <div>
     <mat-toolbar fxFlex class="toolbar">
       <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
         <div *ngIf="isLoggedIn" fxFlex fxLayoutGap="24px" fxLayoutAlign=" center">
           <img class="logo-minimal" src="../assets/logo-minimal.svg">
-          
+
         </div>
         <div *ngIf="isLoggedIn" fxFlex fxLayoutGap="36px" fxLayoutAlign="end center">
           <mat-icon class="toolbar-item">search</mat-icon>
@@ -15,7 +15,7 @@
       </div>
     </mat-toolbar>
   </div>
-  <div fxFlex [@routeAnimations]="prepareRoute(outlet)" class="global-foreground">
+  <div fxFlex [@routeAnimations]="prepareRoute(outlet)" class="global-foreground max-height">
     <router-outlet #outlet="outlet"></router-outlet>
   </div>
 </div>

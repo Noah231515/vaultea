@@ -2,6 +2,7 @@ import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Folder } from "@folder";
+import { DataUtil } from "@util";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { KeysToOmitConstant } from "../shared/constants/keys-to-omit.constant";
@@ -40,6 +41,7 @@ export class AuthenticationService {
     });
 
     this.user.folders = await Promise.all(folderPromises);
+    this.user.folders = DataUtil.transformToNestedState(this.user.folders);
     this.updateIsLoggedIn();
   }
 

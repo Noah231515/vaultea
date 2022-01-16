@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthenticationService } from "@authentication";
+import { AuthenticationMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
@@ -24,7 +25,7 @@ describe("FolderFormComponent", () => {
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
-        AuthenticationService,
+        { provide: AuthenticationService, useClass: AuthenticationMockService },
         FolderService,
         FormBuilder,
         HttpClient,

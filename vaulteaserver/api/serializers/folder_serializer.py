@@ -5,8 +5,8 @@ class FolderSerializer(serializers.Serializer):
     vault_id = serializers.IntegerField(required=True)
     name = serializers.CharField(required=True, max_length=100)
     description = serializers.CharField(required=False, max_length=100)
-    parent_folder_id = serializers.IntegerField(required=False)
-    
+    parent_folder_id = serializers.IntegerField(required=False, allow_null=True)
+
     def create(self, validated_data):
         vault = Vault()
         vault.id = validated_data['vault_id']

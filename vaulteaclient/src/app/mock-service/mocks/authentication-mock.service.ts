@@ -11,13 +11,58 @@ export class AuthenticationMockService  {
   private isLoggedInBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isLoggedInObservable: Observable<boolean> = this.isLoggedInBehaviorSubject.asObservable();
 
-  constructor(
-    //private httpClient: HttpClient,
-//    private userKeyService: UserKeyService,
-//    private cryptoBusinessLogicService: CryptoBusinessLogicService
-  ) {
+  public childFolder1: Folder = {
+    id: "2",
+    vaultId: "1",
+    name: "Child folder",
+    description: "",
+    parentFolderId: "1",
+    pathNodes: [],
+    childFolders: []
+  };
+  public childFolder2: Folder = {
+    id: "3",
+    vaultId: "1",
+    name: "Child child folder",
+    description: "",
+    parentFolderId: "2",
+    pathNodes: [],
+    childFolders: []
+  };
+  public parentFolder1: Folder = {
+    id: "1",
+    vaultId: "1",
+    name: "First folder",
+    description: "",
+    parentFolderId: "",
+    pathNodes: [],
+    childFolders: []
+  };
+  public parentFolder2: Folder = {
+    id: "20",
+    vaultId: "1",
+    name: "Second folder",
+    description: "",
+    parentFolderId: "",
+    pathNodes: [],
+    childFolders: []
+  };
+  public folders = [this.parentFolder1, this.parentFolder2, this.childFolder1, this.childFolder2];
+
+  constructor() {
+    this.setup();
   }
 
+  private setup(): void {
+    this.user = {
+      id: "1",
+      vaultId: "1",
+      username: "Test Man",
+      accessToken: "",
+      key: "",
+      folders: this.folders
+    };
+  }
 
   public signUp(formData: any): Observable<any> {
     throw new Error("Method not implemented.");
@@ -35,26 +80,6 @@ export class AuthenticationMockService  {
     throw new Error("Method not implemented.");
   }
   public getLoggedInUser(): User {
-    const folder1: Folder = {
-      id: "1",
-      vaultId: "1",
-      parentFolderId: "",
-      name: "The best folder",
-      description: "Number one folder",
-      childFolders: [],
-      pathNodes: []
-    }
-    const folders = [
-      folder1
-    ];
-    this.user = {
-      id: "1",
-      vaultId: "1",
-      username: "Test Man",
-      accessToken: "",
-      key: "",
-      folders: folders
-    }
     return this.user;
   }
   private updateIsLoggedIn(): void {

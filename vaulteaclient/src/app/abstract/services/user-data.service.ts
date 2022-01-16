@@ -73,12 +73,10 @@ export abstract class UserDataService {
     let index = 0;
 
     // eslint-disable-next-line no-constant-condition
-    while (true) {
+    while (folders[index]) {
       const folder = folders[index];
       if (folder) {
         folders = folders.concat(folder.childFolders);
-      } else {
-        break;
       }
       index++;
     }

@@ -34,7 +34,6 @@ export abstract class DataUtil {
     });
   }
 
-  // TODO: Make unit test
   public static transformToNestedState(folders: Folder[]): Folder[] { // TODO: Fix broken children on adding a folder
     folders.forEach(folder => {
       folder.childFolders = [];
@@ -58,7 +57,7 @@ export abstract class DataUtil {
     return folders.filter(f => !f.parentFolderId);
   }
 
-  private static getPathNodes(folders: Folder[], folder: Folder): Folder[] {
+  public static getPathNodes(folders: Folder[], folder: Folder): Folder[] {
     let parentFolderId: any = folder.parentFolderId;
 
     const results: Folder[] =  [];

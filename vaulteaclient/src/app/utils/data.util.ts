@@ -36,7 +36,9 @@ export abstract class DataUtil {
 
   public static transformToNestedState(folders: Folder[]): Folder[] { // TODO: Fix broken children on adding a folder
     folders.forEach(folder => {
-      folder.childFolders = [];
+      if (!folder.childFolders?.length) {
+        folder.childFolders = [];
+      }
 
       if (folder.parentFolderId) { // If folder is a child
         folder.pathNodes = [];

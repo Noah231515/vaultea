@@ -9,44 +9,48 @@ import { BrowserCryptoBusinessLogicService } from "../browser-crypto-business-lo
 import { BrowserCryptoFunctionService } from "../browser-crypto-function.service";
 
 describe("DataUtil", () => {
-  const childFolder1: Folder = {
-    id: "2",
-    vaultId: "1",
-    name: "Child folder",
-    description: "",
-    parentFolderId: "1",
-    pathNodes: [],
-    childFolders: []
-  };
-  const childFolder2: Folder ={
-    id: "3",
-    vaultId: "1",
-    name: "Child child folder",
-    description: "",
-    parentFolderId: "2",
-    pathNodes: [],
-    childFolders: []
-  };
-  const parentFolder1: Folder = {
-    id: "1",
-    vaultId: "1",
-    name: "First folder",
-    description: "",
-    parentFolderId: "",
-    pathNodes: [],
-    childFolders: []
-  };
-  const parentFolder2: Folder = {
-    id: "20",
-    vaultId: "1",
-    name: "Second folder",
-    description: "",
-    parentFolderId: "",
-    pathNodes: [],
-    childFolders: []
-  };
+  let parentFolder1: Folder;
+  let parentFolder2: Folder;
+  let childFolder1: Folder;
+  let childFolder2: Folder;
 
   beforeEach(async () => {
+    childFolder1 = {
+      id: "2",
+      vaultId: "1",
+      name: "Child folder",
+      description: "",
+      parentFolderId: "1",
+      pathNodes: [],
+      childFolders: []
+    };
+    childFolder2 = {
+      id: "3",
+      vaultId: "1",
+      name: "Child child folder",
+      description: "",
+      parentFolderId: "2",
+      pathNodes: [],
+      childFolders: []
+    };
+    parentFolder1 = {
+      id: "1",
+      vaultId: "1",
+      name: "First folder",
+      description: "",
+      parentFolderId: "",
+      pathNodes: [],
+      childFolders: []
+    };
+    parentFolder2 = {
+      id: "20",
+      vaultId: "1",
+      name: "Second folder",
+      description: "",
+      parentFolderId: "",
+      pathNodes: [],
+      childFolders: []
+    };
     TestBed.configureTestingModule({
       imports: [
       ],

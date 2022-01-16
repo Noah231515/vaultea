@@ -18,6 +18,10 @@ export class AutocompleteComponent implements OnInit {
   public maxValuesToDisplay: number = 25;
 
   public ngOnInit(): void {
+    this.listenForValueChanges();
+  }
+
+  private listenForValueChanges(): void {
     const formControl: FormControl = this.autocompleteData.formControl;
     this.filteredOptions = formControl.valueChanges.pipe(
       startWith(""),

@@ -75,9 +75,10 @@ export abstract class DataUtil {
 
   public static buildPathString(folder: Folder): string {
     let result = "Vault/";
-    for (let i = folder.pathNodes.length - 1; i >= 0; i--) {
-      result = i === 0 ? result.concat(folder.pathNodes[i].name) : result.concat(folder.pathNodes[i].name) + "/";
+    for (let i = 0; i < folder.pathNodes.length; i++) {
+      result = i === folder.pathNodes.length ? result.concat(folder.pathNodes[i].name) : result.concat(folder.pathNodes[i].name) + "/";
     }
+    result = result.concat(folder.name);
     return result;
   }
 }

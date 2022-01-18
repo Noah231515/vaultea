@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ContentDrawerComponent } from './content-drawer.component';
+import { ContentDrawerComponent } from "./content-drawer.component";
 
-describe('ContentDrawerComponent', () => {
+describe("ContentDrawerComponent", () => {
   let component: ContentDrawerComponent;
   let fixture: ComponentFixture<ContentDrawerComponent>;
 
@@ -10,7 +10,7 @@ describe('ContentDrawerComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ContentDrawerComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('ContentDrawerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -11,7 +11,7 @@ import { VaultDynamicDrawerService } from "@shared";
 })
 export class ContentDrawerComponent extends BaseComponent implements OnInit {
   public isDrawerOpened: boolean = false;
-  public drawerPortal: ComponentPortal<any>;
+  public drawerPortal: ComponentPortal<BaseFormComponent>;
 
   constructor(
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
@@ -36,7 +36,7 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
   }
 
   private listenToPortalState(): void {
-    this.vaultDynamicDrawerService.getPortalStateObservable().subscribe((portal: ComponentPortal<any>) => {
+    this.vaultDynamicDrawerService.getPortalStateObservable().subscribe((portal: ComponentPortal<BaseFormComponent>) => {
       this.drawerPortal = portal;
       this.changeDetectorRef.detectChanges();
     })

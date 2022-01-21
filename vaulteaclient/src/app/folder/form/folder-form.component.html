@@ -12,13 +12,19 @@
 <ng-template #formTemplate>
   <div fxFlex fxLayout="column" fxLayoutGap="8px">
     <vaultea-input
-      label="Name"
-      [formControl]="form.get('name')"
-      [required]="true"
+      [inputData]="{
+        label: 'Name',
+        placeholder: 'Name',
+        formControl: form.get('name'),
+        required: true
+      }"
     ></vaultea-input>
     <vaultea-input
-      label="Description"
-      [formControl]="form.get('description')"
+      [inputData]="{
+        label: 'Description',
+        placeholder: 'Description',
+        formControl: form.get('description')
+      }"
     ></vaultea-input>
     <vaultea-autocomplete
       [autocompleteData]="{

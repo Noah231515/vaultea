@@ -1,21 +1,21 @@
-<mat-form-field [fxFlex]="flexAmount" appearance="standard">
-    <mat-label>{{label}}</mat-label>
-    <mat-error *ngIf="formControl.hasError('required')">
-        Please enter a {{label}}
+<mat-form-field [fxFlex]="inputData.flexAmount" appearance="standard">
+    <mat-label>{{inputData.label}}</mat-label>
+    <mat-error *ngIf="inputData.formControl.hasError('required')">
+        Please enter a {{inputData.label}}
     </mat-error>
-        <mat-error *ngIf="formControl.hasError('email')">
+        <mat-error *ngIf="inputData.formControl.hasError('email')">
         Please enter a properly formatted email
     </mat-error>
     <input
         matInput
-        [type]="sensitiveDataInput && hideSensitiveData ? 'password' : 'text'"
-        [placeholder]=placeholder
-        [formControl]=formControl
-        [value]=formControl?.value
-        [maxlength]="maxLength"
-        [required]="required"
+        [type]="inputData.sensitiveDataInput && hideSensitiveData ? 'password' : 'text'"
+        [placeholder]="inputData.placeholder"
+        [formControl]="inputData.formControl"
+        [value]="inputData.formControl.value"
+        [maxlength]="inputData.maxLength"
+        [required]="inputData.required"
     >
-    <button mat-icon-button matSuffix *ngIf="sensitiveDataInput" type="button" (click)="toggleHideSensitiveData()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSensitiveData">
+    <button mat-icon-button matSuffix *ngIf="inputData.sensitiveDataInput" type="button" (click)="toggleHideSensitiveData()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSensitiveData">
         <mat-icon>{{hideSensitiveData ? "visibility_off" : "visibility"}}</mat-icon>
     </button>
 </mat-form-field>

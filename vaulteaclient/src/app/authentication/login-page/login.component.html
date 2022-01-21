@@ -16,13 +16,20 @@
 <ng-template #formTemplate>
     <div fxFlex fxLayout="column" fxLayoutGap="8px">
         <vaultea-input
-            [formControl]="form.get('username')"
-            label="Username"
+          [inputData]="{
+            label: 'Username',
+            placeholder: 'Username',
+            formControl: form.get('username'),
+            required: true
+          }"
         ></vaultea-input>
         <vaultea-input
-            [sensitiveDataInput]="true"
-            [formControl]="form.get('password')"
-            label="Password"
+          [inputData]="{
+            label: 'Password',
+            placeholder: 'Password',
+            formControl: form.get('password'),
+            sensitiveDataInput: true
+          }"
         ></vaultea-input>
     </div>
 </ng-template>

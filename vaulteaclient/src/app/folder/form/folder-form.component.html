@@ -29,7 +29,7 @@
     <vaultea-autocomplete
       [autocompleteData]="{
         label: 'Location',
-        formControl: form.get('parentFolderId'),
+        formControl: toFormControl(form.get('parentFolderId')),
         options: autocompleteOptions,
         required: false,
         displaySubtitle: true

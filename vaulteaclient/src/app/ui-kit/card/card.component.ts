@@ -5,7 +5,7 @@ import { FolderFormComponent } from "@folder";
 import { TypeEnum } from "@shared";
 
 import { VaultDynamicDrawerService } from "../../shared/services/vault-dynamic-drawer.service";
-import { Card } from "./card.model";
+import { CardData } from "./card-data.model";
 
 /* eslint-disable indent */
 @Component({
@@ -15,7 +15,7 @@ import { Card } from "./card.model";
   styleUrls: ["./card.component.scss"]
 })
 export class CardComponent extends BaseComponent implements OnInit {
-  @Input() cardData: Card;
+  @Input() cardData: CardData;
   @Output() deleteOptionClicked: EventEmitter<string> = new EventEmitter<string>();
 
   public title: string;

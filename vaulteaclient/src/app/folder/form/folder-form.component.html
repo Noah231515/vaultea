@@ -15,7 +15,7 @@
       [inputData]="{
         label: 'Name',
         placeholder: 'Name',
-        formControl: form.get('name'),
+        formControl: toFormControl(form.get('name')),
         required: true
       }"
     ></vaultea-input>
@@ -23,7 +23,7 @@
       [inputData]="{
         label: 'Description',
         placeholder: 'Description',
-        formControl: form.get('description')
+        formControl: toFormControl(form.get('description'))
       }"
     ></vaultea-input>
     <vaultea-autocomplete

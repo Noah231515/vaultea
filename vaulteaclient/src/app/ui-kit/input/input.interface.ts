@@ -1,5 +1,7 @@
+import { FormControl } from "@angular/forms";
+
 export interface InputData {
-  formControl: any;
+  formControl: FormControl;
   label: string;
   placeholder: string;
   flexAmount?: string;

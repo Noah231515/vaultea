@@ -26,7 +26,7 @@ describe("FolderTreeComponent", () => {
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -2,7 +2,7 @@
   [form]="form"
   [formTemplate]="formTemplate"
   [primaryButton]="BUTTONS_CONSTANT.SUBMIT_BUTTON"
-  [formHeader]="{
+  [formHeaderData]="{
     headerText: headerText,
     hLevel: 'h2'
   }"
@@ -12,18 +12,24 @@
 <ng-template #formTemplate>
   <div fxFlex fxLayout="column" fxLayoutGap="8px">
     <vaultea-input
-      label="Name"
-      [formControl]="form.get('name')"
-      [required]="true"
+      [inputData]="{
+        label: 'Name',
+        placeholder: 'Name',
+        formControl: toFormControl(form.get('name')),
+        required: true
+      }"
     ></vaultea-input>
     <vaultea-input
-      label="Description"
-      [formControl]="form.get('description')"
+      [inputData]="{
+        label: 'Description',
+        placeholder: 'Description',
+        formControl: toFormControl(form.get('description'))
+      }"
     ></vaultea-input>
     <vaultea-autocomplete
       [autocompleteData]="{
         label: 'Location',
-        formControl: form.get('parentFolderId'),
+        formControl: toFormControl(form.get('parentFolderId')),
         options: autocompleteOptions,
         required: false,
         displaySubtitle: true

@@ -1,4 +1,4 @@
-import { FormGroup } from "@angular/forms";
+import { AbstractControl, FormControl, FormGroup } from "@angular/forms";
 import { FormStateEnum } from "@shared";
 
 import { BaseComponent } from "../base-component/base.component";
@@ -13,4 +13,7 @@ export abstract class BaseFormComponent extends BaseComponent {
   public abstract submit(): void;
   public abstract cancel(): void;
   protected abstract initForm(): void;
+  public toFormControl(abstractControl: AbstractControl): FormControl {
+    return abstractControl as FormControl;
+  }
 }

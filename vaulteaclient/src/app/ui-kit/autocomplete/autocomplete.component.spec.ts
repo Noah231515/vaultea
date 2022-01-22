@@ -42,7 +42,7 @@ describe("AutocompleteComponent", () => {
         ReactiveFormsModule,
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

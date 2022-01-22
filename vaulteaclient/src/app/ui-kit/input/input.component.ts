@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core";
-import { FormControl } from "@angular/forms";
 
+import { InputData } from "./input.interface";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "vaultea-input",
@@ -9,23 +10,16 @@ import { FormControl } from "@angular/forms";
   templateUrl: "./input.component.html",
 })
 export class InputComponent implements OnInit {
-    @Input() public formControl: any;
-    @Input() public label: string;
-    @Input() public placeholder: string;
-    @Input() public flexAmount: string = "100%";
-
-    @Input() public maxLength: number = 100;
-
-    @Input() public sensitiveDataInput: boolean = false;
-    @Input() public required: boolean = false;
+    @Input() public inputData: InputData;
 
     public hideSensitiveData: boolean;
 
     public ngOnInit(): void {
-      this.hideSensitiveData = this.sensitiveDataInput;
-      if (this.formControl) {
-        this.formControl = this.formControl as FormControl;
-      }
+      this.inputData.maxLength = this.inputData.maxLength ?? 100;
+      this.inputData.flexAmount = this.inputData.flexAmount ?? "100";
+      this.inputData.sensitiveDataInput = this.inputData.sensitiveDataInput ?? false;
+      this.inputData.required = this.inputData.required ?? false;
+      this.hideSensitiveData = this.inputData.sensitiveDataInput ?? false;
     }
 
     public toggleHideSensitiveData(): void {

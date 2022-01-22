@@ -1,7 +1,7 @@
 import { Folder } from "@folder";
 import { TypeEnum } from "@shared";
 
-export interface Card {
+export interface CardData {
   object: Folder;
   type: TypeEnum;
 }

@@ -130,7 +130,6 @@ describe("DataUtil", () => {
   });
 
   it("should get the correct path name for a root level folder", () => {
-    const folders = [parentFolder1, parentFolder2, childFolder1, childFolder2];
     const path = DataUtil.buildPathString(parentFolder1);
 
     expect(path).toEqual(`Vault/${parentFolder1.name}`);

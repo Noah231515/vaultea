@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
-import { FormHeader } from "./form-header.interface";
+
+import { FormHeaderData } from "./form-header-data.interface";
 
 @Component({
   selector: "vaultea-form-header",
@@ -7,5 +8,5 @@ import { FormHeader } from "./form-header.interface";
   styleUrls: ["./form-header.component.scss"]
 })
 export class FormHeaderComponent {
-  @Input() public formHeader: FormHeader;
+  @Input() public formHeaderData: FormHeaderData;
 }

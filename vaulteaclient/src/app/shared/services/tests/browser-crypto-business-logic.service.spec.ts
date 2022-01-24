@@ -2,7 +2,6 @@ import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } fro
 import { HttpClientModule } from "@angular/common/http";
 import { TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
-import { CryptoUtil } from "@util";
 
 import { BrowserCryptoBusinessLogicService } from "../browser-crypto-business-logic.service";
 import { BrowserCryptoFunctionService } from "../browser-crypto-function.service";
@@ -16,7 +15,7 @@ describe("BrowserCryptoBusinessLogicService", () => {
   let userKeyService: UserKeyService;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({ 
+    TestBed.configureTestingModule({
       imports: [
         BrowserModule,
         HttpClientModule
@@ -25,7 +24,7 @@ describe("BrowserCryptoBusinessLogicService", () => {
         { provide: UserKeyService },
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
-      ] 
+      ]
     });
 
     userKeyService = TestBed.inject(UserKeyService);
@@ -33,30 +32,6 @@ describe("BrowserCryptoBusinessLogicService", () => {
     cryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
     await cryptoBusinessLogicService.generateKeys(username, password);
     userKeyService.setEncryptionKey(await cryptoBusinessLogicService.generateEncryptionKey());
-  });
-
-  it("should decrypt the encrypted string correctly", async () => {
-    const cleartext = "Hello World";
-    const encryptedData = await cryptoFunctionService.encryptData(userKeyService.getEncryptionKey(), cleartext);
-    expect(encryptedData.dataString === cleartext).toBeFalse();
-    const decryptedText = await cryptoFunctionService.decryptData(userKeyService.getEncryptionKey(), encryptedData.dataBuffer);
-    expect(cleartext).toBe(decryptedText);
-  });
-
-  it("should recreate correct data buffer from encrypted string", async () => {
-    const text = "Hello Big World";
-    const encryptedData = await cryptoFunctionService.encryptData(userKeyService.getEncryptionKey(), text);
-    const computedArrayBuffer = CryptoUtil.stringToArrayBuffer(encryptedData.dataString, true);
-
-    expect(computedArrayBuffer.buffer).toEqual(encryptedData.dataBuffer);
-  });
-
-  it("should recreate the correct string from encrypted data's array buffer", async () => {
-    const text = "Hello Big World!@!@!!";
-    const encryptedData = await cryptoFunctionService.encryptData(userKeyService.getEncryptionKey(), text);
-    const computedDataString = CryptoUtil.arrayBufferToBase64(encryptedData.dataBuffer);
-
-    expect(encryptedData.dataString).toBe(computedDataString);
   });
 
   it("should decrypt encryption key correctly", async () => {

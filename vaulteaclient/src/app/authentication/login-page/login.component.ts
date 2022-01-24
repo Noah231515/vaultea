@@ -47,13 +47,17 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     this.router.navigate(["/signup"])
   }
 
-  public async submit(): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public async prepareToSubmit(): Promise<any> {
     await this.browserCryptoBusinessLogicService.generateKeys(this.form.get("username")?.value, this.form.get("password")?.value);
-
     const rawData = Object.assign({}, this.form.getRawValue());
     rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(this.userKeyService.getMasterKey(), rawData.password);
+    return rawData;
+  }
 
-    this.authenticationService.login(rawData)
+  public async submit(): Promise<void> {
+    const preparedData = this.prepareToSubmit();
+    this.authenticationService.login(preparedData)
       .pipe(
         catchError(err => of(this.snackBarService.open(err.error.msg)))
       )

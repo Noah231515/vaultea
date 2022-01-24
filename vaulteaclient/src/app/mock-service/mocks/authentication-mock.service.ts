@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { User } from "@authentication";
 import { Folder } from "@folder";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -68,7 +68,7 @@ export class AuthenticationMockService  {
     throw new Error("Method not implemented.");
   }
   public login(formData: any): Observable<any> {
-    throw new Error("Method not implemented.");
+    return of(this.user);
   }
   public setUser(user: User): Promise<void> {
     throw new Error("Method not implemented.");

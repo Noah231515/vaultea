@@ -24,7 +24,7 @@ export class VaultComponent extends BaseComponent {
     private authenticationService: AuthenticationService,
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private changeDetectorRef: ChangeDetectorRef,
-    private userDataService: UserDataService,
+    public userDataService: UserDataService,
     private snackBarService: SnackBarService,
     private folderService: FolderService
   ) {

@@ -27,11 +27,14 @@ describe("UserDataService", () => {
 
   it("should flatten nested folders", () => {
     const userDataService = TestBed.inject(UserDataService);
-    const authenticationService = TestBed.inject(AuthenticationService);
+    const authenticationService = TestBed.inject(AuthenticationMockService);
+
+    authenticationService.resetPathNodesAndChildren();
+
     const user = authenticationService.getLoggedInUser();
 
-    const initialFolders = Array.from(userDataService.getFolders());
-    user.folders = DataUtil.transformToNestedState(userDataService.getFolders());
+    const initialFolders = Array.from(authenticationService.folders);
+    user.folders = DataUtil.transformToNestedState(authenticationService.folders);
     const flatFolders = userDataService.getFlatFolders();
 
     expect(user.folders).not.toEqual(initialFolders);

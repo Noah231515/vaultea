@@ -56,7 +56,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
-    const preparedData = this.prepareToSubmit();
+    const preparedData = await this.prepareToSubmit();
     this.authenticationService.login(preparedData)
       .pipe(
         catchError(err => of(this.snackBarService.open(err.error.msg)))

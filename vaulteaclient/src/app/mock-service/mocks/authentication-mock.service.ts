@@ -90,4 +90,15 @@ export class AuthenticationMockService  {
   public updateFolders(folder: Folder, newFolder: boolean): void {
     throw new Error("Method not implemented.");
   }
+
+  public resetPathNodesAndChildren(): void {
+    this.parentFolder1.childFolders = [];
+    this.parentFolder1.pathNodes = [];
+    this.parentFolder2.childFolders = [];
+    this.parentFolder2.pathNodes = [];
+    this.childFolder1.childFolders = [];
+    this.childFolder1.pathNodes = [];
+    this.childFolder2.childFolders = [];
+    this.childFolder2.pathNodes = [];
+  }
 }

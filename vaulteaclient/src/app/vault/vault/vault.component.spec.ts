@@ -99,7 +99,7 @@ describe("VaultComponent", () => {
     });
   });
 
-  fit("should add another card", async () => {
+  it("should add another card", async () => {
     userDataService = TestBed.inject(UserDataService);
 
     const before = document.querySelectorAll("vaultea-card");

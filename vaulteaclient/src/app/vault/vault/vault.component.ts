@@ -2,7 +2,7 @@ import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { User } from "@authentication";
-import { FolderFormComponent, FolderService } from "@folder";
+import { Folder, FolderFormComponent, FolderService } from "@folder";
 import { TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -19,8 +19,8 @@ import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
   templateUrl: "./vault.component.html",
 })
 export class VaultComponent extends BaseComponent implements OnInit {
-  public user: User;
   public typeEnum = TypeEnum;
+  public folders: Folder[];
 
   public constructor(
     private authenticationService: AuthenticationService,
@@ -33,18 +33,13 @@ export class VaultComponent extends BaseComponent implements OnInit {
     super();
   }
 
-  // TODO: Handle data injection maybe?
   public async ngOnInit(): Promise<void> {
-    this.initFolders();
+    this.folders = this.userDataService.getFolders();
     this.listenForDataChanges();
   }
 
-  private initFolders(): void {
-    this.user = this.authenticationService.getLoggedInUser() ?? new User(); // TODO: Fix in tests, this should return a stubbed value
-  }
-
   private listenForDataChanges(): void {
-    this.userDataService.refreshDataObservable.subscribe(() => this.changeDetectorRef.markForCheck());
+    this.userDataService.refreshDataObservable.subscribe(() => this.folders = this.userDataService.getFolders());
   }
 
   public deleteFolder(folderId: string): void {

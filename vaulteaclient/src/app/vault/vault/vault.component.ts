@@ -1,8 +1,7 @@
 import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { User } from "@authentication";
-import { Folder, FolderFormComponent, FolderService } from "@folder";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from "@angular/core";
+import { FolderFormComponent, FolderService } from "@folder";
 import { TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -18,9 +17,8 @@ import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
   styleUrls: ["./vault.component.scss"],
   templateUrl: "./vault.component.html",
 })
-export class VaultComponent extends BaseComponent implements OnInit {
+export class VaultComponent extends BaseComponent {
   public typeEnum = TypeEnum;
-  public folders: Folder[];
 
   public constructor(
     private authenticationService: AuthenticationService,
@@ -31,15 +29,6 @@ export class VaultComponent extends BaseComponent implements OnInit {
     private folderService: FolderService
   ) {
     super();
-  }
-
-  public async ngOnInit(): Promise<void> {
-    this.folders = this.userDataService.getFolders();
-    this.listenForDataChanges();
-  }
-
-  private listenForDataChanges(): void {
-    this.userDataService.refreshDataObservable.subscribe(() => this.folders = this.userDataService.getFolders());
   }
 
   public deleteFolder(folderId: string): void {

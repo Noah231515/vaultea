@@ -3,6 +3,8 @@ import { User } from "@authentication";
 import { Folder } from "@folder";
 import { BehaviorSubject, Observable, of } from "rxjs";
 
+import { DataUtil } from "../../utils/data.util";
+
 @Injectable({
   providedIn: "root"
 })
@@ -60,7 +62,7 @@ export class AuthenticationMockService  {
       username: "Test Man",
       accessToken: "",
       key: "",
-      folders: this.folders
+      folders: DataUtil.transformToNestedState(this.folders)
     };
   }
 

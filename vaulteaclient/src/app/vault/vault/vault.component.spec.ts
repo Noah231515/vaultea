@@ -17,19 +17,21 @@ import { MatTreeModule } from "@angular/material/tree";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthenticationService } from "@authentication";
 import { Folder, FolderModule } from "@folder";
-import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
+import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, VaulteaCryptoKey } from "@shared";
 
 import { AuthenticationMockService } from "../../mock-service/mocks/authentication-mock.service";
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
 import { ContentDrawerComponent } from "../content-drawer/content-drawer.component";
 import { DrawerComponent } from "../drawer/drawer.component";
 import { VaultComponent } from "./vault.component";
-import { DataUtil } from '../../utils/data.util';
 
 describe("VaultComponent", () => {
   let component: VaultComponent;
   let fixture: ComponentFixture<VaultComponent>;
   let userDataService: UserDataService;
+  let cryptoBusinessLogicService: CryptoBusinessLogicService;
+  let userKeyService: UserKeyService;
+  let key: VaulteaCryptoKey;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -69,7 +71,11 @@ describe("VaultComponent", () => {
       .compileComponents();
   });
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    cryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
+    userKeyService = TestBed.inject(UserKeyService);
+    userKeyService.setEncryptionKey(await cryptoBusinessLogicService.generateEncryptionKey());
+
     fixture = TestBed.createComponent(VaultComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -93,18 +99,14 @@ describe("VaultComponent", () => {
     });
   });
 
-  fit("should add another card", () => {
+  fit("should add another card", async () => {
     userDataService = TestBed.inject(UserDataService);
-    component.ngOnInit();
-    fixture.detectChanges();
 
     const before = document.querySelectorAll("vaultea-card");
-    userDataService.updateFolders(new Folder(), true);
-    const after = document.querySelectorAll("vaultea-card");
+    expect(before.length).toEqual(2);
+    await userDataService.updateFolders(new Folder(), true);
     fixture.detectChanges();
-    expect(component.folders.length).toEqual(4);
-    expect(before.length).toEqual(4);
-    expect(component.folders.length).toEqual(5);
-    expect(after.length).toEqual(5);
+    const after = document.querySelectorAll("vaultea-card");
+    expect(after.length).toEqual(3);
   });
 });

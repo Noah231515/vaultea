@@ -41,7 +41,7 @@ describe("SignUpComponent", () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SignUpComponent);
-    component = fixture.componentInstance;
+    // component = fixture.componentInstance;
     // fixture.detectChanges();
   });
 

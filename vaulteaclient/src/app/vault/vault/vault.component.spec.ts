@@ -1,4 +1,4 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
+import { CryptoBusinessLogicService, CryptoFunctionService, UserDataService, UserKeyService } from "@abstract";
 import { PortalModule } from "@angular/cdk/portal";
 import { CommonModule } from "@angular/common";
 import { HttpClient, HttpHandler } from "@angular/common/http";
@@ -16,7 +16,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthenticationService } from "@authentication";
-import { FolderModule } from "@folder";
+import { Folder, FolderModule } from "@folder";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
 import { AuthenticationMockService } from "../../mock-service/mocks/authentication-mock.service";
@@ -28,6 +28,9 @@ import { VaultComponent } from "./vault.component";
 describe("VaultComponent", () => {
   let component: VaultComponent;
   let fixture: ComponentFixture<VaultComponent>;
+  let userDataService: UserDataService;
+  let cryptoBusinessLogicService: CryptoBusinessLogicService;
+  let userKeyService: UserKeyService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -61,12 +64,17 @@ describe("VaultComponent", () => {
         HttpClient,
         HttpHandler,
         UserKeyService,
+        UserDataService
       ]
     })
       .compileComponents();
   });
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    cryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
+    userKeyService = TestBed.inject(UserKeyService);
+    userKeyService.setEncryptionKey(await cryptoBusinessLogicService.generateEncryptionKey());
+
     fixture = TestBed.createComponent(VaultComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -88,5 +96,16 @@ describe("VaultComponent", () => {
     inputs.forEach(input => {
       expect(input.value).toEqual("");
     });
+  });
+
+  it("should add another card", async () => {
+    userDataService = TestBed.inject(UserDataService);
+
+    const before = document.querySelectorAll("vaultea-card");
+    expect(before.length).toEqual(2);
+    await userDataService.updateFolders(new Folder(), true);
+    fixture.detectChanges();
+    const after = document.querySelectorAll("vaultea-card");
+    expect(after.length).toEqual(3);
   });
 });

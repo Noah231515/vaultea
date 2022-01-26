@@ -11,14 +11,19 @@ import { BehaviorSubject, Observable } from "rxjs";
 })
 export abstract class UserDataService {
 
-  private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: figure out this issue. Should be able to me null
+  private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: Remove
   public refreshDataObservable: Observable<null> = this.refreshDataBehaviorSubject.asObservable();
+
+  private folderBehaviorSubject: BehaviorSubject<Folder[]> = new BehaviorSubject<Folder[]>([]);
+  public folderObservable: Observable<Folder[]> = this.folderBehaviorSubject.asObservable();
 
   constructor(
     private authenticationService: AuthenticationService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService
-  ) { }
+  ) {
+    this.folderBehaviorSubject.next(this.getFolders());
+  }
 
   public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> {
     const user = this.authenticationService.getLoggedInUser(); // TODO: It is likely we could use the pathNodes to speed up the find
@@ -46,6 +51,7 @@ export abstract class UserDataService {
 
     user.folders = DataUtil.transformToNestedState(user.folders);
     this.refreshDataBehaviorSubject.next(null);
+    this.folderBehaviorSubject.next(user.folders);
   }
 
   private async updateFolder(flatFolders: Folder[], folder: Folder): Promise<void> {
@@ -62,6 +68,7 @@ export abstract class UserDataService {
     const index = user.folders.findIndex(x => x.id === folderId);
     user.folders.splice(index, 1);
     this.refreshDataBehaviorSubject.next(null);
+    this.folderBehaviorSubject.next(user.folders);
   }
 
   public getFolders(): Folder[] {

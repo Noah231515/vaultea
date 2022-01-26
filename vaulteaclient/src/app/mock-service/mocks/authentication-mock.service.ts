@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { User } from "@authentication";
 import { Folder } from "@folder";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
+
+import { DataUtil } from "../../utils/data.util";
 
 @Injectable({
   providedIn: "root"
@@ -60,7 +62,7 @@ export class AuthenticationMockService  {
       username: "Test Man",
       accessToken: "",
       key: "",
-      folders: this.folders
+      folders: DataUtil.transformToNestedState(this.folders)
     };
   }
 
@@ -68,7 +70,7 @@ export class AuthenticationMockService  {
     throw new Error("Method not implemented.");
   }
   public login(formData: any): Observable<any> {
-    throw new Error("Method not implemented.");
+    return of(this.user);
   }
   public setUser(user: User): Promise<void> {
     throw new Error("Method not implemented.");
@@ -87,5 +89,16 @@ export class AuthenticationMockService  {
   }
   public updateFolders(folder: Folder, newFolder: boolean): void {
     throw new Error("Method not implemented.");
+  }
+
+  public resetPathNodesAndChildren(): void {
+    this.parentFolder1.childFolders = [];
+    this.parentFolder1.pathNodes = [];
+    this.parentFolder2.childFolders = [];
+    this.parentFolder2.pathNodes = [];
+    this.childFolder1.childFolders = [];
+    this.childFolder1.pathNodes = [];
+    this.childFolder2.childFolders = [];
+    this.childFolder2.pathNodes = [];
   }
 }

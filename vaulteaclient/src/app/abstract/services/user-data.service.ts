@@ -11,7 +11,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 })
 export abstract class UserDataService {
 
-  private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: figure out this issue. Should be able to me null
+  private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: Remove
   public refreshDataObservable: Observable<null> = this.refreshDataBehaviorSubject.asObservable();
 
   private folderBehaviorSubject: BehaviorSubject<Folder[]> = new BehaviorSubject<Folder[]>([]);

@@ -10,7 +10,6 @@ describe("BrowserCryptoBusinessLogicService", () => {
   const username: string = "test";
   const password: string = "test1"
 
-  let cryptoFunctionService: CryptoFunctionService;
   let cryptoBusinessLogicService: CryptoBusinessLogicService;
   let userKeyService: UserKeyService;
 
@@ -28,7 +27,6 @@ describe("BrowserCryptoBusinessLogicService", () => {
     });
 
     userKeyService = TestBed.inject(UserKeyService);
-    cryptoFunctionService = TestBed.inject(CryptoFunctionService);
     cryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
     await cryptoBusinessLogicService.generateKeys(username, password);
     userKeyService.setEncryptionKey(await cryptoBusinessLogicService.generateEncryptionKey());

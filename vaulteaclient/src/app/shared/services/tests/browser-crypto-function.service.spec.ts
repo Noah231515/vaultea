@@ -85,7 +85,7 @@ describe("BrowserCryptoFunctionService", () => {
     expect(btoa(CryptoUtil.arrayBufferToUtf8(computedHmac))).toEqual("UaJuk29dJzaKUzY/6OuG0evDg9xuNIZXDXPcsxKCxAk=");
   });
 
-  // it("should compute hmac correctly with sha 512", async () => {
+  // it("should compute hmac correctly with sha 512", async () => { TODO: Revisit
   //   const message = "message";
   //   const computedHmac = await cryptoFunctionService.hmac(CryptoUtil.stringToArrayBuffer(message), cryptoKey.keyBuffer, "sha256");
 

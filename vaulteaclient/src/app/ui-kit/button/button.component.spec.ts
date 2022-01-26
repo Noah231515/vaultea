@@ -2,13 +2,13 @@ import { CommonModule } from "@angular/common";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { MatButtonModule } from "@angular/material/button";
 
+import { ButtonInterface } from "..";
 import { ButtonComponent } from "./button.component";
-import { ButtonInterface } from '..';
 
 describe("ButtonComponent", () => {
   let component: ButtonComponent;
   let fixture: ComponentFixture<ButtonComponent>;
-  let buttonData: ButtonInterface = {
+  const buttonData: ButtonInterface = {
     buttonTypeClass: "",
     color: "primary",
     ariaLabel: "test"

@@ -13,7 +13,7 @@ import { UiKitModule } from "../../ui-kit/ui-kit.module";
 import { SignUpComponent } from "./sign-up.component";
 
 describe("SignUpComponent", () => {
-  let component: SignUpComponent;
+  // let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
 
   beforeEach(async () => {

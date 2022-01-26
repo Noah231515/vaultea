@@ -17,7 +17,7 @@ import { MatTreeModule } from "@angular/material/tree";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthenticationService } from "@authentication";
 import { Folder, FolderModule } from "@folder";
-import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, VaulteaCryptoKey } from "@shared";
+import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
 import { AuthenticationMockService } from "../../mock-service/mocks/authentication-mock.service";
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
@@ -31,7 +31,6 @@ describe("VaultComponent", () => {
   let userDataService: UserDataService;
   let cryptoBusinessLogicService: CryptoBusinessLogicService;
   let userKeyService: UserKeyService;
-  let key: VaulteaCryptoKey;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

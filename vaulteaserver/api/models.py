@@ -11,6 +11,13 @@ user = settings.AUTH_USER_MODEL
 # So we have Item with data
 # MetaData with data type of pattern
 
+class BaseObject(models.Model):
+    name = models.CharField(max_length=100, blank=False, null=False)
+    description = models.CharField(max_length=1000, blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
 class User(AbstractUser):
     key = models.CharField(max_length=500, blank=False, null=False)
 
@@ -28,9 +35,8 @@ class Note(models.Model):
     vault_id = models.ForeignKey(Vault, on_delete=models.RESTRICT, blank=True, null=True)
     note = models.CharField(max_length=1000)
 
-class Password(models.Model):
-    vault_id = models.ForeignKey(Vault, on_delete=RESTRICT, blank=True, null=True)
+class Password(BaseObject):
+    vault_id = models.ForeignKey(Vault, on_delete=RESTRICT, blank=False, null=False)
     folder_id = models.ForeignKey(Folder, on_delete=RESTRICT, blank=True, null=True)
-    name = models.CharField(max_length=100, blank=False, null=False)
     password = models.CharField(max_length=512, blank=False, null=False)
     expire_date = models.DateTimeField(blank=True, null=True)

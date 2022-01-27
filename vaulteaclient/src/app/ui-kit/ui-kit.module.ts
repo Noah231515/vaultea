@@ -22,6 +22,8 @@ import { FormHeaderComponent } from "./form-header/form-header.component";
 import { FormComponent } from "./form/form.component";
 import { InputComponent } from "./input/input.component";
 import { LogoFullComponent } from "./logo-full/logo-full.component";
+import { SelectComponent } from './select/select.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     FormHeaderComponent,
     FolderTreeComponent,
     AutocompleteComponent,
+    SelectComponent,
   ],
   exports: [
     AutocompleteComponent,
@@ -45,6 +48,7 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     FormFooterComponent,
     InputComponent,
     LogoFullComponent,
+    SelectComponent
   ],
   imports: [
     AbstractModule,
@@ -60,6 +64,7 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     MatSnackBarModule,
     MatTreeModule,
     ReactiveFormsModule,
+    MatSelectModule,
   ],
 })
 export class UiKitModule { }

@@ -1,9 +1,8 @@
-<h4>Basic mat-select</h4>
-<mat-form-field appearance="fill">
-  <mat-label>Favorite food</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let food of foods" [value]="true">
-      hello
+<mat-form-field fxFlex appearance="standard">
+  <mat-label>{{selectData.label}}</mat-label>
+  <mat-select [formControl]="selectData.formControl">
+    <mat-option *ngFor="let option of selectData.options" [value]="option.value">
+      {{ option.displayValue }}
     </mat-option>
   </mat-select>
 </mat-form-field>

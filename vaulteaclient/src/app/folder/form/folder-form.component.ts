@@ -38,10 +38,10 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
 
   public setState(): void {
     if (this.existingObject) {
-      this.formState = this.formStateEnum.EDIT;
+      //this.formState = this.formStateEnum.EDIT; // TODO: Come back to
       this.headerText = `Edit ${this.existingObject.name}`;
     } else {
-      this.formState = this.formStateEnum.CREATE;
+      //this.formState = this.formStateEnum.CREATE;
       this.headerText = "Create a Folder";
     }
   }

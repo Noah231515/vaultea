@@ -1,3 +1,7 @@
-<p>create-item-select works!</p>
-<vaultea-select>
-</vaultea-select>
+<vaultea-select
+  [selectData]="{
+    options: options,
+    label: 'Item Type',
+    formControl: toFormControl(form.get('itemType'))
+  }"
+></vaultea-select>

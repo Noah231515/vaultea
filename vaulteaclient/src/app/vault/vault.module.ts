@@ -13,6 +13,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
 import { FolderModule } from "@folder";
 
+import { SharedModule } from "../shared/shared.module";
 import { UiKitModule } from "../ui-kit/ui-kit.module";
 import { ContentDrawerComponent } from "./content-drawer/content-drawer.component";
 import { DrawerComponent } from "./drawer/drawer.component";
@@ -29,6 +30,7 @@ import { VaultComponent } from "./vault/vault.component";
     CommonModule,
     FolderModule,
     MatButtonModule,
+    MatCardModule,
     MatChipsModule,
     MatDialogModule,
     MatDividerModule,
@@ -38,9 +40,9 @@ import { VaultComponent } from "./vault/vault.component";
     MatSidenavModule,
     MatTreeModule,
     PortalModule,
+    SharedModule,
     UiKitModule,
     VaultRoutingModule,
-    MatCardModule
   ]
 })
 export class VaultModule { }

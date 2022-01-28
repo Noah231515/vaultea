@@ -1,15 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { BaseFormComponent } from "@abstract";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+
+import { SelectOption } from "../../../ui-kit/select/select-option.interface";
 
 @Component({
-  selector: 'vaultea-create-item-select',
-  templateUrl: './create-item-select.component.html',
-  styleUrls: ['./create-item-select.component.scss']
+  selector: "vaultea-create-item-select",
+  templateUrl: "./create-item-select.component.html",
+  styleUrls: ["./create-item-select.component.scss"]
 })
-export class CreateItemSelectComponent implements OnInit {
+export class CreateItemSelectComponent extends BaseFormComponent implements OnInit {
 
-  constructor() { }
+  public options: SelectOption[] = [
+    {
+      "value": "folder",
+      "displayValue": "Folder"
+    },
+    {
+      "value": "password",
+      "displayValue": "Password"
+    }
+  ];
 
-  ngOnInit(): void {
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
+    super();
   }
 
+  public ngOnInit(): void {
+    this.initForm();
+  }
+
+  protected initForm(): void {
+    this.form = this.formBuilder.group({
+      itemType: ["", Validators.required]
+    });
+  }
+  public setState(): void {
+    throw new Error("Method not implemented.");
+  }
+  public submit(): void {
+    throw new Error("Method not implemented.");
+  }
+  public cancel(): void {
+    throw new Error("Method not implemented.");
+  }
 }

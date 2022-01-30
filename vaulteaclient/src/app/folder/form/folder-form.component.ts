@@ -3,8 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AuthenticationService } from "@authentication";
 import { KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
-import { AutocompleteOption } from "@ui-kit";
-import { DataUtil } from "@util";
+import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
 
 import { FormHeaderData } from "../../ui-kit/form-header/form-header-data.interface";
 import { FolderService } from "../folder.service";
@@ -27,7 +26,8 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private userDataService: UserDataService,
     private authenticationService: AuthenticationService,
-    private snackbarService: SnackBarService
+    private snackbarService: SnackBarService,
+    private autocompleteUtilService: AutocompleteUtilService
   ) {
     super();
   }
@@ -35,7 +35,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public ngOnInit(): void {
     this.setState();
     this.initForm();
-    this.autocompleteOptions = this.buildOptions();
+    this.autocompleteOptions = this.autocompleteUtilService.buildOptions();
   }
 
   public setState(): void {
@@ -87,17 +87,6 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
       updatedFolder.pathNodes = this.existingObject.pathNodes;
       await this.userDataService.updateFolders(updatedFolder, false);
       this.snackbarService.open("Folder successfully updated");
-    });
-  }
-
-  private buildOptions(): AutocompleteOption[] {
-    const flatFolders = this.userDataService.getFlatFolders();
-    return flatFolders.map(folder => {
-      return {
-        value: folder.id,
-        displayValue: folder.name,
-        subtitle: DataUtil.buildPathString(folder)
-      }
     });
   }
 

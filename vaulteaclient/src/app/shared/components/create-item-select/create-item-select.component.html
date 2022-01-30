@@ -9,5 +9,6 @@
 
   <ng-container fxFlex [ngSwitch]="form.get('itemType').value">
     <vaultea-folder-form fxFlex *ngSwitchCase="'folder'"></vaultea-folder-form>
+    <vaultea-password-form fxFlex *ngSwitchCase="'password'"></vaultea-password-form>
   </ng-container>
 </div>

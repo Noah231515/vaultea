@@ -28,6 +28,7 @@
       "@authentication": ["src/app/authentication/index.ts"],
       "@folder": ["src/app/folder/index.ts"],
       "@mock": ["src/app/mock-service/index.ts"],
+      "@password": ["src/app/password/index.ts"],
       "@shared": ["src/app/shared/index.ts"],
       "@ui-kit": ["src/app/ui-kit/index.ts"],
       "@util": ["src/app/utils/index.ts"],

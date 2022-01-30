@@ -26,7 +26,7 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
   }
 
   private listenToDrawerState(): void {
-    this.vaultDynamicDrawerService.getIsOpenObservable().subscribe((isOpen: boolean) => {
+    this.vaultDynamicDrawerService.stateObservable.subscribe((isOpen: boolean) => {
       this.isDrawerOpened = isOpen;
       if (isOpen) {
         window.scrollTo({top: 0, behavior: "smooth"});
@@ -36,7 +36,7 @@ export class ContentDrawerComponent extends BaseComponent implements OnInit {
   }
 
   private listenToPortalState(): void {
-    this.vaultDynamicDrawerService.getPortalStateObservable().subscribe((portal: ComponentPortal<BaseFormComponent>) => {
+    this.vaultDynamicDrawerService.portalObservable.subscribe((portal: ComponentPortal<BaseFormComponent>) => {
       this.drawerPortal = portal;
       this.changeDetectorRef.detectChanges();
     })

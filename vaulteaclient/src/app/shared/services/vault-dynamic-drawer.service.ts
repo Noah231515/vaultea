@@ -9,19 +9,13 @@ import { BehaviorSubject, Observable } from "rxjs";
 })
 export class VaultDynamicDrawerService {
   private stateBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public stateObservable: Observable<boolean> = this.stateBehaviorSubject.asObservable();
   private portalBehaviorSubject: BehaviorSubject<ComponentPortal<BaseFormComponent>> = new BehaviorSubject<ComponentPortal<BaseFormComponent>>(null);
+  public portalObservable: Observable<ComponentPortal<BaseFormComponent>> = this.portalBehaviorSubject.asObservable();
   private existingObject: Folder | null = null;
 
   public getIsOpen(): boolean {
     return this.stateBehaviorSubject.value;
-  }
-
-  public getIsOpenObservable(): Observable<boolean> {
-    return this.stateBehaviorSubject.asObservable();
-  }
-
-  public getPortalStateObservable(): Observable<any> {
-    return this.portalBehaviorSubject.asObservable();
   }
 
   public setPortalComponent(component: ComponentPortal<BaseFormComponent>, existingObject: Folder | null = null): void {

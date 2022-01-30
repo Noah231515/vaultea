@@ -6,6 +6,7 @@ import { FormStateEnum, KeysToOmitConstant, SnackBarService, VaultDynamicDrawerS
 import { AutocompleteOption } from "@ui-kit";
 import { DataUtil } from "@util";
 
+import { FormHeaderData } from "../../ui-kit/form-header/form-header-data.interface";
 import { FolderService } from "../folder.service";
 
 @Component({
@@ -16,6 +17,7 @@ import { FolderService } from "../folder.service";
 export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public headerText: string;
   public autocompleteOptions: AutocompleteOption[];
+  public formHeaderData: FormHeaderData;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,6 +42,10 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     if (this.existingObject) {
       //this.formState = this.formStateEnum.EDIT; // TODO: Come back to
       this.headerText = `Edit ${this.existingObject.name}`;
+      this.formHeaderData = {
+        headerText: this.headerText,
+        hLevel: "h2"
+      }
     } else {
       //this.formState = this.formStateEnum.CREATE;
       this.headerText = "Create a Folder";

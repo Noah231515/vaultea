@@ -46,9 +46,10 @@ import { SelectComponent } from "./select/select.component";
     FolderTreeComponent,
     FormComponent,
     FormFooterComponent,
+    FormHeaderComponent,
     InputComponent,
     LogoFullComponent,
-    SelectComponent
+    SelectComponent,
   ],
   imports: [
     AbstractModule,

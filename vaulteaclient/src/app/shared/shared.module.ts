@@ -1,4 +1,6 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { FolderModule } from "@folder";
 
 import { UiKitModule } from "../ui-kit/ui-kit.module";
 import { CreateItemSelectComponent } from "./components/create-item-select/create-item-select.component";
@@ -11,6 +13,8 @@ import { CreateItemSelectComponent } from "./components/create-item-select/creat
     CreateItemSelectComponent
   ],
   imports: [
+    CommonModule,
+    FolderModule,
     UiKitModule
   ],
 })

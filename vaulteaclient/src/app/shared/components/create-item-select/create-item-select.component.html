@@ -1,7 +1,13 @@
-<vaultea-select
-  [selectData]="{
-    options: options,
-    label: 'Item Type',
-    formControl: toFormControl(form.get('itemType'))
-  }"
-></vaultea-select>
+<div fxFlex fxLayout="column">
+  <vaultea-select
+    [selectData]="{
+      options: options,
+      label: 'Item Type',
+      formControl: toFormControl(form.get('itemType'))
+    }"
+  ></vaultea-select>
+
+  <ng-container fxFlex [ngSwitch]="form.get('itemType').value">
+    <vaultea-folder-form fxFlex *ngSwitchCase="'folder'"></vaultea-folder-form>
+  </ng-container>
+</div>

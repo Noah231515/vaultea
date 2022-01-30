@@ -34,7 +34,7 @@ export class CreateItemSelectComponent extends BaseFormComponent implements OnIn
 
   protected initForm(): void {
     this.form = this.formBuilder.group({
-      itemType: ["", Validators.required]
+      itemType: ["folder", Validators.required]
     });
   }
   public setState(): void {

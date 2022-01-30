@@ -1,3 +1,4 @@
+import { BaseFormComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { Injectable } from "@angular/core";
 import { Folder } from "@folder";
@@ -8,7 +9,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 })
 export class VaultDynamicDrawerService {
   private stateBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private portalBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private portalBehaviorSubject: BehaviorSubject<ComponentPortal<BaseFormComponent>> = new BehaviorSubject<ComponentPortal<BaseFormComponent>>(null);
   private existingObject: Folder | null = null;
 
   public getIsOpen(): boolean {
@@ -23,7 +24,7 @@ export class VaultDynamicDrawerService {
     return this.portalBehaviorSubject.asObservable();
   }
 
-  public setPortalComponent(component: ComponentPortal<any>, existingObject: Folder | null = null): void {
+  public setPortalComponent(component: ComponentPortal<BaseFormComponent>, existingObject: Folder | null = null): void {
     this.existingObject = existingObject;
     this.portalBehaviorSubject.next(component);
   }

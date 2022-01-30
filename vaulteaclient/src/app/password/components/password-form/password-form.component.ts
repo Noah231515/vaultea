@@ -1,14 +1,15 @@
 import { BaseFormComponent } from "@abstract";
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AutocompleteUtilService } from "@ui-kit";
 
 import { AutocompleteData } from "../../../ui-kit/autocomplete/autocomplete-data.interface";
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "vaultea-password-form",
+  styleUrls: ["./password-form.component.scss"],
   templateUrl: "./password-form.component.html",
-  styleUrls: ["./password-form.component.scss"]
 })
 export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 

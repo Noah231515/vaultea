@@ -1,8 +1,8 @@
-import { BaseFormComponent, CryptoBusinessLogicService, UserDataService, UserKeyService } from "@abstract";
+import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AuthenticationService } from "@authentication";
-import { FormStateEnum, KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
+import { KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteOption } from "@ui-kit";
 import { DataUtil } from "@util";
 
@@ -40,14 +40,14 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
 
   public setState(): void {
     if (this.existingObject) {
-      //this.formState = this.formStateEnum.EDIT; // TODO: Come back to
+      this.formState = this.formStateEnum.EDIT;
       this.headerText = `Edit ${this.existingObject.name}`;
       this.formHeaderData = {
         headerText: this.headerText,
         hLevel: "h2"
       }
     } else {
-      //this.formState = this.formStateEnum.CREATE;
+      this.formState = this.formStateEnum.CREATE;
       this.headerText = "Create a Folder";
     }
   }

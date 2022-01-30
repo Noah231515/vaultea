@@ -22,7 +22,6 @@ export * from "./constants/object-to-object-form.constant";
 
 // Enums
 export * from "./enums/type.enum";
-export * from "./enums/form-state.enum";
 
 // Components
 export * from "./components/create-item-select/create-item-select.component";

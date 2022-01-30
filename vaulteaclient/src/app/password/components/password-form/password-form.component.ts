@@ -1,6 +1,9 @@
 import { BaseFormComponent } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { AutocompleteUtilService } from "@ui-kit";
+
+import { AutocompleteData } from "../../../ui-kit/autocomplete/autocomplete-data.interface";
 
 @Component({
   selector: "vaultea-password-form",
@@ -9,14 +12,21 @@ import { FormBuilder, Validators } from "@angular/forms";
 })
 export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 
+  public locationAutocompleteData: AutocompleteData;
+
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public autocompleteUtilService: AutocompleteUtilService
   ) {
     super();
   }
 
   public ngOnInit(): void {
     this.initForm();
+    this.locationAutocompleteData = this.autocompleteUtilService
+      .getLocationAutocompleteData(
+        this.toFormControl(this.form.get("folderId"))
+      );
   }
 
   protected initForm(): void {

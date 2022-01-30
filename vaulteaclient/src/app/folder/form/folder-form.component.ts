@@ -5,6 +5,7 @@ import { AuthenticationService } from "@authentication";
 import { KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
 
+import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
 import { FormHeaderData } from "../../ui-kit/form-header/form-header-data.interface";
 import { FolderService } from "../folder.service";
 
@@ -17,6 +18,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public headerText: string;
   public autocompleteOptions: AutocompleteOption[];
   public formHeaderData: FormHeaderData;
+  public locationAutocompleteData: AutocompleteData;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +29,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private userDataService: UserDataService,
     private authenticationService: AuthenticationService,
     private snackbarService: SnackBarService,
-    private autocompleteUtilService: AutocompleteUtilService
+    public autocompleteUtilService: AutocompleteUtilService
   ) {
     super();
   }
@@ -35,7 +37,11 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public ngOnInit(): void {
     this.setState();
     this.initForm();
-    this.autocompleteOptions = this.autocompleteUtilService.buildOptions();
+    this.locationAutocompleteData = this.autocompleteUtilService
+      .getLocationAutocompleteData(
+        this.toFormControl(this.form.get("parentFolderId"))
+      );
+
   }
 
   public setState(): void {

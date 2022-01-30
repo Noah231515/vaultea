@@ -1,7 +1,9 @@
 import { UserDataService } from "@abstract";
 import { Injectable } from "@angular/core";
+import { FormControl } from "@angular/forms";
 import { DataUtil } from "@util";
 
+import { AutocompleteData } from "../autocomplete/autocomplete-data.interface";
 import { AutocompleteOption } from "../autocomplete/autocomplete-option.interface";
 
 @Injectable({
@@ -23,5 +25,15 @@ export class AutocompleteUtilService {
         subtitle: DataUtil.buildPathString(folder)
       }
     });
+  }
+
+  public getLocationAutocompleteData(formControl: FormControl): AutocompleteData {
+    return {
+      label: "Location",
+      formControl: formControl,
+      options: this.buildOptions(),
+      required: false,
+      displaySubtitle: true
+    }
   }
 }

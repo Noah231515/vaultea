@@ -1,3 +1,4 @@
+import { TextFieldModule } from "@angular/cdk/text-field";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -24,19 +25,21 @@ import { FormComponent } from "./form/form.component";
 import { InputComponent } from "./input/input.component";
 import { LogoFullComponent } from "./logo-full/logo-full.component";
 import { SelectComponent } from "./select/select.component";
+import { TextAreaComponent } from "./text-area/text-area.component";
 
 @NgModule({
   declarations: [
+    AutocompleteComponent,
     ButtonComponent,
     CardComponent,
+    FolderTreeComponent,
     FormComponent,
     FormFooterComponent,
+    FormHeaderComponent,
     InputComponent,
     LogoFullComponent,
-    FormHeaderComponent,
-    FolderTreeComponent,
-    AutocompleteComponent,
     SelectComponent,
+    TextAreaComponent,
   ],
   exports: [
     AutocompleteComponent,
@@ -50,6 +53,7 @@ import { SelectComponent } from "./select/select.component";
     InputComponent,
     LogoFullComponent,
     SelectComponent,
+    TextAreaComponent
   ],
   imports: [
     AbstractModule,
@@ -66,6 +70,7 @@ import { SelectComponent } from "./select/select.component";
     MatSnackBarModule,
     MatTreeModule,
     ReactiveFormsModule,
+    TextFieldModule,
   ],
 })
 export class UiKitModule { }

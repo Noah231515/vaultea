@@ -1,7 +1,12 @@
+from email.policy import default
 from rest_framework import serializers
 from api.models import Folder, Password, Vault
 
 class PasswordSerializer(serializers.Serializer):
+    class Meta:
+        model = Password
+        exclude = ('url')
+
     vault_id = serializers.IntegerField(required=True)
     folder_id = serializers.IntegerField(required=False, allow_null=True)
     name = serializers.CharField(required=True, max_length=512)

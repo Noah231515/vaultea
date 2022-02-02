@@ -44,13 +44,13 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   protected initForm(): void {
     this.form = this.formBuilder.group({
       vaultId: [1], // TODO: remove from form
-      folderId: [""],
+      folderId: [null],
       name: ["", Validators.required],
       username: ["", Validators.required],
       password: ["", Validators.required],
       note: [""],
-      // expireDate: [""], TODO: Implement
-      //url: [""] TODO: Implement
+      expireDate: [""],
+      url: [""]
     });
   }
 

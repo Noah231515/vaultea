@@ -12,8 +12,7 @@ user = settings.AUTH_USER_MODEL
 # MetaData with data type of pattern
 
 class BaseObject(models.Model):
-    name = models.CharField(max_length=100, blank=False, null=False)
-    description = models.CharField(max_length=1000, blank=True, null=True)
+    name = models.CharField(max_length=512, blank=False, null=False)
 
     class Meta:
         abstract = True
@@ -38,5 +37,7 @@ class Note(models.Model):
 class Password(BaseObject):
     vault_id = models.ForeignKey(Vault, on_delete=RESTRICT, blank=False, null=False)
     folder_id = models.ForeignKey(Folder, on_delete=RESTRICT, blank=True, null=True)
+    username = models.CharField(max_length=512, blank=False, null=False, default="")
     password = models.CharField(max_length=512, blank=False, null=False)
+    note = models.CharField(max_length=1000, blank=True, null=True)
     expire_date = models.DateTimeField(blank=True, null=True)

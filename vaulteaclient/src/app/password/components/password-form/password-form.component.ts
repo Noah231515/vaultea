@@ -1,9 +1,11 @@
-import { BaseFormComponent } from "@abstract";
+import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserKeyService } from "@abstract";
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { AutocompleteUtilService } from "@ui-kit";
+import { KeysToOmitConstant } from "@shared";
+import { AutocompleteUtilService, SnackBarService } from "@ui-kit";
 
 import { AutocompleteData } from "../../../ui-kit/autocomplete/autocomplete-data.interface";
+import { PasswordService } from "../../services/password.service";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,6 +19,10 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private cryptoBusinessLogicService: CryptoBusinessLogicService,
+    private userKeyService: UserKeyService,
+    private passwordService: PasswordService,
+    private snackBarService: SnackBarService,
     public autocompleteUtilService: AutocompleteUtilService
   ) {
     super();
@@ -24,31 +30,49 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 
   public ngOnInit(): void {
     this.initForm();
+    this.setState();
     this.locationAutocompleteData = this.autocompleteUtilService
       .getLocationAutocompleteData(
         this.toFormControl(this.form.get("folderId"))
       );
   }
 
+  public setState(): void {
+    this.formState = this.existingObject ? this.formStateEnum.EDIT : this.formStateEnum.CREATE;
+  }
+
   protected initForm(): void {
     this.form = this.formBuilder.group({
-      vaultId: [""],
+      vaultId: [1], // TODO: remove from form
       folderId: [""],
       name: ["", Validators.required],
       username: ["", Validators.required],
       password: ["", Validators.required],
       note: [""],
-      expireDate: [""],
-      url: [""]
+      // expireDate: [""], TODO: Implement
+      //url: [""] TODO: Implement
     });
   }
 
-  public setState(): void {
-    throw new Error("Method not implemented.");
+  public async submit(): Promise<void> {
+    const preparedData = await this.cryptoBusinessLogicService.prepareForSubmit(
+      this.userKeyService.getEncryptionKey(),
+      this.form.getRawValue(),
+      KeysToOmitConstant.PASSWORD
+    );
+
+    if (this.formState === FormStateEnum.CREATE) {
+      this.create(preparedData);
+    }
   }
-  public submit(): void {
-    throw new Error("Method not implemented.");
+
+  public create(preparedData: any): void {
+    this.passwordService.create(preparedData)
+      .subscribe(async createdPassword => {
+        this.snackBarService.open("yay");
+      });
   }
+
   public cancel(): void {
     throw new Error("Method not implemented.");
   }

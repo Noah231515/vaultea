@@ -13,11 +13,11 @@ export class CreateItemSelectComponent extends BaseFormComponent implements OnIn
 
   public options: SelectOption[] = [
     {
-      "value": "folder",
+      "value": "Folder",
       "displayValue": "Folder"
     },
     {
-      "value": "password",
+      "value": "Password",
       "displayValue": "Password"
     }
   ];
@@ -34,7 +34,7 @@ export class CreateItemSelectComponent extends BaseFormComponent implements OnIn
 
   protected initForm(): void {
     this.form = this.formBuilder.group({
-      itemType: ["folder", Validators.required]
+      itemType: ["Folder", Validators.required]
     });
   }
   public setState(): void {

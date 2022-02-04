@@ -7,16 +7,15 @@ class PasswordSerializer(serializers.Serializer):
         model = Password
         exclude = ('url')
 
-    vault_id = serializers.IntegerField(required=True)
     folder_id = serializers.IntegerField(required=False, allow_null=True)
     name = serializers.CharField(required=True, max_length=512)
     username = serializers.CharField(required=True, max_length=512)
     password = serializers.CharField(required=True, max_length=512)
     note = serializers.CharField(required=False, max_length=1000)
 
-    def create(self, validated_data):
+    def create(self, validated_data, user):
         vault = Vault()
-        vault.id = validated_data['vault_id']
+        vault.id = user.id
         validated_data['vault_id'] = vault
         if (validated_data['folder_id']):
             folder = Folder()

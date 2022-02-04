@@ -18,6 +18,6 @@ class PasswordCrud(APIView):
   def post(self, request):
     serializer = PasswordSerializer(data=json.loads(request.body))
     if serializer.is_valid(raise_exception=True):
-      new_password = serializer.create(serializer.data)
+      new_password = serializer.create(serializer.data, request.user)
 
     return Response(model_to_dict(new_password), status=status.HTTP_200_OK)

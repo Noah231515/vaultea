@@ -1,16 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { FormBuilder } from "@angular/forms";
 
-import { CreateItemSelectComponent } from './create-item-select.component';
+import { CreateItemSelectComponent } from "./create-item-select.component";
 
-describe('CreateItemSelectComponent', () => {
+describe("CreateItemSelectComponent", () => {
   let component: CreateItemSelectComponent;
   let fixture: ComponentFixture<CreateItemSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateItemSelectComponent ]
+      declarations: [ CreateItemSelectComponent ],
+      providers: [
+        FormBuilder
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +23,7 @@ describe('CreateItemSelectComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

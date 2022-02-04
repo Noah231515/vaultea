@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 import { SelectData } from "./select-data.interface";
 
@@ -7,12 +7,6 @@ import { SelectData } from "./select-data.interface";
   templateUrl: "./select.component.html",
   styleUrls: ["./select.component.scss"]
 })
-export class SelectComponent implements OnInit {
+export class SelectComponent {
   @Input() public selectData: SelectData;
-
-  constructor() { }
-
-  public ngOnInit(): void {
-  }
-
 }

@@ -20,6 +20,7 @@ import { Folder, FolderModule } from "@folder";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
 import { AuthenticationMockService } from "../../mock-service/mocks/authentication-mock.service";
+import { SharedModule } from "../../shared/shared.module";
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
 import { ContentDrawerComponent } from "../content-drawer/content-drawer.component";
 import { DrawerComponent } from "../drawer/drawer.component";
@@ -54,7 +55,8 @@ describe("VaultComponent", () => {
         PortalModule,
         UiKitModule,
         MatCardModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        SharedModule
       ],
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
@@ -86,14 +88,17 @@ describe("VaultComponent", () => {
 
   it("should open the drawer with an empty form", () => {
     component.addItem();
+    fixture.detectChanges();
     const form = fixture.nativeElement.querySelector("vaultea-content-drawer").querySelector("vaultea-form");
-    const inputs: any[] = form.querySelectorAll("input");
+    const inputs = form.querySelectorAll("input");
+    const select = document.querySelector("vaultea-select");
+    fixture.detectChanges();
 
+    expect(select).toBeTruthy();
     expect(form).toBeTruthy();
-    expect(form.querySelector("h2").textContent).toBeTruthy();
     expect(form.querySelector("button").type).toEqual("submit");
     expect(inputs.length).toEqual(3);
-    inputs.forEach(input => {
+    inputs.forEach((input: any) => {
       expect(input.value).toEqual("");
     });
   });

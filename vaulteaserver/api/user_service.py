@@ -1,6 +1,6 @@
 from django.forms.models import model_to_dict
 
-from api.models import Folder, User, Vault
+from api.models import Folder, Password, Vault
 
 class UserService:
   
@@ -8,6 +8,7 @@ class UserService:
   def get_user_info(user, refreshToken):
     vault = Vault.objects.filter(user_id=user.id).first()
     folders = Folder.objects.filter(vault_id=vault)
+    passwords = Password.objects.filter(vault_id=vault)
     
     return {
       "id": user.id,
@@ -15,5 +16,6 @@ class UserService:
       "key": user.key,
       "accessToken": str(refreshToken.access_token),
       "vaultId": vault.id,
-      "folders": [model_to_dict(folder) for folder in folders]
+      "folders": [model_to_dict(folder) for folder in folders],
+      "passwords": [model_to_dict(password) for password in passwords]
     }

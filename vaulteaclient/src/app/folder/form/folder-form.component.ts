@@ -1,11 +1,12 @@
-import { BaseFormComponent, CryptoBusinessLogicService, UserDataService, UserKeyService } from "@abstract";
+import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AuthenticationService } from "@authentication";
-import { FormStateEnum, KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
-import { AutocompleteOption } from "@ui-kit";
-import { DataUtil } from "@util";
+import { KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
+import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
 
+import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
+import { FormHeaderData } from "../../ui-kit/form-header/form-header-data.interface";
 import { FolderService } from "../folder.service";
 
 @Component({
@@ -16,6 +17,8 @@ import { FolderService } from "../folder.service";
 export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public headerText: string;
   public autocompleteOptions: AutocompleteOption[];
+  public formHeaderData: FormHeaderData;
+  public locationAutocompleteData: AutocompleteData;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,7 +28,8 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private userDataService: UserDataService,
     private authenticationService: AuthenticationService,
-    private snackbarService: SnackBarService
+    private snackbarService: SnackBarService,
+    public autocompleteUtilService: AutocompleteUtilService
   ) {
     super();
   }
@@ -33,13 +37,21 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   public ngOnInit(): void {
     this.setState();
     this.initForm();
-    this.autocompleteOptions = this.buildOptions();
+    this.locationAutocompleteData = this.autocompleteUtilService
+      .getLocationAutocompleteData(
+        this.toFormControl(this.form.get("parentFolderId"))
+      );
+
   }
 
   public setState(): void {
     if (this.existingObject) {
       this.formState = this.formStateEnum.EDIT;
       this.headerText = `Edit ${this.existingObject.name}`;
+      this.formHeaderData = {
+        headerText: this.headerText,
+        hLevel: "h2"
+      }
     } else {
       this.formState = this.formStateEnum.CREATE;
       this.headerText = "Create a Folder";
@@ -81,17 +93,6 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
       updatedFolder.pathNodes = this.existingObject.pathNodes;
       await this.userDataService.updateFolders(updatedFolder, false);
       this.snackbarService.open("Folder successfully updated");
-    });
-  }
-
-  private buildOptions(): AutocompleteOption[] {
-    const flatFolders = this.userDataService.getFlatFolders();
-    return flatFolders.map(folder => {
-      return {
-        value: folder.id,
-        displayValue: folder.name,
-        subtitle: DataUtil.buildPathString(folder)
-      }
     });
   }
 

@@ -6,4 +6,10 @@ export class KeysToOmitConstant {
     "pathNodes",
     "childFolders"
   ];
+
+  public static readonly PASSWORD: string[] = [
+    "id",
+    "vaultId",
+    "folderId"
+  ];
 }

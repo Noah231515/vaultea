@@ -1,13 +1,12 @@
 import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from "@angular/core";
-import { FolderFormComponent, FolderService } from "@folder";
-import { TypeEnum, VaultDynamicDrawerService } from "@shared";
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/core";
+import { FolderService } from "@folder";
+import { CreateItemSelectComponent, TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 import { UserDataService } from "../../abstract/services/user-data.service";
-import { AuthenticationService } from "../../authentication/authentication.service";
 import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 
 @Component({
@@ -21,9 +20,7 @@ export class VaultComponent extends BaseComponent {
   public typeEnum = TypeEnum;
 
   public constructor(
-    private authenticationService: AuthenticationService,
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
-    private changeDetectorRef: ChangeDetectorRef,
     public userDataService: UserDataService,
     private snackBarService: SnackBarService,
     private folderService: FolderService
@@ -43,7 +40,7 @@ export class VaultComponent extends BaseComponent {
   }
 
   public addItem(): void {
-    this.vaultDynamicDrawerService.setPortalComponent(new ComponentPortal(FolderFormComponent));
+    this.vaultDynamicDrawerService.setPortalComponent(new ComponentPortal(CreateItemSelectComponent));
     this.vaultDynamicDrawerService.setState(true);
   }
 }

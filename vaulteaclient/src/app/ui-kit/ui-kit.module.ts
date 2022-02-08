@@ -1,3 +1,4 @@
+import { TextFieldModule } from "@angular/cdk/text-field";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -9,6 +10,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTreeModule } from "@angular/material/tree";
 
@@ -22,18 +24,22 @@ import { FormHeaderComponent } from "./form-header/form-header.component";
 import { FormComponent } from "./form/form.component";
 import { InputComponent } from "./input/input.component";
 import { LogoFullComponent } from "./logo-full/logo-full.component";
+import { SelectComponent } from "./select/select.component";
+import { TextAreaComponent } from "./text-area/text-area.component";
 
 @NgModule({
   declarations: [
+    AutocompleteComponent,
     ButtonComponent,
     CardComponent,
+    FolderTreeComponent,
     FormComponent,
     FormFooterComponent,
+    FormHeaderComponent,
     InputComponent,
     LogoFullComponent,
-    FormHeaderComponent,
-    FolderTreeComponent,
-    AutocompleteComponent,
+    SelectComponent,
+    TextAreaComponent,
   ],
   exports: [
     AutocompleteComponent,
@@ -43,8 +49,11 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     FolderTreeComponent,
     FormComponent,
     FormFooterComponent,
+    FormHeaderComponent,
     InputComponent,
     LogoFullComponent,
+    SelectComponent,
+    TextAreaComponent
   ],
   imports: [
     AbstractModule,
@@ -57,9 +66,11 @@ import { LogoFullComponent } from "./logo-full/logo-full.component";
     MatIconModule,
     MatInputModule,
     MatMenuModule,
+    MatSelectModule,
     MatSnackBarModule,
     MatTreeModule,
     ReactiveFormsModule,
+    TextFieldModule,
   ],
 })
 export class UiKitModule { }

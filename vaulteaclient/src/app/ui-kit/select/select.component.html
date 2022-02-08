@@ -1,0 +1,11 @@
+<mat-form-field fxFlex appearance="standard">
+  <mat-label>{{selectData.label}}</mat-label>
+  <mat-error *ngIf="selectData.formControl.hasError('required')">
+    Please enter a {{selectData.label}}
+  </mat-error>
+  <mat-select [formControl]="selectData.formControl">
+    <mat-option *ngFor="let option of selectData.options" [value]="option.value">
+      {{ option.displayValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

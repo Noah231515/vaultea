@@ -2,10 +2,7 @@
   [form]="form"
   [formTemplate]="formTemplate"
   [primaryButton]="BUTTONS_CONSTANT.SUBMIT_BUTTON"
-  [formHeaderData]="{
-    headerText: headerText,
-    hLevel: 'h2'
-  }"
+  [formHeaderData]="formHeaderData"
   (primaryButtonClicked)="submit()"
 ></vaultea-form>
 
@@ -27,13 +24,7 @@
       }"
     ></vaultea-input>
     <vaultea-autocomplete
-      [autocompleteData]="{
-        label: 'Location',
-        formControl: toFormControl(form.get('parentFolderId')),
-        options: autocompleteOptions,
-        required: false,
-        displaySubtitle: true
-      }"
+      [autocompleteData]="locationAutocompleteData"
     ></vaultea-autocomplete>
   </div>
 </ng-template>

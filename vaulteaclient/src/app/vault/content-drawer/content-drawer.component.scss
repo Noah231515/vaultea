@@ -14,8 +14,8 @@ vaultea-content-drawer {
       border-top-left-radius: $radius-amount;
       border-bottom-left-radius: $radius-amount;
       width: $width;
-      max-width: $max-width;
-    }    
+      min-width: $max-width;
+    }
 }
 
 .content-margin {

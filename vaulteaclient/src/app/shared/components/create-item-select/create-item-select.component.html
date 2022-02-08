@@ -1,0 +1,21 @@
+<div fxFlex fxLayout="column">
+  <vaultea-form-header
+    [formHeaderData]="{
+      headerText: 'Create a ' + (form.get('itemType').value),
+      hLevel: 'h2'
+    }"
+  ></vaultea-form-header>
+
+  <vaultea-select
+    [selectData]="{
+      options: options,
+      label: 'Item Type',
+      formControl: toFormControl(form.get('itemType'))
+    }"
+  ></vaultea-select>
+
+  <ng-container fxFlex [ngSwitch]="form.get('itemType').value">
+    <vaultea-folder-form fxFlex *ngSwitchCase="'Folder'"></vaultea-folder-form>
+    <vaultea-password-form fxFlex *ngSwitchCase="'Password'"></vaultea-password-form>
+  </ng-container>
+</div>

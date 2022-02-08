@@ -27,7 +27,7 @@ import { BrowserCryptoFunctionService } from "./shared/services/browser-crypto-f
     FlexLayoutModule,
     HttpClientModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
   ],
   providers: [
     UserKeyService,

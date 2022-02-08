@@ -1,6 +1,6 @@
 import { AbstractControl, FormControl, FormGroup } from "@angular/forms";
-import { FormStateEnum } from "@shared";
 
+import { FormStateEnum } from "../../enums/form-state.enum";
 import { BaseComponent } from "../base-component/base.component";
 
 export abstract class BaseFormComponent extends BaseComponent {

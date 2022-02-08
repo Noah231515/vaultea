@@ -1,10 +1,17 @@
 <mat-sidenav-container fxFlex>
-  <mat-sidenav [opened]="isDrawerOpened && !!drawerPortal" class="sidenav" mode="side" position="end" fxLayout="column">
+  <mat-sidenav
+    class="sidenav"
+    mode="side"
+    position="end"
+    fxLayout="column"
+    [opened]="vaultDynamicDrawerService.stateObservable | async"
+    (openedChange)="scrollTop($event)"
+  >
     <div fxLayoutAlign="end">
       <vaultea-button [buttonData]="BUTTONS_CONSTANT.DRAWER_CANCEL_BUTTON" (click)="closeDrawer()"></vaultea-button>
     </div>
     <div class="m-3">
-      <ng-template [cdkPortalOutlet]="drawerPortal" (attached)="setComponentData($event)"></ng-template>
+      <ng-template [cdkPortalOutlet]="vaultDynamicDrawerService.portalObservable | async" (attached)="setComponentData($event)"></ng-template>
     </div>
   </mat-sidenav>
 </mat-sidenav-container>

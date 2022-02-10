@@ -2,9 +2,13 @@ import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { AuthenticationService } from "@authentication";
 import { Folder } from "@folder";
-import { KeysToOmitConstant } from "@shared";
+import { KeysToOmitConstant, TypeEnum } from "@shared";
 import { DataUtil } from "@util";
-import { BehaviorSubject, Observable } from "rxjs";
+import { VaultItem } from "@vault";
+import { BehaviorSubject, Observable, zip } from "rxjs";
+import { map } from "rxjs/operators";
+
+import { Password } from "../../password/password.model";
 
 @Injectable({
   providedIn: "root"
@@ -17,12 +21,49 @@ export abstract class UserDataService {
   private folderBehaviorSubject: BehaviorSubject<Folder[]> = new BehaviorSubject<Folder[]>([]);
   public folderObservable: Observable<Folder[]> = this.folderBehaviorSubject.asObservable();
 
+  private passwordsBehaviorSubject: BehaviorSubject<Password[]> = new BehaviorSubject<Password[]>([]);
+  public passwordObservable: Observable<Password[]> = this.passwordsBehaviorSubject.asObservable();
+
+  public vaultItemsObservable: Observable<VaultItem[]>;
+
   constructor(
     private authenticationService: AuthenticationService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService
   ) {
+    const folderVaultObservable = this.folderObservable
+      .pipe(
+        map(folders => {
+          return folders.map(folder => {
+            const vaultItem: VaultItem = {
+              object: folder,
+              itemType: TypeEnum.FOLDER
+            }
+            return vaultItem;
+          })
+        })
+      );
+
+    const passwordVaultObservable = this.passwordObservable
+      .pipe(
+        map(passwords => {
+          return passwords.map(password => {
+            const vaultItem: VaultItem = {
+              object: password,
+              itemType: TypeEnum.PASSWORD
+            }
+            return vaultItem;
+          })
+        })
+      );
+
     this.folderBehaviorSubject.next(this.getFolders());
+    this.passwordsBehaviorSubject.next(this.getPasswords());
+    this.vaultItemsObservable = zip(folderVaultObservable, passwordVaultObservable).pipe(
+      map(result => {
+        return result[0].concat(result[1]);
+      })
+    );
   }
 
   public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> {
@@ -75,6 +116,10 @@ export abstract class UserDataService {
     return this.authenticationService.getLoggedInUser().folders;
   }
 
+  public getPasswords(): Password[] {
+    return this.authenticationService.getLoggedInUser().passwords;
+  }
+
   public getFlatFolders(): Folder[] {
     let folders = Array.from(this.getFolders());
     let index = 0;
@@ -90,3 +135,7 @@ export abstract class UserDataService {
     return folders;
   }
 }
+function mergeWith(folderObservable: Observable<Folder[]>, passwordObservable: Observable<Password[]>) {
+  throw new Error("Function not implemented.");
+}
+

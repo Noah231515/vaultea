@@ -4,6 +4,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 import { FolderFormComponent } from "@folder";
 import { TypeEnum } from "@shared";
 
+import { PasswordFormComponent } from "../../password/components/password-form/password-form.component";
 import { VaultDynamicDrawerService } from "../../shared/services/vault-dynamic-drawer.service";
 import { CardData } from "./card-data.model";
 
@@ -39,6 +40,10 @@ export class CardComponent extends BaseComponent implements OnInit {
         this.title = this.cardData.object.name;
         this.description = this.cardData.object.description;
         break;
+      case TypeEnum.PASSWORD:
+        this.title = this.cardData.object.name;
+        this.description = this.cardData.object.description;
+        break;
       default:
         throw this.typeNotSupportedError;
     }
@@ -50,9 +55,12 @@ export class CardComponent extends BaseComponent implements OnInit {
         this.vaultDynamicDrawerService.setPortalComponent(new ComponentPortal(FolderFormComponent), this.cardData.object);
         this.vaultDynamicDrawerService.setState(true);
         break;
+      case TypeEnum.PASSWORD:
+        this.vaultDynamicDrawerService.setPortalComponent(new ComponentPortal(PasswordFormComponent), this.cardData.object);
+        this.vaultDynamicDrawerService.setState(true);
+        break;
       default:
         throw this.typeNotSupportedError;
     }
   }
-
 }

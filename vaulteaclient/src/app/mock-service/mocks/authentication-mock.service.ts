@@ -62,7 +62,8 @@ export class AuthenticationMockService  {
       username: "Test Man",
       accessToken: "",
       key: "",
-      folders: DataUtil.transformToNestedState(this.folders)
+      folders: DataUtil.transformToNestedState(this.folders),
+      passwords: []
     };
   }
 

@@ -1,5 +1,7 @@
 import { Folder } from "@folder";
 
+import { Password } from "../password/password.model";
+
 export class User {
   id: string;
   username: string;
@@ -7,4 +9,5 @@ export class User {
   key: string;
   vaultId: string;
   folders: Folder[];
+  passwords: Password[];
 }

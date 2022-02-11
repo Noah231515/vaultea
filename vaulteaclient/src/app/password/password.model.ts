@@ -1,4 +1,5 @@
 export class Password {
+  public id: string;
   public vaultId: string;
   public folderId?: string;
   public name: string;

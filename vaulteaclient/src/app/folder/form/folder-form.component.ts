@@ -39,7 +39,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     this.initForm();
     this.locationAutocompleteData = this.autocompleteUtilService
       .getLocationAutocompleteData(
-        this.toFormControl(this.form.get("parentFolderId"))
+        this.toFormControl(this.form.get("folderId"))
       );
 
   }
@@ -63,7 +63,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
       description: [this.existingObject?.description ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
       vaultId: [this.existingObject?.vaultId ?? this.authenticationService?.getLoggedInUser()?.vaultId], // TODO: Fix in tests, this should return a stubbed value.
-      parentFolderId: [this.existingObject?.parentFolderId ?? null]
+      folderId: [this.existingObject?.folderId ?? null]
     });
   }
 

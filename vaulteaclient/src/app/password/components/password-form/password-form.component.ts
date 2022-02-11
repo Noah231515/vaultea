@@ -1,4 +1,4 @@
-import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserKeyService } from "@abstract";
+import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
@@ -24,6 +24,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     private passwordService: PasswordService,
     private snackBarService: SnackBarService,
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
+    private userDataService: UserDataService,
     public autocompleteUtilService: AutocompleteUtilService
   ) {
     super();
@@ -70,6 +71,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     this.passwordService.create(preparedData)
       .subscribe(async createdPassword => {
         this.vaultDynamicDrawerService.setState(false);
+        this.userDataService.updatePasswords(createdPassword, true);
         this.snackBarService.open("Password successfully created");
       });
   }

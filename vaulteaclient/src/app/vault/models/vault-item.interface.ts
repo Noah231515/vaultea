@@ -1,9 +1,8 @@
+import { Folder } from "@folder";
 import { Password } from "@password";
 import { TypeEnum } from "@shared";
 
-import { Folder } from "../../folder/folder.model";
-
-export interface CardData {
+export class VaultItem {
   object: Folder | Password;
-  type: TypeEnum;
+  itemType: TypeEnum;
 }

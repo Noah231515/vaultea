@@ -5,6 +5,7 @@ import { Folder } from "@folder";
 import { DataUtil } from "@util";
 import { BehaviorSubject, Observable } from "rxjs";
 
+import { Password } from "../password/password.model";
 import { KeysToOmitConstant } from "../shared/constants/keys-to-omit.constant";
 import { User } from "./user.model";
 
@@ -40,7 +41,12 @@ export class AuthenticationService {
       return (await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER) as Folder)
     });
 
+    const passwordPromises = this.user.passwords.map(async password => {
+      return (await this.cryptoBusinessLogicService.decryptObject(password, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.PASSWORD) as Password)
+    });
+
     this.user.folders = await Promise.all(folderPromises);
+    this.user.passwords = await Promise.all(passwordPromises);
     this.user.folders = DataUtil.transformToNestedState(this.user.folders);
     this.updateIsLoggedIn();
   }

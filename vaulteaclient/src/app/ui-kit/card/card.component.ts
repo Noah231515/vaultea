@@ -21,6 +21,7 @@ export class CardComponent extends BaseComponent implements OnInit {
 
   public title: string;
   public description: string;
+  public icon: string;
 
   private typeNotSupportedError = new Error("Type not supported");
 
@@ -39,10 +40,12 @@ export class CardComponent extends BaseComponent implements OnInit {
       case TypeEnum.FOLDER:
         this.title = this.cardData.object.name;
         this.description = this.cardData.object.description;
+        this.icon = "folder";
         break;
       case TypeEnum.PASSWORD:
         this.title = this.cardData.object.name;
         this.description = this.cardData.object.description;
+        this.icon = "article";
         break;
       default:
         throw this.typeNotSupportedError;

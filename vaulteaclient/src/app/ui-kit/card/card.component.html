@@ -12,15 +12,13 @@
   </mat-card-header>
   <mat-card-content>
     <div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
-      <mat-icon class="icon-style" aria-hidden="false" aria-label="Folder Icon">folder</mat-icon>
-      <mat-card-subtitle fxFlex>{{description}}</mat-card-subtitle>
+      <mat-icon class="icon-style" aria-hidden="false" aria-label="Folder Icon">{{ icon }}</mat-icon>
+      <h2>{{title}}</h2>
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <mat-card-header fxFlex>
-      <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-        <h2>{{title}}</h2>
-      </div>
-    </mat-card-header>
+    <div fxLayoutAlign="center center">
+      <mat-card-subtitle>{{description}}</mat-card-subtitle>
+    </div>
   </mat-card-actions>
 </mat-card>

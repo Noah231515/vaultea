@@ -18,7 +18,7 @@ export class AuthenticationMockService  {
     vaultId: "1",
     name: "Child folder",
     description: "",
-    parentFolderId: "1",
+    folderId: "1",
     pathNodes: [],
     childFolders: []
   };
@@ -27,7 +27,7 @@ export class AuthenticationMockService  {
     vaultId: "1",
     name: "Child child folder",
     description: "",
-    parentFolderId: "2",
+    folderId: "2",
     pathNodes: [],
     childFolders: []
   };
@@ -36,7 +36,7 @@ export class AuthenticationMockService  {
     vaultId: "1",
     name: "First folder",
     description: "",
-    parentFolderId: "",
+    folderId: "",
     pathNodes: [],
     childFolders: []
   };
@@ -45,7 +45,7 @@ export class AuthenticationMockService  {
     vaultId: "1",
     name: "Second folder",
     description: "",
-    parentFolderId: "",
+    folderId: "",
     pathNodes: [],
     childFolders: []
   };

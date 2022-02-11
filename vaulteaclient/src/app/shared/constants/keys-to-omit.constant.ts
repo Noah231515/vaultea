@@ -2,7 +2,7 @@ export class KeysToOmitConstant {
   public static readonly FOLDER: string[] = [
     "id",
     "vaultId",
-    "parentFolderId",
+    "folderId",
     "pathNodes",
     "childFolders"
   ];

@@ -25,7 +25,7 @@ class Vault(models.Model):
 
 class Folder(models.Model):
     vault_id = models.ForeignKey(Vault, on_delete=models.RESTRICT, blank=False, null=False)
-    parent_folder_id = models.ForeignKey('self', on_delete=models.RESTRICT, blank=True, null=True)
+    folder_id = models.ForeignKey('self', on_delete=models.RESTRICT, blank=True, null=True)
     name = models.CharField(max_length=100, blank=False, null=False)
     description = models.CharField(max_length=100, blank=True, null=True)
 

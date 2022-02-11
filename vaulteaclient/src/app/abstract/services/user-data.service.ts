@@ -76,8 +76,8 @@ export abstract class UserDataService {
 
     if (newFolder) {
       folder.childFolders = [];
-      if (folder.parentFolderId) {
-        const parent = flatFolders.find(f => f.id === folder.parentFolderId);
+      if (folder.folderId) {
+        const parent = flatFolders.find(f => f.id === folder.folderId);
         parent?.childFolders.push(folder);
         folder.pathNodes = parent?.pathNodes.length ? Array.from(parent.pathNodes) : [];
 

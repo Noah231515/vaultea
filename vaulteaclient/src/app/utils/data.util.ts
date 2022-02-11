@@ -40,9 +40,9 @@ export abstract class DataUtil {
         folder.childFolders = [];
       }
 
-      if (folder.parentFolderId) { // If folder is a child
+      if (folder.folderId) { // If folder is a child
         folder.pathNodes = [];
-        const parentFolder = folders.find(f => f.id === folder.parentFolderId);
+        const parentFolder = folders.find(f => f.id === folder.folderId);
 
         if (parentFolder) {
           parentFolder.childFolders.push(folder);
@@ -56,19 +56,19 @@ export abstract class DataUtil {
         folder.pathNodes = [];
       }
     });
-    return folders.filter(f => !f.parentFolderId);
+    return folders.filter(f => !f.folderId);
   }
 
   public static getPathNodes(folders: Folder[], folder: Folder): Folder[] {
-    let parentFolderId: any = folder.parentFolderId;
+    let folderId: any = folder.folderId;
 
     const results: Folder[] =  [];
-    while (parentFolderId) {
-      const parentFolder = folders.find(f => f.id === parentFolderId);
+    while (folderId) {
+      const parentFolder = folders.find(f => f.id === folderId);
       if (parentFolder) {
         results.push(parentFolder);
       }
-      parentFolderId = parentFolder?.parentFolderId;
+      folderId = parentFolder?.folderId;
     }
     return results;
   }

@@ -8,6 +8,7 @@ import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 import { UserDataService } from "../../abstract/services/user-data.service";
+import { PasswordService } from "../../password/services/password.service";
 import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 
 @Component({
@@ -24,7 +25,8 @@ export class VaultComponent extends BaseComponent {
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     public userDataService: UserDataService,
     private snackBarService: SnackBarService,
-    private folderService: FolderService
+    private folderService: FolderService,
+    private passwordService: PasswordService
   ) {
     super();
   }
@@ -34,12 +36,15 @@ export class VaultComponent extends BaseComponent {
     case TypeEnum.FOLDER:
       this.deleteFolder(cardData.object.id);
       break;
+    case TypeEnum.PASSWORD:
+      this.deletePassword(cardData.object.id);
+      break;
     default:
       break;
     }
   }
 
-  public deleteFolder(folderId: string): void {
+  private deleteFolder(folderId: string): void {
     this.folderService.delete(folderId)
       .pipe(
         catchError(err => of(this.snackBarService.open(err.error.msg)))
@@ -47,6 +52,19 @@ export class VaultComponent extends BaseComponent {
       .subscribe(folderId => {
         this.snackBarService.open("Folder successfully deleted");
         this.userDataService.removeFolder(folderId as string);
+      });
+  }
+
+  private deletePassword(passwordId: string): void {
+    this.passwordService.delete(passwordId)
+      .pipe(
+        catchError(err => of(this.snackBarService.open(err.error.msg)))
+      )
+      .subscribe(passwordId => {
+        if (passwordId) {
+          this.snackBarService.open("Password successfully deleted");
+          this.userDataService.removePassword(passwordId as string);
+        }
       });
   }
 

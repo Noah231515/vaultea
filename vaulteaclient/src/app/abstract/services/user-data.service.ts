@@ -134,8 +134,8 @@ export abstract class UserDataService {
 
   public removePassword(passwordId: string): void {
     const user = this.authenticationService.getLoggedInUser();
-    const index = user.folders.findIndex(x => x.id === passwordId);
-    user.folders.splice(index, 1);
+    const index = user.passwords.findIndex(x => x.id === passwordId);
+    user.passwords.splice(index, 1);
 
     this.refreshData(user);
   }

@@ -1,8 +1,7 @@
-import { Folder } from "@folder";
-import { Password } from "@password";
 import { TypeEnum } from "@shared";
 
 export class VaultItem {
-  object: Folder | Password;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  object: any;
   itemType: TypeEnum;
 }

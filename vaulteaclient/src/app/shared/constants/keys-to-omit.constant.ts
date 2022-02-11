@@ -10,6 +10,7 @@ export class KeysToOmitConstant {
   public static readonly PASSWORD: string[] = [
     "id",
     "vaultId",
-    "folderId"
+    "folderId",
+    "expireDate"
   ];
 }

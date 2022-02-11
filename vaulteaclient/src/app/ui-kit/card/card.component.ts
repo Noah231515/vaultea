@@ -18,7 +18,7 @@ import { CardData } from "./card-data.model";
 })
 export class CardComponent extends BaseComponent implements OnInit {
   @Input() cardData: CardData;
-  @Output() deleteOptionClicked: EventEmitter<string> = new EventEmitter<string>();
+  @Output() deleteOptionClicked: EventEmitter<CardData> = new EventEmitter<CardData>();
 
   public title: string;
   public description: string;

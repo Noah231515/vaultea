@@ -3,6 +3,7 @@ import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/core";
 import { FolderService } from "@folder";
 import { CreateItemSelectComponent, TypeEnum, VaultDynamicDrawerService } from "@shared";
+import { CardData } from "@ui-kit";
 import { of } from "rxjs";
 import { catchError } from "rxjs/operators";
 
@@ -26,6 +27,16 @@ export class VaultComponent extends BaseComponent {
     private folderService: FolderService
   ) {
     super();
+  }
+
+  public handleDelete(cardData: CardData): void {
+    switch (cardData.type) {
+    case TypeEnum.FOLDER:
+      this.deleteFolder(cardData.object.id);
+      break;
+    default:
+      break;
+    }
   }
 
   public deleteFolder(folderId: string): void {

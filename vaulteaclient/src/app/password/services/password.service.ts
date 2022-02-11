@@ -18,6 +18,6 @@ export class PasswordService {
   }
 
   public delete(passwordId: string): Observable<string> {
-    return this.httpClient.delete<string>(`api/folder/${passwordId}`);
+    return this.httpClient.delete<string>(`api/password/${passwordId}`);
   }
 }

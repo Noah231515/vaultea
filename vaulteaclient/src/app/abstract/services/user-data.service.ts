@@ -61,10 +61,9 @@ export abstract class UserDataService {
     this.passwordsBehaviorSubject.next(this.getPasswords());
     this.vaultItemsObservable = zip(folderVaultObservable, passwordVaultObservable).pipe(
       map(result => { // TODO: fix when we can navigate
-
         return [].concat(
           result[0],
-          result[1].filter(x => !x.object["folderId"])
+          result[1].filter(x => !x.object.folderId)
         );
       })
     );
@@ -86,7 +85,6 @@ export abstract class UserDataService {
         }
       }
 
-      // TODO: sort in currently sorted order. not yet implemented atm
       user.folders.push(
         await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
       );

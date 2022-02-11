@@ -96,6 +96,20 @@ export abstract class UserDataService {
     this.refreshData(user);
   }
 
+  public async updatePasswords(password: Password, newFolder: boolean): Promise<void> {
+    const user = this.authenticationService.getLoggedInUser();
+
+    if (newFolder) {
+      user.passwords.push(
+        await this.cryptoBusinessLogicService.decryptObject(password, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.PASSWORD)
+      );
+    } else {
+      // TODO: Do something
+    }
+
+    this.refreshData(user);
+  }
+
   private refreshData(user: User): void {
     this.folderBehaviorSubject.next(user.folders);
     this.passwordsBehaviorSubject.next(user.passwords);

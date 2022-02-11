@@ -1,6 +1,6 @@
 import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
-import { AuthenticationService } from "@authentication";
+import { AuthenticationService, User } from "@authentication";
 import { Folder } from "@folder";
 import { KeysToOmitConstant, TypeEnum } from "@shared";
 import { DataUtil } from "@util";
@@ -95,8 +95,12 @@ export abstract class UserDataService {
     }
 
     user.folders = DataUtil.transformToNestedState(user.folders);
-    this.refreshDataBehaviorSubject.next(null);
+    this.refreshData(user);
+  }
+
+  private refreshData(user: User): void {
     this.folderBehaviorSubject.next(user.folders);
+    this.passwordsBehaviorSubject.next(user.passwords);
   }
 
   private async updateFolder(flatFolders: Folder[], folder: Folder): Promise<void> {
@@ -112,8 +116,8 @@ export abstract class UserDataService {
     const user = this.authenticationService.getLoggedInUser();
     const index = user.folders.findIndex(x => x.id === folderId);
     user.folders.splice(index, 1);
-    this.refreshDataBehaviorSubject.next(null);
-    this.folderBehaviorSubject.next(user.folders);
+
+    this.refreshData(user);
   }
 
   public getFolders(): Folder[] {
@@ -139,7 +143,3 @@ export abstract class UserDataService {
     return folders;
   }
 }
-function mergeWith(folderObservable: Observable<Folder[]>, passwordObservable: Observable<Password[]>) {
-  throw new Error("Function not implemented.");
-}
-

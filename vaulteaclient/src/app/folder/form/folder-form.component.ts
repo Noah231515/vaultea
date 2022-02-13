@@ -15,7 +15,6 @@ import { FolderService } from "../folder.service";
   templateUrl: "./folder-form.component.html",
 })
 export class FolderFormComponent extends BaseFormComponent implements OnInit {
-  public headerText: string;
   public autocompleteOptions: AutocompleteOption[];
   public formHeaderData: FormHeaderData;
   public locationAutocompleteData: AutocompleteData;

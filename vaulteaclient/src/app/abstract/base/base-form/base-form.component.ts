@@ -8,6 +8,7 @@ export abstract class BaseFormComponent extends BaseComponent {
   public existingObject?: any;
   public formStateEnum = FormStateEnum;
   public formState: FormStateEnum.CREATE | FormStateEnum.EDIT;
+  public headerText: string;
 
   public abstract setState(): void;
   public abstract submit(): void;

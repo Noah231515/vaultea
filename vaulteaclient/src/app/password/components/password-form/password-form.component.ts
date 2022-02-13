@@ -45,7 +45,6 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
       this.headerText = `Edit ${this.existingObject.name}`;
     } else {
       this.formState = this.formStateEnum.CREATE;
-      this.headerText = "Create a Password";
     }
   }
 

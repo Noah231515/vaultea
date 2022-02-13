@@ -70,6 +70,8 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 
     if (this.formState === FormStateEnum.CREATE) {
       this.create(preparedData);
+    } else {
+      this.update(preparedData);
     }
   }
 
@@ -79,6 +81,15 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
         this.vaultDynamicDrawerService.setState(false);
         this.userDataService.updatePasswords(createdPassword, true);
         this.snackBarService.open("Password successfully created");
+      });
+  }
+
+  public update(preparedData: any): void {
+    this.passwordService.update(this.existingObject.id, preparedData)
+      .subscribe(updatedPassword => {
+        this.vaultDynamicDrawerService.setState(false);
+        this.userDataService.updatePasswords(updatedPassword, false);
+        this.snackBarService.open("Password successfully updated");
       });
   }
 

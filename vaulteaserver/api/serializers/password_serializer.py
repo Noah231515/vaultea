@@ -23,3 +23,7 @@ class PasswordSerializer(serializers.Serializer):
             validated_data['folder_id'] = folder
 
         return Password.objects.create(**validated_data)
+
+    def update(self, validated_data, password_id):
+        Password.objects.filter(id=password_id).update(**validated_data)
+        return Password.objects.get(id=password_id)

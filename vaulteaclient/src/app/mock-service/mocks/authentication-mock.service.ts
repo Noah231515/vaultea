@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { User } from "@authentication";
 import { Folder } from "@folder";
+import { Password } from "@password";
 import { BehaviorSubject, Observable, of } from "rxjs";
 
 import { DataUtil } from "../../utils/data.util";
@@ -49,7 +50,16 @@ export class AuthenticationMockService  {
     pathNodes: [],
     childFolders: []
   };
+
+  public password1: Password = {
+    id: "1",
+    vaultId: "1",
+    name: "Test ",
+    username: "Yahh Mon",
+    password: "I'm a super secure password"
+  }
   public folders = [this.parentFolder1, this.parentFolder2, this.childFolder1, this.childFolder2];
+  public passwords = [this.password1];
 
   constructor() {
     this.setup();
@@ -63,7 +73,7 @@ export class AuthenticationMockService  {
       accessToken: "",
       key: "",
       folders: DataUtil.transformToNestedState(this.folders),
-      passwords: []
+      passwords: this.passwords
     };
   }
 

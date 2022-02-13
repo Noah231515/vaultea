@@ -16,10 +16,13 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthenticationService } from "@authentication";
-import { Folder, FolderModule } from "@folder";
-import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
+import { Folder, FolderModule, FolderService } from "@folder";
+import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, TypeEnum } from "@shared";
+import { CardData } from "@ui-kit";
+import { of } from "rxjs";
 
 import { AuthenticationMockService } from "../../mock-service/mocks/authentication-mock.service";
+import { PasswordService } from "../../password/services/password.service";
 import { SharedModule } from "../../shared/shared.module";
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
 import { ContentDrawerComponent } from "../content-drawer/content-drawer.component";
@@ -107,10 +110,48 @@ describe("VaultComponent", () => {
     userDataService = TestBed.inject(UserDataService);
 
     const before = document.querySelectorAll("vaultea-card");
-    expect(before.length).toEqual(2);
+    expect(before.length).toEqual(3);
     await userDataService.updateFolders(new Folder(), true);
     fixture.detectChanges();
     const after = document.querySelectorAll("vaultea-card");
-    expect(after.length).toEqual(3);
+    expect(after.length).toEqual(4);
+  });
+
+  it("should remove a folder card", async () => {
+    const authMock = TestBed.inject(AuthenticationMockService);
+    const cardData: CardData = {
+      object: authMock.parentFolder1,
+      type: TypeEnum.FOLDER
+    };
+    const folderService = TestBed.inject(FolderService);
+    spyOn(folderService, "delete").and.returnValue(of(cardData.object.id));
+
+    const before = document.querySelectorAll("vaultea-card");
+    expect(before.length).toEqual(3);
+
+    component.handleDelete(cardData);
+    fixture.detectChanges();
+
+    const after = document.querySelectorAll("vaultea-card");
+    expect(after.length).toEqual(2);
+  });
+
+  it("should remove a password card", async () => {
+    const authMock = TestBed.inject(AuthenticationMockService);
+    const cardData: CardData = {
+      object: authMock.password1,
+      type: TypeEnum.PASSWORD
+    };
+    const passwordService = TestBed.inject(PasswordService);
+    spyOn(passwordService, "delete").and.returnValue(of(cardData.object.id));
+
+    const before = document.querySelectorAll("vaultea-card");
+    expect(before.length).toEqual(3);
+
+    component.handleDelete(cardData);
+    fixture.detectChanges();
+
+    const after = document.querySelectorAll("vaultea-card");
+    expect(after.length).toEqual(2);
   });
 });

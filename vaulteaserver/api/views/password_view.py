@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.serializers.folder_serializer import FolderSerializer
-from api.models import Folder
+from api.models import Folder, Password
 from api.serializers.password_serializer import PasswordSerializer
 
 class PasswordCrud(APIView):
@@ -21,3 +21,7 @@ class PasswordCrud(APIView):
       new_password = serializer.create(serializer.data, request.user)
 
     return Response(model_to_dict(new_password), status=status.HTTP_200_OK)
+  
+  def delete(self, request, password_id):
+    Password.objects.get(id=password_id).delete()
+    return Response(password_id, status=status.HTTP_200_OK)

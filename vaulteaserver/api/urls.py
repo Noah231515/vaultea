@@ -12,4 +12,5 @@ urlpatterns = [
     path('api/folder', folder_view.FolderCrud.as_view()),
     path('api/folder/<int:folder_id>', folder_view.FolderCrud.as_view()),
     path('api/password', password_view.PasswordCrud.as_view()),
+    path('api/password/<int:password_id>', password_view.PasswordCrud.as_view()),
 ]

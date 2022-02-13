@@ -16,4 +16,8 @@ export class PasswordService {
   public create(folder: Password): Observable<Password> {
     return this.httpClient.post<Password>("api/password", folder);
   }
+
+  public delete(passwordId: string): Observable<string> {
+    return this.httpClient.delete<string>(`api/password/${passwordId}`);
+  }
 }

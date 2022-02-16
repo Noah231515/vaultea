@@ -5,6 +5,7 @@ import { BaseComponent } from "../base-component/base.component";
 
 export abstract class BaseFormComponent extends BaseComponent {
   public form: FormGroup;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public existingObject?: any;
   public formStateEnum = FormStateEnum;
   public formState: FormStateEnum.CREATE | FormStateEnum.EDIT;

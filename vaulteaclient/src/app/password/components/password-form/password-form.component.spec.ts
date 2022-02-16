@@ -8,6 +8,7 @@ import { AuthenticationMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteUtilService, SnackBarService } from "@ui-kit";
 
+import { Password } from "../../password.model";
 import { PasswordService } from "../../services/password.service";
 import { PasswordFormComponent } from "./password-form.component";
 
@@ -45,5 +46,23 @@ describe("PasswordFormComponent", () => {
 
   it("should create", () => {
     expect(component).toBeTruthy();
+  });
+
+  fit("should prepopulate data", () => {
+    const form = component.form;
+    const password: Password = {
+      id: "1",
+      vaultId: "1",
+      name: "Password",
+      username: "Test",
+      password: "Very good"
+    };
+    component.existingObject = password;
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(form.get("name").value).toEqual(password.name);
+    expect(form.get("username").value).toEqual(password.username);
+    expect(form.get("password").value).toEqual(password.password);
   });
 });

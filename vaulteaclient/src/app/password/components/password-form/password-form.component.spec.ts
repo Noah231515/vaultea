@@ -48,8 +48,7 @@ describe("PasswordFormComponent", () => {
     expect(component).toBeTruthy();
   });
 
-  fit("should prepopulate data", () => {
-    const form = component.form;
+  it("should prepopulate data", () => {
     const password: Password = {
       id: "1",
       vaultId: "1",
@@ -61,8 +60,8 @@ describe("PasswordFormComponent", () => {
     component.ngOnInit();
     fixture.detectChanges();
 
-    expect(form.get("name").value).toEqual(password.name);
-    expect(form.get("username").value).toEqual(password.username);
-    expect(form.get("password").value).toEqual(password.password);
+    expect(component.form.get("name").value).toEqual(password.name);
+    expect(component.form.get("username").value).toEqual(password.username);
+    expect(component.form.get("password").value).toEqual(password.password);
   });
 });

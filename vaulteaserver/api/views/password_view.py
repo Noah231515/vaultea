@@ -22,6 +22,13 @@ class PasswordCrud(APIView):
 
     return Response(model_to_dict(new_password), status=status.HTTP_200_OK)
   
+  def put(self, request, password_id):
+    serializer = PasswordSerializer(data=json.loads(request.body))
+    if serializer.is_valid(raise_exception=True):
+      updated_password = serializer.update(serializer.data, password_id)
+    
+    return Response(model_to_dict(updated_password), status=status.HTTP_200_OK)
+  
   def delete(self, request, password_id):
     Password.objects.get(id=password_id).delete()
     return Response(password_id, status=status.HTTP_200_OK)

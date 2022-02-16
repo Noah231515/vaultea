@@ -40,17 +40,22 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   }
 
   public setState(): void {
-    this.formState = this.existingObject ? this.formStateEnum.EDIT : this.formStateEnum.CREATE;
+    if (this.existingObject) {
+      this.formState = this.formStateEnum.EDIT;
+      this.headerText = `Edit ${this.existingObject.name}`;
+    } else {
+      this.formState = this.formStateEnum.CREATE;
+    }
   }
 
   protected initForm(): void {
     this.form = this.formBuilder.group({
       folderId: [null],
-      name: ["", Validators.required],
-      username: ["", Validators.required],
-      password: ["", Validators.required],
-      note: [""],
-      expireDate: [""],
+      name: [this.existingObject?.name ?? "", Validators.required],
+      username: [this.existingObject?.username ?? "", Validators.required],
+      password: [this.existingObject?.password ?? "", Validators.required],
+      note: [this.existingObject?.note ?? ""],
+      expireDate: [this.existingObject?.expireDate ?? ""],
       url: [""]
     });
   }
@@ -64,6 +69,8 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 
     if (this.formState === FormStateEnum.CREATE) {
       this.create(preparedData);
+    } else {
+      this.update(preparedData);
     }
   }
 
@@ -73,6 +80,15 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
         this.vaultDynamicDrawerService.setState(false);
         this.userDataService.updatePasswords(createdPassword, true);
         this.snackBarService.open("Password successfully created");
+      });
+  }
+
+  public update(preparedData: any): void {
+    this.passwordService.update(this.existingObject.id, preparedData)
+      .subscribe(updatedPassword => {
+        this.vaultDynamicDrawerService.setState(false);
+        this.userDataService.updatePasswords(updatedPassword, false);
+        this.snackBarService.open("Password successfully updated");
       });
   }
 

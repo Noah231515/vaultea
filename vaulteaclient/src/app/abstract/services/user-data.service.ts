@@ -89,22 +89,26 @@ export abstract class UserDataService {
         await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
       );
     } else {
-      this.updateFolder(flatFolders, folder);
+      user.folders = await this.updateFolder(flatFolders, folder);
     }
 
     user.folders = DataUtil.transformToNestedState(user.folders);
     this.refreshData(user);
   }
 
-  public async updatePasswords(password: Password, newFolder: boolean): Promise<void> {
+  public async updatePasswords(password: Password, newPassword: boolean): Promise<void> {
     const user = this.authenticationService.getLoggedInUser();
 
-    if (newFolder) {
+    if (newPassword) {
       user.passwords.push(
         await this.cryptoBusinessLogicService.decryptObject(password, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.PASSWORD)
       );
     } else {
-      // TODO: Do something
+      user.passwords.splice(
+        user.passwords.findIndex(p => p.id === password.id),
+        1,
+        await this.cryptoBusinessLogicService.decryptObject(password, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.PASSWORD)
+      );
     }
 
     this.refreshData(user);
@@ -115,13 +119,14 @@ export abstract class UserDataService {
     this.passwordsBehaviorSubject.next(user.passwords);
   }
 
-  private async updateFolder(flatFolders: Folder[], folder: Folder): Promise<void> {
+  private async updateFolder(flatFolders: Folder[], folder: Folder): Promise<Folder[]> {
     const index = flatFolders.findIndex(x => x.id === folder.id);
     flatFolders.splice(
       index,
       1,
       await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
     );
+    return flatFolders;
   }
 
   public removeFolder(folderId: string): void {

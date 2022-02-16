@@ -11,6 +11,7 @@ import { UserDataService } from "../../abstract/services/user-data.service";
 import { PasswordService } from "../../password/services/password.service";
 import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 
+/* eslint-disable indent */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -33,14 +34,25 @@ export class VaultComponent extends BaseComponent {
 
   public handleDelete(cardData: CardData): void {
     switch (cardData.type) {
-    case TypeEnum.FOLDER:
-      this.deleteFolder(cardData.object.id);
-      break;
-    case TypeEnum.PASSWORD:
-      this.deletePassword(cardData.object.id);
-      break;
-    default:
-      break;
+      case TypeEnum.FOLDER:
+        this.deleteFolder(cardData.object.id);
+        break;
+      case TypeEnum.PASSWORD:
+        this.deletePassword(cardData.object.id);
+        break;
+      default:
+        break;
+    }
+  }
+
+  public handleContentClicked(cardData: CardData): void {
+    switch (cardData.type) {
+      case TypeEnum.FOLDER:
+        alert("hello there");
+        break;
+
+      default:
+        break;
     }
   }
 

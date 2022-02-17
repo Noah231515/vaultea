@@ -1,10 +1,8 @@
 import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
 import { AuthenticationService, User } from "@authentication";
 import { Folder } from "@folder";
 import { KeysToOmitConstant, TypeEnum } from "@shared";
-import { DataUtil } from "@util";
 import { VaultItem } from "@vault";
 import { BehaviorSubject, Observable, zip } from "rxjs";
 import { map } from "rxjs/operators";
@@ -33,9 +31,7 @@ export abstract class UserDataService {
     private authenticationService: AuthenticationService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
-    private router: Router
   ) {
-    this.listenForRouterChanges();
     const folderVaultObservable = this.folderObservable
       .pipe(
         map(folders => {
@@ -75,29 +71,20 @@ export abstract class UserDataService {
   }
 
   public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> {
-    const user = this.authenticationService.getLoggedInUser(); // TODO: It is likely we could use the pathNodes to speed up the find
-    const flatFolders = this.getFlatFolders();
+    const user = this.authenticationService.getLoggedInUser();
 
     if (newFolder) {
-      folder.childFolders = [];
-      if (folder.folderId) {
-        const parent = flatFolders.find(f => f.id === folder.folderId);
-        parent?.childFolders.push(folder);
-        folder.pathNodes = parent?.pathNodes.length ? Array.from(parent.pathNodes) : [];
-
-        if (parent) {
-          folder.pathNodes.push(parent);
-        }
-      }
-
       user.folders.push(
         await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
       );
     } else {
-      user.folders = await this.updateFolder(flatFolders, folder);
+      user.folders.splice(
+        user.folders.findIndex(x => x.id === folder.id),
+        1,
+        await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
+      );
     }
 
-    user.folders = DataUtil.transformToNestedState(user.folders);
     this.refreshData(user);
   }
 
@@ -122,16 +109,6 @@ export abstract class UserDataService {
   private refreshData(user: User): void {
     this.folderBehaviorSubject.next(user.folders);
     this.passwordsBehaviorSubject.next(user.passwords);
-  }
-
-  private async updateFolder(flatFolders: Folder[], folder: Folder): Promise<Folder[]> {
-    const index = flatFolders.findIndex(x => x.id === folder.id);
-    flatFolders.splice(
-      index,
-      1,
-      await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
-    );
-    return flatFolders;
   }
 
   public removeFolder(folderId: string): void {
@@ -176,25 +153,5 @@ export abstract class UserDataService {
   public setCurrentFolderId(folderId?: string): void {
     this.currentFolderId = folderId;
     this.refreshData(this.authenticationService.getLoggedInUser());
-  }
-
-  private listenForRouterChanges(): void {
-    // this.router.events
-    //   .subscribe((event: Event) => {
-    //     // eslint-disable-next-line no-useless-escape
-    //     const captureRegex = new RegExp("vault\/folder\/(\d*)");
-
-    //     if (event instanceof NavigationStart || event instanceof NavigationEnd && event.url.includes("vault")) {
-    //       alert("captured");
-    //       const result = captureRegex.exec(event.url);
-
-    //       if(result) {
-    //         this.currentFolderId = null;
-    //       } else {
-    //         this.currentFolderId = result.groups[1];
-    //       }
-    //       this.refreshData(this.authenticationService.getLoggedInUser());
-    //     }
-    //   })
   }
 }

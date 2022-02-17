@@ -16,6 +16,7 @@ import { Password } from "../../password/password.model";
 })
 export abstract class UserDataService {
 
+  // TODO: Fix broken functionality
   private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: Remove
   public refreshDataObservable: Observable<null> = this.refreshDataBehaviorSubject.asObservable();
 
@@ -66,8 +67,8 @@ export abstract class UserDataService {
     this.vaultItemsObservable = zip(folderVaultObservable, passwordVaultObservable).pipe(
       map(result => {
         return [].concat(
-          result[0].filter(x => this.currentFolderId ? x.object.folderId === this.currentFolderId : x),
-          result[1].filter(x => this.currentFolderId ? x.object.folderId === this.currentFolderId : x)
+          result[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId),
+          result[1].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : x)
         );
       })
     );

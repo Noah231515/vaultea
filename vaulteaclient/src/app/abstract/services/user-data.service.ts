@@ -1,5 +1,6 @@
 import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { AuthenticationService, User } from "@authentication";
 import { Folder } from "@folder";
 import { KeysToOmitConstant, TypeEnum } from "@shared";
@@ -25,12 +26,15 @@ export abstract class UserDataService {
   public passwordObservable: Observable<Password[]> = this.passwordsBehaviorSubject.asObservable();
 
   public vaultItemsObservable: Observable<VaultItem[]>;
+  public currentFolderId: string;
 
   constructor(
     private authenticationService: AuthenticationService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
-    private userKeyService: UserKeyService
+    private userKeyService: UserKeyService,
+    private router: Router
   ) {
+    this.listenForRouterChanges();
     const folderVaultObservable = this.folderObservable
       .pipe(
         map(folders => {
@@ -60,10 +64,10 @@ export abstract class UserDataService {
     this.folderBehaviorSubject.next(this.getFolders());
     this.passwordsBehaviorSubject.next(this.getPasswords());
     this.vaultItemsObservable = zip(folderVaultObservable, passwordVaultObservable).pipe(
-      map(result => { // TODO: fix when we can navigate
+      map(result => {
         return [].concat(
-          result[0],
-          result[1].filter(x => !x.object.folderId)
+          result[0].filter(x => this.currentFolderId ? x.object.folderId === this.currentFolderId : x),
+          result[1].filter(x => this.currentFolderId ? x.object.folderId === this.currentFolderId : x)
         );
       })
     );
@@ -166,5 +170,30 @@ export abstract class UserDataService {
       index++;
     }
     return folders;
+  }
+
+  public setCurrentFolderId(folderId?: string): void {
+    this.currentFolderId = folderId;
+    this.refreshData(this.authenticationService.getLoggedInUser());
+  }
+
+  private listenForRouterChanges(): void {
+    // this.router.events
+    //   .subscribe((event: Event) => {
+    //     // eslint-disable-next-line no-useless-escape
+    //     const captureRegex = new RegExp("vault\/folder\/(\d*)");
+
+    //     if (event instanceof NavigationStart || event instanceof NavigationEnd && event.url.includes("vault")) {
+    //       alert("captured");
+    //       const result = captureRegex.exec(event.url);
+
+    //       if(result) {
+    //         this.currentFolderId = null;
+    //       } else {
+    //         this.currentFolderId = result.groups[1];
+    //       }
+    //       this.refreshData(this.authenticationService.getLoggedInUser());
+    //     }
+    //   })
   }
 }

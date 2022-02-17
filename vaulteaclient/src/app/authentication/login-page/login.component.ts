@@ -63,7 +63,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
       )
       .subscribe(async (user: User) => {
         await this.authenticationService.setUser(user);
-        this.router.navigate(["/vault"]);
+        this.router.navigate(["/vault/home"]);
       });
   }
 

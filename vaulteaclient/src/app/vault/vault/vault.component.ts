@@ -1,6 +1,7 @@
 import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/core";
+import { Router } from "@angular/router";
 import { FolderService } from "@folder";
 import { CreateItemSelectComponent, TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { CardData } from "@ui-kit";
@@ -27,7 +28,8 @@ export class VaultComponent extends BaseComponent {
     public userDataService: UserDataService,
     private snackBarService: SnackBarService,
     private folderService: FolderService,
-    private passwordService: PasswordService
+    private passwordService: PasswordService,
+    private router: Router
   ) {
     super();
   }
@@ -48,7 +50,7 @@ export class VaultComponent extends BaseComponent {
   public handleContentClicked(cardData: CardData): void {
     switch (cardData.type) {
       case TypeEnum.FOLDER:
-        alert("hello there");
+        this.router.navigateByUrl(`vault/folder/${cardData.object.id}`);
         break;
 
       default:

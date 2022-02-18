@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { AuthenticationService } from "@authentication";
 import { Folder } from "@folder";
-import { tap } from "rxjs/operators";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,12 +29,6 @@ export class FolderTreeComponent implements OnInit {
 
   private listenForDataChanges(): void {
     this.userDataService.folderObservable
-      .pipe(
-        tap(x => x.forEach(folder => {
-          folder.childFolders = this.userDataService.getFolders().filter(x => x.folderId === folder.id)
-          return x;
-        }))
-      )
       .subscribe(folders => {
         this.dataSource.data = folders;
       });

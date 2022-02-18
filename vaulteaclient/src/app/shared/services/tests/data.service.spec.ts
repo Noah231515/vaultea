@@ -117,14 +117,14 @@ describe("DataUtil", () => {
 
   it("should get path nodes for child folder", () => {
     const folders = [parentFolder1, parentFolder2, childFolder1, childFolder2];
-    const pathNodes = DataUtil.getPathNodes(folders, childFolder2);
+    const pathNodes = DataUtil.gsetPathNodes(folders, childFolder2);
 
     expect(pathNodes).toEqual([childFolder1, parentFolder1]);
   });
 
   it("should get path nodes for child folder with parents coming last", () => {
     const folders = [childFolder1, childFolder2, parentFolder2, parentFolder1];
-    const pathNodes = DataUtil.getPathNodes(folders, childFolder2);
+    const pathNodes = DataUtil.gsetPathNodes(folders, childFolder2);
 
     expect(pathNodes).toEqual([childFolder1, parentFolder1]);
   });
@@ -137,7 +137,7 @@ describe("DataUtil", () => {
 
   it("should get the correct path name for a nested folder", () => {
     const folders = [parentFolder1, parentFolder2, childFolder1, childFolder2];
-    const pathNodes = DataUtil.getPathNodes(folders, childFolder2);
+    const pathNodes = DataUtil.gsetPathNodes(folders, childFolder2);
     childFolder2.pathNodes = pathNodes;
     const path = DataUtil.buildPathString(childFolder2);
 

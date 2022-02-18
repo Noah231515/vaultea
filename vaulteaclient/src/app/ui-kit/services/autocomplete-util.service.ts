@@ -17,9 +17,7 @@ export class AutocompleteUtilService {
   }
 
   public buildOptions(): AutocompleteOption[] {
-    return [];
-    const flatFolders = this.userDataService.getFlatFolders();
-    return flatFolders.map(folder => {
+    return this.userDataService.getFolders().map(folder => {
       return {
         value: folder.id,
         displayValue: folder.name,

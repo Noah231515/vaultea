@@ -3,9 +3,10 @@ import { Injectable } from "@angular/core";
 import { AuthenticationService, User } from "@authentication";
 import { Folder } from "@folder";
 import { KeysToOmitConstant, TypeEnum } from "@shared";
+import { DataUtil } from "@util";
 import { VaultItem } from "@vault";
 import { BehaviorSubject, Observable, zip } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 
 import { Password } from "../../password/password.model";
 
@@ -14,12 +15,17 @@ import { Password } from "../../password/password.model";
 })
 export abstract class UserDataService {
 
-  // TODO: Fix broken functionality
   private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: Remove
   public refreshDataObservable: Observable<null> = this.refreshDataBehaviorSubject.asObservable();
 
   private folderBehaviorSubject: BehaviorSubject<Folder[]> = new BehaviorSubject<Folder[]>([]);
-  public folderObservable: Observable<Folder[]> = this.folderBehaviorSubject.asObservable();
+  public folderObservable: Observable<Folder[]> = this.folderBehaviorSubject.asObservable()
+    .pipe(
+      tap(folders => {
+        DataUtil.setChildFolders(folders);
+        DataUtil.setPathNodes(folders);
+      })
+    );
 
   private passwordsBehaviorSubject: BehaviorSubject<Password[]> = new BehaviorSubject<Password[]>([]);
   public passwordObservable: Observable<Password[]> = this.passwordsBehaviorSubject.asObservable();

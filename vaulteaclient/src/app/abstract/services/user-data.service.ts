@@ -60,6 +60,7 @@ export abstract class UserDataService {
 
     this.folderBehaviorSubject.next(this.getFolders());
     this.passwordsBehaviorSubject.next(this.getPasswords());
+
     this.vaultItemsObservable = zip(folderVaultObservable, passwordVaultObservable).pipe(
       map(result => {
         return [].concat(

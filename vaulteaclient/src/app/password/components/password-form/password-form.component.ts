@@ -1,6 +1,7 @@
 import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
 import { KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteUtilService, SnackBarService } from "@ui-kit";
 
@@ -25,6 +26,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     private snackBarService: SnackBarService,
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private userDataService: UserDataService,
+    private route: ActivatedRoute,
     public autocompleteUtilService: AutocompleteUtilService
   ) {
     super();
@@ -50,7 +52,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 
   protected initForm(): void {
     this.form = this.formBuilder.group({
-      folderId: [null],
+      folderId: [this.existingObject?.folderId ?? (parseInt(this.route.snapshot.params.id) || null)],
       name: [this.existingObject?.name ?? "", Validators.required],
       username: [this.existingObject?.username ?? "", Validators.required],
       password: [this.existingObject?.password ?? "", Validators.required],

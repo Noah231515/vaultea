@@ -1,6 +1,7 @@
 import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
 import { AuthenticationService } from "@authentication";
 import { KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
@@ -28,6 +29,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private userDataService: UserDataService,
     private authenticationService: AuthenticationService,
     private snackbarService: SnackBarService,
+    private route: ActivatedRoute,
     public autocompleteUtilService: AutocompleteUtilService
   ) {
     super();
@@ -62,7 +64,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
       description: [this.existingObject?.description ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
       vaultId: [this.existingObject?.vaultId ?? this.authenticationService?.getLoggedInUser()?.vaultId], // TODO: Fix in tests, this should return a stubbed value.
-      folderId: [this.existingObject?.folderId ?? null]
+      folderId: [this.existingObject?.folderId ?? (parseInt(this.route.snapshot.params.id) || null)]
     });
   }
 

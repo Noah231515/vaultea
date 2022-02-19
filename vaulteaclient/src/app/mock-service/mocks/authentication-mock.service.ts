@@ -4,8 +4,6 @@ import { Folder } from "@folder";
 import { Password } from "@password";
 import { BehaviorSubject, Observable, of } from "rxjs";
 
-import { DataUtil } from "../../utils/data.util";
-
 @Injectable({
   providedIn: "root"
 })
@@ -72,7 +70,7 @@ export class AuthenticationMockService  {
       username: "Test Man",
       accessToken: "",
       key: "",
-      folders: DataUtil.transformToNestedState(this.folders),
+      folders: this.folders,
       passwords: this.passwords
     };
   }

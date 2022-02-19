@@ -15,6 +15,7 @@ import { Password } from "../../password/password.model";
 })
 export abstract class UserDataService {
 
+  public setFolderData: boolean = true;
   private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: Remove
   public refreshDataObservable: Observable<null> = this.refreshDataBehaviorSubject.asObservable();
 
@@ -22,8 +23,11 @@ export abstract class UserDataService {
   public folderObservable: Observable<Folder[]> = this.folderBehaviorSubject.asObservable()
     .pipe(
       tap(folders => {
-        DataUtil.setChildFolders(folders);
-        DataUtil.setPathNodes(folders);
+        if (this.setFolderData) {
+          DataUtil.setChildFolders(folders);
+          DataUtil.setPathNodes(folders);
+          this.setFolderData = false;
+        }
       })
     );
 
@@ -92,7 +96,7 @@ export abstract class UserDataService {
       );
     }
 
-    this.refreshData(user);
+    this.refreshData(user, true);
   }
 
   public async updatePasswords(password: Password, newPassword: boolean): Promise<void> {
@@ -110,10 +114,10 @@ export abstract class UserDataService {
       );
     }
 
-    this.refreshData(user);
+    this.refreshData(user, true);
   }
 
-  private refreshData(user: User): void {
+  private refreshData(user: User, updateFolderData: boolean = false): void {
     this.folderBehaviorSubject.next(user.folders);
     this.passwordsBehaviorSubject.next(user.passwords);
   }
@@ -123,7 +127,7 @@ export abstract class UserDataService {
     const index = user.folders.findIndex(x => x.id === folderId);
     user.folders.splice(index, 1);
 
-    this.refreshData(user);
+    this.refreshData(user, true);
   }
 
   public removePassword(passwordId: string): void {
@@ -131,7 +135,7 @@ export abstract class UserDataService {
     const index = user.passwords.findIndex(x => x.id === passwordId);
     user.passwords.splice(index, 1);
 
-    this.refreshData(user);
+    this.refreshData(user, true);
   }
 
   public getFolders(): Folder[] {

@@ -34,35 +34,21 @@ export abstract class DataUtil {
     });
   }
 
-  public static transformToNestedState(folders: Folder[]): Folder[] { // TODO: Fix broken children on adding a folder
+  public static setPathNodes(folders: Folder[]): void {
     folders.forEach(folder => {
-      if (!folder.childFolders?.length) {
-        folder.childFolders = [];
-      }
-
-      if (folder.folderId) { // If folder is a child
-        folder.pathNodes = [];
-        const parentFolder = folders.find(f => f.id === folder.folderId);
-
-        if (parentFolder) {
-          parentFolder.childFolders.push(folder);
-          if (!parentFolder.pathNodes) { // If parent hasn't been iterated over yet
-            parentFolder.pathNodes = this.getPathNodes(folders, folder);
-          }
-          folder.pathNodes = folder.pathNodes.concat(parentFolder.pathNodes);
-          folder.pathNodes.push(parentFolder);
-        }
-      } else { // If folder is a root
+      if (folder.folderId) {
+        folder.pathNodes = this.traversePath(folder, folders);
+      } else {
         folder.pathNodes = [];
       }
-    });
-    return folders.filter(f => !f.folderId);
+    })
   }
 
-  public static getPathNodes(folders: Folder[], folder: Folder): Folder[] {
-    let folderId: any = folder.folderId;
-
+  // TODO: Optimize
+  private static traversePath(folder: Folder, folders: Folder[]): Folder[] {
     const results: Folder[] =  [];
+    let folderId = folder.folderId;
+
     while (folderId) {
       const parentFolder = folders.find(f => f.id === folderId);
       if (parentFolder) {
@@ -71,6 +57,12 @@ export abstract class DataUtil {
       folderId = parentFolder?.folderId;
     }
     return results;
+  }
+
+  public static setChildFolders(folders: Folder[]): void {
+    folders.forEach(folder => {
+      folder.childFolders = folders.filter(x => x.folderId === folder.id)
+    });
   }
 
   public static buildPathString(folder: Folder): string {

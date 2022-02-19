@@ -2,9 +2,7 @@ import { UserDataService } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
-import { AuthenticationService } from "@authentication";
 import { Folder } from "@folder";
-import { finalize } from "rxjs/operators";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,28 +15,24 @@ export class FolderTreeComponent implements OnInit {
   public dataSource = new MatTreeNestedDataSource<Folder>();
 
   constructor(
-    private authenticationService: AuthenticationService,
     private changeDetectorRef: ChangeDetectorRef,
     private userDataService: UserDataService
   ) {
   }
 
   public ngOnInit(): void {
-    this.dataSource.data = this.authenticationService.getLoggedInUser().folders;
     this.listenForDataChanges();
     this.changeDetectorRef.markForCheck();
   }
 
   private listenForDataChanges(): void {
-    this.userDataService
-      .folderObservable
-      .pipe(
-        finalize(() => this.changeDetectorRef.markForCheck())
-      )
-      .subscribe(folders => this.dataSource.data = folders);
+    this.userDataService.folderObservable
+      .subscribe(folders => {
+        this.dataSource.data = folders;
+      });
   }
 
   public hasChild(_: number, node: Folder): boolean {
-    return !!node.childFolders[0];
+    return node.childFolders.length > 0;
   }
 }

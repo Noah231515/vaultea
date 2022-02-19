@@ -15,6 +15,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { RouterTestingModule } from "@angular/router/testing";
 import { AuthenticationService } from "@authentication";
 import { Folder, FolderModule, FolderService } from "@folder";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, TypeEnum } from "@shared";
@@ -59,7 +60,8 @@ describe("VaultComponent", () => {
         UiKitModule,
         MatCardModule,
         BrowserAnimationsModule,
-        SharedModule
+        SharedModule,
+        RouterTestingModule
       ],
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },

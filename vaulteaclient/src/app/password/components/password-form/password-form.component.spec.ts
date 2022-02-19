@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { ActivatedRoute } from "@angular/router";
 import { AuthenticationService } from "@authentication";
 import { AuthenticationMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, VaultDynamicDrawerService } from "@shared";
@@ -33,6 +34,13 @@ describe("PasswordFormComponent", () => {
         SnackBarService,
         UserKeyService,
         VaultDynamicDrawerService,
+        { provide: ActivatedRoute, useValue: {
+          snapshot: {
+            params: {
+              id: 1
+            }
+          }
+        }}
       ]
     })
       .compileComponents();

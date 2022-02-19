@@ -1,6 +1,7 @@
 import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/core";
+import { Router } from "@angular/router";
 import { FolderService } from "@folder";
 import { CreateItemSelectComponent, TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { CardData } from "@ui-kit";
@@ -11,6 +12,7 @@ import { UserDataService } from "../../abstract/services/user-data.service";
 import { PasswordService } from "../../password/services/password.service";
 import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 
+/* eslint-disable indent */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -26,21 +28,33 @@ export class VaultComponent extends BaseComponent {
     public userDataService: UserDataService,
     private snackBarService: SnackBarService,
     private folderService: FolderService,
-    private passwordService: PasswordService
+    private passwordService: PasswordService,
+    private router: Router
   ) {
     super();
   }
 
   public handleDelete(cardData: CardData): void {
     switch (cardData.type) {
-    case TypeEnum.FOLDER:
-      this.deleteFolder(cardData.object.id);
-      break;
-    case TypeEnum.PASSWORD:
-      this.deletePassword(cardData.object.id);
-      break;
-    default:
-      break;
+      case TypeEnum.FOLDER:
+        this.deleteFolder(cardData.object.id);
+        break;
+      case TypeEnum.PASSWORD:
+        this.deletePassword(cardData.object.id);
+        break;
+      default:
+        break;
+    }
+  }
+
+  public handleContentClicked(cardData: CardData): void {
+    switch (cardData.type) {
+      case TypeEnum.FOLDER:
+        this.router.navigateByUrl(`vault/folder/${cardData.object.id}`);
+        break;
+
+      default:
+        break;
     }
   }
 

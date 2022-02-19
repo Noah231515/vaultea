@@ -95,52 +95,26 @@ describe("DataUtil", () => {
     expect(string).toBe(computedResult);
   });
 
-  it("should transform list of flat folders to nested folders when parents come first in the list", () => {
-    const folders = [parentFolder1, parentFolder2, childFolder1, childFolder2];
-    DataUtil.transformToNestedState(folders);
-
-    expect(parentFolder1.childFolders).toEqual([childFolder1]);
-    expect(parentFolder2.childFolders).toEqual([]);
-    expect(childFolder1.childFolders).toEqual([childFolder2]);
-    expect(childFolder2.childFolders).toEqual([]);
-  });
-
-  it("should transform list of flat folders to nested folders when parents come last in the list", () => {
-    const folders = [childFolder1, childFolder2, parentFolder2, parentFolder1];
-    DataUtil.transformToNestedState(folders);
-
-    expect(parentFolder1.childFolders).toEqual([childFolder1]);
-    expect(parentFolder2.childFolders).toEqual([]);
-    expect(childFolder1.childFolders).toEqual([childFolder2]);
-    expect(childFolder2.childFolders).toEqual([]);
-  });
-
   it("should get path nodes for child folder", () => {
     const folders = [parentFolder1, parentFolder2, childFolder1, childFolder2];
-    const pathNodes = DataUtil.getPathNodes(folders, childFolder2);
+    DataUtil.setPathNodes(folders);
 
-    expect(pathNodes).toEqual([childFolder1, parentFolder1]);
-  });
 
-  it("should get path nodes for child folder with parents coming last", () => {
-    const folders = [childFolder1, childFolder2, parentFolder2, parentFolder1];
-    const pathNodes = DataUtil.getPathNodes(folders, childFolder2);
-
-    expect(pathNodes).toEqual([childFolder1, parentFolder1]);
+    expect(parentFolder1.pathNodes).toEqual([]);
+    expect(parentFolder2.pathNodes).toEqual([]);
+    expect(childFolder1.pathNodes).toEqual([parentFolder1]);
+    expect(childFolder2.pathNodes).toEqual([childFolder1, parentFolder1]);
   });
 
   it("should get the correct path name for a root level folder", () => {
     const path = DataUtil.buildPathString(parentFolder1);
-
     expect(path).toEqual(`Vault/${parentFolder1.name}`);
   });
 
   it("should get the correct path name for a nested folder", () => {
     const folders = [parentFolder1, parentFolder2, childFolder1, childFolder2];
-    const pathNodes = DataUtil.getPathNodes(folders, childFolder2);
-    childFolder2.pathNodes = pathNodes;
+    DataUtil.setPathNodes(folders);
     const path = DataUtil.buildPathString(childFolder2);
-
     expect(path).toEqual(`Vault/${parentFolder1.name}/${childFolder1.name}/${childFolder2.name}`);
   });
 });

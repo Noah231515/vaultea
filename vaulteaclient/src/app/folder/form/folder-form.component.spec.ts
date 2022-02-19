@@ -1,8 +1,10 @@
 import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
 import { HttpClient, HttpHandler } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ActivatedRoute } from "@angular/router";
 import { AuthenticationService } from "@authentication";
 import { Folder } from "@folder";
 import { AuthenticationMockService } from "@mock";
@@ -30,6 +32,7 @@ describe("FolderFormComponent", () => {
       declarations: [ FolderFormComponent ],
       imports: [
         BrowserAnimationsModule,
+        HttpClientTestingModule,
         UiKitModule
       ],
       providers: [
@@ -41,6 +44,13 @@ describe("FolderFormComponent", () => {
         HttpClient,
         HttpHandler,
         UserKeyService,
+        { provide: ActivatedRoute, useValue: {
+          snapshot: {
+            params: {
+              id: 1
+            }
+          }
+        }}
       ]
     })
       .compileComponents();

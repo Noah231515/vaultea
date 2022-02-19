@@ -10,9 +10,9 @@
       </button>
     </div>
   </mat-card-header>
-  <mat-card-content (click)="contentClicked.emit(cardData)">
+  <mat-card-content class="content-hover" (click)="contentClicked.emit(cardData)">
     <div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
-      <mat-icon class="icon-style" aria-hidden="false" aria-label="Folder Icon">{{ icon }}</mat-icon>
+      <mat-icon fxFlex class="icon-style" aria-hidden="false" aria-label="Folder Icon">{{ icon }}</mat-icon>
       <h2>{{title}}</h2>
     </div>
   </mat-card-content>

@@ -1,0 +1,32 @@
+<div fxLayout="row" fxLayoutAlign=" center">
+  <h1>Vault</h1>
+  <ng-container *ngIf="folder">
+    >
+    <ng-container *ngFor="let folderNode of folder.pathNodes">
+      <ng-container
+        [ngTemplateOutlet]="nodeTemplate"
+        [ngTemplateOutletContext]="{
+          'folderNode': folderNode,
+          'last': false
+        }"
+      ></ng-container>
+    </ng-container>
+    <div>
+      <ng-container
+        [ngTemplateOutlet]="nodeTemplate"
+        [ngTemplateOutletContext]="{
+          'folderNode': folder,
+          'last': true
+        }"
+      ></ng-container>
+    </div>
+  </ng-container>
+</div>
+
+
+<ng-template #nodeTemplate let-folderNode="folderNode" let-last="last">
+  <a [routerLink]="getFolderUrl(folderNode)">
+    {{ folderNode.name }}
+  </a>
+  <span *ngIf="!last"> > </span>
+</ng-template>

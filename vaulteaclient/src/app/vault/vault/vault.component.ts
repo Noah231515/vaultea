@@ -1,8 +1,8 @@
 import { BaseComponent } from "@abstract";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/core";
-import { Router } from "@angular/router";
-import { FolderService } from "@folder";
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Folder, FolderService } from "@folder";
 import { CreateItemSelectComponent, TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { CardData } from "@ui-kit";
 import { of } from "rxjs";
@@ -20,8 +20,9 @@ import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
   styleUrls: ["./vault.component.scss"],
   templateUrl: "./vault.component.html",
 })
-export class VaultComponent extends BaseComponent {
+export class VaultComponent extends BaseComponent implements OnInit {
   public typeEnum = TypeEnum;
+  public currentFolder?: Folder;
 
   public constructor(
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
@@ -29,9 +30,16 @@ export class VaultComponent extends BaseComponent {
     private snackBarService: SnackBarService,
     private folderService: FolderService,
     private passwordService: PasswordService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
     super();
+  }
+
+  public ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.currentFolder = this.userDataService.getFolders().find(x => x.id.toString() === params.id);
+    })
   }
 
   public handleDelete(cardData: CardData): void {

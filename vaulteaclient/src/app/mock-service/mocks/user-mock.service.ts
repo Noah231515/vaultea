@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 @Injectable({
   providedIn: "root"
 })
-export class AuthenticationMockService  {
+export class UserMockService  {
   private userBehaviorSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   public userObservable: Observable<User> = this.userBehaviorSubject.asObservable();
 

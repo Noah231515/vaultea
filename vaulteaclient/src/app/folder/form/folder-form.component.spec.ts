@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ActivatedRoute } from "@angular/router";
 import { UserService } from "@authentication";
 import { Folder } from "@folder";
-import { AuthenticationMockService } from "@mock";
+import { UserMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
@@ -38,7 +38,7 @@ describe("FolderFormComponent", () => {
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
-        { provide: UserService, useClass: AuthenticationMockService },
+        { provide: UserService, useClass: UserMockService },
         FolderService,
         FormBuilder,
         HttpClient,

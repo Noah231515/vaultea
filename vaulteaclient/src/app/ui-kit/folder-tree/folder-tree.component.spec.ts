@@ -2,7 +2,7 @@ import { CryptoBusinessLogicService, UserDataService, UserKeyService } from "@ab
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AuthenticationService } from "@authentication";
-import { AuthenticationMockService } from "@mock";
+import { UserMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
 import { CryptoFunctionService } from "../../abstract/services/crypto-function.service";
@@ -21,7 +21,7 @@ describe("FolderTreeComponent", () => {
       providers: [
         UserKeyService,
         UserDataService,
-        { provide: AuthenticationService, useClass: AuthenticationMockService },
+        { provide: AuthenticationService, useClass: UserMockService },
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
       ]

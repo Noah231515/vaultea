@@ -6,7 +6,7 @@ import { FormBuilder } from "@angular/forms";
 import { AuthenticationService } from "@authentication";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
-import { AuthenticationMockService } from "../../mock-service/mocks/authentication-mock.service";
+import { UserMockService } from "../../mock-service/mocks/user-mock.service";
 import { ButtonComponent } from "../button/button.component";
 import { FormComponent } from "./form.component";
 
@@ -26,7 +26,7 @@ describe("FormComponent", () => {
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
-        { provide: AuthenticationService, useClass: AuthenticationMockService },
+        { provide: AuthenticationService, useClass: UserMockService },
         FormBuilder,
         HttpClient,
         HttpHandler,

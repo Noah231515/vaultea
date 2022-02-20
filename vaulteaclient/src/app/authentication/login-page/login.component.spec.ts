@@ -6,7 +6,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AuthenticationService } from "@authentication";
-import { AuthenticationMockService } from "@mock";
+import { UserMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
@@ -31,7 +31,7 @@ describe("LoginComponent", () => {
       ],
       providers: [
         FormBuilder,
-        { provide: AuthenticationService, useClass: AuthenticationMockService },
+        { provide: AuthenticationService, useClass: UserMockService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         UserKeyService,

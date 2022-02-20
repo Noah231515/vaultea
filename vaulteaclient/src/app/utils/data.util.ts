@@ -56,7 +56,7 @@ export abstract class DataUtil {
       }
       folderId = parentFolder?.folderId;
     }
-    return results;
+    return results.reverse();
   }
 
   public static setChildFolders(folders: Folder[]): void {
@@ -67,7 +67,7 @@ export abstract class DataUtil {
 
   public static buildPathString(folder: Folder): string {
     let result = "Vault/";
-    for (let i = folder.pathNodes.length - 1 ; i >= 0; i--) {
+    for (let i = 0; i < folder.pathNodes.length; i++) {
       result = result.concat(folder.pathNodes[i].name) + "/";
     }
     result = result.concat(folder.name);

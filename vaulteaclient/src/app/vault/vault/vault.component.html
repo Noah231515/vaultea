@@ -1,6 +1,6 @@
 <div class="m-3 content-background-color" fxFlex fxLayout="column">
   <div fxLayoutAlign="space-between">
-    <h1>Vault</h1>
+    <vaultea-breadcrumb [folder]="currentFolder" ></vaultea-breadcrumb>
     <div fxFlex fxLayoutAlign="end center" fxLayoutGap="24px">
 
       <mat-chip-list>
@@ -14,7 +14,7 @@
   <div class="m-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
     <div class="container">
       <vaultea-card
-        *ngFor="let item of userDataService.vaultItemsObservable | async"
+        *ngFor="let item of vaultItemsObservable | async"
         [cardData]="{
           object: item.object,
           type: item.itemType

@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteUtilService, SnackBarService } from "@ui-kit";
+import { take } from "rxjs/operators";
 
 import { AutocompleteData } from "../../../ui-kit/autocomplete/autocomplete-data.interface";
 import { PasswordService } from "../../services/password.service";
@@ -78,6 +79,9 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 
   public create(preparedData: any): void {
     this.passwordService.create(preparedData)
+      .pipe(
+        take(1)
+      )
       .subscribe(async createdPassword => {
         this.vaultDynamicDrawerService.setState(false);
         this.userDataService.updatePasswords(createdPassword, true);
@@ -87,6 +91,9 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 
   public update(preparedData: any): void {
     this.passwordService.update(this.existingObject.id, preparedData)
+      .pipe(
+        take(1)
+      )
       .subscribe(updatedPassword => {
         this.vaultDynamicDrawerService.setState(false);
         this.userDataService.updatePasswords(updatedPassword, false);

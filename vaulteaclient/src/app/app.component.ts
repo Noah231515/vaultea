@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 
 import { fadeAnimation } from "./animations/fade-animation";
-import { AuthenticationService } from "./authentication/authentication.service";
+import { UserService } from "./authentication/services/user.service";
 
 @Component({
   selector: "app-root",
@@ -13,21 +13,12 @@ import { AuthenticationService } from "./authentication/authentication.service";
     fadeAnimation
   ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public title = "vaulteaclient";
-  public isLoggedIn: boolean = false;
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private authenticationService: AuthenticationService
-  ) {}
-
-  public ngOnInit(): void {
-    this.authenticationService.isLoggedInObservable.subscribe(isLoggedIn => {
-      this.isLoggedIn = isLoggedIn;
-      this.changeDetectorRef.markForCheck();
-    });
-  }
+    public userService: UserService,
+  ) { }
 
   public prepareRoute(outlet: RouterOutlet): string {
     return outlet?.activatedRouteData?.animation;

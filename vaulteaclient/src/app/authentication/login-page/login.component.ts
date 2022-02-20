@@ -3,12 +3,13 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { of } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { catchError, take } from "rxjs/operators";
 
 import { User } from "..";
 import { ButtonInterface } from "../../ui-kit";
 import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 import { AuthenticationService } from "../authentication.service";
+import { UserService } from "../services/user.service";
 
 @Component({
   selector: "vaultea-login",
@@ -28,6 +29,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
     private snackBarService: SnackBarService,
+    private userService: UserService
   ) {
     super()
   }
@@ -59,10 +61,11 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     const preparedData = await this.prepareToSubmit();
     this.authenticationService.login(preparedData)
       .pipe(
+        take(1),
         catchError(err => of(this.snackBarService.open(err.error.msg)))
       )
       .subscribe(async (user: User) => {
-        await this.authenticationService.setUser(user);
+        await this.userService.setUser(user);
         this.router.navigate(["/vault/home"]);
       });
   }

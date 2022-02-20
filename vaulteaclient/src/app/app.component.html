@@ -2,15 +2,15 @@
   <div>
     <mat-toolbar fxFlex class="toolbar">
       <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
-        <div *ngIf="isLoggedIn" fxFlex fxLayoutGap="24px" fxLayoutAlign=" center">
+        <div *ngIf="!!(userService.userObservable | async)" fxFlex fxLayoutGap="24px" fxLayoutAlign=" center">
           <img class="logo-minimal" src="../assets/logo-minimal.svg">
 
         </div>
-        <div *ngIf="isLoggedIn" fxFlex fxLayoutGap="36px" fxLayoutAlign="end center">
-          <mat-icon class="toolbar-item">search</mat-icon>
-          <mat-icon class="toolbar-item">build</mat-icon>
-          <mat-icon class="toolbar-item">settings</mat-icon>
-          <mat-icon class="toolbar-item">notifications</mat-icon>
+        <div *ngIf="!!(userService.userObservable | async)" fxFlex fxLayoutGap="36px" fxLayoutAlign="end center">
+          <mat-icon color="accent" class="toolbar-item">search</mat-icon>
+          <mat-icon color="accent" class="toolbar-item">build</mat-icon>
+          <mat-icon color="accent" class="toolbar-item">settings</mat-icon>
+          <mat-icon color="accent" class="toolbar-item">notifications</mat-icon>
         </div>
       </div>
     </mat-toolbar>

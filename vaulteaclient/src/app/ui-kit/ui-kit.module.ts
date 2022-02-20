@@ -13,9 +13,11 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTreeModule } from "@angular/material/tree";
+import { RouterModule } from "@angular/router";
 
 import { AbstractModule } from "../abstract/abstract.module";
 import { AutocompleteComponent } from "./autocomplete/autocomplete.component";
+import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 import { ButtonComponent } from "./button/button.component";
 import { CardComponent } from "./card/card.component";
 import { FolderTreeComponent } from "./folder-tree/folder-tree.component";
@@ -40,9 +42,11 @@ import { TextAreaComponent } from "./text-area/text-area.component";
     LogoFullComponent,
     SelectComponent,
     TextAreaComponent,
+    BreadcrumbComponent,
   ],
   exports: [
     AutocompleteComponent,
+    BreadcrumbComponent,
     ButtonComponent,
     CardComponent,
     FlexLayoutModule,
@@ -53,7 +57,7 @@ import { TextAreaComponent } from "./text-area/text-area.component";
     InputComponent,
     LogoFullComponent,
     SelectComponent,
-    TextAreaComponent
+    TextAreaComponent,
   ],
   imports: [
     AbstractModule,
@@ -70,6 +74,7 @@ import { TextAreaComponent } from "./text-area/text-area.component";
     MatSnackBarModule,
     MatTreeModule,
     ReactiveFormsModule,
+    RouterModule,
     TextFieldModule,
   ],
 })

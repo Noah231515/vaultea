@@ -1,13 +1,13 @@
 import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
-import { AuthenticationService, User } from "@authentication";
+import { User } from "@authentication";
 import { Folder } from "@folder";
-import { KeysToOmitConstant, TypeEnum } from "@shared";
+import { KeysToOmitConstant } from "@shared";
 import { DataUtil } from "@util";
-import { VaultItem } from "@vault";
-import { BehaviorSubject, Observable, zip } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { BehaviorSubject, Observable } from "rxjs";
+import { take } from "rxjs/operators";
 
+import { UserService } from "../../authentication/services/user.service";
 import { Password } from "../../password/password.model";
 
 @Injectable({
@@ -15,74 +15,31 @@ import { Password } from "../../password/password.model";
 })
 export abstract class UserDataService {
 
-  public setFolderData: boolean = true;
   private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: Remove
   public refreshDataObservable: Observable<null> = this.refreshDataBehaviorSubject.asObservable();
 
   private folderBehaviorSubject: BehaviorSubject<Folder[]> = new BehaviorSubject<Folder[]>([]);
-  public folderObservable: Observable<Folder[]> = this.folderBehaviorSubject.asObservable()
-    .pipe(
-      tap(folders => {
-        if (this.setFolderData) {
-          DataUtil.setChildFolders(folders);
-          DataUtil.setPathNodes(folders);
-          this.setFolderData = false;
-        }
-      })
-    );
+  public folderObservable: Observable<Folder[]> = this.folderBehaviorSubject.asObservable();
 
   private passwordsBehaviorSubject: BehaviorSubject<Password[]> = new BehaviorSubject<Password[]>([]);
   public passwordObservable: Observable<Password[]> = this.passwordsBehaviorSubject.asObservable();
 
-  public vaultItemsObservable: Observable<VaultItem[]>;
-  public currentFolderId: string;
-
   constructor(
-    private authenticationService: AuthenticationService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
+    private userService: UserService,
   ) {
-    const folderVaultObservable = this.folderObservable
+    this.userService.userObservable
       .pipe(
-        map(folders => {
-          return folders.map(folder => {
-            const vaultItem: VaultItem = {
-              object: folder,
-              itemType: TypeEnum.FOLDER
-            }
-            return vaultItem;
-          })
-        })
-      );
-
-    const passwordVaultObservable = this.passwordObservable
-      .pipe(
-        map(passwords => {
-          return passwords.map(password => {
-            const vaultItem: VaultItem = {
-              object: password,
-              itemType: TypeEnum.PASSWORD
-            }
-            return vaultItem;
-          })
-        })
-      );
-
-    this.folderBehaviorSubject.next(this.getFolders());
-    this.passwordsBehaviorSubject.next(this.getPasswords());
-
-    this.vaultItemsObservable = zip(folderVaultObservable, passwordVaultObservable).pipe(
-      map(result => {
-        return [].concat(
-          result[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId),
-          result[1].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : x)
-        );
-      })
-    );
+        take(1)
+      )
+      .subscribe(user => {
+        this.refreshData(user, true);
+      });
   }
 
   public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> {
-    const user = this.authenticationService.getLoggedInUser();
+    const user = this.userService.getUser();
 
     if (newFolder) {
       user.folders.push(
@@ -95,12 +52,11 @@ export abstract class UserDataService {
         await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER)
       );
     }
-
     this.refreshData(user, true);
   }
 
   public async updatePasswords(password: Password, newPassword: boolean): Promise<void> {
-    const user = this.authenticationService.getLoggedInUser();
+    const user = this.userService.getUser();
 
     if (newPassword) {
       user.passwords.push(
@@ -117,13 +73,20 @@ export abstract class UserDataService {
     this.refreshData(user, true);
   }
 
-  private refreshData(user: User, updateFolderData: boolean = false): void {
+  public refreshData(user?: User, setFolderData: boolean = false): void {
+    if (!user) {
+      user = this.userService.getUser();
+    }
+    if (setFolderData) {
+      DataUtil.setChildFolders(user.folders);
+      DataUtil.setPathNodes(user.folders);
+    }
     this.folderBehaviorSubject.next(user.folders);
     this.passwordsBehaviorSubject.next(user.passwords);
   }
 
   public removeFolder(folderId: string): void {
-    const user = this.authenticationService.getLoggedInUser();
+    const user = this.userService.getUser();
     const index = user.folders.findIndex(x => x.id === folderId);
     user.folders.splice(index, 1);
 
@@ -131,7 +94,7 @@ export abstract class UserDataService {
   }
 
   public removePassword(passwordId: string): void {
-    const user = this.authenticationService.getLoggedInUser();
+    const user = this.userService.getUser();
     const index = user.passwords.findIndex(x => x.id === passwordId);
     user.passwords.splice(index, 1);
 
@@ -139,30 +102,10 @@ export abstract class UserDataService {
   }
 
   public getFolders(): Folder[] {
-    return this.authenticationService.getLoggedInUser().folders;
+    return this.userService.getUser()?.folders;
   }
 
   public getPasswords(): Password[] {
-    return this.authenticationService.getLoggedInUser().passwords;
-  }
-
-  public getFlatFolders(): Folder[] {
-    let folders = Array.from(this.getFolders());
-    let index = 0;
-
-    // eslint-disable-next-line no-constant-condition
-    while (folders[index]) {
-      const folder = folders[index];
-      if (folder) {
-        folders = folders.concat(folder.childFolders);
-      }
-      index++;
-    }
-    return folders;
-  }
-
-  public setCurrentFolderId(folderId?: string): void {
-    this.currentFolderId = folderId;
-    this.refreshData(this.authenticationService.getLoggedInUser());
+    return this.userService.getUser()?.passwords;
   }
 }

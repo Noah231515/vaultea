@@ -1,8 +1,11 @@
 import { UserDataService } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { ActivatedRoute, Params } from "@angular/router";
 import { Folder } from "@folder";
+import { Observable } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,26 +13,35 @@ import { Folder } from "@folder";
   templateUrl: "./folder-tree.component.html",
   styleUrls: ["./folder-tree.component.scss"]
 })
-export class FolderTreeComponent implements OnInit {
+export class FolderTreeComponent {
   public treeControl = new NestedTreeControl<Folder>(folder => folder.childFolders);
-  public dataSource = new MatTreeNestedDataSource<Folder>();
+  public dataSource: Observable<MatTreeNestedDataSource<Folder>> = this.userDataService
+    .folderObservable
+    .pipe(
+      map(folders => {
+        const dataSource = new MatTreeNestedDataSource<Folder>();
+        dataSource.data = folders.filter(folder => !folder.folderId)
+        return dataSource;
+      }),
+      tap(() => this.changeDetectorRef.detectChanges())
+    );
+
+  public params: Observable<Params> = this.route
+    .params
+    .pipe(
+      tap(params => {
+        if (params.id) {
+          const currentFolder = this.userDataService.getFolders().find(f => f.id.toString() === params.id);
+          this.treeControl.expand(currentFolder);
+        }
+      })
+    );
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
+    public route: ActivatedRoute
   ) {
-  }
-
-  public ngOnInit(): void {
-    this.listenForDataChanges();
-    this.changeDetectorRef.markForCheck();
-  }
-
-  private listenForDataChanges(): void {
-    this.userDataService.folderObservable
-      .subscribe(folders => {
-        this.dataSource.data = folders;
-      });
   }
 
   public hasChild(_: number, node: Folder): boolean {

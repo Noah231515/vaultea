@@ -1,3 +1,6 @@
+@import "../../styles/drawer.scss";
+@import "../../../styles.scss";
+
 .example-tree-invisible {
   display: none;
 }
@@ -28,4 +31,11 @@
 
 mat-tree-node[aria-level="1"] {
   margin-left: 40px;
+}
+
+.current-folder {
+  color: $secondary-dark-green;
+  border-top-right-radius: $radius-amount;
+  border-bottom-right-radius: $radius-amount;
+  text-decoration: underline;
 }

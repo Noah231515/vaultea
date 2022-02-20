@@ -103,7 +103,7 @@ describe("DataUtil", () => {
     expect(parentFolder1.pathNodes).toEqual([]);
     expect(parentFolder2.pathNodes).toEqual([]);
     expect(childFolder1.pathNodes).toEqual([parentFolder1]);
-    expect(childFolder2.pathNodes).toEqual([childFolder1, parentFolder1]);
+    expect(childFolder2.pathNodes).toEqual([parentFolder1, childFolder1]);
   });
 
   it("should get the correct path name for a root level folder", () => {

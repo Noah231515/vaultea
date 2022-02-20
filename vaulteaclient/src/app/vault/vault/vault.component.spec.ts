@@ -16,13 +16,13 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
-import { AuthenticationService } from "@authentication";
+import { UserService } from "@authentication";
 import { Folder, FolderModule, FolderService } from "@folder";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, TypeEnum } from "@shared";
 import { CardData } from "@ui-kit";
 import { of } from "rxjs";
 
-import { AuthenticationMockService } from "../../mock-service/mocks/authentication-mock.service";
+import { UserMockService } from "../../mock-service/mocks/user-mock.service";
 import { PasswordService } from "../../password/services/password.service";
 import { SharedModule } from "../../shared/shared.module";
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
@@ -61,17 +61,17 @@ describe("VaultComponent", () => {
         MatCardModule,
         BrowserAnimationsModule,
         SharedModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
-        { provide: AuthenticationService, useClass: AuthenticationMockService },
+        { provide: UserService, useClass: UserMockService },
         FormBuilder,
         HttpClient,
         HttpHandler,
         UserKeyService,
-        UserDataService
+        UserDataService,
       ]
     })
       .compileComponents();
@@ -120,9 +120,9 @@ describe("VaultComponent", () => {
   });
 
   it("should remove a folder card", async () => {
-    const authMock = TestBed.inject(AuthenticationMockService);
+    const userMockService = TestBed.inject(UserMockService);
     const cardData: CardData = {
-      object: authMock.parentFolder1,
+      object: userMockService.parentFolder1,
       type: TypeEnum.FOLDER
     };
     const folderService = TestBed.inject(FolderService);
@@ -139,9 +139,9 @@ describe("VaultComponent", () => {
   });
 
   it("should remove a password card", async () => {
-    const authMock = TestBed.inject(AuthenticationMockService);
+    const userMockService = TestBed.inject(UserMockService);
     const cardData: CardData = {
-      object: authMock.password1,
+      object: userMockService.password1,
       type: TypeEnum.PASSWORD
     };
     const passwordService = TestBed.inject(PasswordService);

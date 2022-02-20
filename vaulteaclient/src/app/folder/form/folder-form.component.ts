@@ -2,9 +2,9 @@ import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataS
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { AuthenticationService } from "@authentication";
 import { KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
+import { take } from "rxjs/operators";
 
 import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
 import { FormHeaderData } from "../../ui-kit/form-header/form-header-data.interface";
@@ -27,7 +27,6 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private userKeyService: UserKeyService,
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private userDataService: UserDataService,
-    private authenticationService: AuthenticationService,
     private snackbarService: SnackBarService,
     private route: ActivatedRoute,
     public autocompleteUtilService: AutocompleteUtilService
@@ -63,7 +62,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       description: [this.existingObject?.description ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
-      vaultId: [this.existingObject?.vaultId ?? this.authenticationService?.getLoggedInUser()?.vaultId], // TODO: Fix in tests, this should return a stubbed value.
+      vaultId: ["1"], // TODO: Remove from form
       folderId: [this.existingObject?.folderId ?? (parseInt(this.route.snapshot.params.id) || null)]
     });
   }
@@ -80,21 +79,29 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   }
 
   private create(preparedData: any): void {
-    this.folderService.create(preparedData).subscribe(async createdFolder => {
-      this.vaultDynamicDrawerService.setState(false);
-      await this.userDataService.updateFolders(createdFolder, true);
-      this.snackbarService.open("Folder successfully created");
-    });
+    this.folderService.create(preparedData)
+      .pipe(
+        take(1)
+      )
+      .subscribe(async createdFolder => {
+        this.vaultDynamicDrawerService.setState(false);
+        await this.userDataService.updateFolders(createdFolder, true);
+        this.snackbarService.open("Folder successfully created");
+      });
   }
 
   private update(preparedData: any): void {
-    this.folderService.update(this.existingObject.id, preparedData).subscribe(async updatedFolder => {
-      this.vaultDynamicDrawerService.setState(false);
-      updatedFolder.childFolders = this.existingObject.childFolders;
-      updatedFolder.pathNodes = this.existingObject.pathNodes;
-      await this.userDataService.updateFolders(updatedFolder, false);
-      this.snackbarService.open("Folder successfully updated");
-    });
+    this.folderService.update(this.existingObject.id, preparedData)
+      .pipe(
+        take(1)
+      )
+      .subscribe(async updatedFolder => {
+        this.vaultDynamicDrawerService.setState(false);
+        updatedFolder.childFolders = this.existingObject.childFolders;
+        updatedFolder.pathNodes = this.existingObject.pathNodes;
+        await this.userDataService.updateFolders(updatedFolder, false);
+        this.snackbarService.open("Folder successfully updated");
+      });
   }
 
   public cancel(): void {

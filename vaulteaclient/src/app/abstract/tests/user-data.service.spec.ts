@@ -1,7 +1,7 @@
 import { CryptoBusinessLogicService, CryptoFunctionService } from "@abstract";
 import { TestBed } from "@angular/core/testing";
 import { AuthenticationService } from "@authentication";
-import { AuthenticationMockService } from "@mock";
+import { UserMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
 import { UserDataService } from "../services/user-data.service";
@@ -14,10 +14,10 @@ describe("UserDataService", () => {
       imports: [
       ],
       providers: [
-        { provide: AuthenticationService, useClass: AuthenticationMockService },
+        { provide: AuthenticationService, useClass: UserMockService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
-        AuthenticationMockService,
+        UserMockService,
         UserDataService,
         UserKeyService,
       ]

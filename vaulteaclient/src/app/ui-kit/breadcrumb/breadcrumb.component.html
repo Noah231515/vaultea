@@ -1,7 +1,11 @@
 <div fxLayout="row" fxLayoutAlign=" center">
-  <h1>Vault</h1>
+  <div *ngIf="folder; else homeVaultText" class="m-1">
+    <a [routerLink]="['/vault/home']">
+      <h1>Vault</h1>
+    </a>
+  </div>
   <ng-container *ngIf="folder">
-    <span>
+    <span class="m-1">
       <h1>
         >
       </h1>
@@ -15,26 +19,24 @@
         }"
       ></ng-container>
     </ng-container>
-    <div>
-      <ng-container
-        [ngTemplateOutlet]="nodeTemplateCurrent"
-        [ngTemplateOutletContext]="{
-          'folderNode': folder,
-          'last': true
-        }"
-      ></ng-container>
-    </div>
+    <ng-container
+      [ngTemplateOutlet]="nodeTemplateCurrent"
+      [ngTemplateOutletContext]="{
+        'folderNode': folder,
+        'last': true
+      }"
+    ></ng-container>
   </ng-container>
 </div>
 
 
 <ng-template #nodeTemplate let-folderNode="folderNode">
-  <a [routerLink]="getFolderUrl(folderNode)">
+  <a class="m-1" [routerLink]="getFolderUrl(folderNode)">
     <h1>
       {{ folderNode.name }}
     </h1>
   </a>
-  <span>
+  <span class="m-1">
     <h1>
       >
     </h1>
@@ -42,11 +44,17 @@
 </ng-template>
 
 <ng-template #nodeTemplateCurrent let-folderNode="folderNode">
-  <span>
+  <span class="m-1">
     <h1>
       <strong>
         {{ folderNode.name }}
       </strong>
     </h1>
   </span>
+</ng-template>
+
+<ng-template #homeVaultText>
+  <h1>
+    <strong>Vault</strong>
+  </h1>
 </ng-template>

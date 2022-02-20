@@ -23,11 +23,9 @@ export abstract class UserDataService {
   public folderObservable: Observable<Folder[]> = this.folderBehaviorSubject.asObservable()
     .pipe(
       tap(folders => {
-        if (this.setFolderData) {
-          DataUtil.setChildFolders(folders);
-          DataUtil.setPathNodes(folders);
-          this.setFolderData = false;
-        }
+        DataUtil.setChildFolders(folders);
+        DataUtil.setPathNodes(folders);
+        this.setFolderData = false;
       })
     );
 
@@ -117,7 +115,8 @@ export abstract class UserDataService {
     this.refreshData(user, true);
   }
 
-  private refreshData(user: User, updateFolderData: boolean = false): void {
+  private refreshData(user: User, setFolderData: boolean = false): void {
+    this.setFolderData = setFolderData;
     this.folderBehaviorSubject.next(user.folders);
     this.passwordsBehaviorSubject.next(user.passwords);
   }

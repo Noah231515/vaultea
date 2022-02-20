@@ -14,7 +14,7 @@ export class ButtonsConstant {
 
   public static readonly SIGNUP_BUTTON: ButtonInterface = {
     buttonTypeClass: "mat-raised-button",
-    color: "secondary",
+    color: "accent",
     text: "Sign Up",
     type: "button",
     ariaLabel: "Sign Up"
@@ -30,7 +30,7 @@ export class ButtonsConstant {
 
   public static readonly CANCEL_BUTTON: ButtonInterface = {
     buttonTypeClass: "mat-button",
-    color: "secondary",
+    color: "accent",
     text: "Cancel",
     type: "button",
     ariaLabel: "Cancel"
@@ -54,7 +54,7 @@ export class ButtonsConstant {
 
   public static readonly FLOATING_ADD_BUTTON: ButtonInterface = {
     buttonTypeClass: "mat-fab",
-    color: "primary",
+    color: "accent",
     type:"button",
     ariaLabel: "Add",
     icon: "add"

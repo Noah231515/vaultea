@@ -2,6 +2,7 @@ import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { take } from "rxjs/operators";
 
 import { AuthenticationService } from "../authentication.service";
 
@@ -45,9 +46,13 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
 
     rawData.key = await this.browserCryptoBusinessLogicService.encryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), await this.browserCryptoBusinessLogicService.generateEncryptionKey());
     rawData.password = await this.browserCryptoBusinessLogicService.hashPassword(this.userKeyService.getMasterKey(), rawData.password);
-    this.authenticationService.signUp(rawData).subscribe(() => {
-      // TODO: Do something
-    });
+    this.authenticationService.signUp(rawData)
+      .pipe(
+        take(1)
+      )
+      .subscribe(() => {
+        // TODO: Do something
+      });
   }
 
   public cancel(): void {

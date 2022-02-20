@@ -6,7 +6,7 @@ import { Folder, FolderService } from "@folder";
 import { CreateItemSelectComponent, TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { CardData } from "@ui-kit";
 import { Observable, of, Subscription, zip } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { catchError, map, take } from "rxjs/operators";
 
 import { UserDataService } from "../../abstract/services/user-data.service";
 import { PasswordService } from "../../password/services/password.service";
@@ -114,6 +114,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   private deleteFolder(folderId: string): void {
     this.folderService.delete(folderId)
       .pipe(
+        take(1),
         catchError(err => of(this.snackBarService.open(err.error.msg)))
       )
       .subscribe(folderId => {
@@ -125,6 +126,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   private deletePassword(passwordId: string): void {
     this.passwordService.delete(passwordId)
       .pipe(
+        take(1),
         catchError(err => of(this.snackBarService.open(err.error.msg)))
       )
       .subscribe(passwordId => {

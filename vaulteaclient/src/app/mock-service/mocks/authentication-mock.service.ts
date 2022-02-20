@@ -2,15 +2,14 @@ import { Injectable } from "@angular/core";
 import { User } from "@authentication";
 import { Folder } from "@folder";
 import { Password } from "@password";
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthenticationMockService  {
-  private user: User;
-  private isLoggedInBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public isLoggedInObservable: Observable<boolean> = this.isLoggedInBehaviorSubject.asObservable();
+  private userBehaviorSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  public userObservable: Observable<User> = this.userBehaviorSubject.asObservable();
 
   public childFolder1: Folder = {
     id: "2",
@@ -64,7 +63,7 @@ export class AuthenticationMockService  {
   }
 
   private setup(): void {
-    this.user = {
+    this.userBehaviorSubject.next({
       id: "1",
       vaultId: "1",
       username: "Test Man",
@@ -72,32 +71,11 @@ export class AuthenticationMockService  {
       key: "",
       folders: this.folders,
       passwords: this.passwords
-    };
+    });
   }
 
-  public signUp(formData: any): Observable<any> {
-    throw new Error("Method not implemented.");
-  }
-  public login(formData: any): Observable<any> {
-    return of(this.user);
-  }
-  public setUser(user: User): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
-  public isLoggedIn(): boolean {
-    throw new Error("Method not implemented.");
-  }
-  public logout(): void {
-    throw new Error("Method not implemented.");
-  }
-  public getLoggedInUser(): User {
-    return this.user;
-  }
-  private updateIsLoggedIn(): void {
-    this.isLoggedInBehaviorSubject.next(!!this.user?.id && !!this.user?.accessToken);
-  }
-  public updateFolders(folder: Folder, newFolder: boolean): void {
-    throw new Error("Method not implemented.");
+  public getUser(): User {
+    return this.userBehaviorSubject.getValue();
   }
 
   public resetPathNodesAndChildren(): void {

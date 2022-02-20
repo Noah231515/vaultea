@@ -102,10 +102,10 @@ export abstract class UserDataService {
   }
 
   public getFolders(): Folder[] {
-    return this.userService.getUser().folders;
+    return this.userService.getUser()?.folders;
   }
 
   public getPasswords(): Password[] {
-    return this.userService.getUser().passwords;
+    return this.userService.getUser()?.passwords;
   }
 }

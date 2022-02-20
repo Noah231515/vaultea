@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ActivatedRoute } from "@angular/router";
-import { AuthenticationService } from "@authentication";
+import { UserService } from "@authentication";
 import { AuthenticationMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteUtilService, SnackBarService } from "@ui-kit";
@@ -25,9 +25,9 @@ describe("PasswordFormComponent", () => {
         MatSnackBarModule
       ],
       providers: [
-        { provide: AuthenticationService, useClass: AuthenticationMockService },
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
+        { provide: UserService, useClass: AuthenticationMockService },
         AutocompleteUtilService,
         FormBuilder,
         PasswordService,

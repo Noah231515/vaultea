@@ -24,8 +24,6 @@ export abstract class UserDataService {
   private passwordsBehaviorSubject: BehaviorSubject<Password[]> = new BehaviorSubject<Password[]>([]);
   public passwordObservable: Observable<Password[]> = this.passwordsBehaviorSubject.asObservable();
 
-  public currentFolderId: string;
-
   constructor(
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,

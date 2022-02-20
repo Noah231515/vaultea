@@ -9,8 +9,6 @@ import { Folder } from "@folder";
 export class BreadcrumbComponent {
   @Input() public folder?: Folder;
 
-  constructor() { }
-
   public getFolderUrl(folder: Folder): string[] {
     return [`/vault/folder/${folder.id}`];
   }

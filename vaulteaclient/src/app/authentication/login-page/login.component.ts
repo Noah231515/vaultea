@@ -9,6 +9,7 @@ import { User } from "..";
 import { ButtonInterface } from "../../ui-kit";
 import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 import { AuthenticationService } from "../authentication.service";
+import { UserService } from "../services/user.service";
 
 @Component({
   selector: "vaultea-login",
@@ -28,6 +29,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     private browserCryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
     private snackBarService: SnackBarService,
+    private userService: UserService
   ) {
     super()
   }
@@ -63,7 +65,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
         catchError(err => of(this.snackBarService.open(err.error.msg)))
       )
       .subscribe(async (user: User) => {
-        await this.authenticationService.setUser(user);
+        await this.userService.setUser(user);
         this.router.navigate(["/vault/home"]);
       });
   }

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Folder, FolderService } from "@folder";
 import { CreateItemSelectComponent, TypeEnum, VaultDynamicDrawerService } from "@shared";
 import { CardData } from "@ui-kit";
-import { Observable, of, Subscription, zip } from "rxjs";
+import { combineLatest, Observable, of, Subscription } from "rxjs";
 import { catchError, map, take } from "rxjs/operators";
 
 import { UserDataService } from "../../abstract/services/user-data.service";
@@ -71,13 +71,14 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.vaultItemsObservable = zip(folderVaultObservable, passwordVaultObservable).pipe(
-      map(result => {
-        return [].concat(
-          result[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId),
-          result[1].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : x)
-        );
-      })
+    this.vaultItemsObservable = combineLatest([folderVaultObservable, passwordVaultObservable])
+      .pipe(
+        map(result => {
+          return [].concat(
+            result[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId),
+            result[1].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : x)
+          );
+        })
     );
   }
 

@@ -1,12 +1,12 @@
 import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
-import { AuthenticationService, User } from "@authentication";
+import { User } from "@authentication";
 import { Folder } from "@folder";
 import { KeysToOmitConstant } from "@shared";
 import { DataUtil } from "@util";
 import { BehaviorSubject, Observable } from "rxjs";
-import { tap } from "rxjs/operators";
 
+import { UserService } from "../../authentication/services/user.service";
 import { Password } from "../../password/password.model";
 
 @Injectable({
@@ -19,14 +19,7 @@ export abstract class UserDataService {
   public refreshDataObservable: Observable<null> = this.refreshDataBehaviorSubject.asObservable();
 
   private folderBehaviorSubject: BehaviorSubject<Folder[]> = new BehaviorSubject<Folder[]>([]);
-  public folderObservable: Observable<Folder[]> = this.folderBehaviorSubject.asObservable()
-    .pipe(
-      tap(folders => {
-        DataUtil.setChildFolders(folders);
-        DataUtil.setPathNodes(folders);
-        this.setFolderData = false;
-      })
-    );
+  public folderObservable: Observable<Folder[]> = this.folderBehaviorSubject.asObservable();
 
   private passwordsBehaviorSubject: BehaviorSubject<Password[]> = new BehaviorSubject<Password[]>([]);
   public passwordObservable: Observable<Password[]> = this.passwordsBehaviorSubject.asObservable();
@@ -34,13 +27,13 @@ export abstract class UserDataService {
   public currentFolderId: string;
 
   constructor(
-    private authenticationService: AuthenticationService,
+    private userService: UserService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
   ) { }
 
   public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> {
-    const user = this.authenticationService.getLoggedInUser();
+    const user = this.userService.getUser();
 
     if (newFolder) {
       user.folders.push(
@@ -57,7 +50,7 @@ export abstract class UserDataService {
   }
 
   public async updatePasswords(password: Password, newPassword: boolean): Promise<void> {
-    const user = this.authenticationService.getLoggedInUser();
+    const user = this.userService.getUser();
 
     if (newPassword) {
       user.passwords.push(
@@ -76,15 +69,18 @@ export abstract class UserDataService {
 
   public refreshData(user?: User, setFolderData: boolean = false): void {
     if (!user) {
-      user = this.authenticationService.getLoggedInUser();
+      user = this.userService.getUser();
     }
-    this.setFolderData = setFolderData;
+    if (setFolderData) {
+      DataUtil.setChildFolders(user.folders);
+      DataUtil.setPathNodes(user.folders);
+    }
     this.folderBehaviorSubject.next(user.folders);
     this.passwordsBehaviorSubject.next(user.passwords);
   }
 
   public removeFolder(folderId: string): void {
-    const user = this.authenticationService.getLoggedInUser();
+    const user = this.userService.getUser();
     const index = user.folders.findIndex(x => x.id === folderId);
     user.folders.splice(index, 1);
 
@@ -92,7 +88,7 @@ export abstract class UserDataService {
   }
 
   public removePassword(passwordId: string): void {
-    const user = this.authenticationService.getLoggedInUser();
+    const user = this.userService.getUser();
     const index = user.passwords.findIndex(x => x.id === passwordId);
     user.passwords.splice(index, 1);
 
@@ -100,10 +96,10 @@ export abstract class UserDataService {
   }
 
   public getFolders(): Folder[] {
-    return this.authenticationService.getLoggedInUser().folders;
+    return this.userService.getUser().folders;
   }
 
   public getPasswords(): Password[] {
-    return this.authenticationService.getLoggedInUser().passwords;
+    return this.userService.getUser().passwords;
   }
 }

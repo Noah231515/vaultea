@@ -28,7 +28,7 @@ export class FolderTreeComponent implements OnInit {
   private listenForDataChanges(): void {
     this.userDataService.folderObservable
       .subscribe(folders => {
-        this.dataSource.data = folders;
+        this.dataSource.data = folders.filter(x => !x.folderId);
       });
   }
 

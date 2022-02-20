@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Observable } from "rxjs";
 
 import { UserService } from "./services/user.service";
 
@@ -10,8 +10,6 @@ import { UserService } from "./services/user.service";
   providedIn: "root"
 })
 export class AuthenticationService {
-  private isLoggedInBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public isLoggedInObservable: Observable<boolean> = this.isLoggedInBehaviorSubject.asObservable();
 
   constructor(
     private httpClient: HttpClient,
@@ -24,10 +22,6 @@ export class AuthenticationService {
 
   public login(formData: any): Observable<any> {
     return this.httpClient.post("api/login", formData)
-  }
-
-  public isLoggedIn(): boolean {
-    return this.isLoggedInBehaviorSubject.getValue();
   }
 
   public logout(): void {

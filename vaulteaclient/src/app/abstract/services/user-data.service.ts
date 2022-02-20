@@ -5,6 +5,7 @@ import { Folder } from "@folder";
 import { KeysToOmitConstant } from "@shared";
 import { DataUtil } from "@util";
 import { BehaviorSubject, Observable } from "rxjs";
+import { take } from "rxjs/operators";
 
 import { UserService } from "../../authentication/services/user.service";
 import { Password } from "../../password/password.model";
@@ -14,7 +15,6 @@ import { Password } from "../../password/password.model";
 })
 export abstract class UserDataService {
 
-  public setFolderData: boolean = true;
   private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: Remove
   public refreshDataObservable: Observable<null> = this.refreshDataBehaviorSubject.asObservable();
 
@@ -27,10 +27,18 @@ export abstract class UserDataService {
   public currentFolderId: string;
 
   constructor(
-    private userService: UserService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
-  ) { }
+    private userService: UserService,
+  ) {
+    this.userService.userObservable
+      .pipe(
+        take(1)
+      )
+      .subscribe(user => {
+        this.refreshData(user, true);
+      });
+  }
 
   public async updateFolders(folder: Folder, newFolder: boolean): Promise<void> {
     const user = this.userService.getUser();

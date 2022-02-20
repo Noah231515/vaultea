@@ -41,21 +41,27 @@ body {
 }
 
 $primary-palette: (
+  100: $secondary-dark-green,
   200: $secondary-dark-green,
+  700: $secondary-dark-green,
   contrast: (
     200: rgba(black, 0.87)
   )
 );
 
 $secondary-palette: (
+  100: $primary-yellow,
   200: $primary-yellow,
+  700: $primary-yellow,
   contrast: (
     200: rgba(black, 0.87)
   )
 );
 
 $warn-palette: (
+  100: $error-red,
   200: $error-red,
+  700: $error-red,
   contrast: (
     200: rgba(black, 0.87)
   )

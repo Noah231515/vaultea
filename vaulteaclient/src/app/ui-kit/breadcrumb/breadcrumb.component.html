@@ -45,16 +45,14 @@
 
 <ng-template #nodeTemplateCurrent let-folderNode="folderNode">
   <span class="m-1">
-    <h1>
-      <strong>
+    <h1 class="current-folder">
         {{ folderNode.name }}
-      </strong>
     </h1>
   </span>
 </ng-template>
 
 <ng-template #homeVaultText>
-  <h1>
-    <strong>Vault</strong>
+  <h1 class="current-folder">
+    Vault
   </h1>
 </ng-template>

@@ -106,19 +106,4 @@ export abstract class UserDataService {
   public getPasswords(): Password[] {
     return this.authenticationService.getLoggedInUser().passwords;
   }
-
-  public getFlatFolders(): Folder[] {
-    let folders = Array.from(this.getFolders());
-    let index = 0;
-
-    // eslint-disable-next-line no-constant-condition
-    while (folders[index]) {
-      const folder = folders[index];
-      if (folder) {
-        folders = folders.concat(folder.childFolders);
-      }
-      index++;
-    }
-    return folders;
-  }
 }

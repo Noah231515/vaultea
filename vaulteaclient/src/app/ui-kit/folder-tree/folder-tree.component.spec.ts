@@ -1,6 +1,6 @@
 import { CryptoBusinessLogicService, UserDataService, UserKeyService } from "@abstract";
-import { HttpClientModule } from "@angular/common/http";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
 import { AuthenticationService } from "@authentication";
 import { AuthenticationMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
@@ -16,7 +16,7 @@ describe("FolderTreeComponent", () => {
     await TestBed.configureTestingModule({
       declarations: [ FolderTreeComponent ],
       imports: [
-        HttpClientModule
+        RouterTestingModule
       ],
       providers: [
         UserKeyService,

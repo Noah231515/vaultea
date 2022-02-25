@@ -1,10 +1,12 @@
 import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
 import { take } from "rxjs/operators";
+import { EditData } from "src/app/shared/models/edit-data.interface";
 
 import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
 import { FormHeaderData } from "../../ui-kit/form-header/form-header-data.interface";
@@ -29,9 +31,11 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private userDataService: UserDataService,
     private snackbarService: SnackBarService,
     private route: ActivatedRoute,
-    public autocompleteUtilService: AutocompleteUtilService
+    public autocompleteUtilService: AutocompleteUtilService,
+    @Inject(MAT_DIALOG_DATA) public data: EditData
   ) {
     super();
+    this.existingObject = data?.existingObject;
   }
 
   public ngOnInit(): void {

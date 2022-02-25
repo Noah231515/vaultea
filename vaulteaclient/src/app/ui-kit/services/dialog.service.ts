@@ -6,7 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class DialogService {
 
-  public afterClosed: EventEmitter<any>;
+  public afterClosed: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private dialog: MatDialog

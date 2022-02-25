@@ -1,8 +1,9 @@
 import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
-import { KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
+import { EditData, KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteUtilService, SnackBarService } from "@ui-kit";
 import { take } from "rxjs/operators";
 
@@ -28,9 +29,11 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private userDataService: UserDataService,
     private route: ActivatedRoute,
-    public autocompleteUtilService: AutocompleteUtilService
+    public autocompleteUtilService: AutocompleteUtilService,
+    @Inject(MAT_DIALOG_DATA) public data: EditData
   ) {
     super();
+    this.existingObject = data?.existingObject;
   }
 
   public ngOnInit(): void {

@@ -1,10 +1,11 @@
 import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
+import { VaultComponent } from "@vault";
 import { take } from "rxjs/operators";
 import { EditData } from "src/app/shared/models/edit-data.interface";
 
@@ -32,6 +33,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private snackbarService: SnackBarService,
     private route: ActivatedRoute,
     public autocompleteUtilService: AutocompleteUtilService,
+    private dialogRef: MatDialogRef<VaultComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditData
   ) {
     super();
@@ -91,6 +93,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
         this.vaultDynamicDrawerService.setState(false);
         await this.userDataService.updateFolders(createdFolder, true);
         this.snackbarService.open("Folder successfully created");
+        this.dialogRef.close();
       });
   }
 
@@ -105,6 +108,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
         updatedFolder.pathNodes = this.existingObject.pathNodes;
         await this.userDataService.updateFolders(updatedFolder, false);
         this.snackbarService.open("Folder successfully updated");
+        this.dialogRef.close();
       });
   }
 

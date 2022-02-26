@@ -1,10 +1,11 @@
 import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { EditData, KeysToOmitConstant, VaultDynamicDrawerService } from "@shared";
 import { AutocompleteUtilService, SnackBarService } from "@ui-kit";
+import { VaultComponent } from "@vault";
 import { take } from "rxjs/operators";
 
 import { AutocompleteData } from "../../../ui-kit/autocomplete/autocomplete-data.interface";
@@ -30,6 +31,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     private userDataService: UserDataService,
     private route: ActivatedRoute,
     public autocompleteUtilService: AutocompleteUtilService,
+    private dialogRef: MatDialogRef<VaultComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditData
   ) {
     super();
@@ -89,6 +91,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
         this.vaultDynamicDrawerService.setState(false);
         this.userDataService.updatePasswords(createdPassword, true);
         this.snackBarService.open("Password successfully created");
+        this.dialogRef.close();
       });
   }
 
@@ -101,6 +104,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
         this.vaultDynamicDrawerService.setState(false);
         this.userDataService.updatePasswords(updatedPassword, false);
         this.snackBarService.open("Password successfully updated");
+        this.dialogRef.close();
       });
   }
 

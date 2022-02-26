@@ -26,7 +26,6 @@ import { UserMockService } from "../../mock-service/mocks/user-mock.service";
 import { PasswordService } from "../../password/services/password.service";
 import { SharedModule } from "../../shared/shared.module";
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
-import { ContentDrawerComponent } from "../content-drawer/content-drawer.component";
 import { DrawerComponent } from "../drawer/drawer.component";
 import { VaultComponent } from "./vault.component";
 
@@ -42,7 +41,6 @@ describe("VaultComponent", () => {
       declarations: [
         VaultComponent,
         DrawerComponent,
-        ContentDrawerComponent,
       ],
       imports: [
         CommonModule,

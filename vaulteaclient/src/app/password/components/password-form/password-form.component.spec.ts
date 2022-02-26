@@ -2,11 +2,12 @@ import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } fro
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ActivatedRoute } from "@angular/router";
 import { UserService } from "@authentication";
 import { UserMockService } from "@mock";
-import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, VaultDynamicDrawerService } from "@shared";
+import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 import { AutocompleteUtilService, SnackBarService } from "@ui-kit";
 
 import { Password } from "../../password.model";
@@ -16,6 +17,13 @@ import { PasswordFormComponent } from "./password-form.component";
 describe("PasswordFormComponent", () => {
   let component: PasswordFormComponent;
   let fixture: ComponentFixture<PasswordFormComponent>;
+  const existingPassword: Password = {
+    id: "1",
+    vaultId: "1",
+    name: "Password",
+    username: "Test",
+    password: "Very good"
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -33,7 +41,12 @@ describe("PasswordFormComponent", () => {
         PasswordService,
         SnackBarService,
         UserKeyService,
-        VaultDynamicDrawerService,
+        {
+          provide: MatDialogRef, useValue: { }
+        },
+        {
+          provide: MAT_DIALOG_DATA, useValue: { existingObject: existingPassword }
+        },
         { provide: ActivatedRoute, useValue: {
           snapshot: {
             params: {
@@ -57,19 +70,11 @@ describe("PasswordFormComponent", () => {
   });
 
   it("should prepopulate data", () => {
-    const password: Password = {
-      id: "1",
-      vaultId: "1",
-      name: "Password",
-      username: "Test",
-      password: "Very good"
-    };
-    component.existingObject = password;
     component.ngOnInit();
     fixture.detectChanges();
 
-    expect(component.form.get("name").value).toEqual(password.name);
-    expect(component.form.get("username").value).toEqual(password.username);
-    expect(component.form.get("password").value).toEqual(password.password);
+    expect(component.form.get("name").value).toEqual(existingPassword.name);
+    expect(component.form.get("username").value).toEqual(existingPassword.username);
+    expect(component.form.get("password").value).toEqual(existingPassword.password);
   });
 });

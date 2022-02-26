@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Inject, OnInit } from "@angular/cor
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
-import { KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
+import { KeysToOmitConstant, SnackBarService } from "@shared";
 import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
 import { VaultComponent } from "@vault";
 import { take } from "rxjs/operators";
@@ -28,7 +28,6 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private folderService: FolderService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
-    private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private userDataService: UserDataService,
     private snackbarService: SnackBarService,
     private route: ActivatedRoute,
@@ -90,7 +89,6 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
         take(1)
       )
       .subscribe(async createdFolder => {
-        this.vaultDynamicDrawerService.setState(false);
         await this.userDataService.updateFolders(createdFolder, true);
         this.snackbarService.open("Folder successfully created");
         this.dialogRef.close();
@@ -103,7 +101,6 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
         take(1)
       )
       .subscribe(async updatedFolder => {
-        this.vaultDynamicDrawerService.setState(false);
         updatedFolder.childFolders = this.existingObject.childFolders;
         updatedFolder.pathNodes = this.existingObject.pathNodes;
         await this.userDataService.updateFolders(updatedFolder, false);

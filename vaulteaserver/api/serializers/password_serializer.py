@@ -14,7 +14,7 @@ class PasswordSerializer(serializers.Serializer):
     note = serializers.CharField(required=False, max_length=1000)
 
     def create(self, validated_data, user):
-        vault = Vault.get(user_id=user.id)
+        vault = Vault.objects.get(user_id=user.id)
         validated_data['vault_id'] = vault
         if (validated_data['folder_id']):
             folder = Folder()

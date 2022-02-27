@@ -1,7 +1,6 @@
 import json
 
 from django.http.response import HttpResponse, JsonResponse
-from django.core import serializers
 from django.forms.models import model_to_dict
 
 from rest_framework import status
@@ -9,11 +8,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.serializers.folder_serializer import FolderSerializer
-from api.models import Folder, Password
+from api.models import Password
 from api.serializers.password_serializer import PasswordSerializer
+from api.permissions.password_permission import PasswordPermission
 
 class PasswordCrud(APIView):
+  permission_classes = [PasswordPermission]
 
   def post(self, request):
     serializer = PasswordSerializer(data=json.loads(request.body))

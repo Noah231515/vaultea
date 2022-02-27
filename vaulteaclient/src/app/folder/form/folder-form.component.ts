@@ -1,10 +1,13 @@
 import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
-import { KeysToOmitConstant, SnackBarService, VaultDynamicDrawerService } from "@shared";
+import { KeysToOmitConstant, SnackBarService } from "@shared";
 import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
+import { VaultComponent } from "@vault";
 import { take } from "rxjs/operators";
+import { EditData } from "src/app/shared/models/edit-data.interface";
 
 import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
 import { FormHeaderData } from "../../ui-kit/form-header/form-header-data.interface";
@@ -25,13 +28,15 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private folderService: FolderService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
-    private vaultDynamicDrawerService: VaultDynamicDrawerService,
     private userDataService: UserDataService,
     private snackbarService: SnackBarService,
     private route: ActivatedRoute,
-    public autocompleteUtilService: AutocompleteUtilService
+    public autocompleteUtilService: AutocompleteUtilService,
+    private dialogRef: MatDialogRef<VaultComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: EditData
   ) {
     super();
+    this.existingObject = data?.existingObject;
   }
 
   public ngOnInit(): void {
@@ -84,9 +89,9 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
         take(1)
       )
       .subscribe(async createdFolder => {
-        this.vaultDynamicDrawerService.setState(false);
         await this.userDataService.updateFolders(createdFolder, true);
         this.snackbarService.open("Folder successfully created");
+        this.dialogRef.close();
       });
   }
 
@@ -96,11 +101,11 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
         take(1)
       )
       .subscribe(async updatedFolder => {
-        this.vaultDynamicDrawerService.setState(false);
         updatedFolder.childFolders = this.existingObject.childFolders;
         updatedFolder.pathNodes = this.existingObject.pathNodes;
         await this.userDataService.updateFolders(updatedFolder, false);
         this.snackbarService.open("Folder successfully updated");
+        this.dialogRef.close();
       });
   }
 

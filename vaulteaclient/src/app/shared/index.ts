@@ -7,10 +7,12 @@ export * from "./models/encrypted-data.model";
 export * from "./models/stretched-master-key.model";
 export * from ".//models/vaultea-crypto-key.model";
 
+// Interfaces
+export * from "./models/edit-data.interface";
+
 // Services
 export * from "./services/browser-crypto-function.service";
 export * from "./services/browser-crypto-business-logic.service";
-export * from "./services/vault-dynamic-drawer.service";
 export * from "../ui-kit/services/snack-bar.service";
 
 // Interceptors

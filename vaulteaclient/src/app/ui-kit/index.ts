@@ -9,3 +9,4 @@ export * from "./button/buttons.constant"
 // Services
 export * from "./services/snack-bar.service";
 export * from "./services/autocomplete-util.service"
+export * from "./services/dialog.service";

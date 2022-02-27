@@ -1,14 +1,16 @@
 import { BaseComponent } from "@abstract";
-import { ComponentPortal } from "@angular/cdk/portal";
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
+import { MatDialogConfig } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Folder, FolderService } from "@folder";
-import { CreateItemSelectComponent, TypeEnum, VaultDynamicDrawerService } from "@shared";
-import { CardData } from "@ui-kit";
+import { Folder, FolderFormComponent, FolderService } from "@folder";
+import { CreateItemSelectComponent, TypeEnum } from "@shared";
+import { CardData, DialogService } from "@ui-kit";
 import { combineLatest, Observable, of, Subscription } from "rxjs";
 import { catchError, map, take } from "rxjs/operators";
+import { EditData } from "src/app/shared/models/edit-data.interface";
 
 import { UserDataService } from "../../abstract/services/user-data.service";
+import { PasswordFormComponent } from "../../password/components/password-form/password-form.component";
 import { PasswordService } from "../../password/services/password.service";
 import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 import { VaultItem } from "../models/vault-item.interface";
@@ -28,16 +30,19 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   public currentFolderId: string;
   public routeSubscription: Subscription;
 
+  public editComponentMap: Map<TypeEnum, any> = new Map();
+
   public constructor(
-    private vaultDynamicDrawerService: VaultDynamicDrawerService,
     public userDataService: UserDataService,
     private snackBarService: SnackBarService,
     private folderService: FolderService,
     private passwordService: PasswordService,
+    private dialogService: DialogService,
     private router: Router,
     private route: ActivatedRoute,
   ) {
     super();
+    this.setEditComponentMap();
     this.routeSubscription = this.route
       .params
       .subscribe(params => {
@@ -101,6 +106,14 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     }
   }
 
+  public openModalInEditMode(cardData: CardData): void {
+    const editData: EditData = {existingObject: cardData.object};
+    const config: MatDialogConfig = new MatDialogConfig();
+    config.data = editData;
+
+    this.dialogService.open(this.editComponentMap.get(cardData.type), config);
+  }
+
   public handleContentClicked(cardData: CardData): void {
     switch (cardData.type) {
       case TypeEnum.FOLDER:
@@ -139,12 +152,15 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   public addItem(): void {
-    this.vaultDynamicDrawerService.setPortalComponent(new ComponentPortal(CreateItemSelectComponent));
-    this.vaultDynamicDrawerService.setState(true);
+    this.dialogService.open(CreateItemSelectComponent)
   }
 
   public ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
   }
 
+  private setEditComponentMap(): void {
+    this.editComponentMap.set(TypeEnum.FOLDER, FolderFormComponent);
+    this.editComponentMap.set(TypeEnum.PASSWORD, PasswordFormComponent);
+  }
 }

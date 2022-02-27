@@ -7,8 +7,7 @@ class FolderSerializer(serializers.Serializer):
     folder_id = serializers.IntegerField(required=False, allow_null=True)
 
     def create(self, validated_data, user):
-        vault = Vault()
-        vault.id = user.id
+        vault = Vault.objects.get(user_id=user.id)
         validated_data['vault_id'] = vault
         if (validated_data['folder_id']):
             parent_folder = Folder()

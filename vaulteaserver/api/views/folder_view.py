@@ -1,18 +1,16 @@
 import json
-
-from django.http.response import HttpResponse, JsonResponse
-from django.core import serializers
 from django.forms.models import model_to_dict
 
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.serializers.folder_serializer import FolderSerializer
 from api.models import Folder
+from api.permissions.folder_permission import FolderPermission
 
 class FolderCrud(APIView):
+  permission_classes = [FolderPermission]
 
   def post(self, request):
     serializer = FolderSerializer(data=json.loads(request.body))

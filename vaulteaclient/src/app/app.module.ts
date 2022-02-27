@@ -37,15 +37,8 @@ import { BrowserCryptoFunctionService } from "./shared/services/browser-crypto-f
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: ErrorInterceptor,
-    //   multi: true,
-    //   deps: [SnackBarService],
-
-    // }
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

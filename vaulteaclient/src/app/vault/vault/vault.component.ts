@@ -1,5 +1,6 @@
 import { BaseComponent } from "@abstract";
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
+import { MatDialogConfig } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Folder, FolderFormComponent, FolderService } from "@folder";
 import { CreateItemSelectComponent, TypeEnum } from "@shared";
@@ -107,11 +108,10 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
 
   public openModalInEditMode(cardData: CardData): void {
     const editData: EditData = {existingObject: cardData.object};
+    const config: MatDialogConfig = new MatDialogConfig();
+    config.data = editData;
 
-    this.dialogService.open(
-      this.editComponentMap.get(cardData.type),
-      editData
-    );
+    this.dialogService.open(this.editComponentMap.get(cardData.type), config);
   }
 
   public handleContentClicked(cardData: CardData): void {

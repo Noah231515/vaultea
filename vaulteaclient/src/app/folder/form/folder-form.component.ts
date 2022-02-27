@@ -67,7 +67,6 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       description: [this.existingObject?.description ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
-      vaultId: ["1"], // TODO: Remove from form
       folderId: [this.existingObject?.folderId ?? (parseInt(this.route.snapshot.params.id) || null)]
     });
   }

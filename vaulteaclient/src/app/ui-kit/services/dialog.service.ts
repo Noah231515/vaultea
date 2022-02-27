@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 
 @Injectable({
   providedIn: "root"
@@ -12,11 +12,8 @@ export class DialogService {
     private dialog: MatDialog
   ) { }
 
-  public open(component: any, data?: any): void {
-    const dialogRef = this.dialog.open(component, {
-      // width: "250px",
-      data: data
-    });
+  public open(component: any, config?: MatDialogConfig): void {
+    const dialogRef = this.dialog.open(component, config);
 
     dialogRef.afterClosed().subscribe(() => this.afterClosed.emit())
   }

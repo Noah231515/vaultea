@@ -81,7 +81,6 @@ describe("FolderFormComponent", () => {
     expect(component.headerText).toEqual("Edit " + existingFolder.name);
     expect(form.get("name").value).toEqual(existingFolder.name);
     expect(form.get("description").value).toEqual(existingFolder.description);
-    expect(form.get("vaultId").value).toEqual("1");
     expect(form.get("folderId").value).toEqual("");
   })
 });

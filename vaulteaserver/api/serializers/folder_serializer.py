@@ -2,14 +2,13 @@ from rest_framework import serializers
 from api.models import Folder, Vault
 
 class FolderSerializer(serializers.Serializer):
-    vault_id = serializers.IntegerField(required=True)
     name = serializers.CharField(required=True, max_length=100)
     description = serializers.CharField(required=False, max_length=100)
     folder_id = serializers.IntegerField(required=False, allow_null=True)
 
-    def create(self, validated_data):
+    def create(self, validated_data, user):
         vault = Vault()
-        vault.id = validated_data['vault_id']
+        vault.id = user.id
         validated_data['vault_id'] = vault
         if (validated_data['folder_id']):
             parent_folder = Folder()

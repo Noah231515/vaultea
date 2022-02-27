@@ -17,7 +17,7 @@ class FolderCrud(APIView):
   def post(self, request):
     serializer = FolderSerializer(data=json.loads(request.body))
     if serializer.is_valid(raise_exception=True):
-      new_folder = serializer.create(serializer.data)
+      new_folder = serializer.create(serializer.data, request.user)
 
     return Response(model_to_dict(new_folder), status=status.HTTP_200_OK)
 

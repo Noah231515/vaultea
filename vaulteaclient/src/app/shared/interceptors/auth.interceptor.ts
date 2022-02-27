@@ -2,16 +2,16 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { UserService } from "@authentication";
-import { Observable } from "rxjs";
-
-import { AuthenticationService } from "../../authentication/authentication.service";
+import { SnackBarService } from "@shared";
+import { Observable, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private TOKEN_HEADER_KEY: string = "Authorization";
 
   constructor(
-      private authenticationService: AuthenticationService,
+      private snackbarService: SnackBarService,
       private userService: UserService
   ) { }
 
@@ -23,7 +23,13 @@ export class AuthInterceptor implements HttpInterceptor {
     if (token != null && !loggingInOrSigningUp) {
       authReq = this.addTokenHeader(req, `Bearer ${token}`);
     }
-    return next.handle(authReq);
+    const handle = next.handle(authReq);
+    return handle.pipe(
+      catchError(err => {
+        this.snackbarService.open(err.message);
+        return throwError(err);
+      })
+    );
   }
 
   private addTokenHeader(request: HttpRequest<any>, token: string) {

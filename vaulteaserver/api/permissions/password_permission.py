@@ -1,5 +1,5 @@
 from api.models import Password
-from api.permissions.item_permission import VaultItemPermission
+from api.permissions.vault_item_permission import VaultItemPermission
 
 class PasswordPermission(VaultItemPermission):
   def __init__(self) -> None:

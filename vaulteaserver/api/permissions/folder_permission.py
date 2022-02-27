@@ -1,5 +1,5 @@
 from api.models import Folder
-from api.permissions.item_permission import VaultItemPermission
+from api.permissions.vault_item_permission import VaultItemPermission
 
 class FolderPermission(VaultItemPermission):
   def __init__(self) -> None:

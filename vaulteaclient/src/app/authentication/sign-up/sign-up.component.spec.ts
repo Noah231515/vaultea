@@ -50,17 +50,17 @@ describe("SignUpComponent", () => {
   });
 
   it("should create", () => {
-    expect(component).toBeTruthy(); // TODO: Revisit
+    expect(component).toBeTruthy();
   });
 
 
-  // it("should render the form", () => {
-  //   const form = document.querySelector("vaultea-form");
-  //   const inputs = document.querySelectorAll("vaultea-input");
-  //   const buttons = document.querySelectorAll("vaultea-button");
+  it("should render the form", () => {
+    const form = document.querySelector("vaultea-form");
+    const inputs = document.querySelectorAll("vaultea-input");
+    const buttons = document.querySelectorAll("vaultea-button");
 
-  //   expect(form).toBeTruthy();
-  //   expect(inputs.length).toEqual(2);
-  //   expect(buttons.length).toEqual(2);
-  // });
+    expect(form).toBeTruthy();
+    expect(inputs.length).toEqual(2);
+    expect(buttons.length).toEqual(1);
+  });
 });

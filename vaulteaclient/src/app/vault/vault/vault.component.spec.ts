@@ -1,7 +1,7 @@
 import { of } from "rxjs";
 
 import {
-    CryptoBusinessLogicService, CryptoFunctionService, UserDataService, UserKeyService
+  CryptoBusinessLogicService, CryptoFunctionService, UserDataService, UserKeyService
 } from "@abstract";
 import { PortalModule } from "@angular/cdk/portal";
 import { CommonModule } from "@angular/common";

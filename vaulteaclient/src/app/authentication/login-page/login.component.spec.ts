@@ -49,22 +49,23 @@ describe("LoginComponent", () => {
     form = new FormGroup({});
     form.addControl("username", new FormControl("Test Man"));
     form.addControl("password", new FormControl("securePassword"));
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it("should create", () => {
-    expect(true).toBeTruthy(); // TODO: Revisit this
+    expect(component).toBeTruthy();
   });
 
-  // it("should render the form", () => {
-  //   const form = document.querySelector("vaultea-form");
-  //   const inputs = document.querySelectorAll("vaultea-input");
-  //   const buttons = document.querySelectorAll("vaultea-button");
+  it("should render the form", () => {
+    const form = document.querySelector("vaultea-form");
+    const inputs = document.querySelectorAll("vaultea-input");
+    const buttons = document.querySelectorAll("vaultea-button");
 
-  //   expect(form).toBeTruthy();
-  //   expect(inputs.length).toEqual(2);
-  //   expect(buttons.length).toEqual(2);
-  // });
+    expect(form).toBeTruthy();
+    expect(inputs.length).toEqual(2);
+    expect(buttons.length).toEqual(2);
+  });
 
   it("should hash password", async () => {
     component = fixture.componentInstance;

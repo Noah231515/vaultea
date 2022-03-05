@@ -1,4 +1,8 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, UserDataService, UserKeyService } from "@abstract";
+import { of } from "rxjs";
+
+import {
+  CryptoBusinessLogicService, CryptoFunctionService, UserDataService, UserKeyService
+} from "@abstract";
 import { PortalModule } from "@angular/cdk/portal";
 import { CommonModule } from "@angular/common";
 import { HttpClient, HttpHandler } from "@angular/common/http";
@@ -14,13 +18,12 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
 import { UserService } from "@authentication";
 import { Folder, FolderModule, FolderService } from "@folder";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, TypeEnum } from "@shared";
 import { CardData } from "@ui-kit";
-import { of } from "rxjs";
 
 import { UserMockService } from "../../mock-service/mocks/user-mock.service";
 import { PasswordService } from "../../password/services/password.service";
@@ -46,6 +49,7 @@ describe("VaultComponent", () => {
         CommonModule,
         FolderModule,
         MatButtonModule,
+        MatCardModule,
         MatChipsModule,
         MatDialogModule,
         MatDividerModule,
@@ -54,12 +58,12 @@ describe("VaultComponent", () => {
         MatListModule,
         MatSidenavModule,
         MatTreeModule,
+        NoopAnimationsModule,
         PortalModule,
-        UiKitModule,
-        MatCardModule,
-        BrowserAnimationsModule,
-        SharedModule,
         RouterTestingModule,
+        SharedModule,
+        MatTreeModule,
+        UiKitModule,
       ],
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
@@ -89,24 +93,22 @@ describe("VaultComponent", () => {
     expect(component).toBeTruthy();
   });
 
-  // TODO: Revisit this test
-  // fit("should open a modal with an empty form", () => {
-  //   component.addItem();
-  //   fixture.detectChanges();
-  //   const form = document.querySelector("vaultea-folder-form")
-  //   console.log(form);
-  //   const inputs = form.querySelectorAll("input");
-  //   const select = document.querySelector("vaultea-select");
-  //   fixture.detectChanges();
+  it("should open a modal with an empty form", () => {
+    component.addItem();
+    fixture.detectChanges();
+    const form = document.querySelector("vaultea-folder-form")
+    const inputs = form.querySelectorAll("input");
+    const select = document.querySelector("vaultea-select");
+    fixture.detectChanges();
 
-  //   expect(select).toBeTruthy();
-  //   expect(form).toBeTruthy();
-  //   expect(form.querySelector("button").type).toEqual("submit");
-  //   expect(inputs.length).toEqual(3);
-  //   inputs.forEach((input: any) => {
-  //     expect(input.value).toEqual("");
-  //   });
-  // });
+    expect(select).toBeTruthy();
+    expect(form).toBeTruthy();
+    expect(form.querySelector("button").type).toEqual("submit");
+    expect(inputs.length).toEqual(3);
+    inputs.forEach((input: any) => {
+      expect(input.value).toEqual("");
+    });
+  });
 
   it("should add another card", async () => {
     userDataService = TestBed.inject(UserDataService);
@@ -126,7 +128,7 @@ describe("VaultComponent", () => {
       type: TypeEnum.FOLDER
     };
     const folderService = TestBed.inject(FolderService);
-    spyOn(folderService, "delete").and.returnValue(of(cardData.object.id));
+    jest.spyOn(folderService, "delete").mockReturnValue(of(cardData.object.id));
 
     const before = document.querySelectorAll("vaultea-card");
     expect(before.length).toEqual(3);
@@ -145,7 +147,7 @@ describe("VaultComponent", () => {
       type: TypeEnum.PASSWORD
     };
     const passwordService = TestBed.inject(PasswordService);
-    spyOn(passwordService, "delete").and.returnValue(of(cardData.object.id));
+    jest.spyOn(passwordService, "delete").mockReturnValue(of(cardData.object.id));
 
     const before = document.querySelectorAll("vaultea-card");
     expect(before.length).toEqual(3);

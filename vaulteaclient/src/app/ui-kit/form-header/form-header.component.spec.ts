@@ -1,6 +1,6 @@
+import { CommonModule } from "@angular/common";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { UiKitModule } from "../ui-kit.module";
 import { FormHeaderComponent } from "./form-header.component";
 
 describe("FormHeaderComponent", () => {
@@ -10,7 +10,7 @@ describe("FormHeaderComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ FormHeaderComponent ],
-      imports: [ UiKitModule]
+      imports: [ CommonModule ]
     })
       .compileComponents();
   });

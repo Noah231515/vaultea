@@ -1,8 +1,9 @@
+import { BehaviorSubject, Observable } from "rxjs";
+
 import { Injectable } from "@angular/core";
 import { User } from "@authentication";
 import { Folder } from "@folder";
 import { Password } from "@password";
-import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -87,5 +88,9 @@ export class UserMockService  {
     this.childFolder1.pathNodes = [];
     this.childFolder2.childFolders = [];
     this.childFolder2.pathNodes = [];
+  }
+
+  public logout(): void {
+    return;
   }
 }

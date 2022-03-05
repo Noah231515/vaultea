@@ -2,6 +2,8 @@ import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } fro
 import { CommonModule } from "@angular/common";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { MatCardModule } from "@angular/material/card";
+import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
@@ -27,6 +29,8 @@ describe("LoginComponent", () => {
         CommonModule,
         MatSnackBarModule,
         RouterTestingModule,
+        MatCardModule,
+        MatInputModule,
         UiKitModule,
       ],
       providers: [
@@ -45,22 +49,23 @@ describe("LoginComponent", () => {
     form = new FormGroup({});
     form.addControl("username", new FormControl("Test Man"));
     form.addControl("password", new FormControl("securePassword"));
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it("should create", () => {
-    expect(true).toBeTruthy(); // TODO: Revisit this
+    expect(component).toBeTruthy();
   });
 
-  // it("should render the form", () => {
-  //   const form = document.querySelector("vaultea-form");
-  //   const inputs = document.querySelectorAll("vaultea-input");
-  //   const buttons = document.querySelectorAll("vaultea-button");
+  it("should render the form", () => {
+    const form = document.querySelector("vaultea-form");
+    const inputs = document.querySelectorAll("vaultea-input");
+    const buttons = document.querySelectorAll("vaultea-button");
 
-  //   expect(form).toBeTruthy();
-  //   expect(inputs.length).toEqual(2);
-  //   expect(buttons.length).toEqual(2);
-  // });
+    expect(form).toBeTruthy();
+    expect(inputs.length).toEqual(2);
+    expect(buttons.length).toEqual(2);
+  });
 
   it("should hash password", async () => {
     component = fixture.componentInstance;

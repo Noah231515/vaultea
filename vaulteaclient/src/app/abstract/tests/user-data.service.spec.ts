@@ -8,6 +8,7 @@ import { UserDataService } from "../services/user-data.service";
 import { UserKeyService } from "../services/user-key.service";
 
 describe("UserDataService", () => {
+  let service: UserDataService;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -22,5 +23,10 @@ describe("UserDataService", () => {
         UserKeyService,
       ]
     });
+    service = TestBed.inject(UserDataService);
+  });
+
+  it("should be created", () => {
+    expect(service).toBeTruthy();
   });
 });

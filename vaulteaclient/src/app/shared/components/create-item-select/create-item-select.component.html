@@ -14,7 +14,7 @@
     }"
   ></vaultea-select>
 
-  <ng-container fxFlex [ngSwitch]="form.get('itemType').value">
+  <ng-container [ngSwitch]="form.get('itemType').value">
     <vaultea-folder-form fxFlex *ngSwitchCase="'Folder'"></vaultea-folder-form>
     <vaultea-password-form fxFlex *ngSwitchCase="'Password'"></vaultea-password-form>
   </ng-container>

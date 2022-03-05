@@ -1,5 +1,6 @@
 import { CryptoBusinessLogicService, UserDataService, UserKeyService } from "@abstract";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { MatTreeModule } from "@angular/material/tree";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AuthenticationService } from "@authentication";
 import { UserMockService } from "@mock";
@@ -16,7 +17,8 @@ describe("FolderTreeComponent", () => {
     await TestBed.configureTestingModule({
       declarations: [ FolderTreeComponent ],
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        MatTreeModule
       ],
       providers: [
         UserKeyService,
@@ -39,3 +41,4 @@ describe("FolderTreeComponent", () => {
     expect(component).toBeTruthy();
   });
 });
+

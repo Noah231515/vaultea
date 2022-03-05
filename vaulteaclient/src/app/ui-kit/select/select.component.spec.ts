@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { FormControl } from "@angular/forms";
+import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 
 import { SelectData } from "./select-data.interface";
 import { SelectComponent } from "./select.component";
@@ -14,8 +14,9 @@ describe("SelectComponent", () => {
     await TestBed.configureTestingModule({
       declarations: [ SelectComponent ],
       imports: [
-        BrowserAnimationsModule,
-        MatSelectModule
+        MatSelectModule,
+        NoopAnimationsModule,
+        ReactiveFormsModule,
       ]
     })
       .compileComponents();

@@ -1,6 +1,5 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-
 import { FocusInvalidInputDirective } from "./base/focus-invalid-input/focus-invalid-input.directive";
 
 @NgModule({
@@ -8,7 +7,7 @@ import { FocusInvalidInputDirective } from "./base/focus-invalid-input/focus-inv
     FocusInvalidInputDirective,
   ],
   exports: [
-    FocusInvalidInputDirective
+    FocusInvalidInputDirective,
   ],
   imports: [
     CommonModule

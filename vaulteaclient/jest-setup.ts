@@ -3,8 +3,7 @@ const nodeCrypto = require("crypto");
 
 Object.defineProperty(window, "crypto", {
   value: {
-    crypto: nodeCrypto,
-    subtle: nodeCrypto.subtle,
+    subtle: nodeCrypto.webcrypto.subtle,
     getRandomValues: (arr: any[]) => nodeCrypto.randomBytes(arr.length)
   }
 });

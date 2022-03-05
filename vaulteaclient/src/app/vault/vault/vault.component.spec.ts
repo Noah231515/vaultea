@@ -126,7 +126,7 @@ describe("VaultComponent", () => {
       type: TypeEnum.FOLDER
     };
     const folderService = TestBed.inject(FolderService);
-    spyOn(folderService, "delete").and.returnValue(of(cardData.object.id));
+    jest.spyOn(folderService, "delete").mockReturnValue(of(cardData.object.id));
 
     const before = document.querySelectorAll("vaultea-card");
     expect(before.length).toEqual(3);
@@ -145,7 +145,7 @@ describe("VaultComponent", () => {
       type: TypeEnum.PASSWORD
     };
     const passwordService = TestBed.inject(PasswordService);
-    spyOn(passwordService, "delete").and.returnValue(of(cardData.object.id));
+    jest.spyOn(passwordService, "delete").mockReturnValue(of(cardData.object.id));
 
     const before = document.querySelectorAll("vaultea-card");
     expect(before.length).toEqual(3);

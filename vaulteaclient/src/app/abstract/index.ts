@@ -1,3 +1,5 @@
+export * from "./abstract.module";
+
 // Base classes
 export * from "../abstract/base/base-component/base.component";
 export * from "./base/base-form/base-form.component";

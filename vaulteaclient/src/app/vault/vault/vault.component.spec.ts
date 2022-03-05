@@ -1,4 +1,8 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, UserDataService, UserKeyService } from "@abstract";
+import { of } from "rxjs";
+
+import {
+    CryptoBusinessLogicService, CryptoFunctionService, UserDataService, UserKeyService
+} from "@abstract";
 import { PortalModule } from "@angular/cdk/portal";
 import { CommonModule } from "@angular/common";
 import { HttpClient, HttpHandler } from "@angular/common/http";
@@ -14,13 +18,12 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
 import { UserService } from "@authentication";
 import { Folder, FolderModule, FolderService } from "@folder";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, TypeEnum } from "@shared";
 import { CardData } from "@ui-kit";
-import { of } from "rxjs";
 
 import { UserMockService } from "../../mock-service/mocks/user-mock.service";
 import { PasswordService } from "../../password/services/password.service";
@@ -46,6 +49,7 @@ describe("VaultComponent", () => {
         CommonModule,
         FolderModule,
         MatButtonModule,
+        MatCardModule,
         MatChipsModule,
         MatDialogModule,
         MatDividerModule,
@@ -54,12 +58,12 @@ describe("VaultComponent", () => {
         MatListModule,
         MatSidenavModule,
         MatTreeModule,
+        NoopAnimationsModule,
         PortalModule,
-        UiKitModule,
-        MatCardModule,
-        BrowserAnimationsModule,
-        SharedModule,
         RouterTestingModule,
+        SharedModule,
+        MatTreeModule,
+        UiKitModule,
       ],
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },

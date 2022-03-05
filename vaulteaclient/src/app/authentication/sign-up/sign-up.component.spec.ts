@@ -1,7 +1,9 @@
 import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
 import { CommonModule } from "@angular/common";
-import { TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
+import { MatCardModule } from "@angular/material/card";
+import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
@@ -13,8 +15,8 @@ import { UiKitModule } from "../../ui-kit/ui-kit.module";
 import { SignUpComponent } from "./sign-up.component";
 
 describe("SignUpComponent", () => {
-  // let component: SignUpComponent;
-  // let fixture: ComponentFixture<SignUpComponent>;
+  let component: SignUpComponent;
+  let fixture: ComponentFixture<SignUpComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -26,6 +28,8 @@ describe("SignUpComponent", () => {
         CommonModule,
         MatSnackBarModule,
         RouterTestingModule,
+        MatCardModule,
+        MatInputModule,
         UiKitModule,
       ],
       providers: [
@@ -40,13 +44,13 @@ describe("SignUpComponent", () => {
   });
 
   beforeEach(() => {
-    // fixture = TestBed.createComponent(SignUpComponent);
-    // component = fixture.componentInstance;
-    // fixture.detectChanges();
+    fixture = TestBed.createComponent(SignUpComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it("should create", () => {
-    expect(true).toBeTruthy(); // TODO: Revisit
+    expect(component).toBeTruthy(); // TODO: Revisit
   });
 
 

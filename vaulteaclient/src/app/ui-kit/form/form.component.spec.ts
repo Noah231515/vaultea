@@ -8,6 +8,7 @@ import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from 
 
 import { UserMockService } from "../../mock-service/mocks/user-mock.service";
 import { ButtonComponent } from "../button/button.component";
+import { FormHeaderComponent } from "../form-header/form-header.component";
 import { FormComponent } from "./form.component";
 
 describe("FormComponent", () => {
@@ -18,7 +19,8 @@ describe("FormComponent", () => {
     await TestBed.configureTestingModule({
       declarations: [
         FormComponent,
-        ButtonComponent
+        ButtonComponent,
+        FormHeaderComponent
       ],
       imports: [
         CommonModule,

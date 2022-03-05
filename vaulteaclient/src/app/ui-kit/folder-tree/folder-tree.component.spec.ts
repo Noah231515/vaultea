@@ -41,4 +41,3 @@ describe("FolderTreeComponent", () => {
     expect(component).toBeTruthy();
   });
 });
-

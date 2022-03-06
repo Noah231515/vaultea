@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { GenericDialogComponent } from './generic-dialog.component';
+import { GenericDialogComponent } from "./generic-dialog.component";
 
-describe('GenericDialogComponent', () => {
+describe("GenericDialogComponent", () => {
   let component: GenericDialogComponent;
   let fixture: ComponentFixture<GenericDialogComponent>;
 
@@ -10,7 +10,7 @@ describe('GenericDialogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ GenericDialogComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('GenericDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

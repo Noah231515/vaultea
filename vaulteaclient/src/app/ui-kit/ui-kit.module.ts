@@ -29,7 +29,7 @@ import { InputComponent } from "./input/input.component";
 import { LogoFullComponent } from "./logo-full/logo-full.component";
 import { SelectComponent } from "./select/select.component";
 import { TextAreaComponent } from "./text-area/text-area.component";
-import { GenericDialogComponent } from './generic-dialog/generic-dialog.component';
+import { GenericDialogComponent } from "./generic-dialog/generic-dialog.component";
 
 @NgModule({
   declarations: [

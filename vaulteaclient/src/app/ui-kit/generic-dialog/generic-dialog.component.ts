@@ -4,9 +4,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { GenericDialogData } from "./generic-dialog-data.interface";
 
 @Component({
-  selector: 'vaultea-generic-dialog',
-  templateUrl: './generic-dialog.component.html',
-  styleUrls: ['./generic-dialog.component.scss']
+  selector: "vaultea-generic-dialog",
+  templateUrl: "./generic-dialog.component.html",
+  styleUrls: ["./generic-dialog.component.scss"]
 })
 export class GenericDialogComponent {
   public dialogData: GenericDialogData;

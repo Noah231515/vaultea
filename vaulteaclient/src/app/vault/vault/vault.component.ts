@@ -1,16 +1,21 @@
+import { combineLatest, Observable, of, Subscription } from "rxjs";
+import { catchError, map, take } from "rxjs/operators";
+import { EditData } from "src/app/shared/models/edit-data.interface";
+
 import { BaseComponent } from "@abstract";
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
+import {
+  ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
+} from "@angular/core";
 import { MatDialogConfig } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Folder, FolderFormComponent, FolderService } from "@folder";
 import { CreateItemSelectComponent, TypeEnum } from "@shared";
 import { CardData, DialogService } from "@ui-kit";
-import { combineLatest, Observable, of, Subscription } from "rxjs";
-import { catchError, map, take } from "rxjs/operators";
-import { EditData } from "src/app/shared/models/edit-data.interface";
 
 import { UserDataService } from "../../abstract/services/user-data.service";
-import { PasswordFormComponent } from "../../password/components/password-form/password-form.component";
+import {
+  PasswordFormComponent
+} from "../../password/components/password-form/password-form.component";
 import { PasswordService } from "../../password/services/password.service";
 import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 import { VaultItem } from "../models/vault-item.interface";
@@ -81,7 +86,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
         map(result => {
           return [].concat(
             result[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId),
-            result[1].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : x)
+            result[1].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId)
           );
         })
     );

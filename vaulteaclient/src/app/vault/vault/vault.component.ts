@@ -17,6 +17,7 @@ import {
   PasswordFormComponent
 } from "../../password/components/password-form/password-form.component";
 import { PasswordService } from "../../password/services/password.service";
+import { GenericDialogData } from "../../ui-kit/generic-dialog/generic-dialog-data.interface";
 import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
 import { VaultItem } from "../models/vault-item.interface";
 
@@ -102,17 +103,32 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     });
   }
 
+  private getDeleteModalData(cardData: CardData): GenericDialogData {
+    return {
+      headerText: "Delete Folder and Contents",
+      text: `${cardData.object.name} contains other items.
+      Are you sure you want to delete ${cardData.object.name} and all of its contents?
+      This data cannot be recovered.`,
+      primaryButton: this.BUTTONS_CONSTANT.DELETE_BUTTON_DANGER,
+      secondaryButton: this.BUTTONS_CONSTANT.CANCEL_BUTTON
+    };
+  }
+
   public handleDelete(cardData: CardData): void {
     switch (cardData.type) {
       case TypeEnum.FOLDER:
         if (this.vaultItems.some(i => i.object.folderId === cardData.object.id)) {
-          this.dialogService.openWarning({
-            headerText: "Delete Folder and Contents",
-            text: `${cardData.object.name} contains other items.
-            Are you sure you want to delete ${cardData.object.name} and all of its contents?
-            This data cannot be recovered.`,
-            primaryButton: this.BUTTONS_CONSTANT.DELETE_BUTTON_DANGER,
-            secondaryButton: this.BUTTONS_CONSTANT.CANCEL_BUTTON
+          this.dialogService.openWarning(this.getDeleteModalData(cardData))
+            .afterClosed()
+            .pipe(
+              take(1
+            ))
+            .subscribe(primaryButtonClicked => {
+            if (primaryButtonClicked) {
+              alert("primaryClicked");
+            } else {
+              alert("secondaryCliced")
+            }
           });
         } else {
           this.deleteFolder(cardData.object.id);

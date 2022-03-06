@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from "@angular/core";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
 
 import { GenericDialogData } from "../generic-dialog/generic-dialog-data.interface";
 import { GenericDialogComponent } from "../generic-dialog/generic-dialog.component";
@@ -21,12 +21,12 @@ export class DialogService {
     dialogRef.afterClosed().subscribe(() => this.afterClosed.emit())
   }
 
-  public openWarning(dialogData: GenericDialogData): void {
+  public openWarning(dialogData: GenericDialogData): MatDialogRef<GenericDialogComponent, any> {
     const config: MatDialogConfig = new MatDialogConfig();
     config.data = {
       dialogData: dialogData
     };
 
-    const dialogRef = this.dialog.open(GenericDialogComponent, config);
+    return this.dialog.open(GenericDialogComponent, config);
   }
 }

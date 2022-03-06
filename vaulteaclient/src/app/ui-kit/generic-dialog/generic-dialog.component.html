@@ -10,4 +10,6 @@
   fxLayout="row"
   [primaryButton]="dialogData.primaryButton"
   [secondaryButton]="dialogData.secondaryButton"
+  (primaryButtonClicked)="primaryButtonClicked()"
+  (secondaryButtonClicked)="secondaryButtonClicked()"
 ></vaultea-form-footer>

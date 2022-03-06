@@ -1,5 +1,5 @@
 import { combineLatest, Observable, of, Subscription } from "rxjs";
-import { catchError, map, take } from "rxjs/operators";
+import { catchError, map, take, tap } from "rxjs/operators";
 import { EditData } from "src/app/shared/models/edit-data.interface";
 
 import { BaseComponent } from "@abstract";
@@ -36,6 +36,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   public routeSubscription: Subscription;
 
   public editComponentMap: Map<TypeEnum, any> = new Map();
+  public vaultItems: VaultItem[] = [];
 
   public constructor(
     public userDataService: UserDataService,
@@ -82,7 +83,10 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     );
 
     this.vaultItemsObservable = combineLatest([folderVaultObservable, passwordVaultObservable])
-      .pipe(
+    .pipe(
+        tap((result: [VaultItem[], VaultItem[]]) => {
+          this.vaultItems = [].concat(result[0], result[1]);
+        }),
         map(result => {
           return [].concat(
             result[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId),
@@ -95,13 +99,24 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.currentFolder = this.userDataService.getFolders().find(x => x.id.toString() === params.id);
-    })
+    });
   }
 
   public handleDelete(cardData: CardData): void {
     switch (cardData.type) {
       case TypeEnum.FOLDER:
-        this.deleteFolder(cardData.object.id);
+        if (this.vaultItems.some(i => i.object.folderId === cardData.object.id)) {
+          this.dialogService.openWarning({
+            headerText: "Delete Folder and Contents",
+            text: `${cardData.object.name} contains other items.
+            Are you sure you want to delete ${cardData.object.name} and all of its contents?
+            This data cannot be recovered.`,
+            primaryButton: this.BUTTONS_CONSTANT.DELETE_BUTTON_DANGER,
+            secondaryButton: this.BUTTONS_CONSTANT.CANCEL_BUTTON
+          });
+        } else {
+          this.deleteFolder(cardData.object.id);
+        }
         break;
       case TypeEnum.PASSWORD:
         this.deletePassword(cardData.object.id);

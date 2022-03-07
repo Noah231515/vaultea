@@ -23,6 +23,7 @@ export class GenericDialogComponent {
   }
 
   public secondaryButtonClicked(): void {
+    this.dialogRef.close();
     this.dialogRef.close(false);
   }
 }

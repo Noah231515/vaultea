@@ -121,13 +121,11 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
           this.dialogService.openWarning(this.getDeleteModalData(cardData))
             .afterClosed()
             .pipe(
-              take(1
-            ))
+              take(1)
+            )
             .subscribe(primaryButtonClicked => {
             if (primaryButtonClicked) {
-              alert("primaryClicked");
-            } else {
-              alert("secondaryCliced")
+              this.deleteFolder(cardData.object.id);
             }
           });
         } else {

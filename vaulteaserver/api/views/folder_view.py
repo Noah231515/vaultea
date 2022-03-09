@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.serializers.folder_serializer import FolderSerializer
-from api.models import Folder
+from api.models import Folder, Password
 from api.permissions.folder_permission import FolderPermission
 
 class FolderCrud(APIView):
@@ -27,5 +27,26 @@ class FolderCrud(APIView):
     return Response(model_to_dict(updated_folder), status=status.HTTP_200_OK)
   
   def delete(self, request, folder_id):
-    Folder.objects.get(id=folder_id).delete()
+    main_folder = Folder.objects.get(id=folder_id)
+    folders_to_delete = []
+
+    children = Folder.objects.filter(folder_id=main_folder.id)
+    for child in children:
+      self.traverse(child, folders_to_delete)
+
+    Password.objects.filter(folder_id=folder_id).delete()
+    
+    folders_to_delete.reverse()
+    for folder in folders_to_delete:
+      folder.delete()
+
+    main_folder.delete()
     return Response(folder_id, status=status.HTTP_200_OK)
+  
+  def traverse(self, folder, folders_to_delete):
+    folders_to_delete.append(folder)
+    Password.objects.filter(folder_id=folder.id).delete()
+
+    children = Folder.objects.filter(folder_id=folder.id)
+    for child in children:
+      self.traverse(child, folders_to_delete)

@@ -19,7 +19,6 @@ class BaseObject(models.Model):
 
 class User(AbstractUser):
     key = models.CharField(max_length=500, blank=False, null=False)
-
 class Vault(models.Model):
     user_id = models.ForeignKey(user, on_delete=models.RESTRICT, blank=False, null=False)
 

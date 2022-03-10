@@ -124,7 +124,7 @@ describe("VaultComponent", () => {
   it("should remove a folder card", async () => {
     const userMockService = TestBed.inject(UserMockService);
     const cardData: CardData = {
-      object: userMockService.parentFolder1,
+      object: userMockService.parentFolder2,
       type: TypeEnum.FOLDER
     };
     const folderService = TestBed.inject(FolderService);
@@ -138,6 +138,28 @@ describe("VaultComponent", () => {
 
     const after = document.querySelectorAll("vaultea-card");
     expect(after.length).toEqual(2);
+  });
+
+  it("should display a confirmation modal", async () => {
+    const userMockService = TestBed.inject(UserMockService);
+    const cardData: CardData = {
+      object: userMockService.parentFolder1,
+      type: TypeEnum.FOLDER
+    };
+    const folderService = TestBed.inject(FolderService);
+    jest.spyOn(folderService, "delete").mockReturnValue(of(cardData.object.id));
+
+    const before = document.querySelectorAll("vaultea-card");
+    expect(before.length).toEqual(3);
+
+    component.handleDelete(cardData);
+    fixture.detectChanges();
+
+    const after = document.querySelectorAll("vaultea-card");
+    const genericDialog = document.querySelector("vaultea-generic-dialog");
+
+    expect(genericDialog).toBeTruthy()
+    expect(after.length).toEqual(3);
   });
 
   it("should remove a password card", async () => {

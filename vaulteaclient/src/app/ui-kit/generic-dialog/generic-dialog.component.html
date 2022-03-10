@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>
+  {{ dialogData.headerText }}
+</h2>
+<mat-dialog-content class="mat-typography">
+  <p>
+    {{ dialogData.text }}
+  </p>
+</mat-dialog-content>
+<vaultea-form-footer
+  fxLayout="row"
+  [primaryButton]="dialogData.primaryButton"
+  [secondaryButton]="dialogData.secondaryButton"
+  (primaryButtonClicked)="primaryButtonClicked()"
+  (secondaryButtonClicked)="secondaryButtonClicked()"
+></vaultea-form-footer>

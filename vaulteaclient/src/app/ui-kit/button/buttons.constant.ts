@@ -1,4 +1,4 @@
-import { ButtonInterface } from "..";
+import { ButtonInterface } from "../";
 
 /**
  * Constant that defines commonly used and important buttons
@@ -47,6 +47,14 @@ export class ButtonsConstant {
   public static readonly DELETE_BUTTON: ButtonInterface = {
     buttonTypeClass: "mat-button",
     color: "primary",
+    text: "Delete",
+    type: "button",
+    ariaLabel: "Delete"
+  };
+
+  public static readonly DELETE_BUTTON_DANGER: ButtonInterface = {
+    buttonTypeClass: "mat-button",
+    color: "warn",
     text: "Delete",
     type: "button",
     ariaLabel: "Delete"

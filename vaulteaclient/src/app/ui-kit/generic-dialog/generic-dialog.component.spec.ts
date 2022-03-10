@@ -42,7 +42,7 @@ describe("GenericDialogComponent", () => {
       headerText: "Header",
       text: "text",
       primaryButton: null,
-      secondaryButton: null  
+      secondaryButton: null
     };
     fixture.detectChanges();
   });

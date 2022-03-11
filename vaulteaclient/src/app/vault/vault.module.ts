@@ -9,6 +9,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
+import { MatMenuModule } from "@angular/material/menu";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
 import { FolderModule } from "@folder";
@@ -37,10 +38,11 @@ import { VaultComponent } from "./vault/vault.component";
     MatListModule,
     MatSidenavModule,
     MatTreeModule,
+    MatMenuModule,
     PortalModule,
     SharedModule,
     UiKitModule,
-    VaultRoutingModule,
+    VaultRoutingModule,
   ]
 })
 export class VaultModule { }

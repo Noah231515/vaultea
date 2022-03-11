@@ -39,8 +39,8 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   public editComponentMap: Map<TypeEnum, any> = new Map();
   public vaultItems: VaultItem[] = [];
 
-  public sortableFields: string[] = ["Name"];
-  public sortBy: string;
+  public sortableFields: string[] = ["None", "Name"];
+  public sortBy: string = "None";
 
   public constructor(
     public userDataService: UserDataService,
@@ -125,6 +125,11 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     }
 
     return 0;
+  }
+
+  public setSortBy(option: string): void {
+    this.sortBy = option.toLowerCase();
+    this.userDataService.refreshData();
   }
 
   private getDeleteModalData(cardData: CardData): GenericDialogData {

@@ -8,6 +8,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -41,8 +42,9 @@ import { VaultComponent } from "./vault/vault.component";
     MatMenuModule,
     PortalModule,
     SharedModule,
+    MatInputModule,
     UiKitModule,
-    VaultRoutingModule,
+    VaultRoutingModule,
   ]
 })
 export class VaultModule { }

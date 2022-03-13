@@ -39,6 +39,8 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   public editComponentMap: Map<TypeEnum, any> = new Map();
   public vaultItems: VaultItem[] = [];
 
+  public sortableFields: string[] = ["None", "Name"];
+
   public constructor(
     public userDataService: UserDataService,
     private snackBarService: SnackBarService,
@@ -89,10 +91,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
           this.vaultItems = [].concat(result[0], result[1]);
         }),
         map(result => {
-          return [].concat(
-            result[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId),
-            result[1].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId)
-          );
+          return this.sortVaultItems(result)
         })
     );
   }
@@ -101,6 +100,35 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(params => {
       this.currentFolder = this.userDataService.getFolders().find(x => x.id.toString() === params.id);
     });
+  }
+
+  private sortVaultItems(vaultItems: [VaultItem[], VaultItem[]]): VaultItem[] {
+    let result: VaultItem[] = [];
+    const folderVaultItems: VaultItem[] = vaultItems[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId);
+    const passwordVaultItems = vaultItems[1].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId);
+    result = result.concat(folderVaultItems, passwordVaultItems);
+
+    if (this.userDataService.sortByBehaviorSubject.getValue()) {
+      result.sort((a, b) => this.compareVaultItems(a,b));
+    }
+
+    return result;
+  }
+
+  private compareVaultItems(a: VaultItem, b: VaultItem): number {
+    const aValue = (a as any).object[this.userDataService.sortByBehaviorSubject.getValue()];
+    const bValue = (b as any).object[this.userDataService.sortByBehaviorSubject.getValue()];
+
+    if (typeof(aValue) === "string" && typeof(bValue) === "string") {
+      return aValue.localeCompare(bValue);
+    }
+
+    return 0;
+  }
+
+  public setSortBy(option: string): void {
+    this.userDataService.sortByBehaviorSubject.next(option.toLowerCase());
+    this.userDataService.refreshData();
   }
 
   private getDeleteModalData(cardData: CardData): GenericDialogData {

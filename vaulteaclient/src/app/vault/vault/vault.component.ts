@@ -40,7 +40,6 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   public vaultItems: VaultItem[] = [];
 
   public sortableFields: string[] = ["None", "Name"];
-  public sortBy: string = "None";
 
   public constructor(
     public userDataService: UserDataService,
@@ -109,7 +108,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     const passwordVaultItems = vaultItems[1].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId);
     result = result.concat(folderVaultItems, passwordVaultItems);
 
-    if (this.sortBy) {
+    if (this.userDataService.sortByBehaviorSubject.getValue()) {
       result.sort((a, b) => this.compareVaultItems(a,b));
     }
 
@@ -117,8 +116,8 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   private compareVaultItems(a: VaultItem, b: VaultItem): number {
-    const aValue = (a as any).object[this.sortBy];
-    const bValue = (b as any).object[this.sortBy];
+    const aValue = (a as any).object[this.userDataService.sortByBehaviorSubject.getValue()];
+    const bValue = (b as any).object[this.userDataService.sortByBehaviorSubject.getValue()];
 
     if (typeof(aValue) === "string" && typeof(bValue) === "string") {
       return aValue.localeCompare(bValue);
@@ -128,7 +127,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   public setSortBy(option: string): void {
-    this.sortBy = option.toLowerCase();
+    this.userDataService.sortByBehaviorSubject.next(option.toLowerCase());
     this.userDataService.refreshData();
   }
 

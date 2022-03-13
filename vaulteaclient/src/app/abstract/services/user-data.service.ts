@@ -1,11 +1,12 @@
+import { BehaviorSubject, Observable } from "rxjs";
+import { take } from "rxjs/operators";
+
 import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { User } from "@authentication";
 import { Folder } from "@folder";
 import { KeysToOmitConstant } from "@shared";
 import { DataUtil } from "@util";
-import { BehaviorSubject, Observable } from "rxjs";
-import { take } from "rxjs/operators";
 
 import { UserService } from "../../authentication/services/user.service";
 import { Password } from "../../password/password.model";
@@ -23,6 +24,8 @@ export abstract class UserDataService {
 
   private passwordsBehaviorSubject: BehaviorSubject<Password[]> = new BehaviorSubject<Password[]>([]);
   public passwordObservable: Observable<Password[]> = this.passwordsBehaviorSubject.asObservable();
+
+  public sortByBehaviorSubject: BehaviorSubject<string> = new BehaviorSubject<string>("None");
 
   constructor(
     private cryptoBusinessLogicService: CryptoBusinessLogicService,

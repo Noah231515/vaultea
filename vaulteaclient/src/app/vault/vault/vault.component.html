@@ -6,7 +6,7 @@
       <div fxLayout="column" fxLayoutAlign="center center">
         <mat-label> Sort By</mat-label>
         <mat-chip-list>
-          <mat-chip [matMenuTriggerFor]="menu">{{sortBy | titlecase}}</mat-chip>
+          <mat-chip [matMenuTriggerFor]="menu">{{ userDataService.sortByBehaviorSubject.asObservable() | async | titlecase }}</mat-chip>
         </mat-chip-list>
       </div>
 

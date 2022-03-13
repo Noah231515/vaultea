@@ -15,7 +15,9 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
+import { MatMenuModule } from "@angular/material/menu";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
@@ -63,6 +65,8 @@ describe("VaultComponent", () => {
         RouterTestingModule,
         SharedModule,
         MatTreeModule,
+        MatMenuModule,
+        MatInputModule,
         UiKitModule,
       ],
       providers: [
@@ -180,4 +184,40 @@ describe("VaultComponent", () => {
     const after = document.querySelectorAll("vaultea-card");
     expect(after.length).toEqual(2);
   });
+
+  it("should sort vault items by name", async () => {
+    const userMockService = TestBed.inject(UserMockService);
+
+    userDataService.sortByBehaviorSubject.next("name");
+    component.vaultItemsObservable.subscribe(items => {
+      expect(userDataService.sortByBehaviorSubject.getValue()).toEqual("name");
+      expect(items).toEqual([userMockService.parentFolder1, userMockService.parentFolder2, userMockService.password1])
+    })
+  });
+
+  // TODO: Come back to this
+  // it("should retain sorted order upon adding new folder or password", async () => {
+  //   const firstFolder: Folder = {
+  //     id: "50",
+  //     vaultId: "1",
+  //     name: "Awesome folder",
+  //     description: "",
+  //     folderId: "",
+  //     pathNodes: [],
+  //     childFolders: []
+  //   };
+  //   const userMockService = TestBed.inject(UserMockService);
+  //   const userService = TestBed.inject(UserService);
+
+  //   const user = userService.getUser();
+  //   user.folders.push(firstFolder);
+
+  //   userDataService.refreshData(user);
+  //   userDataService.sortByBehaviorSubject.next("name");
+
+  //   component.vaultItemsObservable.subscribe(items => {
+  //     expect(userDataService.sortByBehaviorSubject.getValue()).toEqual("name");
+  //     expect(items).toEqual([firstFolder, userMockService.parentFolder1, userMockService.parentFolder2, userMockService.password1]);
+  //   })
+  // });
 });

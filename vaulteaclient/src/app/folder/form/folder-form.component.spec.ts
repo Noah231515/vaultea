@@ -49,13 +49,9 @@ describe("FolderFormComponent", () => {
         {
           provide: MAT_DIALOG_DATA, useValue: { existingObject: existingFolder }
         },
-        { provide: ActivatedRoute, useValue: {
-          snapshot: {
-            params: {
-              id: 1
-            }
-          }
-        }}
+        {
+          provide: ActivatedRoute, useValue: { }
+        }
       ]
     })
       .compileComponents();

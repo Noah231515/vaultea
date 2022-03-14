@@ -1,13 +1,16 @@
-import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from "@angular/core";
+import { take } from "rxjs/operators";
+import { EditData } from "src/app/shared/models/edit-data.interface";
+
+import {
+  BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService
+} from "@abstract";
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { KeysToOmitConstant, SnackBarService } from "@shared";
 import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
 import { VaultComponent } from "@vault";
-import { take } from "rxjs/operators";
-import { EditData } from "src/app/shared/models/edit-data.interface";
 
 import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
 import { FormHeaderData } from "../../ui-kit/form-header/form-header-data.interface";
@@ -19,6 +22,8 @@ import { FolderService } from "../folder.service";
   templateUrl: "./folder-form.component.html",
 })
 export class FolderFormComponent extends BaseFormComponent implements OnInit {
+  @Input() public currentFolderId?: string;
+
   public autocompleteOptions: AutocompleteOption[];
   public formHeaderData: FormHeaderData;
   public locationAutocompleteData: AutocompleteData;
@@ -67,7 +72,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       description: [this.existingObject?.description ?? ""],
       name: [this.existingObject?.name ?? "", Validators.required],
-      folderId: [this.existingObject?.folderId ?? (parseInt(this.route.snapshot.params.id) || null)]
+      folderId: [this.existingObject?.folderId ?? (parseInt(this.currentFolderId))]
     });
   }
 

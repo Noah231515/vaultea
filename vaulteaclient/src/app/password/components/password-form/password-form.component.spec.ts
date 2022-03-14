@@ -50,13 +50,9 @@ describe("PasswordFormComponent", () => {
         {
           provide: MAT_DIALOG_DATA, useValue: { existingObject: existingPassword }
         },
-        { provide: ActivatedRoute, useValue: {
-          snapshot: {
-            params: {
-              id: 1
-            }
-          }
-        }}
+        {
+          provide: ActivatedRoute, useValue: { }
+        }
       ]
     })
       .compileComponents();

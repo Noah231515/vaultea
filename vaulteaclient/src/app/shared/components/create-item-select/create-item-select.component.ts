@@ -1,6 +1,7 @@
 import { BaseFormComponent } from "@abstract";
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 import { SelectOption } from "../../../ui-kit/select/select-option.interface";
 
@@ -11,6 +12,7 @@ import { SelectOption } from "../../../ui-kit/select/select-option.interface";
 })
 export class CreateItemSelectComponent extends BaseFormComponent implements OnInit {
 
+  public currentFolderId?: string;
   public options: SelectOption[] = [
     {
       "value": "Folder",
@@ -23,9 +25,11 @@ export class CreateItemSelectComponent extends BaseFormComponent implements OnIn
   ];
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) private data: { currentFolderId: string }
   ) {
     super();
+    this.currentFolderId = data?.currentFolderId;
   }
 
   public ngOnInit(): void {

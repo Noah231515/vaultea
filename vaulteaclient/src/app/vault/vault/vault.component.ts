@@ -214,7 +214,11 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   public addItem(): void {
-    this.dialogService.open(CreateItemSelectComponent)
+    const config: MatDialogConfig = new MatDialogConfig();
+    config.data = {
+      currentFolderId: this.route.snapshot.params.id
+    };
+    this.dialogService.open(CreateItemSelectComponent, config);
   }
 
   public ngOnDestroy(): void {

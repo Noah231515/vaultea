@@ -1,12 +1,14 @@
-import { BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService } from "@abstract";
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from "@angular/core";
+import { take } from "rxjs/operators";
+
+import {
+  BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService
+} from "@abstract";
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { ActivatedRoute } from "@angular/router";
 import { EditData, KeysToOmitConstant } from "@shared";
 import { AutocompleteUtilService, SnackBarService } from "@ui-kit";
 import { VaultComponent } from "@vault";
-import { take } from "rxjs/operators";
 
 import { AutocompleteData } from "../../../ui-kit/autocomplete/autocomplete-data.interface";
 import { PasswordService } from "../../services/password.service";
@@ -18,7 +20,7 @@ import { PasswordService } from "../../services/password.service";
   templateUrl: "./password-form.component.html",
 })
 export class PasswordFormComponent extends BaseFormComponent implements OnInit {
-
+  @Input() public currentFolderId?: string;
   public locationAutocompleteData: AutocompleteData;
 
   constructor(
@@ -28,7 +30,6 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     private passwordService: PasswordService,
     private snackBarService: SnackBarService,
     private userDataService: UserDataService,
-    private route: ActivatedRoute,
     public autocompleteUtilService: AutocompleteUtilService,
     private dialogRef: MatDialogRef<VaultComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditData
@@ -57,7 +58,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 
   protected initForm(): void {
     this.form = this.formBuilder.group({
-      folderId: [this.existingObject?.folderId ?? (parseInt(this.route.snapshot.params.id) || null)],
+      folderId: [this.existingObject?.folderId ?? parseInt(this.currentFolderId)],
       name: [this.existingObject?.name ?? "", Validators.required],
       username: [this.existingObject?.username ?? "", Validators.required],
       password: [this.existingObject?.password ?? "", Validators.required],

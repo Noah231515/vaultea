@@ -1,16 +1,8 @@
-
-import json
 from django.forms import model_to_dict
-from django.http.response import JsonResponse
-from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
-from rest_framework_simplejwt.tokens import RefreshToken
-from api.models import Folder, User, Vault
-from api.user_service import UserService
-from api.serializers.auth_serializer import SignUpFormSerializer, LoginFormSerializer
+from api.models import Folder
 from api.permissions.folder_permission import FolderPermission
 
 @api_view(['PUT'])

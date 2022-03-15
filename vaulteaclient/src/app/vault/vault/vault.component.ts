@@ -191,11 +191,19 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     switch (cardData.type) {
       case TypeEnum.FOLDER:
         this.folderService.updateStarred(cardData.object.id)
-        .pipe(take(1))
-        .subscribe(async folder => {
-          this.snackBarService.open(`Folder successfully ${folder.starred ? "starred" : "unstarred"}`);
-          await this.userDataService.updateFolders(folder, false);
-        });
+          .pipe(take(1))
+          .subscribe(async folder => {
+            this.snackBarService.open(`Folder successfully ${folder.starred ? "starred" : "unstarred"}`);
+            await this.userDataService.updateFolders(folder, false);
+          });
+        break;
+      case TypeEnum.PASSWORD:
+        this.passwordService.updateStarred(cardData.object.id)
+          .pipe(take(1))
+          .subscribe(async password => {
+            this.snackBarService.open(`Password successfully ${password.starred ? "starred" : "unstarred"}`);
+            await this.userDataService.updatePasswords(password, false);
+          });
         break;
       default:
         break;

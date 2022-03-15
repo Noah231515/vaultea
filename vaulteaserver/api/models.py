@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import AbstractUser, User
 from django.db.models.deletion import RESTRICT
@@ -13,6 +14,7 @@ user = settings.AUTH_USER_MODEL
 
 class BaseObject(models.Model):
     name = models.CharField(max_length=512, blank=False, null=False)
+    starred = models.BooleanField(default=False, null=False)
 
     class Meta:
         abstract = True
@@ -22,7 +24,7 @@ class User(AbstractUser):
 class Vault(models.Model):
     user_id = models.ForeignKey(user, on_delete=models.RESTRICT, blank=False, null=False)
 
-class Folder(models.Model):
+class Folder(BaseObject):
     vault_id = models.ForeignKey(Vault, on_delete=models.RESTRICT, blank=False, null=False)
     folder_id = models.ForeignKey('self', on_delete=models.RESTRICT, blank=True, null=True)
     name = models.CharField(max_length=100, blank=False, null=False)

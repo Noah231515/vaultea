@@ -187,6 +187,21 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     }
   }
 
+  public handleStarClicked(cardData: CardData): void {
+    switch (cardData.type) {
+      case TypeEnum.FOLDER:
+        this.folderService.updateStarred(cardData.object.id)
+        .pipe(take(1))
+        .subscribe(async folder => {
+          this.snackBarService.open(`Folder successfully ${folder.starred ? "starred" : "unstarred"}`);
+          await this.userDataService.updateFolders(folder, false);
+        });
+        break;
+      default:
+        break;
+    }
+  }
+
   private deleteFolder(folderId: string): void {
     this.folderService.delete(folderId)
       .pipe(

@@ -18,7 +18,7 @@ export class CardComponent extends BaseComponent implements OnInit {
   @Output() deleteOptionClicked: EventEmitter<CardData> = new EventEmitter<CardData>();
   @Output() contentClicked: EventEmitter<CardData> = new EventEmitter<CardData>();
   @Output() editClicked: EventEmitter<CardData> = new EventEmitter<CardData>();
-  @Output() starClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() starClicked: EventEmitter<CardData> = new EventEmitter<CardData>();
 
   public title: string;
   public description: string;

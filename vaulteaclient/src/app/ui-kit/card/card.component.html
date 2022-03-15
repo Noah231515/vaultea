@@ -2,7 +2,7 @@
   <mat-card-header class="header-text-margin">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
       <div fxFlex>
-        <button (click)="starClicked.emit()" mat-icon-button>
+        <button (click)="starClicked.emit(cardData)" mat-icon-button>
           <mat-icon>{{ cardData.object.starred ? "star" : "star_outline"}}</mat-icon>
         </button>
       </div>

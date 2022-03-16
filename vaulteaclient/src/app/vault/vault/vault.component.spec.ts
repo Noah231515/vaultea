@@ -195,6 +195,23 @@ describe("VaultComponent", () => {
     })
   });
 
+  it("should star the folder", async () => {
+    const userMockService = TestBed.inject(UserMockService);
+    const folderService = TestBed.inject(FolderService);
+
+    const updatedFolder = userMockService.parentFolder1;
+    updatedFolder.starred = true;
+    jest.spyOn(folderService, "updateStarred").mockReturnValue(of(updatedFolder));
+
+    const cardData: CardData = {
+      object: userMockService.parentFolder1,
+      type: TypeEnum.FOLDER
+    };
+
+    component.handleStarClicked(cardData);
+
+  });
+
   // TODO: Come back to this
   // it("should retain sorted order upon adding new folder or password", async () => {
   //   const firstFolder: Folder = {

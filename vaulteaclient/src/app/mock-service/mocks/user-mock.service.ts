@@ -19,7 +19,8 @@ export class UserMockService  {
     description: "",
     folderId: "1",
     pathNodes: [],
-    childFolders: []
+    childFolders: [],
+    starred: false
   };
   public childFolder2: Folder = {
     id: "3",
@@ -28,7 +29,8 @@ export class UserMockService  {
     description: "",
     folderId: "2",
     pathNodes: [],
-    childFolders: []
+    childFolders: [],
+    starred: false
   };
   public parentFolder1: Folder = {
     id: "1",
@@ -37,7 +39,8 @@ export class UserMockService  {
     description: "",
     folderId: "",
     pathNodes: [],
-    childFolders: []
+    childFolders: [],
+    starred: false
   };
   public parentFolder2: Folder = {
     id: "20",
@@ -46,7 +49,8 @@ export class UserMockService  {
     description: "",
     folderId: "",
     pathNodes: [],
-    childFolders: []
+    childFolders: [],
+    starred: false
   };
 
   public password1: Password = {
@@ -54,7 +58,8 @@ export class UserMockService  {
     vaultId: "1",
     name: "Test ",
     username: "Yahh Mon",
-    password: "I'm a super secure password"
+    password: "I'm a super secure password",
+    starred: false
   }
   public folders = [this.parentFolder1, this.parentFolder2, this.childFolder1, this.childFolder2];
   public passwords = [this.password1];

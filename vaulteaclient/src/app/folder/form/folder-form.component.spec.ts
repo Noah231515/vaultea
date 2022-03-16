@@ -24,7 +24,8 @@ describe("FolderFormComponent", () => {
     name: "Brand new folder",
     description: "Great folder",
     pathNodes: [],
-    childFolders: []
+    childFolders: [],
+    starred: false
   }
 
   beforeEach(async () => {

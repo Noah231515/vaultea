@@ -195,6 +195,51 @@ describe("VaultComponent", () => {
     })
   });
 
+  // TODO: Come back to these
+  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // it("should star the folder", fakeAsync (() => {
+  //   const userMockService = TestBed.inject(UserMockService);
+  //   const cryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
+  //   const folderService = TestBed.inject(FolderService);
+  //   const userDataService = TestBed.inject(UserDataService);
+
+  //   const updatedFolder = userMockService.parentFolder1;
+  //   updatedFolder.starred = true;
+
+  //   const promise = new Promise(function(resolve, reject) {
+  //     resolve(() => {
+  //       console.log("suc")
+  //       return updatedFolder;
+  //     });
+  //     reject((reason: any) => {
+  //       console.log("fail")
+  //       return updatedFolder
+  //     })
+
+  //   });
+
+  //   const spy = jest.spyOn(cryptoBusinessLogicService, "decryptObject").mockReturnValue(promise);
+  //   const spy2 = jest.spyOn(folderService, "updateStarred").mockReturnValue(of(updatedFolder));
+  //   const spy3  = jest.spyOn(userDataService, "refreshData");
+  //   const spy4 = jest.spyOn(userDataService, "updateFolders");
+
+  //   const cardData: CardData = {
+  //     object: userMockService.parentFolder1,
+  //     type: TypeEnum.FOLDER
+  //   };
+
+  //   component.handleStarClicked(cardData);
+  //   tick(100000);
+  //   const starIcons = Array.from(document.querySelectorAll("mat-icon")).filter(i => i.innerHTML === "star");
+  //   console.log(userDataService.getFolders()[0])
+
+  //   expect(spy).toHaveBeenCalled()
+  //   expect(spy2).toHaveBeenCalled();
+  //   expect(spy4).toHaveBeenCalled();
+  //   expect(spy3).toHaveBeenCalled()
+  //   expect(starIcons.length).toEqual(1);
+  // }));
+
   // TODO: Come back to this
   // it("should retain sorted order upon adding new folder or password", async () => {
   //   const firstFolder: Folder = {

@@ -22,7 +22,8 @@ describe("DataUtil", () => {
       description: "",
       folderId: "1",
       pathNodes: [],
-      childFolders: []
+      childFolders: [],
+      starred: false
     };
     childFolder2 = {
       id: "3",
@@ -31,7 +32,8 @@ describe("DataUtil", () => {
       description: "",
       folderId: "2",
       pathNodes: [],
-      childFolders: []
+      childFolders: [],
+      starred: false
     };
     parentFolder1 = {
       id: "1",
@@ -40,7 +42,8 @@ describe("DataUtil", () => {
       description: "",
       folderId: "",
       pathNodes: [],
-      childFolders: []
+      childFolders: [],
+      starred: false
     };
     parentFolder2 = {
       id: "20",
@@ -49,7 +52,8 @@ describe("DataUtil", () => {
       description: "",
       folderId: "",
       pathNodes: [],
-      childFolders: []
+      childFolders: [],
+      starred: false
     };
     TestBed.configureTestingModule({
       imports: [

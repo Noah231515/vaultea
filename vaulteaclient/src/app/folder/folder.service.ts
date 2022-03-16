@@ -1,6 +1,7 @@
+import { Observable } from "rxjs";
+
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
 
 import { Folder } from "./folder.model";
 
@@ -23,5 +24,9 @@ export class FolderService {
 
   public delete(folderId: string): Observable<string> {
     return this.httpClient.delete<string>(`api/folder/${folderId}`);
+  }
+
+  public updateStarred(folderId: string): Observable<Folder> {
+    return this.httpClient.put<Folder>(`api/folder/${folderId}/updateStarred`, null);
   }
 }

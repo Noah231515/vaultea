@@ -3,7 +3,11 @@
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
       <div fxFlex>
         <button (click)="starClicked.emit(cardData)" mat-icon-button>
-          <mat-icon>{{ cardData.object.starred ? "star" : "star_outline"}}</mat-icon>
+          <mat-icon
+            class="star"
+          >
+            {{ cardData.object.starred ? "star" : "star_outline"}}
+          </mat-icon>
         </button>
       </div>
       <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">

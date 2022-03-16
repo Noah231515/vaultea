@@ -25,7 +25,8 @@ describe("PasswordFormComponent", () => {
     vaultId: "1",
     name: "Password",
     username: "Test",
-    password: "Very good"
+    password: "Very good",
+    starred: false
   };
 
   beforeEach(async () => {

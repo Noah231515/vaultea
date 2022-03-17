@@ -97,21 +97,31 @@ describe("VaultComponent", () => {
     expect(component).toBeTruthy();
   });
 
-  it("should open a modal with an empty form", () => {
-    component.addItem();
+  it("should open a modal with an folder form", () => {
+    component.addItem(TypeEnum.FOLDER);
     fixture.detectChanges();
     const form = document.querySelector("vaultea-folder-form")
-    const inputs = form.querySelectorAll("input");
-    const select = document.querySelector("vaultea-select");
     fixture.detectChanges();
 
-    expect(select).toBeTruthy();
     expect(form).toBeTruthy();
-    expect(form.querySelector("button").type).toEqual("submit");
-    expect(inputs.length).toEqual(3);
-    inputs.forEach((input: any) => {
-      expect(input.value).toEqual("");
-    });
+  });
+
+  it("should open a modal with an empty password form", () => {
+    component.addItem(TypeEnum.PASSWORD);
+    fixture.detectChanges();
+    const form = document.querySelector("vaultea-password-form");
+    fixture.detectChanges();
+
+    expect(form).toBeTruthy();
+  });
+
+  it("should open a modal with an empty password form", () => {
+    component.addItem(null);
+    fixture.detectChanges();
+    const form = document.querySelector("vaultea-folder-form");
+    fixture.detectChanges();
+
+    expect(form).toBeTruthy();
   });
 
   it("should add another card", async () => {

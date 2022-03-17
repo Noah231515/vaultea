@@ -38,7 +38,15 @@
       ></vaultea-card>
     </div>
     <div class="button-wrapper" fxLayoutAlign="end">
-      <vaultea-button [buttonData]="BUTTONS_CONSTANT.FLOATING_ADD_BUTTON" (click)="addItem()"></vaultea-button>
+      <vaultea-button [matMenuTriggerFor]="addMenu" [buttonData]="BUTTONS_CONSTANT.FLOATING_ADD_BUTTON"></vaultea-button>
+      <mat-menu #addMenu="matMenu">
+        <button
+          mat-menu-item *ngFor="let item of addMenuItems"
+          (click)="addItem(item)"
+        >
+          {{ item }}
+        </button>
+      </mat-menu>
     </div>
   </div>
 </div>

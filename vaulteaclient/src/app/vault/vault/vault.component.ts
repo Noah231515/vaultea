@@ -40,6 +40,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   public vaultItems: VaultItem[] = [];
 
   public sortableFields: string[] = ["None", "Name"];
+  public addMenuItems: TypeEnum[] = [TypeEnum.FOLDER, TypeEnum.PASSWORD];
 
   public constructor(
     public userDataService: UserDataService,
@@ -236,10 +237,11 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
       });
   }
 
-  public addItem(): void {
+  public addItem(selectedType: TypeEnum): void {
     const config: MatDialogConfig = new MatDialogConfig();
     config.data = {
-      currentFolderId: this.route.snapshot.params.id
+      currentFolderId: this.route.snapshot.params.id,
+      selectedType: selectedType
     };
     this.dialogService.open(CreateItemSelectComponent, config);
   }

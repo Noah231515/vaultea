@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 import { SelectOption } from "../../../ui-kit/select/select-option.interface";
+import { TypeEnum } from "../../enums/type.enum";
 
 @Component({
   selector: "vaultea-create-item-select",
@@ -13,6 +14,7 @@ import { SelectOption } from "../../../ui-kit/select/select-option.interface";
 export class CreateItemSelectComponent extends BaseFormComponent implements OnInit {
 
   public currentFolderId?: string;
+  public selectedType: TypeEnum;
   public options: SelectOption[] = [
     {
       "value": "Folder",
@@ -26,10 +28,14 @@ export class CreateItemSelectComponent extends BaseFormComponent implements OnIn
 
   constructor(
     private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) private data: { currentFolderId: string }
+    @Inject(MAT_DIALOG_DATA) private data: {
+      currentFolderId: string
+      selectedType: TypeEnum;
+    }
   ) {
     super();
     this.currentFolderId = data?.currentFolderId;
+    this.selectedType = data?.selectedType;
   }
 
   public ngOnInit(): void {
@@ -38,7 +44,7 @@ export class CreateItemSelectComponent extends BaseFormComponent implements OnIn
 
   protected initForm(): void {
     this.form = this.formBuilder.group({
-      itemType: ["Folder", Validators.required]
+      itemType: [this.selectedType ?? TypeEnum.FOLDER, Validators.required]
     });
   }
   public setState(): void {

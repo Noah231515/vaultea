@@ -26,13 +26,14 @@ export class AutocompleteUtilService {
     });
   }
 
-  public getLocationAutocompleteData(formControl: FormControl): AutocompleteData {
+  public getLocationAutocompleteData(formControl: FormControl, readonly?: boolean): AutocompleteData {
     return {
       label: "Location",
       formControl: formControl,
       options: this.buildOptions(),
       required: false,
-      displaySubtitle: true
+      displaySubtitle: true,
+      readonly: readonly ?? false
     }
   }
 }

@@ -22,6 +22,7 @@ import { PasswordService } from "../../services/password.service";
 export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   @Input() public currentFolderId?: string;
   public locationAutocompleteData: AutocompleteData;
+  public readonly: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,7 +45,8 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     this.setState();
     this.locationAutocompleteData = this.autocompleteUtilService
       .getLocationAutocompleteData(
-        this.toFormControl(this.form.get("folderId"))
+        this.toFormControl(this.form.get("folderId")),
+        this.readonly
       );
   }
 
@@ -57,6 +59,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     } else {
       this.formState = this.formStateEnum.CREATE;
     }
+    this.readonly = this.formState === FormStateEnum.VIEW;
   }
 
   protected initForm(): void {

@@ -5,4 +5,5 @@ export interface TextAreaData {
   formControl: FormControl;
   maxLength?: number;
   placeholder?: string;
+  readonly?: boolean;
 }

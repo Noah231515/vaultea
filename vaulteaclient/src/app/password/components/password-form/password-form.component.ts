@@ -48,7 +48,9 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   }
 
   public setState(): void {
-    if (this.existingObject) {
+    if (this.formState === FormStateEnum.VIEW && this.existingObject) {
+      this.headerText = `View ${this.existingObject.name}`;
+    } else if (this.existingObject) {
       this.formState = this.formStateEnum.EDIT;
       this.headerText = `Edit ${this.existingObject.name}`;
     } else {

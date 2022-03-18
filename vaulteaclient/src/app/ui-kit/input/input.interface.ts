@@ -8,4 +8,5 @@ export interface InputData {
   maxLength?: number;
   sensitiveDataInput?: boolean;
   required?: boolean;
+  readonly?: boolean;
 }

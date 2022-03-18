@@ -36,6 +36,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   ) {
     super();
     this.existingObject = data?.existingObject;
+    this.formState = data?.formState;
   }
 
   public ngOnInit(): void {

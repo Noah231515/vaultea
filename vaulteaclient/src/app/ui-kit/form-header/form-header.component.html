@@ -1,5 +1,12 @@
 <ng-container [ngSwitch]="formHeaderData.hLevel">
-  <h1 *ngSwitchCase="'h1'">{{formHeaderData.headerText}}</h1>
-  <h2 *ngSwitchCase="'h2'">{{formHeaderData.headerText}}</h2>
-  <h3 *ngSwitchCase="'h3'">{{formHeaderData.headerText}}</h3>
+  <div fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h1 *ngSwitchCase="'h1'">{{formHeaderData.headerText}}</h1>
+      <h2 *ngSwitchCase="'h2'">{{formHeaderData.headerText}}</h2>
+      <h3 *ngSwitchCase="'h3'">{{formHeaderData.headerText}}</h3>
+    </div>
+    <div *ngIf="formHeaderData.readonly">
+      <vaultea-button [buttonData]="BUTTONS_CONSTANT.EDIT_BUTTON"></vaultea-button>
+    </div>
+  </div>
 </ng-container>

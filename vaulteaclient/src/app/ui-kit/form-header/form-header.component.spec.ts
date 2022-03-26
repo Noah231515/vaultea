@@ -25,7 +25,7 @@
 //     fixture.detectChanges();
 //   });
 
-//   it("should create", () => {
-//     expect(true).toBeTruthy(); // TODO: Come back to this
-//   });
+it("should create", () => {
+  expect(true).toBeTruthy(); // TODO: Come back to this
+});
 // });

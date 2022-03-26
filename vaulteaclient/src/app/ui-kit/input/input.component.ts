@@ -19,6 +19,7 @@ export class InputComponent implements OnInit {
       this.inputData.flexAmount = this.inputData.flexAmount ?? "100";
       this.inputData.sensitiveDataInput = this.inputData.sensitiveDataInput ?? false;
       this.inputData.required = this.inputData.required ?? false;
+      this.inputData.readonly = this.inputData.readonly ?? false;
       this.hideSensitiveData = this.inputData.sensitiveDataInput ?? false;
     }
 

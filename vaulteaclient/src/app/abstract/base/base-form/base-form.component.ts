@@ -8,7 +8,7 @@ export abstract class BaseFormComponent extends BaseComponent {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public existingObject?: any;
   public formStateEnum = FormStateEnum;
-  public formState: FormStateEnum.CREATE | FormStateEnum.EDIT;
+  public formState: FormStateEnum;
   public headerText: string;
 
   public abstract setState(): void;

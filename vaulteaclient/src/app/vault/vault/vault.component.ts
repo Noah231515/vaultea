@@ -1,6 +1,5 @@
 import { combineLatest, Observable, of, Subscription } from "rxjs";
 import { catchError, map, take, tap } from "rxjs/operators";
-import { EditData } from "src/app/shared/models/edit-data.interface";
 
 import { BaseComponent } from "@abstract";
 import {
@@ -12,6 +11,7 @@ import { Folder, FolderFormComponent, FolderService } from "@folder";
 import { CreateItemSelectComponent, TypeEnum } from "@shared";
 import { CardData, DialogService } from "@ui-kit";
 
+import { FormStateEnum } from "../../abstract/enums/form-state.enum";
 import { UserDataService } from "../../abstract/services/user-data.service";
 import {
   PasswordFormComponent
@@ -170,9 +170,9 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   public openModalInEditMode(cardData: CardData): void {
-    const editData: EditData = {existingObject: cardData.object};
+    const dialogData = {existingObject: cardData.object};
     const config: MatDialogConfig = new MatDialogConfig();
-    config.data = editData;
+    config.data = dialogData;
 
     this.dialogService.open(this.editComponentMap.get(cardData.type), config);
   }
@@ -182,7 +182,16 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
       case TypeEnum.FOLDER:
         this.router.navigateByUrl(`vault/folder/${cardData.object.id}`);
         break;
+      case TypeEnum.PASSWORD: {
+        const config: MatDialogConfig = new MatDialogConfig();
+        config.data = {
+          existingObject: cardData.object,
+          formState: FormStateEnum.VIEW
+        };
 
+        this.dialogService.open(PasswordFormComponent, config);
+        break;
+      }
       default:
         break;
     }

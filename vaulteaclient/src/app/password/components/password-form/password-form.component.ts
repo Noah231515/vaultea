@@ -22,6 +22,7 @@ import { PasswordService } from "../../services/password.service";
 export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   @Input() public currentFolderId?: string;
   public locationAutocompleteData: AutocompleteData;
+  public readonly: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +37,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   ) {
     super();
     this.existingObject = data?.existingObject;
+    this.formState = data?.formState;
   }
 
   public ngOnInit(): void {
@@ -43,17 +45,21 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     this.setState();
     this.locationAutocompleteData = this.autocompleteUtilService
       .getLocationAutocompleteData(
-        this.toFormControl(this.form.get("folderId"))
+        this.toFormControl(this.form.get("folderId")),
+        this.readonly
       );
   }
 
   public setState(): void {
-    if (this.existingObject) {
+    if (this.formState === FormStateEnum.VIEW && this.existingObject) {
+      this.headerText = `View ${this.existingObject.name}`;
+    } else if (this.existingObject) {
       this.formState = this.formStateEnum.EDIT;
       this.headerText = `Edit ${this.existingObject.name}`;
     } else {
       this.formState = this.formStateEnum.CREATE;
     }
+    this.readonly = this.formState === FormStateEnum.VIEW;
   }
 
   protected initForm(): void {
@@ -104,6 +110,11 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
         this.snackBarService.open("Password successfully updated");
         this.dialogRef.close();
       });
+  }
+
+  public switchToEditMode(): void {
+    this.formState = null;
+    this.setState();
   }
 
   public cancel(): void {

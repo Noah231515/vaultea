@@ -44,6 +44,14 @@ export class ButtonsConstant {
     ariaLabel: "Add"
   };
 
+  public static readonly EDIT_BUTTON: ButtonInterface = {
+    buttonTypeClass: "mat-icon-button",
+    color: "primary",
+    type: "button",
+    ariaLabel: "Edit",
+    icon: "edit"
+  };
+
   public static readonly DELETE_BUTTON: ButtonInterface = {
     buttonTypeClass: "mat-button",
     color: "primary",

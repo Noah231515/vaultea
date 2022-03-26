@@ -8,4 +8,5 @@ export interface AutocompleteData {
   options: AutocompleteOption[];
   required: boolean;
   displaySubtitle: boolean;
+  readonly?: boolean;
 }

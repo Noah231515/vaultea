@@ -14,6 +14,7 @@
         [value]="inputData.formControl.value"
         [maxlength]="inputData.maxLength"
         [required]="inputData.required"
+        [readonly]="inputData.readonly"
     >
     <button mat-icon-button matSuffix *ngIf="inputData.sensitiveDataInput" type="button" (click)="toggleHideSensitiveData()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSensitiveData">
         <mat-icon>{{hideSensitiveData ? "visibility_off" : "visibility"}}</mat-icon>

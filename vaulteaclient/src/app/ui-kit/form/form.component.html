@@ -8,6 +8,7 @@
     <ng-container [ngTemplateOutlet]="formTemplate"></ng-container>
     <vaultea-form-footer
       [primaryButton]="primaryButton"
+      [readonly]="formHeaderData?.readonly"
       [secondaryButton]="secondaryButton"
       (secondaryButtonClicked)="emitSecondaryButtonClicked()"
     ></vaultea-form-footer>

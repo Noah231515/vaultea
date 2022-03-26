@@ -6,7 +6,7 @@
       <h3 *ngSwitchCase="'h3'">{{formHeaderData.headerText}}</h3>
     </div>
     <div *ngIf="formHeaderData.readonly">
-      <vaultea-button [buttonData]="BUTTONS_CONSTANT.EDIT_BUTTON"></vaultea-button>
+      <vaultea-button [buttonData]="BUTTONS_CONSTANT.EDIT_BUTTON" (click)="emitEditButtonClick()"></vaultea-button>
     </div>
   </div>
 </ng-container>

@@ -3,6 +3,7 @@
     <vaultea-form-header
       *ngIf="formHeaderData"
       [formHeaderData]="formHeaderData"
+      (editButtonClicked)="emitEditButtonClicked()"
     ></vaultea-form-header>
     <ng-container [ngTemplateOutlet]="formTemplate"></ng-container>
     <vaultea-form-footer

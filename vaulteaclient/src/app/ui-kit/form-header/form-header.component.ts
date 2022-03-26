@@ -1,5 +1,5 @@
 import { BaseComponent } from "@abstract";
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 import { FormHeaderData } from "./form-header-data.interface";
 
@@ -10,4 +10,9 @@ import { FormHeaderData } from "./form-header-data.interface";
 })
 export class FormHeaderComponent extends BaseComponent {
   @Input() public formHeaderData: FormHeaderData;
+  @Output() public editButtonClicked: EventEmitter<void> = new EventEmitter<void>();
+
+  public emitEditButtonClick(): void {
+    this.editButtonClicked.emit();
+  }
 }

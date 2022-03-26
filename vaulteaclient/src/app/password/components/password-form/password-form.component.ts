@@ -112,6 +112,11 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
       });
   }
 
+  public switchToEditMode(): void {
+    this.formState = null;
+    this.setState();
+  }
+
   public cancel(): void {
     throw new Error("Method not implemented.");
   }

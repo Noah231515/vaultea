@@ -25,7 +25,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { UserService } from "@authentication";
 import { Folder, FolderModule, FolderService } from "@folder";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, TypeEnum } from "@shared";
-import { CardData } from "@ui-kit";
+import { CardData, DialogService } from "@ui-kit";
 
 import { UserMockService } from "../../mock-service/mocks/user-mock.service";
 import { PasswordService } from "../../password/services/password.service";
@@ -203,6 +203,23 @@ describe("VaultComponent", () => {
       expect(userDataService.sortByBehaviorSubject.getValue()).toEqual("name");
       expect(items).toEqual([userMockService.parentFolder1, userMockService.parentFolder2, userMockService.password1])
     })
+  });
+
+  it("should open password form in view mode", async () => {
+    const userMockService = TestBed.inject(UserMockService);
+    const dialogService = TestBed.inject(DialogService);
+    const dialogSpy = jest.spyOn(dialogService, "open");
+
+    const cardData: CardData = {
+      object: userMockService.password1,
+      type: TypeEnum.PASSWORD
+    };
+
+    component.handleContentClicked(cardData);
+    const passwordForm = document.querySelector("vaultea-password-form");
+
+    expect(passwordForm).toBeTruthy();
+    expect(dialogSpy).toHaveBeenCalled();
   });
 
   // TODO: Come back to these

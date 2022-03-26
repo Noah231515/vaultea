@@ -1,6 +1,6 @@
 
 
-import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
+import { CryptoBusinessLogicService, CryptoFunctionService, FormStateEnum, UserKeyService } from "@abstract";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
@@ -76,6 +76,13 @@ describe("PasswordFormComponent", () => {
     expect(component.form.get("name").value).toEqual(existingPassword.name);
     expect(component.form.get("username").value).toEqual(existingPassword.username);
     expect(component.form.get("password").value).toEqual(existingPassword.password);
+  });
+
+  it("should switch to edit state", () => {
+    component.formState = FormStateEnum.VIEW;
+    component.switchToEditMode();
+
+    expect(component.formState).toEqual(FormStateEnum.EDIT);
   });
 });
 

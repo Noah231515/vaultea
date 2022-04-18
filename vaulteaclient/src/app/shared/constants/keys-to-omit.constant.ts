@@ -1,18 +1,20 @@
 export class KeysToOmitConstant {
   public static readonly FOLDER: string[] = [
     "id",
-    "vaultId",
     "folderId",
     "pathNodes",
     "childFolders",
-    "starred"
+    "starred",
+    "createdAt",
+    "updatedAt"
   ];
 
   public static readonly PASSWORD: string[] = [
     "id",
-    "vaultId",
     "folderId",
     "expireDate",
-    "starred"
+    "starred",
+    "createdAt",
+    "updatedAt"
   ];
 }

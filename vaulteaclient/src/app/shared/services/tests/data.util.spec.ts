@@ -84,21 +84,6 @@ describe("DataUtil", () => {
     expect(string).toBe(computedResult);
   });
 
-  it("should convert snake case string to camel case", () => {
-    const string = "camel_case_string";
-    const result = "camelCaseString";
-    const computedResult = DataUtil.snakeCaseToCamelCase(string);
-
-    expect(result).toBe(computedResult);
-  });
-
-  it("should return the original string since it is not camel case", () => {
-    const string = "notASnakeCaseString";
-    const computedResult = DataUtil.snakeCaseToCamelCase(string);
-
-    expect(string).toBe(computedResult);
-  });
-
   it("should get path nodes for child folder", () => {
     const folders = [parentFolder1, parentFolder2, childFolder1, childFolder2];
     DataUtil.setPathNodes(folders);

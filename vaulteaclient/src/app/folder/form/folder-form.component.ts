@@ -88,6 +88,9 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   }
 
   private create(preparedData: any): void {
+    if (!preparedData["folderId"]) {
+      preparedData["folderId"] = null
+    }
     this.folderService.create(preparedData)
       .pipe(
         take(1)
@@ -100,6 +103,9 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
   }
 
   private update(preparedData: any): void {
+    if (!preparedData["folderId"]) {
+      preparedData["folderId"] = null
+    }
     this.folderService.update(this.existingObject.id, preparedData)
       .pipe(
         take(1)

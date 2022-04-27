@@ -226,9 +226,11 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
         take(1),
         catchError(err => of(this.snackBarService.open(err.error.msg)))
       )
-      .subscribe(folderId => {
-        this.snackBarService.open("Folder successfully deleted");
-        this.userDataService.removeFolder(folderId as string);
+      .subscribe(response => {
+        if (response) {
+          this.snackBarService.open("Folder successfully deleted");
+          this.userDataService.removeFolder(response.id);
+        }
       });
   }
 

@@ -90,7 +90,7 @@ export abstract class UserDataService {
 
   public removeFolder(folderId: string): void {
     const user = this.userService.getUser();
-    const index = user.folders.findIndex(x => x.id === folderId);
+    const index = user.folders.findIndex(x => x.id == folderId); // TODO: Fix typing of ids. They should be numbers, instead of strings
     user.folders.splice(index, 1);
 
     this.refreshData(user, true);

@@ -105,8 +105,6 @@ export class BrowserCryptoBusinessLogicService implements CryptoBusinessLogicSer
 
   public async prepareForSubmit(encryptionKey: VaulteaCryptoKey, object: any, keysToOmit: string[] = []): Promise<any> {
     const encryptedData = await this.encryptObject(object, encryptionKey, keysToOmit);
-
-    DataUtil.objectKeysToSnakeCase(encryptedData);
     return encryptedData;
   }
 }

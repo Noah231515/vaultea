@@ -16,6 +16,6 @@ export class KeysToOmitConstant {
     "starred",
     "createdAt",
     "updatedAt",
-    "expireDate",
+    "expireDate", // TODO: deal with this eventually
   ];
 }

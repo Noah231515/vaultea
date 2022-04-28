@@ -81,6 +81,14 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
       KeysToOmitConstant.PASSWORD
     );
 
+    if (!preparedData["folderId"]) {
+      preparedData["folderId"] = null
+    }
+
+    if (!preparedData["expireDate"]) {
+      preparedData["expireDate"] = null
+    }
+
     if (this.formState === FormStateEnum.CREATE) {
       this.create(preparedData);
     } else {

@@ -68,7 +68,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
       name: [this.existingObject?.name ?? "", Validators.required],
       username: [this.existingObject?.username ?? "", Validators.required],
       password: [this.existingObject?.password ?? "", Validators.required],
-      note: [this.existingObject?.note ?? ""],
+      description: [this.existingObject?.description ?? ""],
       expireDate: [this.existingObject?.expireDate ?? ""],
       url: [""]
     });

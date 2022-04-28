@@ -44,7 +44,7 @@ export class CardComponent extends BaseComponent implements OnInit {
         break;
       case TypeEnum.PASSWORD:
         this.title = this.cardData.object.name;
-        this.description = (this.cardData.object as Password).note;
+        this.description = (this.cardData.object as Password).description;
         this.icon = "article";
         break;
       default:

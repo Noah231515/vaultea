@@ -4,7 +4,7 @@ export class Password {
   public name: string;
   public username: string;
   public password: string;
-  public note?: string;
+  public description?: string;
   public expireDate?: Date;
   public starred: boolean;
 }

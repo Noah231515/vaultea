@@ -22,8 +22,8 @@ export class PasswordService {
     return this.httpClient.put<Password>(`api/password/${passwordId}`, folder);
   }
 
-  public delete(passwordId: string): Observable<string> {
-    return this.httpClient.delete<string>(`api/password/${passwordId}`);
+  public delete(passwordId: string): Observable<{id: string}> {
+    return this.httpClient.delete<{id: string}>(`api/password/${passwordId}`);
   }
 
   public updateStarred(passwordId: string): Observable<Password> {

@@ -98,7 +98,7 @@ export abstract class UserDataService {
 
   public removePassword(passwordId: string): void {
     const user = this.userService.getUser();
-    const index = user.passwords.findIndex(x => x.id === passwordId);
+    const index = user.passwords.findIndex(x => x.id == passwordId); // TODO: fix typing of ids
     user.passwords.splice(index, 1);
 
     this.refreshData(user, true);

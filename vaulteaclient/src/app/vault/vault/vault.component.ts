@@ -240,10 +240,10 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
         take(1),
         catchError(err => of(this.snackBarService.open(err.error.msg)))
       )
-      .subscribe(passwordId => {
-        if (passwordId) {
+      .subscribe(response => {
+        if (response) {
           this.snackBarService.open("Password successfully deleted");
-          this.userDataService.removePassword(passwordId as string);
+          this.userDataService.removePassword(response.id);
         }
       });
   }

@@ -1,0 +1,44 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"baseUrl": "./",
+		"outDir": "./dist/out-tsc",
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": false,
+		"sourceMap": true,
+		"declaration": false,
+		"downlevelIteration": true,
+		"experimentalDecorators": true,
+		"moduleResolution": "node",
+		"importHelpers": true,
+		"target": "es2017",
+		"module": "es2020",
+		"strictPropertyInitialization": false,
+		"strictNullChecks": false,
+		"esModuleInterop": true,
+		"lib": [
+			"es2018",
+			"dom"
+		],
+		"paths": {
+			"@abstract": ["src/app/abstract/index.ts"],
+			"@authentication": ["src/app/authentication/index.ts"],
+			"@folder": ["src/app/folder/index.ts"],
+			"@mock": ["src/app/mock-service/index.ts"],
+			"@password": ["src/app/password/index.ts"],
+			"@shared": ["src/app/shared/index.ts"],
+			"@ui-kit": ["src/app/ui-kit/index.ts"],
+			"@util": ["src/app/utils/index.ts"],
+			"@vault": ["src/app/vault/index.ts"]
+		}
+	},
+	"angularCompilerOptions": {
+		"enableIvy": true,
+		"enableI18nLegacyMessageIdFormat": false,
+		"strictInjectionParameters": true,
+		"strictInputAccessModifiers": true,
+		"strictTemplates": true
+	}
+}

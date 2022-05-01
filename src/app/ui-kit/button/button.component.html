@@ -1,0 +1,11 @@
+<button
+  fxFlex
+  mat-button
+  [class]="buttonData.buttonTypeClass"
+  [color]="buttonData.color"
+  [attr.aria-label]="buttonData.ariaLabel"
+  [type]="buttonData.type"
+>
+  <mat-icon *ngIf="buttonData?.icon"> {{buttonData.icon}} </mat-icon>
+  <div *ngIf="buttonData?.text"> {{buttonData.text}} </div>
+</button>

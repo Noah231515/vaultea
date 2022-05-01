@@ -1,0 +1,33 @@
+<mat-card fxFlex class="card-width">
+  <mat-card-header class="header-text-margin">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
+      <div fxFlex>
+        <button (click)="starClicked.emit(cardData)" mat-icon-button>
+          <mat-icon
+            class="star"
+          >
+            {{ cardData.object.starred ? "star" : "star_outline"}}
+          </mat-icon>
+        </button>
+      </div>
+      <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+        <mat-icon aria-hidden="false" aria-label="More Options" [matMenuTriggerFor]="menu">more_vert</mat-icon>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="deleteOptionClicked.emit(cardData)">Delete</button>
+          <button mat-menu-item (click)="openDrawerInEditMode()">Edit</button>
+        </mat-menu>
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="content-hover" (click)="contentClicked.emit(cardData)">
+    <div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+      <mat-icon fxFlex class="icon-style" aria-hidden="false" aria-label="Folder Icon">{{ icon }}</mat-icon>
+      <h2>{{title}}</h2>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <div fxLayoutAlign="center center">
+      <mat-card-subtitle>{{description}}</mat-card-subtitle>
+    </div>
+  </mat-card-actions>
+</mat-card>

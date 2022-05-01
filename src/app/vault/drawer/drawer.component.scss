@@ -1,0 +1,45 @@
+@import "../../../styles.scss";
+@import "../../styles/drawer.scss";
+
+vaultea-drawer {
+  height: 100%;
+  mat-sidenav {
+    border-top-right-radius: $radius-amount;
+    border-bottom-right-radius: $radius-amount;
+  }
+
+  mat-list-option {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    :focus {
+      background-color: $secondary-dark-green;
+    }
+  }
+
+  .mat-drawer-inner-container {
+    border-top-left-radius: $radius-amount;
+    border-bottom-left-radius: $radius-amount;
+    min-width: $width;
+  }
+}
+
+.mat-list-single-selected-option {
+  background-color: $secondary-dark-green!important;
+}
+
+.mat-list-item-ripple {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.pull-tab {
+  height: 100px;
+  width: 25px;
+  border-top-right-radius: 50px!important;
+  border-bottom-right-radius: 50px!important;
+  cursor: pointer;
+}
+
+.global-foreground {
+  padding: 0px!important;
+}

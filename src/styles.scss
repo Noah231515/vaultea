@@ -1,0 +1,88 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@import "~mdb-ui-kit/css/mdb.min.css";
+
+html, body { height: 100vh; }
+body { margin: 0; font-family: Cabin; }
+
+.logo-full {
+  width: 256px;
+  height: 80px;
+}
+
+.logo-minimal {
+  width: 64px;
+  height: 64px;
+}
+
+app-root {
+  display: block;
+  height: 100%;
+}
+
+$primary-green: #6FCFB8;
+$primary-yellow: #FFBD12;
+$error-red: #FF5B5B;
+$success-blue: #5E65CE;
+$primary-grey: #C4C4C4;
+$primary-black: #52616B;
+$background-green: #F4F9F7;
+
+$secondary-dark-green: #0ABA90;
+$active-light-green: #0ABA90;
+$hover-grey: #000000;
+
+body {
+  background-color: $background-green;
+}
+
+.content-background-color {
+  background-color: $background-green;
+}
+
+$primary-palette: (
+  100: $secondary-dark-green,
+  200: $secondary-dark-green,
+  700: $secondary-dark-green,
+  contrast: (
+    200: rgba(black, 0.87)
+  )
+);
+
+$secondary-palette: (
+  100: $primary-yellow,
+  200: $primary-yellow,
+  700: $primary-yellow,
+  contrast: (
+    200: rgba(black, 0.87)
+  )
+);
+
+$warn-palette: (
+  100: $error-red,
+  200: $error-red,
+  700: $error-red,
+  contrast: (
+    200: rgba(black, 0.87)
+  )
+);
+
+$primary: mat.define-palette($primary-palette, 200);
+$secondary: mat.define-palette($secondary-palette, 200);
+$warn: mat.define-palette($warn-palette, 200);
+
+$vaultea-typography: mat.define-typography-config(
+  $font-family: 'Cabin'
+);
+
+
+$vaultea-theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $secondary,
+    warn: $warn
+  ),
+  typography: $vaultea-typography
+));
+
+@include mat.all-component-themes($vaultea-theme);

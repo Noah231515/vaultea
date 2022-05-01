@@ -1,0 +1,13 @@
+<mat-form-field fxFlex appearance="standard">
+  <mat-label>{{ textAreaData.label }}</mat-label>
+  <textarea
+    matInput
+    #message
+    maxlength="textAreaData.maxLength ?? null"
+    placeholder={{textAreaData.placeholder}}
+    [formControl]="textAreaData.formControl"
+    [readonly]="textAreaData?.readonly ?? false"
+  >
+  </textarea>
+  <mat-hint *ngIf="textAreaData.maxLength" align="end">{{message.value.length}} / {{textAreaData.maxLength}}</mat-hint>
+</mat-form-field>

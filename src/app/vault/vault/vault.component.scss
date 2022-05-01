@@ -1,0 +1,25 @@
+@import "../../../styles.scss";
+
+vaultea-vault {
+  width: 100%;
+  height: 100%;
+
+  vaultea-card {
+    margin: 8px;
+  }
+
+  mat-divider {
+    background-color: $secondary-dark-green;
+  }
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%;
+}
+
+.button-wrapper {
+  position: fixed;
+  bottom: 2vh;
+}

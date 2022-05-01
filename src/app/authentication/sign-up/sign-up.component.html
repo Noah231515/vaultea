@@ -1,0 +1,32 @@
+<div class="card-position" fxFlex="50%">
+    <div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px">
+    <vaultea-logo-full></vaultea-logo-full>
+        <h1>Sign up</h1>
+        <vaultea-form
+            [form]="form"
+            [formTemplate]="formTemplate"
+            (primaryButtonClicked)="submit()"
+            (secondaryButtonClicked)="navigateToLogin()"
+        ></vaultea-form>
+    </div>
+</div>
+
+<ng-template #formTemplate>
+    <div fxFlex fxLayout="column" fxLayoutGap="8px">
+        <vaultea-input
+            [inputData]="{
+              label: 'Username',
+              placeholder: 'Username',
+              formControl: toFormControl(form.get('username'))
+            }"
+        ></vaultea-input>
+        <vaultea-input
+          [inputData]="{
+            label: 'Password',
+            placeholder: 'Password',
+            formControl: toFormControl(form.get('password')),
+            sensitiveDataInput: true
+          }"
+        ></vaultea-input>
+    </div>
+</ng-template>

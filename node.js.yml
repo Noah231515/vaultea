@@ -13,7 +13,7 @@ jobs:
   build:
     defaults:
       run:
-        working-directory: vaulteaclient
+        working-directory: .
 
     runs-on: ubuntu-latest
 

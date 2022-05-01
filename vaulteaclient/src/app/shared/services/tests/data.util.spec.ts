@@ -17,7 +17,6 @@ describe("DataUtil", () => {
   beforeEach(async () => {
     childFolder1 = {
       id: "2",
-      vaultId: "1",
       name: "Child folder",
       description: "",
       folderId: "1",
@@ -27,7 +26,6 @@ describe("DataUtil", () => {
     };
     childFolder2 = {
       id: "3",
-      vaultId: "1",
       name: "Child child folder",
       description: "",
       folderId: "2",
@@ -37,7 +35,6 @@ describe("DataUtil", () => {
     };
     parentFolder1 = {
       id: "1",
-      vaultId: "1",
       name: "First folder",
       description: "",
       folderId: "",
@@ -47,7 +44,6 @@ describe("DataUtil", () => {
     };
     parentFolder2 = {
       id: "20",
-      vaultId: "1",
       name: "Second folder",
       description: "",
       folderId: "",

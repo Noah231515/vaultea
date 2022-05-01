@@ -22,7 +22,6 @@ describe("PasswordFormComponent", () => {
   let fixture: ComponentFixture<PasswordFormComponent>;
   const existingPassword: Password = {
     id: "1",
-    vaultId: "1",
     name: "Password",
     username: "Test",
     password: "Very good",

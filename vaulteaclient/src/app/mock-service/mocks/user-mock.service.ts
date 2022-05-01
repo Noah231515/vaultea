@@ -14,7 +14,6 @@ export class UserMockService  {
 
   public childFolder1: Folder = {
     id: "2",
-    vaultId: "1",
     name: "Child folder",
     description: "",
     folderId: "1",
@@ -24,7 +23,6 @@ export class UserMockService  {
   };
   public childFolder2: Folder = {
     id: "3",
-    vaultId: "1",
     name: "Child child folder",
     description: "",
     folderId: "2",
@@ -34,7 +32,6 @@ export class UserMockService  {
   };
   public parentFolder1: Folder = {
     id: "1",
-    vaultId: "1",
     name: "First folder",
     description: "",
     folderId: "",
@@ -44,7 +41,6 @@ export class UserMockService  {
   };
   public parentFolder2: Folder = {
     id: "20",
-    vaultId: "1",
     name: "Second folder",
     description: "",
     folderId: "",
@@ -55,7 +51,6 @@ export class UserMockService  {
 
   public password1: Password = {
     id: "1",
-    vaultId: "1",
     name: "Test ",
     username: "Yahh Mon",
     password: "I'm a super secure password",
@@ -71,7 +66,6 @@ export class UserMockService  {
   private setup(): void {
     this.userBehaviorSubject.next({
       id: "1",
-      vaultId: "1",
       username: "Test Man",
       accessToken: "",
       key: "",

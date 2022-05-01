@@ -19,7 +19,6 @@ describe("FolderFormComponent", () => {
   let fixture: ComponentFixture<FolderFormComponent>;
   const existingFolder: Folder = {
     id: "1",
-    vaultId: "1",
     folderId: "",
     name: "Brand new folder",
     description: "Great folder",

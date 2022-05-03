@@ -3,16 +3,16 @@
    *matTreeNodeDef="let node"
     matTreeNodeToggle
     [ngClass]="{
-      'current-folder': (params | async)?.object?.id === node?.id?.toString()
+      'current-folder': (params | async)?.object?.id === node?.id?.toString() && node?.object?.itemType === 'Folder'
     }"
   >
     {{ node.object.name }}
   </mat-tree-node>
   <mat-nested-tree-node
-    *matTreeNodeDef="let node; when: hasChild">
+    *matTreeNodeDef="let node; when: hasChild.bind(this)">
       <div
         [ngClass]="{
-          'current-folder': (params | async)?.object?.id === node?.object?.id?.toString()
+          'current-folder': (params | async)?.object?.id === node?.object?.id?.toString() && node?.object?.itemType === 'Folder'
         }"
         class="mat-tree-node"
       >

@@ -1,6 +1,6 @@
 import { UserDataService } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, Type } from '@angular/core';
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Folder } from "@folder";
@@ -19,8 +19,16 @@ export class FolderTreeComponent implements OnInit {
   public vaultItemsObservable: Observable<VaultItem[]> = null;
   public vaultItems: VaultItem[] = [];
 
-  public treeControl = new NestedTreeControl<VaultItem>(item => (item as any)?.childFolders);
+  public treeControl: any;
   public dataSource: Observable<MatTreeNestedDataSource<VaultItem>>;
+
+  private getChildrenObjects(item: VaultItem): VaultItem[] {
+    if (item.itemType === TypeEnum.FOLDER) {
+      return this.vaultItems.filter(f => f.object.folderId === item.object.id);
+    } else {
+      return []
+    }
+  }
 
   public params: Observable<Params> = this.route
     .params
@@ -38,11 +46,9 @@ export class FolderTreeComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private userDataService: UserDataService,
     public route: ActivatedRoute
-  ) {
-  }
+  ) {}
 
   public ngOnInit(): void {
-
     const folderVaultObservable = this.userDataService.folderObservable
       .pipe(
         map(folders => {
@@ -76,6 +82,7 @@ export class FolderTreeComponent implements OnInit {
         }),
         tap(vaultItems => {
           this.vaultItems = vaultItems;
+          this.treeControl = new NestedTreeControl<VaultItem>(item => this.getChildrenObjects(item));
         })
       )
 
@@ -83,14 +90,18 @@ export class FolderTreeComponent implements OnInit {
       .pipe(
         map(items => {
           const dataSource = new MatTreeNestedDataSource<VaultItem>();
-          dataSource.data = items
+          dataSource.data = items.filter(item => item.object.folderId === null)
           return dataSource;
         }),
         tap(() => this.changeDetectorRef.detectChanges())
       );
+
   }
 
   public hasChild(_: number, node: VaultItem): boolean {
-    return (node?.object as any).childFolders?.length > 0;
+    if (this.vaultItems && node.itemType === TypeEnum.FOLDER) {
+      return this.vaultItems.filter(i => i.object.folderId === node.object.id).length > 0
+    }
+    return false;
   }
 }

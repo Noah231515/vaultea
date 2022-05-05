@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 import { Folder } from "@folder";
 import { Password } from "@password";
 import { TypeEnum } from "@shared";
+import { ItemIconEnum } from "../enums/item-icon.enum";
 
 import { CardData } from "./card-data.model";
 
@@ -23,6 +24,7 @@ export class CardComponent extends BaseComponent implements OnInit {
   public title: string;
   public description: string;
   public icon: string;
+  public itemIconEnum = ItemIconEnum;
 
   private typeNotSupportedError = new Error("Type not supported");
 
@@ -40,12 +42,12 @@ export class CardComponent extends BaseComponent implements OnInit {
       case TypeEnum.FOLDER:
         this.title = this.cardData.object.name;
         this.description = (this.cardData.object as Folder).description;
-        this.icon = "folder";
+        this.icon = this.itemIconEnum.FOLDER;
         break;
       case TypeEnum.PASSWORD:
         this.title = this.cardData.object.name;
         this.description = (this.cardData.object as Password).description;
-        this.icon = "article";
+        this.icon = this.itemIconEnum.PASSWORD;
         break;
       default:
         throw this.typeNotSupportedError;

@@ -27,10 +27,10 @@ import { Folder, FolderModule, FolderService } from "@folder";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, TypeEnum } from "@shared";
 import { CardData, DialogService } from "@ui-kit";
 
-import { UserMockService } from "../../mock-service/mocks/user-mock.service";
-import { PasswordService } from "../../password/services/password.service";
-import { SharedModule } from "../../shared/shared.module";
-import { UiKitModule } from "../../ui-kit/ui-kit.module";
+import { UserMockService } from "../../../mock-service/mocks/user-mock.service";
+import { PasswordService } from "../../../password/services/password.service";
+import { SharedModule } from "../../../shared/shared.module";
+import { UiKitModule } from "../../../ui-kit/ui-kit.module";
 import { DrawerComponent } from "../drawer/drawer.component";
 import { VaultComponent } from "./vault.component";
 

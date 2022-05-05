@@ -18,7 +18,7 @@ export class FolderTreeComponent implements OnInit {
   public vaultItemsObservable: Observable<VaultItem[]> = null;
   public vaultItems: VaultItem[] = [];
 
-  public treeControl: any;
+  public treeControl: NestedTreeControl<VaultItem>;
   public dataSource: Observable<MatTreeNestedDataSource<VaultItem>>;
 
   private getChildrenObjects(item: VaultItem): VaultItem[] {
@@ -34,8 +34,8 @@ export class FolderTreeComponent implements OnInit {
     .pipe(
       tap(params => {
         if (params.id) {
-          const currentFolder = this.userDataService.getFolders().find(f => f.id.toString() === params.id);
-          const currentItem = this.vaultItems.filter(item => item.itemType === TypeEnum.FOLDER).find(f => f.object === currentFolder);
+          const currentFolder = this.userDataService.getFolders().find(f => f.id.toString() == params.id);
+          const currentItem = this.vaultItems.filter(item => item.itemType == TypeEnum.FOLDER).find(f => f.object == currentFolder);
           this.treeControl.expand(currentItem);
         }
       })

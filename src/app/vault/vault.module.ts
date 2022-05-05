@@ -18,6 +18,7 @@ import { FolderModule } from "@folder";
 import { SharedModule } from "../shared/shared.module";
 import { UiKitModule } from "../ui-kit/ui-kit.module";
 import { DrawerComponent } from "./drawer/drawer.component";
+import { FolderTreeComponent } from "./folder-tree/folder-tree.component";
 import { VaultRoutingModule } from "./vault-routing.module";
 import { VaultComponent } from "./vault/vault.component";
 
@@ -25,6 +26,7 @@ import { VaultComponent } from "./vault/vault.component";
   declarations: [
     VaultComponent,
     DrawerComponent,
+    FolderTreeComponent
   ],
   imports: [
     CommonModule,

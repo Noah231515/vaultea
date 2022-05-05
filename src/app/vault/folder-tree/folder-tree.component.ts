@@ -1,9 +1,8 @@
 import { UserDataService } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, Type } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { ActivatedRoute, Params } from "@angular/router";
-import { Folder } from "@folder";
 import { TypeEnum } from "@shared";
 import { VaultItem } from "@vault";
 import { combineLatest, Observable } from "rxjs";

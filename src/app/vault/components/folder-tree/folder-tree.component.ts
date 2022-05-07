@@ -1,11 +1,13 @@
+import { combineLatest, Observable } from "rxjs";
+import { map, tap } from "rxjs/operators";
+
 import { UserDataService } from "@abstract";
 import { NestedTreeControl } from "@angular/cdk/tree";
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { ActivatedRoute, Params } from "@angular/router";
 import { TypeEnum } from "@shared";
-import { combineLatest, Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
+
 import { TreeItem } from "./tree-item.interface";
 
 @Component({

@@ -21,8 +21,8 @@ import { FolderModule } from "@folder";
 import { UserMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
-import { SharedModule } from "../../shared/shared.module";
-import { UiKitModule } from "../../ui-kit/ui-kit.module";
+import { SharedModule } from "../../../shared/shared.module";
+import { UiKitModule } from "../../../ui-kit/ui-kit.module";
 import { DrawerComponent } from "./drawer.component";
 
 describe("DrawerComponent", () => {

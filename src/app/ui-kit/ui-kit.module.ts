@@ -13,7 +13,6 @@ import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { MatTreeModule } from "@angular/material/tree";
 import { RouterModule } from "@angular/router";
 
 import { AbstractModule } from "../abstract/abstract.module";
@@ -21,7 +20,6 @@ import { AutocompleteComponent } from "./autocomplete/autocomplete.component";
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 import { ButtonComponent } from "./button/button.component";
 import { CardComponent } from "./card/card.component";
-import { FolderTreeComponent } from "./folder-tree/folder-tree.component";
 import { FormFooterComponent } from "./form-footer/form-footer.component";
 import { FormHeaderComponent } from "./form-header/form-header.component";
 import { FormComponent } from "./form/form.component";
@@ -36,7 +34,6 @@ import { GenericDialogComponent } from "./generic-dialog/generic-dialog.componen
     AutocompleteComponent,
     ButtonComponent,
     CardComponent,
-    FolderTreeComponent,
     FormComponent,
     FormFooterComponent,
     FormHeaderComponent,
@@ -53,7 +50,6 @@ import { GenericDialogComponent } from "./generic-dialog/generic-dialog.componen
     ButtonComponent,
     CardComponent,
     FlexLayoutModule,
-    FolderTreeComponent,
     FormComponent,
     FormFooterComponent,
     FormHeaderComponent,
@@ -76,7 +72,6 @@ import { GenericDialogComponent } from "./generic-dialog/generic-dialog.componen
     MatMenuModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatTreeModule,
     ReactiveFormsModule,
     RouterModule,
     TextFieldModule,

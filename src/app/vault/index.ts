@@ -4,4 +4,4 @@ export * from "./vault.module";
 export * from "./models/vault-item.interface";
 
 // Component
-export * from "./vault/vault.component";
+export * from "./components/vault/vault.component";

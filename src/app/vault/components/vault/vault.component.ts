@@ -11,15 +11,15 @@ import { Folder, FolderFormComponent, FolderService } from "@folder";
 import { CreateItemSelectComponent, TypeEnum } from "@shared";
 import { CardData, DialogService } from "@ui-kit";
 
-import { FormStateEnum } from "../../abstract/enums/form-state.enum";
-import { UserDataService } from "../../abstract/services/user-data.service";
+import { FormStateEnum } from "../../../abstract/enums/form-state.enum";
+import { UserDataService } from "../../../abstract/services/user-data.service";
 import {
   PasswordFormComponent
-} from "../../password/components/password-form/password-form.component";
-import { PasswordService } from "../../password/services/password.service";
-import { GenericDialogData } from "../../ui-kit/generic-dialog/generic-dialog-data.interface";
-import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
-import { VaultItem } from "../models/vault-item.interface";
+} from "../../../password/components/password-form/password-form.component";
+import { PasswordService } from "../../../password/services/password.service";
+import { GenericDialogData } from "../../../ui-kit/generic-dialog/generic-dialog-data.interface";
+import { SnackBarService } from "../../../ui-kit/services/snack-bar.service";
+import { VaultItem } from "../../models/vault-item.interface";
 
 /* eslint-disable indent */
 @Component({

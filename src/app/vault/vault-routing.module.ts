@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuard } from "@shared";
+import { DrawerComponent } from "./components/drawer/drawer.component";
 
-import { DrawerComponent } from "./drawer/drawer.component";
-import { VaultComponent } from "./vault/vault.component";
+import { VaultComponent } from "./components/vault/vault.component";
 
 const routes: Routes = [
   {

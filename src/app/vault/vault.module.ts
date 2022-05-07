@@ -17,14 +17,16 @@ import { FolderModule } from "@folder";
 
 import { SharedModule } from "../shared/shared.module";
 import { UiKitModule } from "../ui-kit/ui-kit.module";
-import { DrawerComponent } from "./drawer/drawer.component";
 import { VaultRoutingModule } from "./vault-routing.module";
-import { VaultComponent } from "./vault/vault.component";
+import { VaultComponent } from "./components/vault/vault.component";
+import { DrawerComponent } from "./components/drawer/drawer.component";
+import { FolderTreeComponent } from "./components/folder-tree/folder-tree.component";
 
 @NgModule({
   declarations: [
     VaultComponent,
     DrawerComponent,
+    FolderTreeComponent
   ],
   imports: [
     CommonModule,

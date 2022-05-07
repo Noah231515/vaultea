@@ -3,7 +3,7 @@
    *matTreeNodeDef="let node"
     matTreeNodeToggle
     [ngClass]="{
-      'current-folder': (params | async).id === node.id.toString()
+      'current-folder': (params | async).id === node?.id?.toString() && node.itemType === typeEnum.FOLDER
     }"
   >
     {{ node.name }}
@@ -12,7 +12,7 @@
     *matTreeNodeDef="let node; when: hasChild">
       <div
         [ngClass]="{
-          'current-folder': (params | async).id === node.id.toString()
+          'current-folder': (params | async).id === node?.id?.toString() && node.itemType === typeEnum.FOLDER
         }"
         class="mat-tree-node"
       >

@@ -4,9 +4,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { ActivatedRoute, Params } from "@angular/router";
 import { TypeEnum } from "@shared";
-import { VaultItem } from "@vault";
 import { combineLatest, Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
+import { TreeItem } from "./tree-item.interface";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,19 +15,13 @@ import { map, tap } from "rxjs/operators";
   styleUrls: ["./folder-tree.component.scss"]
 })
 export class FolderTreeComponent implements OnInit {
-  public vaultItemsObservable: Observable<VaultItem[]> = null;
-  public vaultItems: VaultItem[] = [];
+  public treeItemsObservable: Observable<TreeItem[]> = null;
+  public treeItems: TreeItem[] = [];
 
-  public treeControl: NestedTreeControl<VaultItem>;
-  public dataSource: Observable<MatTreeNestedDataSource<VaultItem>>;
+  public typeEnum = TypeEnum;
 
-  private getChildrenObjects(item: VaultItem): VaultItem[] {
-    if (item.itemType === TypeEnum.FOLDER) {
-      return this.vaultItems.filter(f => f.object.folderId === item.object.id);
-    } else {
-      return []
-    }
-  }
+  public treeControl: NestedTreeControl<TreeItem>;
+  public dataSource: Observable<MatTreeNestedDataSource<TreeItem>>;
 
   public params: Observable<Params> = this.route
     .params
@@ -35,7 +29,7 @@ export class FolderTreeComponent implements OnInit {
       tap(params => {
         if (params.id) {
           const currentFolder = this.userDataService.getFolders().find(f => f.id.toString() == params.id);
-          const currentItem = this.vaultItems.filter(item => item.itemType == TypeEnum.FOLDER).find(f => f.object == currentFolder);
+          const currentItem = this.treeItems.filter(item => item.itemType == TypeEnum.FOLDER).find(f => f.id == currentFolder.id);
           this.treeControl.expand(currentItem);
         }
       })
@@ -48,58 +42,69 @@ export class FolderTreeComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    const folderVaultObservable = this.userDataService.folderObservable
+    const folderTreeObservable = this.userDataService.folderObservable
       .pipe(
         map(folders => {
           return folders.map(folder => {
-            const vaultItem: VaultItem = {
-              object: folder,
+            const treeItem: TreeItem = {
+              id: folder.id,
+              name: folder.name,
+              folderId: folder.folderId,
               itemType: TypeEnum.FOLDER
             }
-            return vaultItem;
+            return treeItem;
           })
         })
       );
 
-    const passwordVaultObservable = this.userDataService.passwordObservable
+    const passwordTreeObservable = this.userDataService.passwordObservable
       .pipe(
         map(passwords => {
           return passwords.map(password => {
-            const vaultItem: VaultItem = {
-              object: password,
+            const treeItem: TreeItem = {
+              id: password.id,
+              name: password.name,
+              folderId: password.folderId,
               itemType: TypeEnum.PASSWORD
             }
-            return vaultItem;
+            return treeItem;
           })
         })
       );
 
-    this.vaultItemsObservable = combineLatest([folderVaultObservable, passwordVaultObservable])
+    this.treeItemsObservable = combineLatest([folderTreeObservable, passwordTreeObservable])
       .pipe(
-        map((result: [VaultItem[], VaultItem[]]) => {
+        map((result: [TreeItem[], TreeItem[]]) => {
           return result[0].concat(result[1])
         }),
-        tap(vaultItems => {
-          this.vaultItems = vaultItems;
-          this.treeControl = new NestedTreeControl<VaultItem>(item => this.getChildrenObjects(item));
+        tap(treeItems => {
+          this.treeItems = treeItems;
+          this.treeControl = new NestedTreeControl<TreeItem>(item => this.getChildrenObjects(item));
         })
       )
 
-    this.dataSource = this.vaultItemsObservable
+    this.dataSource = this.treeItemsObservable
       .pipe(
         map(items => {
-          const dataSource = new MatTreeNestedDataSource<VaultItem>();
-          dataSource.data = items.filter(item => item.object.folderId === null)
+          const dataSource = new MatTreeNestedDataSource<TreeItem>();
+          dataSource.data = items.filter(item => item.folderId === null)
           return dataSource;
         }),
         tap(() => this.changeDetectorRef.detectChanges())
       );
-
   }
 
-  public hasChild(_: number, node: VaultItem): boolean {
-    if (this.vaultItems && node.itemType === TypeEnum.FOLDER) {
-      return this.vaultItems.filter(i => i.object.folderId === node.object.id).length > 0
+  private getChildrenObjects(item: TreeItem): TreeItem[] {
+    if (item.itemType === TypeEnum.FOLDER) {
+      return this.treeItems.filter(f => f.folderId === item.id);
+    } else {
+      return []
+    }
+  }
+
+  public hasChild(_: number, node: TreeItem): boolean {
+    if (this.treeItems && node.itemType === TypeEnum.FOLDER) {
+      return this.treeItems.filter(i => i.folderId === node.id).length > 0
     }
     return false;
   }

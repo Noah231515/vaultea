@@ -3,16 +3,16 @@
    *matTreeNodeDef="let node"
     matTreeNodeToggle
     [ngClass]="{
-      'current-folder': (params | async).id === node?.id?.toString()
+      'current-folder': (params | async).id === node?.id?.toString() && node.itemType === typeEnum.FOLDER
     }"
   >
-    {{ node.object.name }}
+    {{ node.name }}
   </mat-tree-node>
   <mat-nested-tree-node
     *matTreeNodeDef="let node; when: hasChild.bind(this)">
       <div
         [ngClass]="{
-          'current-folder': (params | async).id === node?.object?.id?.toString()
+          'current-folder': (params | async).id === node?.id?.toString() && node.itemType === typeEnum.FOLDER
         }"
         class="mat-tree-node"
       >
@@ -24,7 +24,7 @@
             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
           </mat-icon>
         </button>
-        {{node.object.name}}
+        {{node.name}}
       </div>
       <div
         [class.example-tree-invisible]="!treeControl.isExpanded(node)"

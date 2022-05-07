@@ -5,4 +5,5 @@ export interface TreeItem {
   name: string;
   folderId: string;
   itemType: TypeEnum
+  childItems: TreeItem[];
 }

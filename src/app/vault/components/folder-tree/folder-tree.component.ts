@@ -50,7 +50,8 @@ export class FolderTreeComponent implements OnInit {
               id: folder.id,
               name: folder.name,
               folderId: folder.folderId,
-              itemType: TypeEnum.FOLDER
+              itemType: TypeEnum.FOLDER,
+              childItems: []
             }
             return treeItem;
           })
@@ -65,7 +66,8 @@ export class FolderTreeComponent implements OnInit {
               id: password.id,
               name: password.name,
               folderId: password.folderId,
-              itemType: TypeEnum.PASSWORD
+              itemType: TypeEnum.PASSWORD,
+              childItems: []
             }
             return treeItem;
           })
@@ -79,6 +81,11 @@ export class FolderTreeComponent implements OnInit {
         }),
         tap(treeItems => {
           this.treeItems = treeItems;
+          this.treeItems.forEach(item => {
+            if (item.itemType === TypeEnum.FOLDER) {
+              item.childItems = treeItems.filter(i => item.id == i.folderId);
+            }
+          })
           this.treeControl = new NestedTreeControl<TreeItem>(item => this.getChildrenObjects(item));
         })
       )
@@ -95,17 +102,10 @@ export class FolderTreeComponent implements OnInit {
   }
 
   private getChildrenObjects(item: TreeItem): TreeItem[] {
-    if (item.itemType === TypeEnum.FOLDER) {
-      return this.treeItems.filter(f => f.folderId === item.id);
-    } else {
-      return []
-    }
+    return item.childItems;
   }
 
   public hasChild(_: number, node: TreeItem): boolean {
-    if (this.treeItems && node.itemType === TypeEnum.FOLDER) {
-      return this.treeItems.filter(i => i.folderId === node.id).length > 0
-    }
-    return false;
+    return node.childItems.length > 0
   }
 }

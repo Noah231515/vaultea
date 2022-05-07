@@ -30,6 +30,13 @@ export class FolderTreeComponent implements OnInit {
         if (params.id) {
           const currentFolder = this.userDataService.getFolders().find(f => f.id.toString() == params.id);
           const currentItem = this.treeItems.filter(item => item.itemType == TypeEnum.FOLDER).find(f => f.id == currentFolder.id);
+
+          // Recursively expand parent folder to persist expanded state
+          let parentFolder = this.treeItems.find(i => i.id === currentItem.folderId);
+          while (parentFolder) {
+            this.treeControl.expand(parentFolder);
+            parentFolder = this.treeItems.find(i => i.id === parentFolder.folderId);
+          }
           this.treeControl.expand(currentItem);
         }
       })

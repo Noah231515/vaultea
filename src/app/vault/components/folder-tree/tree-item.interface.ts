@@ -1,4 +1,4 @@
-import { TypeEnum } from '../../../shared/enums/type.enum';
+import { TypeEnum } from "../../../shared/enums/type.enum";
 
 export interface TreeItem {
   id: string;

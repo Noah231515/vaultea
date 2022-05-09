@@ -1,7 +1,7 @@
-import { BaseComponent } from "@abstract";
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
-import { ButtonInterface } from "..";
+import { ButtonInterface } from "../";
+import { BaseComponent } from "../shared/components/base-component/base.component";
 
 @Component({
   selector: "vaultea-form-footer",

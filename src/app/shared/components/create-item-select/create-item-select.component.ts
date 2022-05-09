@@ -1,7 +1,7 @@
-import { BaseFormComponent } from "@abstract";
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { BaseFormComponent } from "@ui-kit";
 
 import { SelectOption } from "../../../ui-kit/select/select-option.interface";
 import { TypeEnum } from "../../enums/type.enum";

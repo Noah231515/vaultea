@@ -1,13 +1,13 @@
-import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { catchError, take } from "rxjs/operators";
 
-import { User } from "..";
-import { ButtonInterface } from "../../ui-kit";
-import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
+import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { BaseFormComponent, ButtonInterface, SnackBarService } from "@ui-kit";
+
+import { User } from "../";
 import { AuthenticationService } from "../authentication.service";
 import { UserService } from "../services/user.service";
 

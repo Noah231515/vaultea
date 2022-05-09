@@ -1,13 +1,13 @@
 import { take } from "rxjs/operators";
 
 import {
-  BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService
+  CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService
 } from "@abstract";
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { AutocompleteUtilService, EditData, KeysToOmitConstant } from "@shared";
-import { SnackBarService } from "@ui-kit";
+import { BaseFormComponent, SnackBarService } from "@ui-kit";
 import { VaultComponent } from "@vault";
 
 import { AutocompleteData } from "../../../ui-kit/autocomplete/autocomplete-data.interface";

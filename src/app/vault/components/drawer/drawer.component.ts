@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-import { BaseComponent } from "src/app/abstract/base/base-component/base.component";
+import { BaseComponent } from "@ui-kit";
 
 @Component({
   encapsulation: ViewEncapsulation.None,

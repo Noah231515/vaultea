@@ -1,8 +1,10 @@
-import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
+import { take } from "rxjs/operators";
+
+import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { take } from "rxjs/operators";
+import { BaseFormComponent } from "@ui-kit";
 
 import { AuthenticationService } from "../authentication.service";
 

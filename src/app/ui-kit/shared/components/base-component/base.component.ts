@@ -1,8 +1,8 @@
-import { ButtonsConstant } from "@ui-kit";
+import { ButtonsConstant } from "../../../button/buttons.constant";
 
 export abstract class BaseComponent {
   public BUTTONS_CONSTANT: typeof ButtonsConstant;
-  constructor() { 
+  constructor() {
     this.BUTTONS_CONSTANT = ButtonsConstant;
   }
 }

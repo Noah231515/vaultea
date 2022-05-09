@@ -1,6 +1,6 @@
-import { BaseComponent } from "@abstract";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
+import { BaseComponent } from "../shared/components/base-component/base.component";
 import { FormHeaderData } from "./form-header-data.interface";
 
 @Component({

@@ -1,8 +1,8 @@
-import { BaseComponent } from "@abstract";
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from "@angular/core";
 import { Folder } from "@folder";
 import { Password } from "@password";
 import { TypeEnum } from "@shared";
+import { BaseComponent } from "@ui-kit";
 
 import { ItemIconEnum } from "../../../ui-kit/enums/item-icon.enum";
 import { CardData } from "./card-data.model";

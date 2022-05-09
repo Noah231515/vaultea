@@ -6,8 +6,8 @@ import {
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { EditData, KeysToOmitConstant } from "@shared";
-import { AutocompleteUtilService, SnackBarService } from "@ui-kit";
+import { AutocompleteUtilService, EditData, KeysToOmitConstant } from "@shared";
+import { SnackBarService } from "@ui-kit";
 import { VaultComponent } from "@vault";
 
 import { AutocompleteData } from "../../../ui-kit/autocomplete/autocomplete-data.interface";

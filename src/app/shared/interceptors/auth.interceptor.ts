@@ -1,10 +1,11 @@
+import { Observable, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { UserService } from "@authentication";
-import { SnackBarService } from "@shared";
-import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { SnackBarService } from "@ui-kit";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

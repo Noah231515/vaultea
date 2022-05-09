@@ -13,7 +13,7 @@ export * from "./models/edit-data.interface";
 // Services
 export * from "./services/browser-crypto-function.service";
 export * from "./services/browser-crypto-business-logic.service";
-export * from "../ui-kit/services/snack-bar.service";
+export * from "./services/autocomplete-util.service";
 
 // Interceptors
 export * from "./interceptors/auth.interceptor";

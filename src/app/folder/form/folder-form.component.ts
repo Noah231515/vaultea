@@ -7,9 +7,8 @@ import {
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { ActivatedRoute } from "@angular/router";
-import { KeysToOmitConstant, SnackBarService } from "@shared";
-import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
+import { AutocompleteUtilService, KeysToOmitConstant } from "@shared";
+import { AutocompleteOption, SnackBarService } from "@ui-kit";
 import { VaultComponent } from "@vault";
 
 import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
@@ -35,7 +34,6 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private userKeyService: UserKeyService,
     private userDataService: UserDataService,
     private snackbarService: SnackBarService,
-    private route: ActivatedRoute,
     public autocompleteUtilService: AutocompleteUtilService,
     private dialogRef: MatDialogRef<VaultComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditData

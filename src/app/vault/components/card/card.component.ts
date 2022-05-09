@@ -3,8 +3,8 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 import { Folder } from "@folder";
 import { Password } from "@password";
 import { TypeEnum } from "@shared";
-import { ItemIconEnum } from "../enums/item-icon.enum";
 
+import { ItemIconEnum } from "../../../ui-kit/enums/item-icon.enum";
 import { CardData } from "./card-data.model";
 
 /* eslint-disable indent */

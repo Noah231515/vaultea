@@ -1,7 +1,7 @@
 // Models and Interfaces
 export * from "./button/button.interface";
 export * from "./autocomplete/autocomplete-option.interface";
-export * from "./card/card-data.model";
+export * from "../vault/components/card/card-data.model";
 
 // Constants
 export * from "./button/buttons.constant"

@@ -1,7 +1,6 @@
 import { BehaviorSubject, Observable } from "rxjs";
 import { take } from "rxjs/operators";
 
-import { CryptoBusinessLogicService, UserKeyService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { User } from "@authentication";
 import { Folder } from "@folder";
@@ -10,6 +9,8 @@ import { DataUtil } from "@util";
 
 import { UserService } from "../../authentication/services/user.service";
 import { Password } from "../../password/password.model";
+import { CryptoBusinessLogicService } from "./crypto-business-logic.service";
+import { UserKeyService } from "./user-key.service";
 
 @Injectable({
   providedIn: "root"

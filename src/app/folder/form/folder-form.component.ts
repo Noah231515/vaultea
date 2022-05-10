@@ -5,12 +5,13 @@ import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from "@angu
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
-import { AutocompleteUtilService, KeysToOmitConstant } from "@shared";
+import { KeysToOmitConstant } from "@shared";
 import { AutocompleteOption, BaseFormComponent, FormStateEnum, SnackBarService } from "@ui-kit";
 import { VaultComponent } from "@vault";
 
 import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
 import { FormHeaderData } from "../../ui-kit/form-header/form-header-data.interface";
+import { AutocompleteUtilService } from "../services/autocomplete-util.service";
 import { FolderStateService } from "../services/folder-state.service";
 import { FolderService } from "../services/folder.service";
 

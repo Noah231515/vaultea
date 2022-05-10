@@ -4,7 +4,8 @@ import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from "@angu
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
-import { AutocompleteUtilService, EditData, KeysToOmitConstant, UserDataService } from "@shared";
+import { AutocompleteUtilService } from "@folder";
+import { EditData, KeysToOmitConstant } from "@shared";
 import { BaseFormComponent, FormStateEnum, SnackBarService } from "@ui-kit";
 import { VaultComponent } from "@vault";
 

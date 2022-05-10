@@ -1,11 +1,11 @@
 
 import { Injectable } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { FolderStateService } from "@folder";
 import { DataUtil } from "@util";
 
 import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
 import { AutocompleteOption } from "../../ui-kit/autocomplete/autocomplete-option.interface";
+import { FolderStateService } from "./folder-state.service";
 
 @Injectable({
   providedIn: "root"

@@ -1,14 +1,7 @@
-// Guards
-export * from "./guards/auth.guard";
-export * from "./guards/login-auth.guard";
-
-// Models
-
 // Interfaces
 export * from "./models/edit-data.interface";
 
 // Services
-export * from "./services/autocomplete-util.service";
 export * from "./services/user-data.service";
 
 // Interceptors

@@ -6,7 +6,7 @@ import {
 
 import { PasswordStateService } from "./password-state.service";
 
-describe('PasswordStateService', () => {
+describe("PasswordStateService", () => {
   let service: PasswordStateService;
 
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('PasswordStateService', () => {
     service = TestBed.inject(PasswordStateService);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });

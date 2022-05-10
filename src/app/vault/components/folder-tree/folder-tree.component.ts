@@ -7,7 +7,7 @@ import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { ActivatedRoute, Params } from "@angular/router";
 import { FolderStateService } from "@folder";
 import { PasswordStateService } from "@password";
-import { TypeEnum, UserDataService } from "@shared";
+import { TypeEnum } from "@shared";
 
 import { TreeItem } from "./tree-item.interface";
 

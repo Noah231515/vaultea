@@ -1,8 +1,5 @@
 import { of } from "rxjs";
 
-import {
-  CryptoBusinessLogicService, CryptoFunctionService, UserDataService, UserKeyService
-} from "@abstract";
 import { PortalModule } from "@angular/cdk/portal";
 import { CommonModule } from "@angular/common";
 import { HttpClient, HttpHandler } from "@angular/common/http";
@@ -22,15 +19,20 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
-import { UserService } from "@authentication";
-import { Folder, FolderModule, FolderService } from "@folder";
-import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, TypeEnum } from "@shared";
+import {
+  BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, CryptoBusinessLogicService,
+  CryptoFunctionService, UserKeyService
+} from "@crypto";
+import { Folder, FolderModule, FolderService, FolderStateService } from "@folder";
+import { UserService } from "@identity";
+import { TypeEnum, UserDataService } from "@shared";
 import { CardData, DialogService } from "@ui-kit";
 
 import { UserMockService } from "../../../mock-service/mocks/user-mock.service";
 import { PasswordService } from "../../../password/services/password.service";
 import { SharedModule } from "../../../shared/shared.module";
 import { UiKitModule } from "../../../ui-kit/ui-kit.module";
+import { CardComponent } from "../card/card.component";
 import { DrawerComponent } from "../drawer/drawer.component";
 import { VaultComponent } from "./vault.component";
 
@@ -39,6 +41,7 @@ describe("VaultComponent", () => {
   let fixture: ComponentFixture<VaultComponent>;
   let userDataService: UserDataService;
   let cryptoBusinessLogicService: CryptoBusinessLogicService;
+  let folderState: FolderStateService;
   let userKeyService: UserKeyService;
 
   beforeEach(async () => {
@@ -46,6 +49,7 @@ describe("VaultComponent", () => {
       declarations: [
         VaultComponent,
         DrawerComponent,
+        CardComponent
       ],
       imports: [
         CommonModule,
@@ -73,11 +77,12 @@ describe("VaultComponent", () => {
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },
         { provide: CryptoBusinessLogicService, useClass: BrowserCryptoBusinessLogicService },
         { provide: UserService, useClass: UserMockService },
+        FolderStateService,
         FormBuilder,
         HttpClient,
         HttpHandler,
-        UserKeyService,
         UserDataService,
+        UserKeyService,
       ]
     })
       .compileComponents();
@@ -85,6 +90,7 @@ describe("VaultComponent", () => {
 
   beforeEach(async () => {
     cryptoBusinessLogicService = TestBed.inject(CryptoBusinessLogicService);
+    folderState = TestBed.inject(FolderStateService);
     userKeyService = TestBed.inject(UserKeyService);
     userKeyService.setEncryptionKey(await cryptoBusinessLogicService.generateEncryptionKey());
 
@@ -129,7 +135,7 @@ describe("VaultComponent", () => {
 
     const before = document.querySelectorAll("vaultea-card");
     expect(before.length).toEqual(3);
-    await userDataService.updateFolders(new Folder(), true);
+    await folderState.updateFolders(new Folder(), true);
     fixture.detectChanges();
     const after = document.querySelectorAll("vaultea-card");
     expect(after.length).toEqual(4);

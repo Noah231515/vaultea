@@ -1,6 +1,3 @@
-
-
-import { CryptoBusinessLogicService, CryptoFunctionService, FormStateEnum, UserKeyService } from "@abstract";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
@@ -8,9 +5,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { ActivatedRoute } from "@angular/router";
-import { UserService } from "@authentication";
+import {
+  BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, CryptoBusinessLogicService,
+  CryptoFunctionService, UserKeyService
+} from "@crypto";
+import { UserService } from "@identity";
 import { UserMockService } from "@mock";
-import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
+import { FormStateEnum } from "@ui-kit";
 
 import { UiKitModule } from "../../../ui-kit/ui-kit.module";
 import { Password } from "../../password.model";

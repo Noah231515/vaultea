@@ -1,8 +1,8 @@
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { Injectable } from "@angular/core";
-import { User } from "@authentication";
 import { Folder } from "@folder";
+import { User } from "@identity";
 import { Password } from "@password";
 
 @Injectable({

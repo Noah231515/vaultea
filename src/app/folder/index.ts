@@ -4,7 +4,9 @@ export * from "./folder.module";
 export * from "./folder.model";
 
 // Services
-export * from "./folder.service";
+export * from "./services/folder.service";
+export * from "./services/folder-state.service";
+export * from "./services/autocomplete-util.service";
 
 // Components
 export * from "./form/folder-form.component";

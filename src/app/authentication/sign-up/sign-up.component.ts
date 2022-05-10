@@ -1,10 +1,12 @@
-import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
+import { take } from "rxjs/operators";
+
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { take } from "rxjs/operators";
+import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
+import { BaseFormComponent } from "@ui-kit";
 
-import { AuthenticationService } from "../authentication.service";
+import { AuthenticationService } from "../services/authentication.service";
 
 @Component({
   selector: "vaultea-sign-up",

@@ -1,24 +1,23 @@
 import { combineLatest, Observable, of, Subscription } from "rxjs";
 import { catchError, map, take, tap } from "rxjs/operators";
 
-import { BaseComponent } from "@abstract";
 import {
   ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
 } from "@angular/core";
 import { MatDialogConfig } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Folder, FolderFormComponent, FolderService } from "@folder";
-import { CreateItemSelectComponent, TypeEnum } from "@shared";
-import { CardData, DialogService } from "@ui-kit";
+import { Folder, FolderFormComponent, FolderService, FolderStateService } from "@folder";
+import { PasswordStateService } from "@password";
+import { CreateItemSelectComponent, TypeEnum, UserDataService } from "@shared";
+import { BaseComponent, CardData, DialogService } from "@ui-kit";
 
-import { FormStateEnum } from "../../../abstract/enums/form-state.enum";
-import { UserDataService } from "../../../abstract/services/user-data.service";
 import {
   PasswordFormComponent
 } from "../../../password/components/password-form/password-form.component";
 import { PasswordService } from "../../../password/services/password.service";
 import { GenericDialogData } from "../../../ui-kit/generic-dialog/generic-dialog-data.interface";
 import { SnackBarService } from "../../../ui-kit/services/snack-bar.service";
+import { FormStateEnum } from "../../../ui-kit/shared/enums/form-state.enum";
 import { VaultItem } from "../../models/vault-item.interface";
 
 /* eslint-disable indent */
@@ -50,6 +49,8 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private router: Router,
     private route: ActivatedRoute,
+    private folderState: FolderStateService,
+    private passwordState: PasswordStateService
   ) {
     super();
     this.setEditComponentMap();
@@ -57,10 +58,11 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
       .params
       .subscribe(params => {
         this.currentFolderId = params?.id;
-        this.userDataService.refreshData();
+        this.folderState.refreshData();
+        this.passwordState.refreshData();
       });
 
-    const folderVaultObservable = this.userDataService.folderObservable
+    const folderVaultObservable = this.folderState.folderObservable
     .pipe(
       map(folders => {
         return folders.map(folder => {
@@ -73,7 +75,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
       })
     );
 
-  const passwordVaultObservable = this.userDataService.passwordObservable
+  const passwordVaultObservable = this.passwordState.passwordObservable
     .pipe(
       map(passwords => {
         return passwords.map(password => {
@@ -99,7 +101,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.currentFolder = this.userDataService.getFolders().find(x => x.id.toString() === params.id);
+      this.currentFolder = this.folderState.getFolders().find(x => x.id.toString() === params.id);
     });
   }
 
@@ -129,7 +131,8 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
 
   public setSortBy(option: string): void {
     this.userDataService.sortByBehaviorSubject.next(option.toLowerCase());
-    this.userDataService.refreshData();
+    this.folderState.refreshData();
+    this.passwordState.refreshData();
   }
 
   private getDeleteModalData(cardData: CardData): GenericDialogData {
@@ -204,7 +207,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
           .pipe(take(1))
           .subscribe(async folder => {
             this.snackBarService.open(`Folder successfully ${folder.starred ? "starred" : "unstarred"}`);
-            await this.userDataService.updateFolders(folder, false);
+            await this.folderState.updateFolders(folder, false);
           });
         break;
       case TypeEnum.PASSWORD:
@@ -212,7 +215,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
           .pipe(take(1))
           .subscribe(async password => {
             this.snackBarService.open(`Password successfully ${password.starred ? "starred" : "unstarred"}`);
-            await this.userDataService.updatePasswords(password, false);
+            await this.passwordState.updatePasswords(password, false);
           });
         break;
       default:
@@ -229,7 +232,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         if (response) {
           this.snackBarService.open("Folder successfully deleted");
-          this.userDataService.removeFolder(response.id);
+          this.folderState.removeFolder(response.id);
         }
       });
   }
@@ -243,7 +246,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         if (response) {
           this.snackBarService.open("Password successfully deleted");
-          this.userDataService.removePassword(response.id);
+          this.passwordState.removePassword(response.id);
         }
       });
   }

@@ -1,20 +1,19 @@
 import { take } from "rxjs/operators";
 import { EditData } from "src/app/shared/models/edit-data.interface";
 
-import {
-  BaseFormComponent, CryptoBusinessLogicService, FormStateEnum, UserDataService, UserKeyService
-} from "@abstract";
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { ActivatedRoute } from "@angular/router";
-import { KeysToOmitConstant, SnackBarService } from "@shared";
-import { AutocompleteOption, AutocompleteUtilService } from "@ui-kit";
+import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
+import { KeysToOmitConstant } from "@shared";
+import { AutocompleteOption, BaseFormComponent, FormStateEnum, SnackBarService } from "@ui-kit";
 import { VaultComponent } from "@vault";
 
 import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
 import { FormHeaderData } from "../../ui-kit/form-header/form-header-data.interface";
-import { FolderService } from "../folder.service";
+import { AutocompleteUtilService } from "../services/autocomplete-util.service";
+import { FolderStateService } from "../services/folder-state.service";
+import { FolderService } from "../services/folder.service";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,9 +32,8 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
     private folderService: FolderService,
     private cryptoBusinessLogicService: CryptoBusinessLogicService,
     private userKeyService: UserKeyService,
-    private userDataService: UserDataService,
     private snackbarService: SnackBarService,
-    private route: ActivatedRoute,
+    private folderState: FolderStateService,
     public autocompleteUtilService: AutocompleteUtilService,
     private dialogRef: MatDialogRef<VaultComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditData
@@ -96,7 +94,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
         take(1)
       )
       .subscribe(async createdFolder => {
-        await this.userDataService.updateFolders(createdFolder, true);
+        await this.folderState.updateFolders(createdFolder, true);
         this.snackbarService.open("Folder successfully created");
         this.dialogRef.close();
       });
@@ -113,7 +111,7 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
       .subscribe(async updatedFolder => {
         updatedFolder.childFolders = this.existingObject.childFolders;
         updatedFolder.pathNodes = this.existingObject.pathNodes;
-        await this.userDataService.updateFolders(updatedFolder, false);
+        await this.folderState.updateFolders(updatedFolder, false);
         this.snackbarService.open("Folder successfully updated");
         this.dialogRef.close();
       });

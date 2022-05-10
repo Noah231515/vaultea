@@ -15,25 +15,22 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { RouterModule } from "@angular/router";
 
-import { AbstractModule } from "../abstract/abstract.module";
 import { AutocompleteComponent } from "./autocomplete/autocomplete.component";
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 import { ButtonComponent } from "./button/button.component";
-import { CardComponent } from "./card/card.component";
 import { FormFooterComponent } from "./form-footer/form-footer.component";
 import { FormHeaderComponent } from "./form-header/form-header.component";
 import { FormComponent } from "./form/form.component";
+import { GenericDialogComponent } from "./generic-dialog/generic-dialog.component";
 import { InputComponent } from "./input/input.component";
 import { LogoFullComponent } from "./logo-full/logo-full.component";
 import { SelectComponent } from "./select/select.component";
 import { TextAreaComponent } from "./text-area/text-area.component";
-import { GenericDialogComponent } from "./generic-dialog/generic-dialog.component";
 
 @NgModule({
   declarations: [
     AutocompleteComponent,
     ButtonComponent,
-    CardComponent,
     FormComponent,
     FormFooterComponent,
     FormHeaderComponent,
@@ -48,7 +45,6 @@ import { GenericDialogComponent } from "./generic-dialog/generic-dialog.componen
     AutocompleteComponent,
     BreadcrumbComponent,
     ButtonComponent,
-    CardComponent,
     FlexLayoutModule,
     FormComponent,
     FormFooterComponent,
@@ -59,7 +55,6 @@ import { GenericDialogComponent } from "./generic-dialog/generic-dialog.componen
     TextAreaComponent,
   ],
   imports: [
-    AbstractModule,
     CommonModule,
     FlexLayoutModule,
     MatAutocompleteModule,

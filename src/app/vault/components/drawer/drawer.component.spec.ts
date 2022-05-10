@@ -1,6 +1,3 @@
-import {
-  CryptoBusinessLogicService, CryptoFunctionService, UserDataService, UserKeyService
-} from "@abstract";
 import { PortalModule } from "@angular/cdk/portal";
 import { CommonModule } from "@angular/common";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
@@ -16,13 +13,18 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTreeModule } from "@angular/material/tree";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
-import { UserService } from "@authentication";
+import {
+  BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, CryptoBusinessLogicService,
+  CryptoFunctionService, UserKeyService
+} from "@crypto";
 import { FolderModule } from "@folder";
+import { UserService } from "@identity";
 import { UserMockService } from "@mock";
-import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
+import { UserDataService } from "@shared";
 
 import { SharedModule } from "../../../shared/shared.module";
 import { UiKitModule } from "../../../ui-kit/ui-kit.module";
+import { FolderTreeComponent } from "../folder-tree/folder-tree.component";
 import { DrawerComponent } from "./drawer.component";
 
 describe("DrawerComponent", () => {
@@ -31,7 +33,7 @@ describe("DrawerComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DrawerComponent ],
+      declarations: [ DrawerComponent, FolderTreeComponent ],
       imports: [
         CommonModule,
         FolderModule,

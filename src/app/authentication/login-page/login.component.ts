@@ -1,15 +1,15 @@
-import { BaseFormComponent, CryptoBusinessLogicService, UserKeyService } from "@abstract";
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { catchError, take } from "rxjs/operators";
 
-import { User } from "..";
-import { ButtonInterface } from "../../ui-kit";
-import { SnackBarService } from "../../ui-kit/services/snack-bar.service";
-import { AuthenticationService } from "../authentication.service";
-import { UserService } from "../services/user.service";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
+import { User } from "@identity";
+import { BaseFormComponent, ButtonInterface, SnackBarService } from "@ui-kit";
+
+import { UserService } from "../../identity/services/user.service";
+import { AuthenticationService } from "../services/authentication.service";
 
 @Component({
   selector: "vaultea-login",

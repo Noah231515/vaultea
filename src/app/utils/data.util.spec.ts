@@ -1,12 +1,12 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { TestBed } from "@angular/core/testing";
+import { AuthenticationService } from "@authentication";
+import {
+  BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, CryptoBusinessLogicService,
+  CryptoFunctionService, UserKeyService
+} from "@crypto";
 import { Folder } from "@folder";
 import { DataUtil } from "@util";
-
-import { AuthenticationService } from "../../../authentication/authentication.service";
-import { BrowserCryptoBusinessLogicService } from "../browser-crypto-business-logic.service";
-import { BrowserCryptoFunctionService } from "../browser-crypto-function.service";
 
 describe("DataUtil", () => {
   let parentFolder1: Folder;

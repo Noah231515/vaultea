@@ -1,4 +1,3 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
 import { CommonModule } from "@angular/common";
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
@@ -6,7 +5,10 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { AuthenticationService } from "@authentication";
-import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
+import {
+  BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, CryptoBusinessLogicService,
+  CryptoFunctionService, UserKeyService
+} from "@crypto";
 
 import { UserMockService } from "../../mock-service/mocks/user-mock.service";
 import { ButtonComponent } from "../button/button.component";

@@ -1,10 +1,12 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
 import { HttpClientModule } from "@angular/common/http";
 import { TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 
-import { BrowserCryptoBusinessLogicService } from "../browser-crypto-business-logic.service";
-import { BrowserCryptoFunctionService } from "../browser-crypto-function.service";
+import { CryptoBusinessLogicService } from "../abstract/crypto-business-logic.service";
+import { CryptoFunctionService } from "../abstract/crypto-function.service";
+import { BrowserCryptoBusinessLogicService } from "./browser-crypto-business-logic.service";
+import { BrowserCryptoFunctionService } from "./browser-crypto-function.service";
+import { UserKeyService } from "./user-key.service";
 
 describe("BrowserCryptoBusinessLogicService", () => {
   const username: string = "test";

@@ -1,12 +1,13 @@
-import {
-  CryptoBusinessLogicService, CryptoFunctionService, UserDataService, UserKeyService
-} from "@abstract";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { MatTreeModule } from "@angular/material/tree";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AuthenticationService } from "@authentication";
+import {
+  BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, CryptoBusinessLogicService,
+  CryptoFunctionService, UserKeyService
+} from "@crypto";
 import { UserMockService } from "@mock";
-import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
+import { UserDataService } from "@shared";
 
 import { FolderTreeComponent } from "./folder-tree.component";
 

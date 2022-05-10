@@ -1,4 +1,3 @@
-import { AbstractModule } from "@abstract";
 import { CommonModule } from "@angular/common";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -25,7 +24,6 @@ describe("GenericDialogComponent", () => {
         },
       ],
       imports: [
-        AbstractModule,
         CommonModule,
         FlexLayoutModule,
         MatButtonModule,

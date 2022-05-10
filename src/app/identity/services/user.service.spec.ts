@@ -1,6 +1,8 @@
-import { CryptoBusinessLogicService, CryptoFunctionService, UserKeyService } from "@abstract";
 import { TestBed } from "@angular/core/testing";
-import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
+import {
+  BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, CryptoBusinessLogicService,
+  CryptoFunctionService, UserKeyService
+} from "@crypto";
 
 import { UserService } from "./user.service";
 

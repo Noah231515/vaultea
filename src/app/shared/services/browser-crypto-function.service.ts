@@ -1,6 +1,8 @@
 import { CryptoFunctionService } from "@abstract";
-import { EncryptedData, VaulteaCryptoKey } from "@shared";
 import { CryptoUtil } from "@util";
+
+import { EncryptedData } from "../models/encrypted-data.model";
+import { VaulteaCryptoKey } from "../models/vaultea-crypto-key.model";
 
 export class BrowserCryptoFunctionService implements CryptoFunctionService {
   public defaultIterations: number = 100000;
@@ -49,7 +51,7 @@ export class BrowserCryptoFunctionService implements CryptoFunctionService {
     };
 
     const importKey = await crypto.subtle.importKey("raw", passwordBuffer, { name: "PBKDF2"}, false, ["deriveBits"]);
-    return new VaulteaCryptoKey(await crypto.subtle.deriveBits(pbkdf2Params, importKey, 256)); 
+    return new VaulteaCryptoKey(await crypto.subtle.deriveBits(pbkdf2Params, importKey, 256));
   }
 
   public async hmac(value: ArrayBuffer, key: ArrayBuffer, algorithm: "sha256" | "sha512"): Promise<ArrayBuffer> {
@@ -64,11 +66,11 @@ export class BrowserCryptoFunctionService implements CryptoFunctionService {
 
   /**
    * Bitwarden's Implementation of hkdfExpand
-   * @param prk 
-   * @param info 
-   * @param outputByteSize 
-   * @param algorithm 
-   * @returns 
+   * @param prk
+   * @param info
+   * @param outputByteSize
+   * @param algorithm
+   * @returns
    */
   public async hkdfExpand(prk: ArrayBuffer, info: string, outputByteSize: number, algorithm: "sha256" | "sha512"): Promise<ArrayBuffer> {
     const hashLen = algorithm === "sha256" ? 32 : 64;

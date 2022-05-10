@@ -1,10 +1,11 @@
-import { UserDataService } from "@abstract";
+
 import { Injectable } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { DataUtil } from "@util";
 
 import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
 import { AutocompleteOption } from "../../ui-kit/autocomplete/autocomplete-option.interface";
+import { UserDataService } from "./user-data.service";
 
 @Injectable({
   providedIn: "root"

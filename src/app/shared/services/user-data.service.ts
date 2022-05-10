@@ -1,21 +1,21 @@
 import { BehaviorSubject, Observable } from "rxjs";
 import { take } from "rxjs/operators";
 
+import { CryptoBusinessLogicService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { User } from "@authentication";
 import { Folder } from "@folder";
-import { KeysToOmitConstant } from "@shared";
 import { DataUtil } from "@util";
 
 import { UserService } from "../../authentication/services/user.service";
 import { Password } from "../../password/password.model";
-import { CryptoBusinessLogicService } from "./crypto-business-logic.service";
+import { KeysToOmitConstant } from "../constants/keys-to-omit.constant";
 import { UserKeyService } from "./user-key.service";
 
 @Injectable({
   providedIn: "root"
 })
-export abstract class UserDataService {
+export class UserDataService {
 
   private refreshDataBehaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(new Folder()); // TODO: Remove
   public refreshDataObservable: Observable<null> = this.refreshDataBehaviorSubject.asObservable();

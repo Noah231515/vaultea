@@ -4,8 +4,8 @@ import { AuthenticationService } from "@authentication";
 import { UserMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
-import { UserDataService } from "../services/user-data.service";
-import { UserKeyService } from "../services/user-key.service";
+import { UserDataService } from "../user-data.service";
+import { UserKeyService } from "../user-key.service";
 
 describe("UserDataService", () => {
   let service: UserDataService;

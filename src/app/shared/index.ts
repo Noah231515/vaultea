@@ -14,6 +14,8 @@ export * from "./models/edit-data.interface";
 export * from "./services/browser-crypto-function.service";
 export * from "./services/browser-crypto-business-logic.service";
 export * from "./services/autocomplete-util.service";
+export * from "./services/user-data.service";
+export * from "./services/user-key.service";
 
 // Interceptors
 export * from "./interceptors/auth.interceptor";

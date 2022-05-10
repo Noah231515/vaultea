@@ -1,10 +1,11 @@
-import { CryptoFunctionService, UserKeyService } from "@abstract";
+import { CryptoFunctionService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { CryptoUtil } from "@util";
 
 import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
 import { StretchedMasterKey } from "../models/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../models/vaultea-crypto-key.model";
+import { UserKeyService } from "./user-key.service";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */

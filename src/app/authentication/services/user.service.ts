@@ -1,10 +1,11 @@
-import { UserKeyService } from "@abstract";
+
+import { BehaviorSubject, Observable } from "rxjs";
+
 import { Injectable } from "@angular/core";
 import { Folder } from "@folder";
 import { Password } from "@password";
-import { KeysToOmitConstant } from "@shared";
+import { KeysToOmitConstant, UserKeyService } from "@shared";
 import { DataUtil } from "@util";
-import { BehaviorSubject, Observable } from "rxjs";
 
 import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
 import { User } from "../user.model";

@@ -7,10 +7,9 @@ import {
 import { MatDialogConfig } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Folder, FolderFormComponent, FolderService } from "@folder";
-import { CreateItemSelectComponent, TypeEnum } from "@shared";
+import { CreateItemSelectComponent, TypeEnum, UserDataService } from "@shared";
 import { BaseComponent, CardData, DialogService } from "@ui-kit";
 
-import { UserDataService } from "../../../abstract/services/user-data.service";
 import {
   PasswordFormComponent
 } from "../../../password/components/password-form/password-form.component";

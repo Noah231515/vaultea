@@ -9,7 +9,7 @@ import {
   BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, CryptoBusinessLogicService,
   CryptoFunctionService, UserKeyService
 } from "@crypto";
-import { AuthInterceptor } from "@shared";
+import { AuthInterceptor } from "@identity";
 import { SnackBarService } from "@ui-kit";
 
 import { AppRoutingModule } from "./app-routing.module";

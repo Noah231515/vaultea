@@ -9,6 +9,7 @@ import { BaseFormComponent, FormStateEnum, SnackBarService } from "@ui-kit";
 import { VaultComponent } from "@vault";
 
 import { AutocompleteData } from "../../../ui-kit/autocomplete/autocomplete-data.interface";
+import { PasswordStateService } from "../../services/password-state.service";
 import { PasswordService } from "../../services/password.service";
 
 @Component({
@@ -28,7 +29,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     private userKeyService: UserKeyService,
     private passwordService: PasswordService,
     private snackBarService: SnackBarService,
-    private userDataService: UserDataService,
+    private passwordState: PasswordStateService,
     public autocompleteUtilService: AutocompleteUtilService,
     private dialogRef: MatDialogRef<VaultComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditData
@@ -100,7 +101,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
         take(1)
       )
       .subscribe(async createdPassword => {
-        this.userDataService.updatePasswords(createdPassword, true);
+        this.passwordState.updatePasswords(createdPassword, true);
         this.snackBarService.open("Password successfully created");
         this.dialogRef.close();
       });
@@ -112,7 +113,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
         take(1)
       )
       .subscribe(updatedPassword => {
-        this.userDataService.updatePasswords(updatedPassword, false);
+        this.passwordState.updatePasswords(updatedPassword, false);
         this.snackBarService.open("Password successfully updated");
         this.dialogRef.close();
       });

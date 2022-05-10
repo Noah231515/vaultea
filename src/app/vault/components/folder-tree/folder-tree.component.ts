@@ -5,6 +5,8 @@ import { NestedTreeControl } from "@angular/cdk/tree";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { ActivatedRoute, Params } from "@angular/router";
+import { FolderStateService } from "@folder";
+import { PasswordStateService } from "@password";
 import { TypeEnum, UserDataService } from "@shared";
 
 import { TreeItem } from "./tree-item.interface";
@@ -29,7 +31,7 @@ export class FolderTreeComponent implements OnInit {
     .pipe(
       tap(params => {
         if (params.id) {
-          const currentFolder = this.userDataService.getFolders().find(f => f.id.toString() == params.id);
+          const currentFolder = this.folderState.getFolders().find(f => f.id.toString() == params.id);
           const currentItem = this.treeItems.filter(item => item.itemType == TypeEnum.FOLDER).find(f => f.id == currentFolder.id);
 
           // Recursively expand parent folder to persist expanded state
@@ -45,12 +47,13 @@ export class FolderTreeComponent implements OnInit {
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private userDataService: UserDataService,
+    private folderState: FolderStateService,
+    private passwordState: PasswordStateService,
     public route: ActivatedRoute
   ) {}
 
   public ngOnInit(): void {
-    const folderTreeObservable = this.userDataService.folderObservable
+    const folderTreeObservable = this.folderState.folderObservable
       .pipe(
         map(folders => {
           return folders.map(folder => {
@@ -66,7 +69,7 @@ export class FolderTreeComponent implements OnInit {
         })
       );
 
-    const passwordTreeObservable = this.userDataService.passwordObservable
+    const passwordTreeObservable = this.passwordState.passwordObservable
       .pipe(
         map(passwords => {
           return passwords.map(password => {

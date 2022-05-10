@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-import { Folder } from "./folder.model";
+import { Folder } from "../folder.model";
 
 @Injectable({
   providedIn: "root"

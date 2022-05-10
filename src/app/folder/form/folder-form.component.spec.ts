@@ -11,7 +11,7 @@ import { UserMockService } from "@mock";
 import { BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService } from "@shared";
 
 import { UiKitModule } from "../../ui-kit/ui-kit.module";
-import { FolderService } from "../folder.service";
+import { FolderService } from "../services/folder.service";
 import { FolderFormComponent } from "./folder-form.component";
 
 describe("FolderFormComponent", () => {

@@ -1,11 +1,11 @@
 
 import { Injectable } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { FolderStateService } from "@folder";
 import { DataUtil } from "@util";
 
 import { AutocompleteData } from "../../ui-kit/autocomplete/autocomplete-data.interface";
 import { AutocompleteOption } from "../../ui-kit/autocomplete/autocomplete-option.interface";
-import { UserDataService } from "./user-data.service";
 
 @Injectable({
   providedIn: "root"
@@ -13,12 +13,12 @@ import { UserDataService } from "./user-data.service";
 export class AutocompleteUtilService {
 
   constructor(
-    private userDataService: UserDataService
+    private folderState: FolderStateService
   ) {
   }
 
   public buildOptions(): AutocompleteOption[] {
-    return this.userDataService.getFolders().map(folder => {
+    return this.folderState.getFolders().map(folder => {
       return {
         value: folder.id,
         displayValue: folder.name,

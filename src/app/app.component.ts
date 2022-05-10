@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 
 import { fadeAnimation } from "./animations/fade-animation";
-import { UserService } from "./authentication/services/user.service";
+import { UserService } from "./identity/services/user.service";
 
 @Component({
   selector: "app-root",

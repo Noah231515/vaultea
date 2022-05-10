@@ -1,6 +1,6 @@
 import { Folder } from "@folder";
 
-import { Password } from "../password/password.model";
+import { Password } from "../../password/password.model";
 
 export class User {
   id: string;

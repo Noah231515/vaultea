@@ -2,12 +2,12 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { take } from "rxjs/operators";
 
 import { Injectable } from "@angular/core";
-import { User } from "@authentication";
 import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
 import { Folder } from "@folder";
+import { User } from "@identity";
 import { DataUtil } from "@util";
 
-import { UserService } from "../../authentication/services/user.service";
+import { UserService } from "../../identity/services/user.service";
 import { Password } from "../../password/password.model";
 import { KeysToOmitConstant } from "../constants/keys-to-omit.constant";
 

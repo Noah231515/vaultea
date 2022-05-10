@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
 import { BaseFormComponent } from "@ui-kit";
 
-import { AuthenticationService } from "../authentication.service";
+import { AuthenticationService } from "../services/authentication.service";
 
 @Component({
   selector: "vaultea-sign-up",

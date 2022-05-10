@@ -1,14 +1,11 @@
-
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { Injectable } from "@angular/core";
 import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
-import { Folder } from "@folder";
-import { Password } from "@password";
 import { KeysToOmitConstant } from "@shared";
 import { DataUtil } from "@util";
 
-import { User } from "../user.model";
+import { User } from "../models/user.model";
 
 @Injectable({
   providedIn: "root"
@@ -30,11 +27,11 @@ export class UserService {
     this.userKeyService.setEncryptionKey(await this.cryptoBusinessLogicService.decryptEncryptionKey(this.userKeyService.getStretchedMasterKey(), user.key));
 
     const folderPromises = user.folders.map(async folder => {
-      return (await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER) as Folder)
+      return (await this.cryptoBusinessLogicService.decryptObject(folder, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.FOLDER))
     });
 
     const passwordPromises = user.passwords.map(async password => {
-      return (await this.cryptoBusinessLogicService.decryptObject(password, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.PASSWORD) as Password)
+      return (await this.cryptoBusinessLogicService.decryptObject(password, this.userKeyService.getEncryptionKey(), KeysToOmitConstant.PASSWORD))
     });
 
     user.folders = await Promise.all(folderPromises);

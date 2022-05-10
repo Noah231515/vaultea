@@ -5,11 +5,11 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
+import { User } from "@identity";
 import { BaseFormComponent, ButtonInterface, SnackBarService } from "@ui-kit";
 
-import { User } from "../";
-import { AuthenticationService } from "../authentication.service";
-import { UserService } from "../services/user.service";
+import { UserService } from "../../identity/services/user.service";
+import { AuthenticationService } from "../services/authentication.service";
 
 @Component({
   selector: "vaultea-login",

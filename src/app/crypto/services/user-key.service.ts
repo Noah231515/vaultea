@@ -1,5 +1,7 @@
 import { Inject } from "@angular/core";
-import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
+
+import { StretchedMasterKey } from "../models/stretched-master-key.model";
+import { VaulteaCryptoKey } from "../models/vaultea-crypto-key.model";
 
 @Inject({
   providedIn: "root"

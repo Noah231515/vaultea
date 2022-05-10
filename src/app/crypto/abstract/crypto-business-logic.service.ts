@@ -1,6 +1,7 @@
-import { StretchedMasterKey, VaulteaCryptoKey } from "@shared";
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { StretchedMasterKey } from "../models/stretched-master-key.model";
+import { VaulteaCryptoKey } from "../models/vaultea-crypto-key.model";
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export abstract class CryptoBusinessLogicService {
   public abstract generateStretchedMasterKey(password: string, salt: string): Promise<StretchedMasterKey>;

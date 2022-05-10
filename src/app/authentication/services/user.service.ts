@@ -2,12 +2,12 @@
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { Injectable } from "@angular/core";
+import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
 import { Folder } from "@folder";
 import { Password } from "@password";
-import { KeysToOmitConstant, UserKeyService } from "@shared";
+import { KeysToOmitConstant } from "@shared";
 import { DataUtil } from "@util";
 
-import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
 import { User } from "../user.model";
 
 @Injectable({

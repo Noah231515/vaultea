@@ -1,4 +1,3 @@
-import { CryptoBusinessLogicService, CryptoFunctionService } from "@abstract";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -6,16 +5,16 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { AuthInterceptor, UserKeyService } from "@shared";
+import {
+  BrowserCryptoBusinessLogicService, BrowserCryptoFunctionService, CryptoBusinessLogicService,
+  CryptoFunctionService, UserKeyService
+} from "@crypto";
+import { AuthInterceptor } from "@shared";
 import { SnackBarService } from "@ui-kit";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AuthenticationModule } from "./authentication/authentication.module";
-import {
-  BrowserCryptoBusinessLogicService
-} from "./shared/services/browser-crypto-business-logic.service";
-import { BrowserCryptoFunctionService } from "./shared/services/browser-crypto-function.service";
 
 @NgModule({
   declarations: [

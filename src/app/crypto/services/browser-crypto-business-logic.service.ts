@@ -1,8 +1,8 @@
-import { CryptoFunctionService } from "@abstract";
 import { Injectable } from "@angular/core";
 import { CryptoUtil } from "@util";
 
-import { CryptoBusinessLogicService } from "../../abstract/services/crypto-business-logic.service";
+import { CryptoBusinessLogicService } from "../abstract/crypto-business-logic.service";
+import { CryptoFunctionService } from "../abstract/crypto-function.service";
 import { StretchedMasterKey } from "../models/stretched-master-key.model";
 import { VaulteaCryptoKey } from "../models/vaultea-crypto-key.model";
 import { UserKeyService } from "./user-key.service";

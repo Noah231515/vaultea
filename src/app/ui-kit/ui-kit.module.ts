@@ -15,8 +15,6 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { RouterModule } from "@angular/router";
 
-import { AbstractModule } from "../abstract/abstract.module";
-import { CardComponent } from "../vault/components/card/card.component";
 import { AutocompleteComponent } from "./autocomplete/autocomplete.component";
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 import { ButtonComponent } from "./button/button.component";
@@ -57,7 +55,6 @@ import { TextAreaComponent } from "./text-area/text-area.component";
     TextAreaComponent,
   ],
   imports: [
-    AbstractModule,
     CommonModule,
     FlexLayoutModule,
     MatAutocompleteModule,

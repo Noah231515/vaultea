@@ -1,11 +1,10 @@
 import { of } from "rxjs";
 import { catchError, take } from "rxjs/operators";
 
-import { CryptoBusinessLogicService } from "@abstract";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { UserKeyService } from "@shared";
+import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
 import { BaseFormComponent, ButtonInterface, SnackBarService } from "@ui-kit";
 
 import { User } from "../";

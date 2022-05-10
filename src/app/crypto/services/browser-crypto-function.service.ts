@@ -1,6 +1,6 @@
-import { CryptoFunctionService } from "@abstract";
 import { CryptoUtil } from "@util";
 
+import { CryptoFunctionService } from "../abstract/crypto-function.service";
 import { EncryptedData } from "../models/encrypted-data.model";
 import { VaulteaCryptoKey } from "../models/vaultea-crypto-key.model";
 

@@ -1,13 +1,11 @@
 import { take } from "rxjs/operators";
 import { EditData } from "src/app/shared/models/edit-data.interface";
 
-import { CryptoBusinessLogicService } from "@abstract";
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import {
-  AutocompleteUtilService, KeysToOmitConstant, UserDataService, UserKeyService
-} from "@shared";
+import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
+import { AutocompleteUtilService, KeysToOmitConstant, UserDataService } from "@shared";
 import { AutocompleteOption, BaseFormComponent, FormStateEnum, SnackBarService } from "@ui-kit";
 import { VaultComponent } from "@vault";
 

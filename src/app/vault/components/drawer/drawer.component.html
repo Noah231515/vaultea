@@ -11,7 +11,7 @@
       </mat-card>
     </div>
   <div fxFlex fxLayout="row">
-    <router-outlet name="sidenavContent"></router-outlet>
+    <router-outlet></router-outlet>
   </div>
   </mat-sidenav-content>
 
@@ -22,14 +22,16 @@
     <mat-selection-list [disableRipple]="false" [multiple]="false">
       <mat-list-option><ng-template [ngTemplateOutlet]="matListOptionContent" [ngTemplateOutletContext]="{icon: 'lock', text: 'Vault'}"></ng-template></mat-list-option>
       <mat-list-option><ng-template [ngTemplateOutlet]="matListOptionContent" [ngTemplateOutletContext]="{icon: 'schedule', text: 'Recent'}"></ng-template></mat-list-option>
-      <mat-list-option><ng-template [ngTemplateOutlet]="matListOptionContent" [ngTemplateOutletContext]="{icon: 'star', text: 'Starred'}"></ng-template></mat-list-option>
+      <mat-list-option><ng-template [ngTemplateOutlet]="matListOptionContent" [ngTemplateOutletContext]="{icon: 'star', text: 'Starred', route: '/vault/starred'}"></ng-template></mat-list-option>
       <mat-list-option><ng-template [ngTemplateOutlet]="matListOptionContent" [ngTemplateOutletContext]="{icon: 'groups', text: 'Shared'}"></ng-template></mat-list-option>
     </mat-selection-list>
     <vaultea-folder-tree></vaultea-folder-tree>
 
-<ng-template #matListOptionContent let-icon="icon" let-text="text">
-  <div fxLayout="row" fxLayoutGap="16px">
-    <mat-icon>{{icon}}</mat-icon>
-    <span>{{text}}</span>
-  </div>
+<ng-template #matListOptionContent let-icon="icon" let-text="text" let-route="route">
+  <a [routerLink]="route">
+    <div fxLayout="row" fxLayoutGap="16px">
+      <mat-icon>{{icon}}</mat-icon>
+      <span>{{text}}</span>
+    </div>
+  </a>
 </ng-template>

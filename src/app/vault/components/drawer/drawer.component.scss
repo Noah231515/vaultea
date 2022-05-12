@@ -21,6 +21,10 @@ vaultea-drawer {
     border-bottom-left-radius: $radius-amount;
     min-width: $width;
   }
+
+  a {
+    color: black;
+  }
 }
 
 .mat-list-single-selected-option {

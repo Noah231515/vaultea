@@ -1,9 +1,7 @@
 import { combineLatest, Observable, of, Subscription } from "rxjs";
 import { catchError, map, take, tap } from "rxjs/operators";
 
-import {
-  ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from "@angular/core";
 import { MatDialogConfig } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Folder, FolderFormComponent, FolderService, FolderStateService } from "@folder";

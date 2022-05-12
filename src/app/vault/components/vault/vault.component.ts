@@ -28,7 +28,7 @@ import { VaultItem } from "../../models/vault-item.interface";
   styleUrls: ["./vault.component.scss"],
   templateUrl: "./vault.component.html",
 })
-export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
+export class VaultComponent extends BaseComponent implements OnDestroy {
   public typeEnum = TypeEnum;
   public currentFolder?: Folder;
   public vaultItemsObservable: Observable<VaultItem[]>;
@@ -58,6 +58,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
       .params
       .subscribe(params => {
         this.currentFolderId = params?.id;
+        this.currentFolder = this.folderState.getFolders().find(x => x.id.toString() === params.id);
         this.folderState.refreshData();
         this.passwordState.refreshData();
       });
@@ -99,12 +100,6 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     );
   }
 
-  public ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.currentFolder = this.folderState.getFolders().find(x => x.id.toString() === params.id);
-    });
-  }
-
   private sortVaultItems(vaultItems: [VaultItem[], VaultItem[]]): VaultItem[] {
     let result: VaultItem[] = [];
     const folderVaultItems: VaultItem[] = vaultItems[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId);
@@ -113,6 +108,10 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
 
     if (this.userDataService.sortByBehaviorSubject.getValue()) {
       result.sort((a, b) => this.compareVaultItems(a,b));
+    }
+
+    if (this.route.snapshot.url.toString().includes("starred")) {
+      result = result.filter(items => items.object.starred === true);
     }
 
     return result;

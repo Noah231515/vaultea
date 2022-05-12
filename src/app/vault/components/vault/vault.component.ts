@@ -17,6 +17,7 @@ import { GenericDialogData } from "../../../ui-kit/generic-dialog/generic-dialog
 import { SnackBarService } from "../../../ui-kit/services/snack-bar.service";
 import { FormStateEnum } from "../../../ui-kit/shared/enums/form-state.enum";
 import { VaultItem } from "../../models/vault-item.interface";
+import { UrlStateService } from "../../services/url-state.service";
 
 /* eslint-disable indent */
 @Component({
@@ -31,7 +32,9 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   public currentFolder?: Folder;
   public vaultItemsObservable: Observable<VaultItem[]>;
   public currentFolderId: string;
+
   public routeSubscription: Subscription;
+  public urlSubscription: Subscription;
 
   public editComponentMap: Map<TypeEnum, any> = new Map();
   public vaultItems: VaultItem[] = [];
@@ -48,10 +51,14 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private folderState: FolderStateService,
-    private passwordState: PasswordStateService
+    private passwordState: PasswordStateService,
+    private urlState: UrlStateService
   ) {
     super();
     this.setEditComponentMap();
+    this.urlSubscription = this.route.url.subscribe(url => {
+      this.urlState.next(url);
+    });
     this.routeSubscription = this.route
       .params
       .subscribe(params => {
@@ -259,6 +266,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
 
   public ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
+    this.urlSubscription.unsubscribe();
   }
 
   private setEditComponentMap(): void {

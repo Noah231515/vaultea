@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation } from "@angular/core";
 import { BaseComponent } from "@ui-kit";
 
+import { UrlStateService } from "../../services/url-state.service";
+
 @Component({
   encapsulation: ViewEncapsulation.None,
   selector: "vaultea-drawer",
@@ -10,7 +12,7 @@ import { BaseComponent } from "@ui-kit";
 export class DrawerComponent extends BaseComponent {
   public opened = true;
 
-  constructor() {
+  constructor(public urlState: UrlStateService) {
     super();
   }
 

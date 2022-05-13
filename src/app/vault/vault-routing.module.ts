@@ -7,34 +7,28 @@ import { VaultComponent } from "./components/vault/vault.component";
 
 const routes: Routes = [
   {
-    path: "home",
+    path: "",
     component: DrawerComponent,
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     children: [
       {
-        path: "",
+        path: "home",
         component: VaultComponent,
-        outlet: "sidenavContent",
         data: { animation: "vaultPage"},
+      },
+      {
+        path: "starred",
+        component: VaultComponent,
+        data: { animation: "vaultFolderPage"}
+      },
+      {
+        path: "folder/:id",
+        component: VaultComponent,
+        data: { animation: "vaultFolderPage"}
       },
     ],
   },
-  {
-    path: "folder/:id",
-    component: DrawerComponent,
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
-    children: [
-      {
-        path: "",
-        component: VaultComponent,
-        outlet: "sidenavContent",
-        data: { animation: "vaultFolderPage"}
-      }
-    ],
-  },
-
 ];
 
 @NgModule({

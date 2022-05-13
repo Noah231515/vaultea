@@ -4,11 +4,12 @@ import { map, tap } from "rxjs/operators";
 import { NestedTreeControl } from "@angular/cdk/tree";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { FolderStateService } from "@folder";
 import { PasswordStateService } from "@password";
 import { TypeEnum } from "@shared";
 
+import { UrlStateService } from "../../services/url-state.service";
 import { TreeItem } from "./tree-item.interface";
 
 @Component({
@@ -26,12 +27,17 @@ export class FolderTreeComponent implements OnInit {
   public treeControl: NestedTreeControl<TreeItem>;
   public dataSource: Observable<MatTreeNestedDataSource<TreeItem>>;
 
-  public params: Observable<Params> = this.route
-    .params
+  public currentId: Observable<string> = this.urlState
+    .currentUrl
     .pipe(
-      tap(params => {
-        if (params.id) {
-          const currentFolder = this.folderState.getFolders().find(f => f.id.toString() == params.id);
+      map(url => {
+        const parts = url.split(",");
+        const id = parts[1];
+        return id;
+      }),
+      tap(id => {
+        if (id) {
+          const currentFolder = this.folderState.getFolders().find(f => f.id.toString() == id);
           const currentItem = this.treeItems.filter(item => item.itemType == TypeEnum.FOLDER).find(f => f.id == currentFolder.id);
 
           // Recursively expand parent folder to persist expanded state
@@ -43,12 +49,13 @@ export class FolderTreeComponent implements OnInit {
           this.treeControl.expand(currentItem);
         }
       })
-    );
+    )
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private folderState: FolderStateService,
     private passwordState: PasswordStateService,
+    private urlState: UrlStateService,
     public route: ActivatedRoute
   ) {}
 

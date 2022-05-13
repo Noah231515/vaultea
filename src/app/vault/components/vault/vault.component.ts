@@ -1,9 +1,7 @@
 import { combineLatest, Observable, of, Subscription } from "rxjs";
 import { catchError, map, take, tap } from "rxjs/operators";
 
-import {
-  ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from "@angular/core";
 import { MatDialogConfig } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Folder, FolderFormComponent, FolderService, FolderStateService } from "@folder";
@@ -19,6 +17,7 @@ import { GenericDialogData } from "../../../ui-kit/generic-dialog/generic-dialog
 import { SnackBarService } from "../../../ui-kit/services/snack-bar.service";
 import { FormStateEnum } from "../../../ui-kit/shared/enums/form-state.enum";
 import { VaultItem } from "../../models/vault-item.interface";
+import { UrlStateService } from "../../services/url-state.service";
 
 /* eslint-disable indent */
 @Component({
@@ -28,12 +27,14 @@ import { VaultItem } from "../../models/vault-item.interface";
   styleUrls: ["./vault.component.scss"],
   templateUrl: "./vault.component.html",
 })
-export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
+export class VaultComponent extends BaseComponent implements OnDestroy {
   public typeEnum = TypeEnum;
   public currentFolder?: Folder;
   public vaultItemsObservable: Observable<VaultItem[]>;
   public currentFolderId: string;
+
   public routeSubscription: Subscription;
+  public urlSubscription: Subscription;
 
   public editComponentMap: Map<TypeEnum, any> = new Map();
   public vaultItems: VaultItem[] = [];
@@ -50,14 +51,19 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private folderState: FolderStateService,
-    private passwordState: PasswordStateService
+    private passwordState: PasswordStateService,
+    private urlState: UrlStateService
   ) {
     super();
     this.setEditComponentMap();
+    this.urlSubscription = this.route.url.subscribe(url => {
+      this.urlState.next(url);
+    });
     this.routeSubscription = this.route
       .params
       .subscribe(params => {
         this.currentFolderId = params?.id;
+        this.currentFolder = this.folderState.getFolders().find(x => x.id.toString() === params.id);
         this.folderState.refreshData();
         this.passwordState.refreshData();
       });
@@ -99,12 +105,6 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
     );
   }
 
-  public ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.currentFolder = this.folderState.getFolders().find(x => x.id.toString() === params.id);
-    });
-  }
-
   private sortVaultItems(vaultItems: [VaultItem[], VaultItem[]]): VaultItem[] {
     let result: VaultItem[] = [];
     const folderVaultItems: VaultItem[] = vaultItems[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId);
@@ -113,6 +113,10 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
 
     if (this.userDataService.sortByBehaviorSubject.getValue()) {
       result.sort((a, b) => this.compareVaultItems(a,b));
+    }
+
+    if (this.route.snapshot.url.toString().includes("starred")) {
+      result = result.filter(items => items.object.starred === true);
     }
 
     return result;
@@ -262,6 +266,7 @@ export class VaultComponent extends BaseComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
+    this.urlSubscription.unsubscribe();
   }
 
   private setEditComponentMap(): void {

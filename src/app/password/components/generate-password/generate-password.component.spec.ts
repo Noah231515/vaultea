@@ -30,6 +30,7 @@ describe('GeneratePasswordComponent', () => {
     component.form.get("length").patchValue(50);
     const generatedPassword = component.generatePassword();
 
+    
     console.log(generatedPassword)
     expect(generatedPassword.length).toEqual(component.form.get("length").value)
   });

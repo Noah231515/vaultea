@@ -40,7 +40,6 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
       useSimpleSpecial: true,
       useComplexSpecial: true,
     });
-    this.generatePassword();
   }
   
   
@@ -62,21 +61,21 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
 
     const generatedPassword = [];
     for (let i = 0; i < rawValue.length; i++) {
-      // Select character set
       const randomValueArray = new Uint32Array(1);
       crypto.getRandomValues(randomValueArray);
 
-      const characterSetIndex = randomValueArray[0] % sets.length;
-      const randomSet = sets[characterSetIndex];
+      // Select character set randomly
+      const randomSetIndex = randomValueArray[0] % sets.length;
+      const randomSet = sets[randomSetIndex];
 
+      // Select character randomly
       crypto.getRandomValues(randomValueArray);
-      const randomValueIndex = randomValueArray[0] & randomSet.length;
+      const randomValueIndex = randomValueArray[0] % randomSet.length;
 
       const randomValue = randomSet[randomValueIndex];
       generatedPassword.push(randomValue);
     }
 
-    console.log(generatedPassword.length)
     return generatedPassword.join("");
     /** 
      * We should be able to choose length

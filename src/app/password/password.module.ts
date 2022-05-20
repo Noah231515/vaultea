@@ -3,10 +3,12 @@ import { NgModule } from "@angular/core";
 
 import { UiKitModule } from "../ui-kit/ui-kit.module";
 import { PasswordFormComponent } from "./components/password-form/password-form.component";
+import { GeneratePasswordComponent } from './components/generate-password/generate-password.component';
 
 @NgModule({
   declarations: [
-    PasswordFormComponent
+    PasswordFormComponent,
+    GeneratePasswordComponent
   ],
   exports: [
     PasswordFormComponent

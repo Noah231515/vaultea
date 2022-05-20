@@ -33,7 +33,7 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
   
   protected initForm(): void {
     this.form = this.formBuilder.group({
-      length: [1, Validators.required],
+      length: [50, Validators.required],
       useLowerAlpha: true,
       useUpperAlpha: true,
       useNumeric: true,
@@ -61,7 +61,7 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
     }
 
     const generatedPassword = [];
-    for (let i = 0; i <= rawValue.length; i++) {
+    for (let i = 0; i < rawValue.length; i++) {
       // Select character set
       const randomValueArray = new Uint32Array(1);
       crypto.getRandomValues(randomValueArray);
@@ -76,7 +76,7 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
       generatedPassword.push(randomValue);
     }
 
-    // console.log(generatedPassword)
+    console.log(generatedPassword.length)
     return generatedPassword.join("");
     /** 
      * We should be able to choose length

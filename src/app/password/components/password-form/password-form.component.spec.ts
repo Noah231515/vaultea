@@ -16,6 +16,7 @@ import { FormStateEnum } from "@ui-kit";
 import { UiKitModule } from "../../../ui-kit/ui-kit.module";
 import { Password } from "../../password.model";
 import { PasswordService } from "../../services/password.service";
+import { GeneratePasswordComponent } from "../generate-password/generate-password.component";
 import { PasswordFormComponent } from "./password-form.component";
 
 describe("PasswordFormComponent", () => {
@@ -31,7 +32,7 @@ describe("PasswordFormComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PasswordFormComponent ],
+      declarations: [ PasswordFormComponent, GeneratePasswordComponent ],
       imports: [
         HttpClientTestingModule,
         MatSnackBarModule,

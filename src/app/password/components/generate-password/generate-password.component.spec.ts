@@ -17,16 +17,7 @@ describe('GeneratePasswordComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GeneratePasswordComponent);
-    const formBuilder = TestBed.inject(FormBuilder)
     component = fixture.componentInstance;
-    component.form = formBuilder.group({
-      length: [1, Validators.required],
-      useLowerAlpha: true,
-      useUpperAlpha: true,
-      useNumeric: true,
-      useSimpleSpecial: true,
-      useComplexSpecial: true,
-    });
     fixture.detectChanges();
   });
 
@@ -35,6 +26,11 @@ describe('GeneratePasswordComponent', () => {
   });
 
   it('should generate a password of the specified length', () => {
+    component.ngOnInit();
+    component.form.get("length").patchValue(50);
+    const generatedPassword = component.generatePassword();
 
+    console.log(generatedPassword)
+    expect(generatedPassword.length).toEqual(component.form.get("length").value)
   });
 });

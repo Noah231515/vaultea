@@ -10,13 +10,13 @@ import { BaseFormComponent } from '@ui-kit';
 export class GeneratePasswordComponent extends BaseFormComponent implements OnInit {
   @Output() public passwordGenerated: EventEmitter<string> = new EventEmitter<string>();
 
-  private numeric: string[] = [];
-  private upperAlpha: string[] = [];
-  private lowerAlpha: string[] = [];
+  public numeric: string[] = [];
+  public upperAlpha: string[] = [];
+  public lowerAlpha: string[] = [];
 
-  private numericRange: [number, number] = [48,57];
-  private upperAlphaRange: [number, number] = [65,90];
-  private lowerAlphaRange: [number, number] = [97,122];
+  public numericRange: [number, number] = [48,57];
+  public upperAlphaRange: [number, number] = [65,90];
+  public lowerAlphaRange: [number, number] = [97,122];
 
   
   constructor(private formBuilder: FormBuilder) { 
@@ -72,25 +72,12 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
       crypto.getRandomValues(randomValueArray);
       const randomValueIndex = randomValueArray[0] % randomSet.length;
 
+      // Push randomly selected value into array
       const randomValue = randomSet[randomValueIndex];
       generatedPassword.push(randomValue);
     }
 
     return generatedPassword.join("");
-    /** 
-     * We should be able to choose length
-     * And pick character set
-     */
-
-    /**
-     * The general intuition here is
-     * Based off the character sets that is given
-     * We want to create an array of the length
-     * For each value of the array we will pick a random number mod the length of the character sets 
-     * F.ex if we're just using lower and upper then we pick a random number and mod 2 and that will give us our index
-     * and then we will pick another random number and mod the length of our character set, that gives our random selection
-     * we will randomly select for the length that has been picked
-     */
   }
 
   private generateSet(range: [number, number]): string[] {

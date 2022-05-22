@@ -3,13 +3,19 @@
     <mat-error *ngIf="inputData.formControl.hasError('required')">
         Please enter a {{inputData.label}}
     </mat-error>
-        <mat-error *ngIf="inputData.formControl.hasError('email')">
+    <mat-error *ngIf="inputData.formControl.hasError('email')">
         Please enter a properly formatted email
+    </mat-error>
+    <mat-error *ngIf="inputData.formControl.hasError('min')">
+        Please enter a larger value
+    </mat-error>
+    <mat-error *ngIf="inputData.formControl.hasError('max')">
+        Please enter a smaller value
     </mat-error>
     <div fxFlex fxLayout="row">
         <input
             matInput
-            [type]="inputData.sensitiveDataInput && hideSensitiveData ? 'password' : 'text'"
+            [type]="inputData.sensitiveDataInput && hideSensitiveData ? 'password' : inputData.type"
             [placeholder]="inputData.placeholder"
             [formControl]="inputData.formControl"
             [value]="inputData.formControl.value"

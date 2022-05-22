@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BaseFormComponent } from '@ui-kit';
+import { startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'vaultea-generate-password',
@@ -13,6 +14,8 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
   public numeric: string[] = [];
   public upperAlpha: string[] = [];
   public lowerAlpha: string[] = [];
+  public simpleSpecial: string[] = "!#$%&*+-:;?@".split("");
+  public complexSpecial: string[] = "/,.'()<=>[\]^_`{|}~".split("");
 
   public numericRange: [number, number] = [48,57];
   public upperAlphaRange: [number, number] = [65,90];
@@ -37,13 +40,36 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
   
   protected initForm(): void {
     this.form = this.formBuilder.group({
-      length: [1, Validators.required],
+      length: [24, [Validators.required, Validators.min(1), Validators.max(144)]],
       useLowerAlpha: true,
       useUpperAlpha: true,
       useNumeric: true,
       useSimpleSpecial: true,
       useComplexSpecial: false,
+      generatedPassword: ""
     });
+
+    this.form
+      .valueChanges
+      .pipe(
+        startWith(this.form.getRawValue())
+      )
+      .subscribe(() => {
+        const rawValue = this.form.getRawValue();
+
+        if (
+          this.form.valid 
+          && rawValue.useLowerAlpha
+          || rawValue.useUpperAlpha
+          || rawValue.useNumeric
+          || rawValue.useSimpleSpecial
+          || rawValue.useComplexSpecial
+        ) {
+          this.form.get("generatedPassword").patchValue(this.generatePassword(), { emitEvent: false });
+        } else {
+          this.form.get("generatedPassword").patchValue("", { emitEvent: false })
+        }
+      })
   }
   
   public generatePassword(): string {
@@ -60,6 +86,14 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
 
     if (rawValue.useNumeric) {
       sets.push(this.numeric);
+    }
+
+    if (rawValue.useSimpleSpecial) {
+      sets.push(this.simpleSpecial);
+    }
+
+    if (rawValue.useComplexSpecial) {
+      sets.push(this.complexSpecial);
     }
 
     const generatedPassword = [];

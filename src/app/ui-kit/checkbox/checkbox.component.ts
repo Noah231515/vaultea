@@ -9,5 +9,4 @@ import { FormControl } from '@angular/forms';
 export class CheckboxComponent {
   @Input() public checkboxControl: FormControl;
   @Input() public label: string;
-
 }

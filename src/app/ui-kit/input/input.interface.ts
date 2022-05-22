@@ -11,4 +11,5 @@ export interface InputData {
   required?: boolean;
   readonly?: boolean;
   extraButtonTemplate?: TemplateRef<any>;
+  type?: string;
 }

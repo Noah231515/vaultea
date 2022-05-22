@@ -21,6 +21,7 @@ export class InputComponent implements OnInit {
       this.inputData.required = this.inputData.required ?? false;
       this.inputData.readonly = this.inputData.readonly ?? false;
       this.hideSensitiveData = this.inputData.sensitiveDataInput ?? false;
+      this.inputData.type = this.inputData.type ?? "text"
     }
 
     public toggleHideSensitiveData(): void {

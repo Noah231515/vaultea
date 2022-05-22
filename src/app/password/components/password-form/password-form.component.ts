@@ -130,6 +130,11 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     this.showGeneratePassword = !this.showGeneratePassword;
   }
 
+  public setPassword(generatedPassword: string) {
+    this.form.get("password").patchValue(generatedPassword);
+    this.toggleGeneratePassword();
+  }
+
   public cancel(): void {
     throw new Error("Method not implemented.");
   }

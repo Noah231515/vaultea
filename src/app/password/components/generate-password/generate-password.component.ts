@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { BaseFormComponent } from '@ui-kit';
-import { startWith } from 'rxjs/operators';
+import { startWith } from "rxjs/operators";
+
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { BaseFormComponent } from "@ui-kit";
 
 @Component({
   selector: 'vaultea-generate-password',
@@ -9,7 +10,8 @@ import { startWith } from 'rxjs/operators';
   styleUrls: ['./generate-password.component.scss']
 })
 export class GeneratePasswordComponent extends BaseFormComponent implements OnInit {
-  @Output() public passwordGenerated: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public passwordAccepted: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public cancelButtonClicked: EventEmitter<void> = new EventEmitter<void>();
 
   public numeric: string[] = [];
   public upperAlpha: string[] = [];
@@ -126,7 +128,11 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
   }
 
   public emitGeneratedPassword(): void {
-    this.passwordGenerated.emit("");
+    this.passwordAccepted.emit(this.form.get("generatedPassword").value);
+  }
+
+  public emitCancelButtonClicked(): void {
+    this.cancelButtonClicked.emit();
   }
   
   public setState(): void {

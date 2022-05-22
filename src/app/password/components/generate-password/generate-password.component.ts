@@ -127,25 +127,19 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
     return result;
   }
 
-  public emitGeneratedPassword(): void {
-    this.passwordAccepted.emit(this.form.get("generatedPassword").value);
-  }
-
-  public emitCancelButtonClicked(): void {
-    this.cancelButtonClicked.emit();
-  }
-
   public generateAnotherPassword(): void {
     this.form.get("generatedPassword").patchValue(this.generatePassword());
   }
+
+  public submit(): void {
+    this.passwordAccepted.emit(this.form.get("generatedPassword").value);
+  }
+
+  public cancel(): void {
+    this.cancelButtonClicked.emit();
+  }
   
   public setState(): void {
-    throw new Error('Method not implemented.');
-  }
-  public submit(): void {
-    throw new Error('Method not implemented.');
-  }
-  public cancel(): void {
     throw new Error('Method not implemented.');
   }
 }

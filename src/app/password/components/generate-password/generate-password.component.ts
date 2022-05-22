@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BaseFormComponent } from '@ui-kit';
 
@@ -19,7 +19,10 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
   public lowerAlphaRange: [number, number] = [97,122];
 
   
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(
+    private formBuilder: FormBuilder,
+    private changeDetectorRef: ChangeDetectorRef
+  ) { 
     super();
   }
   
@@ -29,19 +32,19 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
     this.lowerAlpha = this.generateSet(this.lowerAlphaRange);
 
     this.initForm();
+    this.changeDetectorRef.markForCheck();
   }
   
   protected initForm(): void {
     this.form = this.formBuilder.group({
-      length: [50, Validators.required],
+      length: [1, Validators.required],
       useLowerAlpha: true,
       useUpperAlpha: true,
       useNumeric: true,
       useSimpleSpecial: true,
-      useComplexSpecial: true,
+      useComplexSpecial: false,
     });
   }
-  
   
   public generatePassword(): string {
     const sets = [];
@@ -86,6 +89,10 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
       result.push(String.fromCharCode(i));
     }
     return result;
+  }
+
+  public emitGeneratedPassword(): void {
+    this.passwordGenerated.emit("");
   }
   
   public setState(): void {

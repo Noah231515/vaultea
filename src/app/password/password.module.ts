@@ -4,6 +4,7 @@ import { NgModule } from "@angular/core";
 import { UiKitModule } from "../ui-kit/ui-kit.module";
 import { PasswordFormComponent } from "./components/password-form/password-form.component";
 import { GeneratePasswordComponent } from './components/generate-password/generate-password.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { GeneratePasswordComponent } from './components/generate-password/genera
     PasswordFormComponent
   ],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     UiKitModule
   ]

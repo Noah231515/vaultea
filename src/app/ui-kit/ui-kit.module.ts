@@ -13,6 +13,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import {MatCheckboxModule} from '@angular/material/checkbox'; 
 import { RouterModule } from "@angular/router";
 
 import { AutocompleteComponent } from "./autocomplete/autocomplete.component";
@@ -26,6 +27,7 @@ import { InputComponent } from "./input/input.component";
 import { LogoFullComponent } from "./logo-full/logo-full.component";
 import { SelectComponent } from "./select/select.component";
 import { TextAreaComponent } from "./text-area/text-area.component";
+import { CheckboxComponent } from './checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { TextAreaComponent } from "./text-area/text-area.component";
     TextAreaComponent,
     BreadcrumbComponent,
     GenericDialogComponent,
+    CheckboxComponent,
   ],
   exports: [
     AutocompleteComponent,
@@ -53,6 +56,7 @@ import { TextAreaComponent } from "./text-area/text-area.component";
     LogoFullComponent,
     SelectComponent,
     TextAreaComponent,
+    CheckboxComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +71,7 @@ import { TextAreaComponent } from "./text-area/text-area.component";
     MatMenuModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     RouterModule,
     TextFieldModule,

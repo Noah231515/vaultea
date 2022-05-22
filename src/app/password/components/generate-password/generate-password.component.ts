@@ -134,6 +134,10 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
   public emitCancelButtonClicked(): void {
     this.cancelButtonClicked.emit();
   }
+
+  public generateAnotherPassword(): void {
+    this.form.get("generatedPassword").patchValue(this.generatePassword());
+  }
   
   public setState(): void {
     throw new Error('Method not implemented.');

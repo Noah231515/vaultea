@@ -178,7 +178,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
 
   public openModalInEditMode(cardData: CardData): void {
     const dialogData = {existingObject: cardData.object};
-    const config: MatDialogConfig = new MatDialogConfig();
+    const config = this.getBaseMatDialogConfig();
     config.data = dialogData;
 
     this.dialogService.open(this.editComponentMap.get(cardData.type), config);
@@ -190,7 +190,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
         this.router.navigateByUrl(`vault/folder/${cardData.object.id}`);
         break;
       case TypeEnum.PASSWORD: {
-        const config: MatDialogConfig = new MatDialogConfig();
+        const config = this.getBaseMatDialogConfig();
         config.data = {
           existingObject: cardData.object,
           formState: FormStateEnum.VIEW
@@ -256,7 +256,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   }
 
   public addItem(selectedType: TypeEnum): void {
-    const config: MatDialogConfig = new MatDialogConfig();
+    const config = this.getBaseMatDialogConfig();
     config.data = {
       currentFolderId: this.route.snapshot.params.id,
       selectedType: selectedType
@@ -272,5 +272,12 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   private setEditComponentMap(): void {
     this.editComponentMap.set(TypeEnum.FOLDER, FolderFormComponent);
     this.editComponentMap.set(TypeEnum.PASSWORD, PasswordFormComponent);
+  }
+
+  private getBaseMatDialogConfig(): MatDialogConfig {
+    const config = new MatDialogConfig();
+    config.width = "30vw";
+    config.height = "70vh";
+    return config;
   }
 }

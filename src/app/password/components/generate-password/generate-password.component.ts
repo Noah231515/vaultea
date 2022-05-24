@@ -5,9 +5,9 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { BaseFormComponent } from "@ui-kit";
 
 @Component({
-  selector: 'vaultea-generate-password',
-  templateUrl: './generate-password.component.html',
-  styleUrls: ['./generate-password.component.scss']
+  selector: "vaultea-generate-password",
+  templateUrl: "./generate-password.component.html",
+  styleUrls: ["./generate-password.component.scss"]
 })
 export class GeneratePasswordComponent extends BaseFormComponent implements OnInit {
   @Output() public passwordAccepted: EventEmitter<string> = new EventEmitter<string>();
@@ -17,6 +17,7 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
   public upperAlpha: string[] = [];
   public lowerAlpha: string[] = [];
   public simpleSpecial: string[] = "!#$%&*+-:;?@".split("");
+  // eslint-disable-next-line
   public complexSpecial: string[] = "/,.'()<=>[\]^_`{|}~".split("");
 
   public numericRange: [number, number] = [48,57];
@@ -140,6 +141,6 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
   }
   
   public setState(): void {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 }

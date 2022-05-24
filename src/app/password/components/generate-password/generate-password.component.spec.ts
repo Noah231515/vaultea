@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { FormBuilder } from "@angular/forms";
 
-import { GeneratePasswordComponent } from './generate-password.component';
+import { GeneratePasswordComponent } from "./generate-password.component";
 
-describe('GeneratePasswordComponent', () => {
+describe("GeneratePasswordComponent", () => {
   let component: GeneratePasswordComponent;
   let fixture: ComponentFixture<GeneratePasswordComponent>;
 
@@ -12,7 +12,7 @@ describe('GeneratePasswordComponent', () => {
       declarations: [ GeneratePasswordComponent ],
       providers: [ FormBuilder ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -21,11 +21,11 @@ describe('GeneratePasswordComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
-  it('should generate a password of the specified length', () => {
+  it("should generate a password of the specified length", () => {
     component.ngOnInit();
     component.form.get("length").patchValue(50);
     const generatedPassword = component.generatePassword();
@@ -33,7 +33,7 @@ describe('GeneratePasswordComponent', () => {
     expect(generatedPassword.length).toEqual(component.form.get("length").value)
   });
 
-  it('should generate a password with only numeric', () => {
+  it("should generate a password with only numeric", () => {
     component.ngOnInit();
     component.form.patchValue({
       length: 50,
@@ -52,7 +52,7 @@ describe('GeneratePasswordComponent', () => {
     })
   });
 
-  it('should generate a password with only upperAlpha', () => {
+  it("should generate a password with only upperAlpha", () => {
     component.ngOnInit();
     component.form.patchValue({
       length: 50,
@@ -71,7 +71,7 @@ describe('GeneratePasswordComponent', () => {
     })
   });
 
-  it('should generate a password with only lowerAlpha', () => {
+  it("should generate a password with only lowerAlpha", () => {
     component.ngOnInit();
     component.form.patchValue({
       length: 50,
@@ -90,7 +90,7 @@ describe('GeneratePasswordComponent', () => {
     })
   });
 
-  it('should not generate two different passwords in a row', () => {
+  it("should not generate two different passwords in a row", () => {
     component.ngOnInit();
     component.form.get("length").patchValue(50);
     const generatedPassword1 = component.generatePassword();

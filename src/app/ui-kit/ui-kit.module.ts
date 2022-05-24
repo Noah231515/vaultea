@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
@@ -13,11 +14,13 @@ import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterModule } from "@angular/router";
 
 import { AutocompleteComponent } from "./autocomplete/autocomplete.component";
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 import { ButtonComponent } from "./button/button.component";
+import { CheckboxComponent } from "./checkbox/checkbox.component";
 import { FormFooterComponent } from "./form-footer/form-footer.component";
 import { FormHeaderComponent } from "./form-header/form-header.component";
 import { FormComponent } from "./form/form.component";
@@ -40,6 +43,7 @@ import { TextAreaComponent } from "./text-area/text-area.component";
     TextAreaComponent,
     BreadcrumbComponent,
     GenericDialogComponent,
+    CheckboxComponent,
   ],
   exports: [
     AutocompleteComponent,
@@ -53,6 +57,7 @@ import { TextAreaComponent } from "./text-area/text-area.component";
     LogoFullComponent,
     SelectComponent,
     TextAreaComponent,
+    CheckboxComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +72,8 @@ import { TextAreaComponent } from "./text-area/text-area.component";
     MatMenuModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatCheckboxModule,
+    MatTooltipModule,
     ReactiveFormsModule,
     RouterModule,
     TextFieldModule,

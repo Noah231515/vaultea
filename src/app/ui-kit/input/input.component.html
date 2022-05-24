@@ -3,20 +3,35 @@
     <mat-error *ngIf="inputData.formControl.hasError('required')">
         Please enter a {{inputData.label}}
     </mat-error>
-        <mat-error *ngIf="inputData.formControl.hasError('email')">
+    <mat-error *ngIf="inputData.formControl.hasError('email')">
         Please enter a properly formatted email
     </mat-error>
-    <input
-        matInput
-        [type]="inputData.sensitiveDataInput && hideSensitiveData ? 'password' : 'text'"
-        [placeholder]="inputData.placeholder"
-        [formControl]="inputData.formControl"
-        [value]="inputData.formControl.value"
-        [maxlength]="inputData.maxLength"
-        [required]="inputData.required"
-        [readonly]="inputData.readonly"
-    >
-    <button mat-icon-button matSuffix *ngIf="inputData.sensitiveDataInput" type="button" (click)="toggleHideSensitiveData()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSensitiveData">
-        <mat-icon>{{hideSensitiveData ? "visibility_off" : "visibility"}}</mat-icon>
-    </button>
+    <mat-error *ngIf="inputData.formControl.hasError('min')">
+        Please enter a larger value
+    </mat-error>
+    <mat-error *ngIf="inputData.formControl.hasError('max')">
+        Please enter a smaller value
+    </mat-error>
+    <div fxFlex fxLayout="row">
+        <input
+            matInput
+            [type]="inputData.sensitiveDataInput && hideSensitiveData ? 'password' : inputData.type"
+            [placeholder]="inputData.placeholder"
+            [formControl]="inputData.formControl"
+            [value]="inputData.formControl.value"
+            [maxlength]="inputData.maxLength"
+            [required]="inputData.required"
+            [readonly]="inputData.readonly"
+        >
+        <div fxFlex fxLayout="row">
+            <button mat-icon-button matSuffix *ngIf="inputData.sensitiveDataInput" type="button" (click)="toggleHideSensitiveData()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSensitiveData">
+                <mat-icon>{{hideSensitiveData ? "visibility_off" : "visibility"}}</mat-icon>
+            </button>
+            <ng-container
+                *ngIf="inputData.extraButtonTemplate"
+                [ngTemplateOutlet]="inputData.extraButtonTemplate"
+            >
+            </ng-container>
+        </div>
+    </div>
 </mat-form-field>

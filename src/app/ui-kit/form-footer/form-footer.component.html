@@ -9,5 +9,9 @@
       [buttonData]="secondaryButton"
       (click)="emitSecondaryButtonClicked()"
     ></vaultea-button>
+    <ng-container
+      *ngIf="extraButtonsTemplate"
+      [ngTemplateOutlet]="extraButtonsTemplate"
+    ></ng-container>
   </div>
 </footer>

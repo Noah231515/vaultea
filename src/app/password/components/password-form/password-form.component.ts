@@ -23,6 +23,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   @Input() public currentFolderId?: string;
   public locationAutocompleteData: AutocompleteData;
   public readonly: boolean;
+  public showGeneratePassword: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -123,6 +124,15 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   public switchToEditMode(): void {
     this.formState = null;
     this.setState();
+  }
+
+  public toggleGeneratePassword(): void {
+    this.showGeneratePassword = !this.showGeneratePassword;
+  }
+
+  public setPassword(generatedPassword: string) {
+    this.form.get("password").patchValue(generatedPassword);
+    this.toggleGeneratePassword();
   }
 
   public cancel(): void {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from "@angular/core";
 
 import { ButtonInterface } from "../";
 import { BaseComponent } from "../shared/components/base-component/base.component";
@@ -13,6 +13,7 @@ export class FormFooterComponent extends BaseComponent implements OnInit {
   @Input() public secondaryButton: ButtonInterface;
   @Input() public fxLayout: "column" | "row" = "column";
   @Input() public readonly: boolean = false;
+  @Input() public extraButtonsTemplate: TemplateRef<any>;
 
   @Output() public primaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() public secondaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();

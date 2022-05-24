@@ -1,3 +1,4 @@
+import { TemplateRef } from "@angular/core";
 import { FormControl } from "@angular/forms";
 
 export interface InputData {
@@ -9,4 +10,6 @@ export interface InputData {
   sensitiveDataInput?: boolean;
   required?: boolean;
   readonly?: boolean;
+  extraButtonTemplate?: TemplateRef<any>;
+  type?: string;
 }

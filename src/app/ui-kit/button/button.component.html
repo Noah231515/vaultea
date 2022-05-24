@@ -5,6 +5,8 @@
   [color]="buttonData.color"
   [attr.aria-label]="buttonData.ariaLabel"
   [type]="buttonData.type"
+  [disabled]="buttonData.disabled"
+  [matTooltip]="buttonData.disabled ? buttonData.disabledTooltip : buttonData.tooltip"
 >
   <mat-icon *ngIf="buttonData?.icon"> {{buttonData.icon}} </mat-icon>
   <div *ngIf="buttonData?.text"> {{buttonData.text}} </div>

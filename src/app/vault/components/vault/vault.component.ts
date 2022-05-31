@@ -107,19 +107,29 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
 
   private sortVaultItems(vaultItems: [VaultItem[], VaultItem[]]): VaultItem[] {
     let result: VaultItem[] = [];
-    const folderVaultItems: VaultItem[] = vaultItems[0].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId);
-    const passwordVaultItems = vaultItems[1].filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId);
-    result = result.concat(folderVaultItems, passwordVaultItems);
-
-    if (this.userDataService.sortByBehaviorSubject.getValue()) {
-      result.sort((a, b) => this.compareVaultItems(a,b));
+    let folderVaultItems = vaultItems[0];
+    let passwordVaultItems = vaultItems[1];
+    
+    if (this.route.snapshot.url.toString().includes("starred")) {
+      result = result.concat(folderVaultItems, passwordVaultItems);
+      result = result.filter(items => items.object.starred === true);
+      this.applySort(result);
+      return result;
     }
 
-    if (this.route.snapshot.url.toString().includes("starred")) {
-      result = result.filter(items => items.object.starred === true);
+    folderVaultItems = folderVaultItems.filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId);
+    passwordVaultItems = passwordVaultItems.filter(x => this.currentFolderId ? x.object.folderId?.toString() === this.currentFolderId : !x.object.folderId);
+    
+    if (this.userDataService.sortByBehaviorSubject.getValue()) {
+      result = result.concat(folderVaultItems, passwordVaultItems);
+      this.applySort(result);
     }
 
     return result;
+  }
+
+  private applySort(result: VaultItem[]): VaultItem[] {
+    return result.sort((a, b) => this.compareVaultItems(a,b));
   }
 
   private compareVaultItems(a: VaultItem, b: VaultItem): number {

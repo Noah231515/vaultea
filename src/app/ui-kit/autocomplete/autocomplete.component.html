@@ -11,9 +11,19 @@
   >
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="getDisplayValue">
     <mat-option *ngFor="let option of filteredOptions | async | slice:0:maxValuesToDisplay" [value]="option.value">
-      <div fxLayout="column">
-        <span>{{option.displayValue}}</span>
-        <small *ngIf="option.subtitle"><strong>{{option.subtitle}}</strong></small>
+      <div fxLayout="row" fxLayoutAlign=" center">
+        <ng-container *ngIf="option.icon">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="option icon"
+          >
+          {{ option.icon }}
+        </mat-icon>
+        </ng-container>
+        <div fxLayout="column">
+          <span>{{option.displayValue}}</span>
+          <small *ngIf="option.subtitle"><strong>{{option.subtitle}}</strong></small>
+        </div>
       </div>
     </mat-option>
   </mat-autocomplete>

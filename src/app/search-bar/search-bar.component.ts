@@ -7,6 +7,7 @@ import { FormControl } from "@angular/forms";
 import { FolderStateService } from "../folder/services/folder-state.service";
 import { PasswordStateService } from "../password/services/password-state.service";
 import { AutocompleteOption } from "../ui-kit/autocomplete/autocomplete-option.interface";
+import { ItemIconEnum } from "../ui-kit/enums/item-icon.enum";
 
 @Component({
   selector: 'vaultea-search-bar',
@@ -22,7 +23,8 @@ export class SearchBarComponent implements OnInit {
         return folders.map(folder => {
           const option: AutocompleteOption = {
             displayValue: folder.name,
-            value: folder.id
+            value: folder.id,
+            icon: ItemIconEnum.FOLDER
           }
           return option;
         })
@@ -35,7 +37,8 @@ export class SearchBarComponent implements OnInit {
         return passwords.map(password => {
           const option: AutocompleteOption = {
             displayValue: password.name,
-            value: password.id
+            value: password.id,
+            icon: ItemIconEnum.PASSWORD
           }
           return option;
         })

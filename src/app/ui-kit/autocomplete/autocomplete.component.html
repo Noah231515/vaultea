@@ -2,9 +2,9 @@
   <mat-label>{{autocompleteData.label}}</mat-label>
   <input
     type="text"
-    placeholder="Select a {{autocompleteData.label}}"
     aria-label="Number"
     matInput
+    [placeholder]="autocompleteData.label ? defaultPlaceholder : autocompleteData?.placeholder"
     [formControl]="autocompleteData.formControl"
     [matAutocomplete]="auto"
     [readonly]="autocompleteData?.readonly ?? false"

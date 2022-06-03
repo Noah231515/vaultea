@@ -1,12 +1,14 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
+
+import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
+import { FormControl } from "@angular/forms";
 
 import { AutocompleteData } from "./autocomplete-data.interface";
 import { AutocompleteOption } from "./autocomplete-option.interface";
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: "vaultea-autocomplete",
   templateUrl: "./autocomplete.component.html",
   styleUrls: ["./autocomplete.component.scss"]
@@ -16,9 +18,11 @@ export class AutocompleteComponent implements OnInit {
 
   public filteredOptions: Observable<AutocompleteOption[]>;
   public maxValuesToDisplay: number = 25;
+  public defaultPlaceholder: string = "";
 
   public ngOnInit(): void {
     this.listenForValueChanges();
+    this.defaultPlaceholder = `Select a ${this.autocompleteData.label}`;  
   }
 
   private listenForValueChanges(): void {

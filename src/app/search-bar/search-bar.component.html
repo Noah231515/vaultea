@@ -2,7 +2,7 @@
   class="search-bar"
   [autocompleteData]="{
     'placeholder': 'Search',
-    options: [],
+    options: allOptions | async,
     formControl: searchFormControl
   }"
 ></vaultea-autocomplete>

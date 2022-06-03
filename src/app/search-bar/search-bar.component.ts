@@ -42,7 +42,7 @@ export class SearchBarComponent implements OnInit {
       })
     );
     
-  public vaultItemsObservable = combineLatest([this.folderOptions, this.passwordOptions])
+  public allOptions = combineLatest([this.folderOptions, this.passwordOptions])
     .pipe(
         map((result: [AutocompleteOption[], AutocompleteOption[]]) => {
           return [].concat(result[0], result[1]);
@@ -55,6 +55,5 @@ export class SearchBarComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.vaultItemsObservable.subscribe(items => console.warn(items))
   }
 }

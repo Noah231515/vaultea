@@ -4,8 +4,10 @@ import { catchError, map, take, tap } from "rxjs/operators";
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from "@angular/core";
 import { MatDialogConfig } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Folder, FolderFormComponent, FolderService, FolderStateService } from "@folder";
-import { PasswordStateService } from "@password";
+import {
+  Folder, FolderFormComponent, FolderService, FolderStateService, FolderUtil
+} from "@folder";
+import { Password, PasswordStateService, PasswordUtil } from "@password";
 import { CreateItemSelectComponent, TypeEnum, UserDataService } from "@shared";
 import { BaseComponent, CardData, DialogService } from "@ui-kit";
 
@@ -46,7 +48,9 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     public userDataService: UserDataService,
     private snackBarService: SnackBarService,
     private folderService: FolderService,
+    private folderUtil: FolderUtil,
     private passwordService: PasswordService,
+    private passwordUtil: PasswordUtil,
     private dialogService: DialogService,
     private router: Router,
     private route: ActivatedRoute,
@@ -197,16 +201,11 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   public handleContentClicked(cardData: CardData): void {
     switch (cardData.type) {
       case TypeEnum.FOLDER:
-        this.router.navigateByUrl(`vault/folder/${cardData.object.id}`);
+        this.folderUtil.folderClicked(cardData.object.id);
         break;
       case TypeEnum.PASSWORD: {
         const config = this.getBaseMatDialogConfig();
-        config.data = {
-          existingObject: cardData.object,
-          formState: FormStateEnum.VIEW
-        };
-
-        this.dialogService.open(PasswordFormComponent, config);
+        this.passwordUtil.passwordClicked(cardData.object as Password, config);
         break;
       }
       default:

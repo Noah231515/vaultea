@@ -8,7 +8,9 @@ import {
   Folder, FolderFormComponent, FolderService, FolderStateService, FolderUtil
 } from "@folder";
 import { Password, PasswordStateService, PasswordUtil } from "@password";
-import { CreateItemSelectComponent, TypeEnum, UserDataService } from "@shared";
+import {
+  CreateItemSelectComponent, getBaseMatDialogConfig, TypeEnum, UserDataService
+} from "@shared";
 import { BaseComponent, CardData, DialogService } from "@ui-kit";
 
 import {
@@ -192,7 +194,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
 
   public openModalInEditMode(cardData: CardData): void {
     const dialogData = {existingObject: cardData.object};
-    const config = this.getBaseMatDialogConfig();
+    const config = getBaseMatDialogConfig();
     config.data = dialogData;
 
     this.dialogService.open(this.editComponentMap.get(cardData.type), config);
@@ -204,7 +206,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
         this.folderUtil.folderClicked(cardData.object.id);
         break;
       case TypeEnum.PASSWORD: {
-        const config = this.getBaseMatDialogConfig();
+        const config = getBaseMatDialogConfig();
         this.passwordUtil.passwordClicked(cardData.object as Password, config);
         break;
       }
@@ -265,7 +267,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   }
 
   public addItem(selectedType: TypeEnum): void {
-    const config = this.getBaseMatDialogConfig();
+    const config = getBaseMatDialogConfig();
     config.data = {
       currentFolderId: this.route.snapshot.params.id,
       selectedType: selectedType
@@ -281,12 +283,5 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   private setEditComponentMap(): void {
     this.editComponentMap.set(TypeEnum.FOLDER, FolderFormComponent);
     this.editComponentMap.set(TypeEnum.PASSWORD, PasswordFormComponent);
-  }
-
-  private getBaseMatDialogConfig(): MatDialogConfig {
-    const config = new MatDialogConfig();
-    config.width = "30vw";
-    config.height = "70vh";
-    return config;
   }
 }

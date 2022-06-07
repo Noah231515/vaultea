@@ -11,4 +11,5 @@ export interface AutocompleteData {
   displaySubtitle?: boolean;
   placeholder?: string;
   readonly?: boolean;
+  requireSelection?: boolean;
 }

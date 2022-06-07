@@ -2,7 +2,6 @@ import { combineLatest, Observable, of, Subscription } from "rxjs";
 import { catchError, map, take, tap } from "rxjs/operators";
 
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from "@angular/core";
-import { MatDialogConfig } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
   Folder, FolderFormComponent, FolderService, FolderStateService, FolderUtil
@@ -19,7 +18,6 @@ import {
 import { PasswordService } from "../../../password/services/password.service";
 import { GenericDialogData } from "../../../ui-kit/generic-dialog/generic-dialog-data.interface";
 import { SnackBarService } from "../../../ui-kit/services/snack-bar.service";
-import { FormStateEnum } from "../../../ui-kit/shared/enums/form-state.enum";
 import { VaultItem } from "../../models/vault-item.interface";
 import { UrlStateService } from "../../services/url-state.service";
 

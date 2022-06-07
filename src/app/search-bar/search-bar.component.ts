@@ -14,9 +14,9 @@ import { AutocompleteOption } from "../ui-kit/autocomplete/autocomplete-option.i
 import { ItemIconEnum } from "../ui-kit/enums/item-icon.enum";
 
 @Component({
-  selector: 'vaultea-search-bar',
-  templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.scss']
+  selector: "vaultea-search-bar",
+  templateUrl: "./search-bar.component.html",
+  styleUrls: ["./search-bar.component.scss"]
 })
 export class SearchBarComponent {
   public searchFormControl = new FormControl("");
@@ -51,9 +51,9 @@ export class SearchBarComponent {
     
   public allOptions = combineLatest([this.folderOptions, this.passwordOptions])
     .pipe(
-        map((result: [AutocompleteOption[], AutocompleteOption[]]) => {
-          return [].concat(result[0], result[1]);
-        }),
+      map((result: [AutocompleteOption[], AutocompleteOption[]]) => {
+        return [].concat(result[0], result[1]);
+      }),
     );
 
   constructor(
@@ -69,15 +69,15 @@ export class SearchBarComponent {
     const id = parts[1];
 
     switch (type) {
-      case TypeEnum.FOLDER:
-        this.folderUtil.folderClicked(id);
-        break;
-      case TypeEnum.PASSWORD:
-        const password = this.passwordState.getPasswords().find(p => p.id.toString() === id.toString());
-        this.passwordUtil.passwordClicked(password, getBaseMatDialogConfig());
+    case TypeEnum.FOLDER:
+      this.folderUtil.folderClicked(id);
+      break;
+    case TypeEnum.PASSWORD:
+      const password = this.passwordState.getPasswords().find(p => p.id.toString() === id.toString());
+      this.passwordUtil.passwordClicked(password, getBaseMatDialogConfig());
     
-      default:
-        break;
+    default:
+      break;
     }
   }
 }

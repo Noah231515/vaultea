@@ -16,7 +16,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AuthenticationModule } from "./authentication/authentication.module";
 import { UiKitModule } from "./ui-kit/ui-kit.module";
-import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchBarComponent } from "./search-bar/search-bar.component";
 
 @NgModule({
   declarations: [

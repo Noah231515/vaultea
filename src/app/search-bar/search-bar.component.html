@@ -3,6 +3,8 @@
   [autocompleteData]="{
     'placeholder': 'Search',
     options: allOptions | async,
-    formControl: searchFormControl
+    formControl: searchFormControl,
+    requireSelection: true
   }"
+  (optionSelected)="handleOptionSelected($event)"
 ></vaultea-autocomplete>

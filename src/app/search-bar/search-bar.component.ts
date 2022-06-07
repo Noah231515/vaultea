@@ -1,11 +1,15 @@
 import { combineLatest } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 
 import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { FolderUtil } from "@folder";
+import { getBaseMatDialogConfig } from "@shared";
 
 import { FolderStateService } from "../folder/services/folder-state.service";
 import { PasswordStateService } from "../password/services/password-state.service";
+import { PasswordUtil } from "../password/utils/password.util";
+import { TypeEnum } from "../shared/enums/type.enum";
 import { AutocompleteOption } from "../ui-kit/autocomplete/autocomplete-option.interface";
 import { ItemIconEnum } from "../ui-kit/enums/item-icon.enum";
 
@@ -23,8 +27,8 @@ export class SearchBarComponent implements OnInit {
         return folders.map(folder => {
           const option: AutocompleteOption = {
             displayValue: folder.name,
-            value: folder.id,
-            icon: ItemIconEnum.FOLDER
+            value: `${TypeEnum.FOLDER}.${folder.id}`,
+            icon: ItemIconEnum.FOLDER,
           }
           return option;
         })
@@ -37,8 +41,8 @@ export class SearchBarComponent implements OnInit {
         return passwords.map(password => {
           const option: AutocompleteOption = {
             displayValue: password.name,
-            value: password.id,
-            icon: ItemIconEnum.PASSWORD
+            value: `${TypeEnum.PASSWORD}.${password.id}`,
+            icon: ItemIconEnum.PASSWORD,
           }
           return option;
         })
@@ -54,9 +58,29 @@ export class SearchBarComponent implements OnInit {
 
   constructor(
     private folderState: FolderStateService,
-    private passwordState: PasswordStateService
+    private folderUtil: FolderUtil,
+    private passwordState: PasswordStateService,
+    private passwordUtil: PasswordUtil
   ) { }
 
   public ngOnInit(): void {
+  }
+
+  public handleOptionSelected(optionValue: string): void {
+    const parts = optionValue.split(".");
+    const type = parts[0];
+    const id = parts[1];
+
+    switch (type) {
+      case TypeEnum.FOLDER:
+        this.folderUtil.folderClicked(id);
+        break;
+      case TypeEnum.PASSWORD:
+        const password = this.passwordState.getPasswords().find(p => p.id.toString() === id.toString());
+        this.passwordUtil.passwordClicked(password, getBaseMatDialogConfig());
+    
+      default:
+        break;
+    }
   }
 }

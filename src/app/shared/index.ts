@@ -13,3 +13,6 @@ export * from "./enums/type.enum";
 
 // Components
 export * from "./components/create-item-select/create-item-select.component";
+
+// Utils
+export * from "./utils/dialog.util";

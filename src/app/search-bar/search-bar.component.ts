@@ -18,7 +18,7 @@ import { ItemIconEnum } from "../ui-kit/enums/item-icon.enum";
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent {
   public searchFormControl = new FormControl("");
 
   public folderOptions = this.folderState.folderObservable
@@ -62,9 +62,6 @@ export class SearchBarComponent implements OnInit {
     private passwordState: PasswordStateService,
     private passwordUtil: PasswordUtil
   ) { }
-
-  public ngOnInit(): void {
-  }
 
   public handleOptionSelected(optionValue: string): void {
     const parts = optionValue.split(".");

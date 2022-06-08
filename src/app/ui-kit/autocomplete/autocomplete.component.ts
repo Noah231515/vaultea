@@ -46,13 +46,15 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   }
 
   private listenForClosedPanel(): void {
-    this.autocomplete.panelClosingActions.subscribe((value: MatOptionSelectionChange | null) => {
-      if (value) {
-        this.optionSelected.emit(value.source.value);
-      } else {
-        this.autocompleteData.formControl.patchValue("");
-      }
-    })
+    this.autocomplete
+      .panelClosingActions
+      .subscribe((value: MatOptionSelectionChange | null) => {
+        if (value) {
+          this.optionSelected.emit(value.source.value);
+        } else {
+          this.autocompleteData.formControl.patchValue("");
+        }
+      })
   }
 
   public getDisplayValue = (value: string): string => {

@@ -1,7 +1,7 @@
 import { combineLatest } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { FolderUtil } from "@folder";
 import { getBaseMatDialogConfig } from "@shared";
@@ -16,7 +16,8 @@ import { ItemIconEnum } from "../ui-kit/enums/item-icon.enum";
 @Component({
   selector: "vaultea-search-bar",
   templateUrl: "./search-bar.component.html",
-  styleUrls: ["./search-bar.component.scss"]
+  styleUrls: ["./search-bar.component.scss"],
+  encapsulation: ViewEncapsulation.None
 })
 export class SearchBarComponent {
   public searchFormControl = new FormControl("");

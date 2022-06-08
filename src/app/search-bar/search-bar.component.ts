@@ -75,7 +75,8 @@ export class SearchBarComponent {
       break;
     case TypeEnum.PASSWORD:
       const password = this.passwordState.getPasswords().find(p => p.id.toString() === id.toString());
-      this.passwordUtil.passwordClicked(password, getBaseMatDialogConfig());
+      const config = getBaseMatDialogConfig();
+      this.passwordUtil.passwordClicked(password, config);
     
     default:
       break;

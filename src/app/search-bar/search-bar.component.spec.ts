@@ -1,6 +1,5 @@
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { MatDialogConfig } from "@angular/material/dialog";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
 import {
@@ -9,7 +8,7 @@ import {
 } from "@crypto";
 import { UserService } from "@identity";
 import { UserMockService } from "@mock";
-import { PasswordStateService, PasswordUtil } from "@password";
+import { PasswordStateService } from "@password";
 import { getBaseMatDialogConfig } from "@shared";
 
 import { FolderUtil } from "../folder/utils/folder.util";
@@ -32,11 +31,11 @@ describe("SearchBarComponent", () => {
         NoopAnimationsModule,
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-        {
-          component: VaultComponent,
-          path: "vault/folder/:id"
-        }
-      ]), UiKitModule ],
+          {
+            component: VaultComponent,
+            path: "vault/folder/:id"
+          }
+        ]), UiKitModule ],
       declarations: [ SearchBarComponent ],
       providers: [
         { provide: CryptoFunctionService, useClass: BrowserCryptoFunctionService },

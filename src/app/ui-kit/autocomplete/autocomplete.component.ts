@@ -5,7 +5,7 @@ import {
   AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autocomplete";
+import { MatAutocompleteTrigger } from "@angular/material/autocomplete";
 import { MatOptionSelectionChange } from "@angular/material/core";
 
 import { AutocompleteData } from "./autocomplete-data.interface";

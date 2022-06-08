@@ -1,7 +1,7 @@
 import { combineLatest } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, ViewEncapsulation } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { FolderUtil } from "@folder";
 import { getBaseMatDialogConfig } from "@shared";
@@ -70,14 +70,17 @@ export class SearchBarComponent {
     const id = parts[1];
 
     switch (type) {
-    case TypeEnum.FOLDER:
+    case TypeEnum.FOLDER: {
       this.folderUtil.folderClicked(id);
       break;
-    case TypeEnum.PASSWORD:
+    }
+
+    case TypeEnum.PASSWORD: {
       const password = this.passwordState.getPasswords().find(p => p.id.toString() === id.toString());
       const config = getBaseMatDialogConfig();
       this.passwordUtil.passwordClicked(password, config);
-    
+      break;
+    }
     default:
       break;
     }

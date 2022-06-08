@@ -1,4 +1,3 @@
-import { TemplateRef } from "@angular/core";
 import { FormControl } from "@angular/forms";
 
 import { AutocompleteOption } from "./autocomplete-option.interface";

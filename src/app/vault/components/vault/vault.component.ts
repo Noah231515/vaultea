@@ -2,11 +2,14 @@ import { combineLatest, Observable, of, Subscription } from "rxjs";
 import { catchError, map, take, tap } from "rxjs/operators";
 
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from "@angular/core";
-import { MatDialogConfig } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Folder, FolderFormComponent, FolderService, FolderStateService } from "@folder";
-import { PasswordStateService } from "@password";
-import { CreateItemSelectComponent, TypeEnum, UserDataService } from "@shared";
+import {
+  Folder, FolderFormComponent, FolderService, FolderStateService, FolderUtil
+} from "@folder";
+import { Password, PasswordStateService, PasswordUtil } from "@password";
+import {
+  CreateItemSelectComponent, getBaseMatDialogConfig, TypeEnum, UserDataService
+} from "@shared";
 import { BaseComponent, CardData, DialogService } from "@ui-kit";
 
 import {
@@ -15,7 +18,6 @@ import {
 import { PasswordService } from "../../../password/services/password.service";
 import { GenericDialogData } from "../../../ui-kit/generic-dialog/generic-dialog-data.interface";
 import { SnackBarService } from "../../../ui-kit/services/snack-bar.service";
-import { FormStateEnum } from "../../../ui-kit/shared/enums/form-state.enum";
 import { VaultItem } from "../../models/vault-item.interface";
 import { UrlStateService } from "../../services/url-state.service";
 
@@ -46,7 +48,9 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     public userDataService: UserDataService,
     private snackBarService: SnackBarService,
     private folderService: FolderService,
+    private folderUtil: FolderUtil,
     private passwordService: PasswordService,
+    private passwordUtil: PasswordUtil,
     private dialogService: DialogService,
     private router: Router,
     private route: ActivatedRoute,
@@ -188,7 +192,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
 
   public openModalInEditMode(cardData: CardData): void {
     const dialogData = {existingObject: cardData.object};
-    const config = this.getBaseMatDialogConfig();
+    const config = getBaseMatDialogConfig();
     config.data = dialogData;
 
     this.dialogService.open(this.editComponentMap.get(cardData.type), config);
@@ -197,16 +201,11 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   public handleContentClicked(cardData: CardData): void {
     switch (cardData.type) {
       case TypeEnum.FOLDER:
-        this.router.navigateByUrl(`vault/folder/${cardData.object.id}`);
+        this.folderUtil.folderClicked(cardData.object.id);
         break;
       case TypeEnum.PASSWORD: {
-        const config = this.getBaseMatDialogConfig();
-        config.data = {
-          existingObject: cardData.object,
-          formState: FormStateEnum.VIEW
-        };
-
-        this.dialogService.open(PasswordFormComponent, config);
+        const config = getBaseMatDialogConfig();
+        this.passwordUtil.passwordClicked(cardData.object as Password, config);
         break;
       }
       default:
@@ -266,7 +265,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   }
 
   public addItem(selectedType: TypeEnum): void {
-    const config = this.getBaseMatDialogConfig();
+    const config = getBaseMatDialogConfig();
     config.data = {
       currentFolderId: this.route.snapshot.params.id,
       selectedType: selectedType
@@ -282,12 +281,5 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   private setEditComponentMap(): void {
     this.editComponentMap.set(TypeEnum.FOLDER, FolderFormComponent);
     this.editComponentMap.set(TypeEnum.PASSWORD, PasswordFormComponent);
-  }
-
-  private getBaseMatDialogConfig(): MatDialogConfig {
-    const config = new MatDialogConfig();
-    config.width = "30vw";
-    config.height = "70vh";
-    return config;
   }
 }

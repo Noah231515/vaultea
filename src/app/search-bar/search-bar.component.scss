@@ -1,0 +1,15 @@
+vaultea-search-bar {
+  .search-bar {
+    border-radius: 20px;
+    width: 500px;
+  }
+  
+  mat-form-field {
+    background-color: white;
+    border-radius: 50px;
+  }  
+
+  .mat-form-field-underline {
+    display: none;
+  }
+}

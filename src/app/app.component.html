@@ -6,8 +6,10 @@
           <img class="logo-minimal" src="../assets/logo-minimal.svg">
 
         </div>
+        <div *ngIf="!!(userService.userObservable | async)">
+          <vaultea-search-bar></vaultea-search-bar>
+        </div>
         <div *ngIf="!!(userService.userObservable | async)" fxFlex fxLayoutGap="36px" fxLayoutAlign="end center">
-          <mat-icon color="accent" class="toolbar-item">search</mat-icon>
           <mat-icon color="accent" class="toolbar-item">build</mat-icon>
           <mat-icon color="accent" class="toolbar-item">settings</mat-icon>
           <mat-icon color="accent" class="toolbar-item">notifications</mat-icon>

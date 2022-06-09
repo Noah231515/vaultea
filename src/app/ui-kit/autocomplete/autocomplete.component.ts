@@ -1,24 +1,40 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
+
+import {
+  AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { MatAutocompleteTrigger } from "@angular/material/autocomplete";
+import { MatOptionSelectionChange } from "@angular/material/core";
 
 import { AutocompleteData } from "./autocomplete-data.interface";
 import { AutocompleteOption } from "./autocomplete-option.interface";
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: "vaultea-autocomplete",
   templateUrl: "./autocomplete.component.html",
   styleUrls: ["./autocomplete.component.scss"]
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatAutocompleteTrigger) public autocomplete: MatAutocompleteTrigger;
   @Input() public autocompleteData: AutocompleteData // TODO: Implement required
-
+  @Output() public optionSelected: EventEmitter<string> = new EventEmitter<string>();
+  
   public filteredOptions: Observable<AutocompleteOption[]>;
   public maxValuesToDisplay: number = 25;
-
+  public defaultPlaceholder: string = "";
+  
   public ngOnInit(): void {
     this.listenForValueChanges();
+    this.defaultPlaceholder = `Select a ${this.autocompleteData.label}`;  
+  }
+  
+  public ngAfterViewInit(): void {    
+    if (this.autocompleteData.requireSelection) {
+      this.listenForClosedPanel();
+    }
   }
 
   private listenForValueChanges(): void {
@@ -27,6 +43,18 @@ export class AutocompleteComponent implements OnInit {
       startWith(""),
       map(value => this.filter(value)),
     );
+  }
+
+  private listenForClosedPanel(): void {
+    this.autocomplete
+      .panelClosingActions
+      .subscribe((value: MatOptionSelectionChange | null) => {
+        if (value) {
+          this.optionSelected.emit(value.source.value);
+        } else {
+          this.autocompleteData.formControl.patchValue("");
+        }
+      })
   }
 
   public getDisplayValue = (value: string): string => {

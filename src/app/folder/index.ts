@@ -10,3 +10,6 @@ export * from "./services/autocomplete-util.service";
 
 // Components
 export * from "./form/folder-form.component";
+
+// Utils
+export * from "./utils/folder.util";

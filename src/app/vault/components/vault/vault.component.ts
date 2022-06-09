@@ -46,6 +46,8 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   public sortableFields: string[] = ["None", "Name"];
   public addMenuItems: TypeEnum[] = [TypeEnum.FOLDER, TypeEnum.PASSWORD];
 
+  public vaultView: VaultView;
+
   public constructor(
     public userDataService: UserDataService,
     private snackBarService: SnackBarService,
@@ -278,6 +280,12 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   public toListView(): void {
     const state = this.vaultState.getState();
     state.vaultView = VaultView.List;
+    this.vaultState.next(state);
+  }
+
+  public toGridView(): void {
+    const state = this.vaultState.getState();
+    state.vaultView = VaultView.Grid;
     this.vaultState.next(state);
   }
 

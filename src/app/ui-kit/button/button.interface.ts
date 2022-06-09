@@ -1,6 +1,6 @@
 export interface ButtonInterface {
   buttonTypeClass: string;
-  color: string;
+  color?: string;
   disabled?: boolean;
   disabledTooltip?: string;
   tooltip?: string;

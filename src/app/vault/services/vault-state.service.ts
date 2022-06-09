@@ -31,5 +31,10 @@ export class VaultStateService {
 
   public next(state: VaultState): void {
     this.vaultStateBehaviorSubject.next(state);
+    localStorage.setItem(VaultStateKeys.VaultView, state.vaultView);
+  }
+
+  public getState(): VaultState {
+    return this.vaultStateBehaviorSubject.getValue();
   }
 }

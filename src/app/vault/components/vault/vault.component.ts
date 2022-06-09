@@ -18,6 +18,7 @@ import {
 import { PasswordService } from "../../../password/services/password.service";
 import { GenericDialogData } from "../../../ui-kit/generic-dialog/generic-dialog-data.interface";
 import { SnackBarService } from "../../../ui-kit/services/snack-bar.service";
+import { VaultView } from "../../enums/vault-view.enum";
 import { VaultItem } from "../../models/vault-item.interface";
 import { UrlStateService } from "../../services/url-state.service";
 import { VaultStateService } from "../../services/vault-state.service";
@@ -272,6 +273,12 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
       selectedType: selectedType
     };
     this.dialogService.open(CreateItemSelectComponent, config);
+  }
+
+  public toListView(): void {
+    const state = this.vaultState.getState();
+    state.vaultView = VaultView.List;
+    this.vaultState.next(state);
   }
 
   public ngOnDestroy(): void {

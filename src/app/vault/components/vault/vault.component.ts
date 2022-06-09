@@ -20,6 +20,7 @@ import { GenericDialogData } from "../../../ui-kit/generic-dialog/generic-dialog
 import { SnackBarService } from "../../../ui-kit/services/snack-bar.service";
 import { VaultItem } from "../../models/vault-item.interface";
 import { UrlStateService } from "../../services/url-state.service";
+import { VaultStateService } from "../../services/vault-state.service";
 
 /* eslint-disable indent */
 @Component({
@@ -52,10 +53,10 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     private passwordService: PasswordService,
     private passwordUtil: PasswordUtil,
     private dialogService: DialogService,
-    private router: Router,
     private route: ActivatedRoute,
     private folderState: FolderStateService,
     private passwordState: PasswordStateService,
+    private vaultState: VaultStateService,
     private urlState: UrlStateService
   ) {
     super();

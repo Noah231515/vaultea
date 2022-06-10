@@ -33,7 +33,8 @@
 			"@util": ["src/app/utils/index.ts"],
 			"@vault": ["src/app/vault/index.ts"],
       "@crypto": ["src/app/crypto/index.ts"],
-      "@identity": ["src/app/identity/index.ts"]
+      "@identity": ["src/app/identity/index.ts"],
+			"@userPreferences": ["src/app/user-preferences/index.ts"]
 		}
 	},
 	"angularCompilerOptions": {

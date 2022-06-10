@@ -9,4 +9,5 @@ export class User {
   key: string;
   folders: Folder[];
   passwords: Password[];
+  userPreferences: any;
 }

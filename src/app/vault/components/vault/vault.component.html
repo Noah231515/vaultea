@@ -20,14 +20,12 @@
       </mat-menu>
 
       <vaultea-button
-        *ngIf="(vaultState.vaultStateObservable | async).vaultView === vaultView.Grid"
         [buttonData]="{
           buttonTypeClass: 'mat-icon-button',
           icon: 'view_list',
           ariaLabel: 'view_list',
           tooltip: 'Change to List View'
         }"
-        (click)="toListView()"
       ></vaultea-button>
     </div>
   </div>

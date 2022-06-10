@@ -18,10 +18,9 @@ import {
 import { PasswordService } from "../../../password/services/password.service";
 import { GenericDialogData } from "../../../ui-kit/generic-dialog/generic-dialog-data.interface";
 import { SnackBarService } from "../../../ui-kit/services/snack-bar.service";
-import { VaultView } from "../../enums/vault-view.enum";
+import { VaultView } from "../../../user-preferences/enums/vault-view.enum";
 import { VaultItem } from "../../models/vault-item.interface";
 import { UrlStateService } from "../../services/url-state.service";
-import { VaultStateService } from "../../services/vault-state.service";
 
 /* eslint-disable indent */
 @Component({
@@ -46,7 +45,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   public sortableFields: string[] = ["None", "Name"];
   public addMenuItems: TypeEnum[] = [TypeEnum.FOLDER, TypeEnum.PASSWORD];
 
-  public vaultView: VaultView;
+  public grid = VaultView.Grid;
 
   public constructor(
     public userDataService: UserDataService,
@@ -59,7 +58,6 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     private route: ActivatedRoute,
     private folderState: FolderStateService,
     private passwordState: PasswordStateService,
-    private vaultState: VaultStateService,
     private urlState: UrlStateService
   ) {
     super();
@@ -277,17 +275,17 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     this.dialogService.open(CreateItemSelectComponent, config);
   }
 
-  public toListView(): void {
-    const state = this.vaultState.getState();
-    state.vaultView = VaultView.List;
-    this.vaultState.next(state);
-  }
+  // public toListView(): void {
+  //   const state = this.vaultState.getState();
+  //   state.vaultView = VaultView.List;
+  //   this.vaultState.next(state);
+  // }
 
-  public toGridView(): void {
-    const state = this.vaultState.getState();
-    state.vaultView = VaultView.Grid;
-    this.vaultState.next(state);
-  }
+  // public toGridView(): void {
+  //   const state = this.vaultState.getState();
+  //   state.vaultView = VaultView.Grid;
+  //   this.vaultState.next(state);
+  // }
 
   public ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();

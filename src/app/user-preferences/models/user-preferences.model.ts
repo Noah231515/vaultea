@@ -1,3 +1,5 @@
+import { VaultView } from "../enums/vault-view.enum";
+
 export interface UserPreferences {
-  vaultView: number;
+  vaultView: VaultView.Grid;
 }

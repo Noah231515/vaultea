@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { Folder } from "@folder";
 import { User } from "@identity";
 import { Password } from "@password";
+import { VaultView } from "@userPreferences";
 
 @Injectable({
   providedIn: "root"
@@ -70,7 +71,10 @@ export class UserMockService  {
       accessToken: "",
       key: "",
       folders: this.folders,
-      passwords: this.passwords
+      passwords: this.passwords,
+      userPreferences: {
+        vaultView: VaultView.Grid
+      }
     });
   }
 

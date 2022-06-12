@@ -1,8 +1,9 @@
 import { combineLatest, Observable, of, Subscription } from "rxjs";
 import { catchError, map, take, tap } from "rxjs/operators";
+import { UserPreferencesService } from "src/app/shared/services/user-preferences.service";
 
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import {
   Folder, FolderFormComponent, FolderService, FolderStateService, FolderUtil
 } from "@folder";
@@ -18,6 +19,7 @@ import {
 import { PasswordService } from "../../../password/services/password.service";
 import { GenericDialogData } from "../../../ui-kit/generic-dialog/generic-dialog-data.interface";
 import { SnackBarService } from "../../../ui-kit/services/snack-bar.service";
+import { VaultView } from "../../../user-preferences/enums/vault-view.enum";
 import { VaultItem } from "../../models/vault-item.interface";
 import { UrlStateService } from "../../services/url-state.service";
 
@@ -44,6 +46,8 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   public sortableFields: string[] = ["None", "Name"];
   public addMenuItems: TypeEnum[] = [TypeEnum.FOLDER, TypeEnum.PASSWORD];
 
+  public grid = VaultView.Grid;
+
   public constructor(
     public userDataService: UserDataService,
     private snackBarService: SnackBarService,
@@ -52,11 +56,11 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     private passwordService: PasswordService,
     private passwordUtil: PasswordUtil,
     private dialogService: DialogService,
-    private router: Router,
     private route: ActivatedRoute,
     private folderState: FolderStateService,
     private passwordState: PasswordStateService,
-    private urlState: UrlStateService
+    private urlState: UrlStateService,
+    private userPreferencesService: UserPreferencesService
   ) {
     super();
     this.setEditComponentMap();
@@ -271,6 +275,10 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
       selectedType: selectedType
     };
     this.dialogService.open(CreateItemSelectComponent, config);
+  }
+
+  public toggleVaultView(): void {
+    this.userPreferencesService.toggleVaultView().subscribe()
   }
 
   public ngOnDestroy(): void {

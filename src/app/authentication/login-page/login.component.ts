@@ -65,8 +65,10 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
         catchError(err => of(this.snackBarService.open(err.error.msg)))
       )
       .subscribe(async (user: User) => {
-        await this.userService.setUser(user);
-        this.router.navigate(["/vault/home"]);
+        if (user) {
+          await this.userService.setUser(user);
+          this.router.navigate(["/vault/home"]);
+        }
       });
   }
 

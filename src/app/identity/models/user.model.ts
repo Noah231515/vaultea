@@ -1,4 +1,5 @@
 import { Folder } from "@folder";
+import { UserPreferences } from "@userPreferences";
 
 import { Password } from "../../password/password.model";
 
@@ -9,5 +10,5 @@ export class User {
   key: string;
   folders: Folder[];
   passwords: Password[];
-  userPreferences: any;
+  userPreferences: UserPreferences;
 }

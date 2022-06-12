@@ -3,7 +3,7 @@ import { catchError, map, take, tap } from "rxjs/operators";
 import { UserPreferencesService } from "src/app/shared/services/user-preferences.service";
 
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import {
   Folder, FolderFormComponent, FolderService, FolderStateService, FolderUtil
 } from "@folder";

@@ -281,18 +281,6 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     this.userPreferencesService.toggleVaultView().subscribe()
   }
 
-  // public toListView(): void {
-  //   const state = this.vaultState.getState();
-  //   state.vaultView = VaultView.List;
-  //   this.vaultState.next(state);
-  // }
-
-  // public toGridView(): void {
-  //   const state = this.vaultState.getState();
-  //   state.vaultView = VaultView.Grid;
-  //   this.vaultState.next(state);
-  // }
-
   public ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
     this.urlSubscription.unsubscribe();

@@ -1,5 +1,6 @@
 import { combineLatest, Observable, of, Subscription } from "rxjs";
 import { catchError, map, take, tap } from "rxjs/operators";
+import { UserPreferencesService } from "src/app/shared/services/user-preferences.service";
 
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -58,7 +59,8 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     private route: ActivatedRoute,
     private folderState: FolderStateService,
     private passwordState: PasswordStateService,
-    private urlState: UrlStateService
+    private urlState: UrlStateService,
+    private userPreferencesService: UserPreferencesService
   ) {
     super();
     this.setEditComponentMap();
@@ -273,6 +275,10 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
       selectedType: selectedType
     };
     this.dialogService.open(CreateItemSelectComponent, config);
+  }
+
+  public toggleVaultView(): void {
+    this.userPreferencesService.toggleVaultView().subscribe()
   }
 
   // public toListView(): void {

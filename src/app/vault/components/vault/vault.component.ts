@@ -7,11 +7,13 @@ import { ActivatedRoute } from "@angular/router";
 import {
   Folder, FolderFormComponent, FolderService, FolderStateService, FolderUtil
 } from "@folder";
+import { UserService } from "@identity";
 import { Password, PasswordStateService, PasswordUtil } from "@password";
 import {
   CreateItemSelectComponent, getBaseMatDialogConfig, TypeEnum, UserDataService
 } from "@shared";
 import { BaseComponent, CardData, DialogService } from "@ui-kit";
+import { UserPreferenceStateService } from "@userPreferences";
 
 import {
   PasswordFormComponent
@@ -46,7 +48,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   public sortableFields: string[] = ["None", "Name"];
   public addMenuItems: TypeEnum[] = [TypeEnum.FOLDER, TypeEnum.PASSWORD];
 
-  public grid = VaultView.Grid;
+  public vaultView = VaultView;
 
   public constructor(
     public userDataService: UserDataService,
@@ -60,7 +62,8 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     private folderState: FolderStateService,
     private passwordState: PasswordStateService,
     private urlState: UrlStateService,
-    private userPreferencesService: UserPreferencesService
+    private userPreferencesService: UserPreferencesService,
+    public userPreferenceStateService: UserPreferenceStateService
   ) {
     super();
     this.setEditComponentMap();
@@ -278,7 +281,12 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   }
 
   public toggleVaultView(): void {
-    this.userPreferencesService.toggleVaultView().subscribe()
+    this.userPreferencesService
+      .toggleVaultView()
+      .pipe(take(1))
+      .subscribe(updatedUserPreferences => {
+        this.userPreferenceStateService.updateUserPreferences(updatedUserPreferences);
+      })
   }
 
   public ngOnDestroy(): void {

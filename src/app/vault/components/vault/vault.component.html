@@ -20,11 +20,22 @@
       </mat-menu>
 
       <vaultea-button
+        *ngIf="(userPreferenceStateService.userPreferencesObservable | async).vaultView === vaultView.Grid"
         [buttonData]="{
           buttonTypeClass: 'mat-icon-button',
-          icon: 'view_list',
+          icon: 'list_view',
           ariaLabel: 'view_list',
           tooltip: 'Change to List View'
+        }"
+        (click)="toggleVaultView()"
+      ></vaultea-button>
+      <vaultea-button
+        *ngIf="(userPreferenceStateService.userPreferencesObservable | async).vaultView === vaultView.List"
+        [buttonData]="{
+          buttonTypeClass: 'mat-icon-button',
+          icon: 'grid_view',
+          ariaLabel: 'grid_list',
+          tooltip: 'Change to Grid View'
         }"
         (click)="toggleVaultView()"
       ></vaultea-button>

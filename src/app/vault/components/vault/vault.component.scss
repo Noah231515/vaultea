@@ -22,4 +22,19 @@ vaultea-vault {
 .button-wrapper {
   position: fixed;
   bottom: 2vh;
+  left: 50vw;
+}
+
+.option {
+  background-color: white;
+  border-radius: 0px!important;
+}
+
+.clickable-portion {
+  cursor: pointer;
+}
+
+.star {
+  color: $primary-yellow;
+  cursor: pointer;
 }

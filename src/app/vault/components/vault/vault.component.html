@@ -42,7 +42,7 @@
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div *ngIf="(userPreferenceStateService.userPreferencesObservable | async).vaultView === vaultView.Grid" class="m-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
+  <div *ngIf="(userPreferenceStateService.userPreferencesObservable | async).vaultView === vaultView.Grid; else vaultList" class="m-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
     <div class="container">
       <vaultea-card
         *ngFor="let item of vaultItemsObservable | async"
@@ -56,16 +56,60 @@
         (starClicked)="handleStarClicked($event)"
       ></vaultea-card>
     </div>
-    <div class="button-wrapper" fxLayoutAlign="end">
-      <vaultea-button [matMenuTriggerFor]="addMenu" [buttonData]="BUTTONS_CONSTANT.FLOATING_ADD_BUTTON"></vaultea-button>
-      <mat-menu #addMenu="matMenu">
-        <button
-          mat-menu-item *ngFor="let item of addMenuItems"
-          (click)="addItem(item)"
-        >
-          {{ item }}
-        </button>
-      </mat-menu>
-    </div>
+  </div>
+  <div class="button-wrapper" fxLayoutAlign="end">
+    <vaultea-button 
+      [matMenuTriggerFor]="addMenu"
+      [buttonData]="BUTTONS_CONSTANT.FLOATING_ADD_BUTTON">
+    </vaultea-button>
+    <mat-menu #addMenu="matMenu">
+      <button
+        mat-menu-item *ngFor="let item of addMenuItems"
+        (click)="addItem(item)"
+      >
+        {{ item }}
+      </button>
+    </mat-menu>
   </div>
 </div>
+
+<ng-template #vaultList>
+  <mat-list role="list">
+    <mat-list-item class="option" role="listitem" *ngFor="let item of vaultItemsObservable | async">
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+        <mat-icon
+          class="star"
+          (click)="handleStarClicked(item)"
+        >
+          {{ item.object.starred ? "star" : "star_outline"}}
+        </mat-icon>
+        <div class="clickable-portion" fxFlex="50%" fxLayout="row" fxLayoutGap="8px" (click)="handleContentClicked(item)">
+          <mat-icon aria-hidden="false" aria-label="Folder Icon">{{ item.icon }}</mat-icon>
+          <span fxFlex="50%">{{item.object.name}}</span>
+        </div>
+        <div fxFlex="50%" fxLayoutGap="8px" fxLayoutAlign="end">
+          <vaultea-button
+            [buttonData]="{
+              buttonTypeClass: 'mat-icon-button',
+              type: 'button',
+              ariaLabel: 'Edit',
+              icon: 'edit',
+              tooltip: 'Edit'
+            }"
+            (click)="openModalInEditMode(item)"
+          ></vaultea-button>
+          <vaultea-button
+            [buttonData]="{
+              buttonTypeClass: 'mat-icon-button',
+              type: 'button',
+              ariaLabel: 'Edit',
+              icon: 'delete',
+              tooltip: 'Delete'
+            }"
+            (click)="handleDelete(item)"
+          ></vaultea-button>
+        </div>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</ng-template>

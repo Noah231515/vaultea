@@ -83,11 +83,11 @@
         >
           {{ item.object.starred ? "star" : "star_outline"}}
         </mat-icon>
-        <div class="clickable-portion" fxFlex="50%" fxLayout="row" fxLayoutGap="8px" (click)="handleContentClicked(item)">
+        <div class="clickable-portion" fxFlex fxLayout="row" fxLayoutGap="8px" (click)="handleContentClicked(item)">
           <mat-icon aria-hidden="false" aria-label="Folder Icon">{{ item.icon }}</mat-icon>
-          <span fxFlex="50%">{{item.object.name}}</span>
+          <span fxFlex>{{item.object.name}}</span>
         </div>
-        <div fxFlex="50%" fxLayoutGap="8px" fxLayoutAlign="end">
+        <div fxLayoutGap="8px" fxLayoutAlign="end">
           <vaultea-button
             [buttonData]="{
               buttonTypeClass: 'mat-icon-button',

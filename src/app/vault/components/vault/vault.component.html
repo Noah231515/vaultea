@@ -1,7 +1,7 @@
 <div class="m-3 content-background-color" fxFlex fxLayout="column">
   <div fxLayoutAlign="space-between">
     <vaultea-breadcrumb [folder]="currentFolder" ></vaultea-breadcrumb>
-    <div fxFlex fxLayoutAlign="end center" fxLayoutGap="24px">
+    <div fxFlex fxLayoutAlign="end end" fxLayoutGap="8px">
 
       <div fxLayout="column" fxLayoutAlign="center center">
         <mat-label> Sort By</mat-label>
@@ -20,18 +20,29 @@
       </mat-menu>
 
       <vaultea-button
+        *ngIf="(userPreferenceStateService.userPreferencesObservable | async).vaultView === vaultView.Grid"
         [buttonData]="{
           buttonTypeClass: 'mat-icon-button',
-          icon: 'view_list',
+          icon: 'list_view',
           ariaLabel: 'view_list',
           tooltip: 'Change to List View'
+        }"
+        (click)="toggleVaultView()"
+      ></vaultea-button>
+      <vaultea-button
+        *ngIf="(userPreferenceStateService.userPreferencesObservable | async).vaultView === vaultView.List"
+        [buttonData]="{
+          buttonTypeClass: 'mat-icon-button',
+          icon: 'grid_view',
+          ariaLabel: 'grid_list',
+          tooltip: 'Change to Grid View'
         }"
         (click)="toggleVaultView()"
       ></vaultea-button>
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div class="m-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
+  <div *ngIf="(userPreferenceStateService.userPreferencesObservable | async).vaultView === vaultView.Grid; else vaultList" class="m-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
     <div class="container">
       <vaultea-card
         *ngFor="let item of vaultItemsObservable | async"
@@ -45,16 +56,60 @@
         (starClicked)="handleStarClicked($event)"
       ></vaultea-card>
     </div>
-    <div class="button-wrapper" fxLayoutAlign="end">
-      <vaultea-button [matMenuTriggerFor]="addMenu" [buttonData]="BUTTONS_CONSTANT.FLOATING_ADD_BUTTON"></vaultea-button>
-      <mat-menu #addMenu="matMenu">
-        <button
-          mat-menu-item *ngFor="let item of addMenuItems"
-          (click)="addItem(item)"
-        >
-          {{ item }}
-        </button>
-      </mat-menu>
-    </div>
+  </div>
+  <div class="button-wrapper" fxLayoutAlign="end">
+    <vaultea-button 
+      [matMenuTriggerFor]="addMenu"
+      [buttonData]="BUTTONS_CONSTANT.FLOATING_ADD_BUTTON">
+    </vaultea-button>
+    <mat-menu #addMenu="matMenu">
+      <button
+        mat-menu-item *ngFor="let item of addMenuItems"
+        (click)="addItem(item)"
+      >
+        {{ item }}
+      </button>
+    </mat-menu>
   </div>
 </div>
+
+<ng-template #vaultList>
+  <mat-selection-list role="list" multiple="true">
+    <mat-list-option class="option" role="listitem" checkboxPosition="before" *ngFor="let item of vaultItemsObservable | async">
+      <div class="pointer-cursor" (click)="$event.stopImmediatePropagation(); " fxFlex fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+        <mat-icon
+          class="star"
+          (click)="$event.stopImmediatePropagation(); handleStarClicked(item)"
+        >
+          {{ item.object.starred ? "star" : "star_outline"}}
+        </mat-icon>
+        <div fxFlex fxLayout="row" fxLayoutGap="8px" (click)="$event.stopImmediatePropagation(); handleContentClicked(item)">
+          <mat-icon aria-hidden="false" aria-label="Folder Icon">{{ item.icon }}</mat-icon>
+          <span fxFlex>{{item.object.name}}</span>
+        </div>
+        <div fxLayoutGap="8px" fxLayoutAlign="end">
+          <vaultea-button
+            [buttonData]="{
+              buttonTypeClass: 'mat-icon-button',
+              type: 'button',
+              ariaLabel: 'Edit',
+              icon: 'edit',
+              tooltip: 'Edit'
+            }"
+            (click)="$event.stopImmediatePropagation(); openModalInEditMode(item)"
+          ></vaultea-button>
+          <vaultea-button
+            [buttonData]="{
+              buttonTypeClass: 'mat-icon-button',
+              type: 'button',
+              ariaLabel: 'Edit',
+              icon: 'delete',
+              tooltip: 'Delete'
+            }"
+            (click)="$event.stopImmediatePropagation(); handleDelete(item)"
+          ></vaultea-button>
+        </div>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+</ng-template>

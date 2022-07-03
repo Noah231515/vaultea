@@ -2,10 +2,10 @@ import { Observable } from "rxjs";
 
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UserPreferences, VaultView } from "@userPreferences";
+import { UserPreferences } from "@userPreferences";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class UserPreferencesService {
 

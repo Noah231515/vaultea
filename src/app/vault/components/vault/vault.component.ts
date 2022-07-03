@@ -1,5 +1,5 @@
 import { combineLatest, Observable, of, Subscription } from "rxjs";
-import { catchError, map, take, tap } from "rxjs/operators";
+import { catchError, map, shareReplay, take, tap } from "rxjs/operators";
 import { UserPreferencesService } from "src/app/shared/services/user-preferences.service";
 
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from "@angular/core";
@@ -11,7 +11,8 @@ import { Password, PasswordStateService, PasswordUtil } from "@password";
 import {
   CreateItemSelectComponent, getBaseMatDialogConfig, TypeEnum, UserDataService
 } from "@shared";
-import { BaseComponent, CardData, DialogService } from "@ui-kit";
+import { BaseComponent, CardData, DialogService, ItemIconEnum } from "@ui-kit";
+import { UserPreferenceStateService } from "@userPreferences";
 
 import {
   PasswordFormComponent
@@ -46,7 +47,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   public sortableFields: string[] = ["None", "Name"];
   public addMenuItems: TypeEnum[] = [TypeEnum.FOLDER, TypeEnum.PASSWORD];
 
-  public grid = VaultView.Grid;
+  public vaultView = VaultView;
 
   public constructor(
     public userDataService: UserDataService,
@@ -60,7 +61,8 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     private folderState: FolderStateService,
     private passwordState: PasswordStateService,
     private urlState: UrlStateService,
-    private userPreferencesService: UserPreferencesService
+    private userPreferencesService: UserPreferencesService,
+    public userPreferenceStateService: UserPreferenceStateService
   ) {
     super();
     this.setEditComponentMap();
@@ -82,7 +84,9 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
         return folders.map(folder => {
           const vaultItem: VaultItem = {
             object: folder,
-            itemType: TypeEnum.FOLDER
+            itemType: TypeEnum.FOLDER,
+            icon: ItemIconEnum.FOLDER,
+            type: TypeEnum.FOLDER
           }
           return vaultItem;
         })
@@ -95,7 +99,9 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
         return passwords.map(password => {
           const vaultItem: VaultItem = {
             object: password,
-            itemType: TypeEnum.PASSWORD
+            itemType: TypeEnum.PASSWORD,
+            icon: ItemIconEnum.PASSWORD,
+            type: TypeEnum.PASSWORD
           }
           return vaultItem;
         })
@@ -109,7 +115,8 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
         }),
         map(result => {
           return this.sortVaultItems(result)
-        })
+        }),
+        shareReplay()
     );
   }
 
@@ -157,52 +164,52 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     this.passwordState.refreshData();
   }
 
-  private getDeleteModalData(cardData: CardData): GenericDialogData {
+  private getDeleteModalData(item: CardData | VaultItem): GenericDialogData {
     return {
       headerText: "Delete Folder and Contents",
-      text: `${cardData.object.name} contains other items.
-      Are you sure you want to delete ${cardData.object.name} and all of its contents?
+      text: `${item.object.name} contains other items.
+      Are you sure you want to delete ${item.object.name} and all of its contents?
       This data cannot be recovered.`,
       primaryButton: this.BUTTONS_CONSTANT.DELETE_BUTTON_DANGER,
       secondaryButton: this.BUTTONS_CONSTANT.CANCEL_BUTTON
     };
   }
 
-  public handleDelete(cardData: CardData): void {
-    switch (cardData.type) {
+  public handleDelete(item: CardData | VaultItem): void {
+    switch (item.type) {
       case TypeEnum.FOLDER:
-        if (this.vaultItems.some(i => i.object.folderId === cardData.object.id)) {
-          this.dialogService.openWarning(this.getDeleteModalData(cardData))
+        if (this.vaultItems.some(i => i.object.folderId === item.object.id)) {
+          this.dialogService.openWarning(this.getDeleteModalData(item))
             .afterClosed()
             .pipe(
               take(1)
             )
             .subscribe(primaryButtonClicked => {
             if (primaryButtonClicked) {
-              this.deleteFolder(cardData.object.id);
+              this.deleteFolder(item.object.id);
             }
           });
         } else {
-          this.deleteFolder(cardData.object.id);
+          this.deleteFolder(item.object.id);
         }
         break;
       case TypeEnum.PASSWORD:
-        this.deletePassword(cardData.object.id);
+        this.deletePassword(item.object.id);
         break;
       default:
         break;
     }
   }
 
-  public openModalInEditMode(cardData: CardData): void {
-    const dialogData = {existingObject: cardData.object};
+  public openModalInEditMode(item: CardData | VaultItem): void {
+    const dialogData = {existingObject: item.object};
     const config = getBaseMatDialogConfig();
     config.data = dialogData;
 
-    this.dialogService.open(this.editComponentMap.get(cardData.type), config);
+    this.dialogService.open(this.editComponentMap.get(item.type), config);
   }
 
-  public handleContentClicked(cardData: CardData): void {
+  public handleContentClicked(cardData: CardData | VaultItem): void {
     switch (cardData.type) {
       case TypeEnum.FOLDER:
         this.folderUtil.folderClicked(cardData.object.id);
@@ -217,10 +224,10 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
     }
   }
 
-  public handleStarClicked(cardData: CardData): void {
-    switch (cardData.type) {
+  public handleStarClicked(item: CardData | VaultItem): void {
+    switch (item.type) {
       case TypeEnum.FOLDER:
-        this.folderService.updateStarred(cardData.object.id)
+        this.folderService.updateStarred(item.object.id)
           .pipe(take(1))
           .subscribe(async folder => {
             this.snackBarService.open(`Folder successfully ${folder.starred ? "starred" : "unstarred"}`);
@@ -228,7 +235,7 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
           });
         break;
       case TypeEnum.PASSWORD:
-        this.passwordService.updateStarred(cardData.object.id)
+        this.passwordService.updateStarred(item.object.id)
           .pipe(take(1))
           .subscribe(async password => {
             this.snackBarService.open(`Password successfully ${password.starred ? "starred" : "unstarred"}`);
@@ -278,7 +285,12 @@ export class VaultComponent extends BaseComponent implements OnDestroy {
   }
 
   public toggleVaultView(): void {
-    this.userPreferencesService.toggleVaultView().subscribe()
+    this.userPreferencesService
+      .toggleVaultView()
+      .pipe(take(1))
+      .subscribe(updatedUserPreferences => {
+        this.userPreferenceStateService.updateUserPreferences(updatedUserPreferences);
+      })
   }
 
   public ngOnDestroy(): void {

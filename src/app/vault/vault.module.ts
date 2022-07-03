@@ -49,6 +49,7 @@ import { VaultRoutingModule } from "./vault-routing.module";
     MatInputModule,
     UiKitModule,
     VaultRoutingModule,
+    MatListModule
   ]
 })
 export class VaultModule { }

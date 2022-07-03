@@ -233,8 +233,8 @@ describe("VaultComponent", () => {
   });
 
   it("should toggle vault view", (done) => {
-    let userPreferencesStateService: UserPreferenceStateService = TestBed.inject(UserPreferenceStateService);
-    let userPreferencesService: UserPreferencesService = TestBed.inject(UserPreferencesService);
+    const userPreferencesStateService: UserPreferenceStateService = TestBed.inject(UserPreferenceStateService);
+    const userPreferencesService: UserPreferencesService = TestBed.inject(UserPreferencesService);
 
     const stateServiceSpy = jest.spyOn(userPreferencesStateService, "updateUserPreferences");
     const serviceSpy = jest.spyOn(userPreferencesService, "toggleVaultView")

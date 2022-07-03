@@ -2,13 +2,12 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { take } from "rxjs/operators";
 
 import { Injectable } from "@angular/core";
-import { UserKeyService } from "@crypto";
 import { User, UserService } from "@identity";
 
 import { UserPreferences } from "../models/user-preferences.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class UserPreferenceStateService {
   private userPreferencesBehaviorSubject: BehaviorSubject<UserPreferences> = new BehaviorSubject<UserPreferences>(null);

@@ -1,4 +1,6 @@
 import { of } from "rxjs";
+import { take } from "rxjs/operators";
+import { UserPreferencesService } from "src/app/shared/services/user-preferences.service";
 
 import { PortalModule } from "@angular/cdk/portal";
 import { CommonModule } from "@angular/common";
@@ -27,6 +29,7 @@ import { Folder, FolderModule, FolderService, FolderStateService } from "@folder
 import { UserService } from "@identity";
 import { TypeEnum, UserDataService } from "@shared";
 import { CardData, DialogService } from "@ui-kit";
+import { UserPreferenceStateService, VaultView } from "@userPreferences";
 
 import { UserMockService } from "../../../mock-service/mocks/user-mock.service";
 import { PasswordService } from "../../../password/services/password.service";
@@ -83,6 +86,7 @@ describe("VaultComponent", () => {
         HttpHandler,
         UserDataService,
         UserKeyService,
+        UserPreferenceStateService
       ]
     })
       .compileComponents();
@@ -226,6 +230,29 @@ describe("VaultComponent", () => {
 
     expect(passwordForm).toBeTruthy();
     expect(dialogSpy).toHaveBeenCalled();
+  });
+
+  it("should toggle vault view", (done) => {
+    let userPreferencesStateService: UserPreferenceStateService = TestBed.inject(UserPreferenceStateService);
+    let userPreferencesService: UserPreferencesService = TestBed.inject(UserPreferencesService);
+
+    const stateServiceSpy = jest.spyOn(userPreferencesStateService, "updateUserPreferences");
+    const serviceSpy = jest.spyOn(userPreferencesService, "toggleVaultView")
+      .mockReturnValue(of({
+        vaultView: VaultView.List
+      }));
+
+    component.toggleVaultView();
+
+    userPreferencesStateService
+      .userPreferencesObservable
+      .pipe(take(1))
+      .subscribe(userPreferences => {
+        expect(serviceSpy).toHaveBeenCalled();
+        expect(stateServiceSpy).toHaveBeenCalled();
+        expect(userPreferences.vaultView).toEqual(VaultView.List);
+        done();
+      })
   });
 
   // TODO: Come back to these

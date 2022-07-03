@@ -7,7 +7,6 @@ import { ActivatedRoute } from "@angular/router";
 import {
   Folder, FolderFormComponent, FolderService, FolderStateService, FolderUtil
 } from "@folder";
-import { UserService } from "@identity";
 import { Password, PasswordStateService, PasswordUtil } from "@password";
 import {
   CreateItemSelectComponent, getBaseMatDialogConfig, TypeEnum, UserDataService

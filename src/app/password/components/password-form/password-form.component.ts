@@ -132,6 +132,11 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     this.setState();
   }
 
+  public switchToViewMode(): void {
+    this.formState = this.formStateEnum.VIEW;
+    this.setState();
+  }
+
   public toggleGeneratePassword(): void {
     this.showGeneratePassword = !this.showGeneratePassword;
   }

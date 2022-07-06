@@ -10,9 +10,15 @@ import { FormHeaderData } from "./form-header-data.interface";
 })
 export class FormHeaderComponent extends BaseComponent {
   @Input() public formHeaderData: FormHeaderData;
+
   @Output() public editButtonClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public viewButtonClicked: EventEmitter<void> = new EventEmitter<void>();
 
   public emitEditButtonClick(): void {
     this.editButtonClicked.emit();
+  }
+
+  public emitViewButtonClick(): void {
+    this.viewButtonClicked.emit();
   }
 }

@@ -20,6 +20,7 @@ export class FormComponent implements OnInit {
   @Output() public primaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() public secondaryButtonClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() public editButtonClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public viewButtonClicked: EventEmitter<void> = new EventEmitter<void>();
 
   public ngOnInit(): void {
     if (this.formHeaderData) {
@@ -43,5 +44,9 @@ export class FormComponent implements OnInit {
 
   public emitEditButtonClicked(): void {
     this.editButtonClicked.emit();
+  }
+
+  public emitViewButtonClicked(): void {
+    this.viewButtonClicked.emit();
   }
 }

@@ -58,7 +58,8 @@ export class FolderFormComponent extends BaseFormComponent implements OnInit {
       this.headerText = `Edit ${this.existingObject.name}`;
       this.formHeaderData = {
         headerText: this.headerText,
-        hLevel: "h2"
+        hLevel: "h2",
+        showViewButton: false
       }
     } else {
       this.formState = this.formStateEnum.CREATE;

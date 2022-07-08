@@ -2,6 +2,9 @@
 @use '@angular/material' as mat;
 @import "~mdb-ui-kit/css/mdb.min.css";
 
+
+mat.$theme-ignore-duplication-warnings: true;
+
 html, body { height: 100vh; }
 body { margin: 0; font-family: Cabin; }
 
@@ -85,4 +88,14 @@ $vaultea-theme: mat.define-light-theme((
   typography: $vaultea-typography
 ));
 
+$vaultea-input-theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $warn,
+    warn: $warn
+  ),
+  typography: $vaultea-typography
+));
+
 @include mat.all-component-themes($vaultea-theme);
+@include mat.form-field-theme($vaultea-input-theme);

@@ -5,8 +5,11 @@
       <h2 *ngSwitchCase="'h2'">{{formHeaderData.headerText}}</h2>
       <h3 *ngSwitchCase="'h3'">{{formHeaderData.headerText}}</h3>
     </div>
-    <div *ngIf="formHeaderData.readonly">
+    <ng-container *ngIf="formHeaderData.readonly">
       <vaultea-button [buttonData]="BUTTONS_CONSTANT.EDIT_BUTTON" (click)="emitEditButtonClick()"></vaultea-button>
-    </div>
+    </ng-container>
+    <ng-container *ngIf="!formHeaderData.readonly && formHeaderData.showViewButton">
+      <vaultea-button [buttonData]="BUTTONS_CONSTANT.VIEW_BUTTON" (click)="emitViewButtonClick()"></vaultea-button>
+    </ng-container>
   </div>
 </ng-container>

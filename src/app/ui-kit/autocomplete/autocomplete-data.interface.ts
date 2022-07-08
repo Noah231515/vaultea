@@ -10,5 +10,6 @@ export interface AutocompleteData {
   displaySubtitle?: boolean;
   placeholder?: string;
   readonly?: boolean;
+  autocompleteClass?: string;
   requireSelection?: boolean;
 }

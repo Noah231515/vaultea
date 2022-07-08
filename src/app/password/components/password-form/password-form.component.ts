@@ -1,6 +1,8 @@
 import { take } from "rxjs/operators";
 
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, OnInit, ViewEncapsulation
+} from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { CryptoBusinessLogicService, UserKeyService } from "@crypto";
@@ -14,6 +16,7 @@ import { PasswordStateService } from "../../services/password-state.service";
 import { PasswordService } from "../../services/password.service";
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "vaultea-password-form",
   styleUrls: ["./password-form.component.scss"],
@@ -21,8 +24,9 @@ import { PasswordService } from "../../services/password.service";
 })
 export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   @Input() public currentFolderId?: string;
+
   public locationAutocompleteData: AutocompleteData;
-  public readonly: boolean;
+  public readonly: boolean = false;
   public showGeneratePassword: boolean = false;
 
   constructor(
@@ -34,6 +38,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
     private passwordState: PasswordStateService,
     public autocompleteUtilService: AutocompleteUtilService,
     private dialogRef: MatDialogRef<VaultComponent>,
+    private changeDetectorRef: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: EditData
   ) {
     super();
@@ -44,11 +49,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
   public ngOnInit(): void {
     this.initForm();
     this.setState();
-    this.locationAutocompleteData = this.autocompleteUtilService
-      .getLocationAutocompleteData(
-        this.toFormControl(this.form.get("folderId")),
-        this.readonly
-      );
+
   }
 
   public setState(): void {
@@ -61,6 +62,13 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
       this.formState = this.formStateEnum.CREATE;
     }
     this.readonly = this.formState === FormStateEnum.VIEW;
+
+    this.locationAutocompleteData = this.autocompleteUtilService
+      .getLocationAutocompleteData(
+        this.toFormControl(this.form.get("folderId")),
+        this.readonly
+      );
+    this.locationAutocompleteData.autocompleteClass = "option-size";
   }
 
   protected initForm(): void {
@@ -123,6 +131,11 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
 
   public switchToEditMode(): void {
     this.formState = null;
+    this.setState();
+  }
+
+  public switchToViewMode(): void {
+    this.formState = this.formStateEnum.VIEW;
     this.setState();
   }
 

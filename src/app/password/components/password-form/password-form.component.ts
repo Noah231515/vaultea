@@ -1,7 +1,7 @@
 import { take } from "rxjs/operators";
 
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, OnInit
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, OnInit, ViewEncapsulation
 } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
@@ -16,6 +16,7 @@ import { PasswordStateService } from "../../services/password-state.service";
 import { PasswordService } from "../../services/password.service";
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "vaultea-password-form",
   styleUrls: ["./password-form.component.scss"],
@@ -67,6 +68,7 @@ export class PasswordFormComponent extends BaseFormComponent implements OnInit {
         this.toFormControl(this.form.get("folderId")),
         this.readonly
       );
+    this.locationAutocompleteData.autocompleteClass = "option-size";
   }
 
   protected initForm(): void {

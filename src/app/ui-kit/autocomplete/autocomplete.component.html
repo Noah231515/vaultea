@@ -9,7 +9,7 @@
     [matAutocomplete]="auto"
     [readonly]="autocompleteData?.readonly ?? false"
   >
-  <mat-autocomplete #auto="matAutocomplete" [displayWith]="getDisplayValue">
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="getDisplayValue" [class]="autocompleteData.autocompleteClass">
     <mat-option *ngFor="let option of filteredOptions | async | slice:0:maxValuesToDisplay" [value]="option.value">
       <div fxLayout="row" fxLayoutAlign=" center">
         <ng-container *ngIf="option.icon">

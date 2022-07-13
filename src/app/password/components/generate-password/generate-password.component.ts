@@ -93,9 +93,10 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
           }
 
           this.form.get("generatedPassword").patchValue(this.generatePassword(), { emitEvent: false });
-          this.form.get("passwordEntropy").patchValue(this.computePasswordEntropy(), {  emitEvent: false })
+          this.form.get("passwordEntropy").patchValue(this.computePasswordEntropy().toString() + " bits", {  emitEvent: false })
         } else {
-          this.form.get("generatedPassword").patchValue("", { emitEvent: false })
+          this.form.get("generatedPassword").patchValue("", { emitEvent: false });
+          this.form.get("passwordEntropy").patchValue("0 bits", { emitEvent: false});
         }
       })
   }

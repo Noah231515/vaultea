@@ -4,6 +4,8 @@ import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@ang
 import { FormBuilder, Validators } from "@angular/forms";
 import { BaseFormComponent } from "@ui-kit";
 
+import { PasswordUtil } from "../../utils/password.util";
+
 @Component({
   selector: "vaultea-generate-password",
   templateUrl: "./generate-password.component.html",
@@ -93,7 +95,7 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
           }
 
           this.form.get("generatedPassword").patchValue(this.generatePassword(), { emitEvent: false });
-          this.form.get("passwordEntropy").patchValue(this.computePasswordEntropy().toString() + " bits", {  emitEvent: false })
+          this.form.get("passwordEntropy").patchValue(PasswordUtil.computePasswordEntropy(this.characterSetsInUse, rawValue?.length).toString() + " bits", {  emitEvent: false })
         } else {
           this.form.get("generatedPassword").patchValue("", { emitEvent: false });
           this.form.get("passwordEntropy").patchValue("0 bits", { emitEvent: false});
@@ -123,14 +125,6 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
     }
 
     return generatedPassword.join("");
-  }
-
-  public computePasswordEntropy(): number {
-    const rawValue = this.form.getRawValue();
-    let numOfPossibleCharacters = 0;
-
-    this.characterSetsInUse.forEach(set => numOfPossibleCharacters += set.length);
-    return Math.floor(Math.log2(Math.pow(numOfPossibleCharacters, rawValue?.length)));
   }
 
   private generateSet(range: [number, number]): string[] {

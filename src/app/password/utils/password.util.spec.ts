@@ -6,6 +6,8 @@ import {
   CryptoFunctionService, UserKeyService
 } from "@crypto";
 
+import { PasswordUtil } from "./password.util";
+
 describe("PasswordUtil", () => {
 
 
@@ -25,6 +27,20 @@ describe("PasswordUtil", () => {
   });
 
   it("should compute the correct entropy", () => {
-    expect(true).toBe(true);
+    const firstSet = "abcde".split("");
+    const secondSet = "12345".split("");
+    const sets = [firstSet, secondSet];
+    const passwordLength = 10;
+
+    expect(PasswordUtil.computePasswordEntropy(sets, passwordLength)).toBe(33);
+  });
+
+  it("should compute the correct entropy", () => {
+    const firstSet = "abcde".split("");
+    const secondSet = "12345".split("");
+    const sets = [firstSet, secondSet];
+    const passwordLength = 0;
+
+    expect(PasswordUtil.computePasswordEntropy(sets, passwordLength)).toBe(0);
   });
 });

@@ -18,4 +18,11 @@ export class PasswordUtil {
     };
     this.dialogService.open(PasswordFormComponent, config);
   }
+
+  public static computePasswordEntropy(characterSetsInUse: string[][], passwordLength: number): number {
+    let numOfPossibleCharacters = 0;
+
+    characterSetsInUse.forEach(set => numOfPossibleCharacters += set.length);
+    return Math.floor(Math.log2(Math.pow(numOfPossibleCharacters, passwordLength)));
+  }
 }

@@ -4,6 +4,8 @@ import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@ang
 import { FormBuilder, Validators } from "@angular/forms";
 import { BaseFormComponent } from "@ui-kit";
 
+import { PasswordUtil } from "../../utils/password.util";
+
 @Component({
   selector: "vaultea-generate-password",
   templateUrl: "./generate-password.component.html",
@@ -24,7 +26,8 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
   public upperAlphaRange: [number, number] = [65,90];
   public lowerAlphaRange: [number, number] = [97,122];
 
-  
+  public characterSetsInUse: string[][] = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private changeDetectorRef: ChangeDetectorRef
@@ -49,7 +52,8 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
       useNumeric: true,
       useSimpleSpecial: true,
       useComplexSpecial: false,
-      generatedPassword: ""
+      generatedPassword: "",
+      passwordEntropy: ""
     });
 
     this.form
@@ -68,36 +72,39 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
           || rawValue.useSimpleSpecial
           || rawValue.useComplexSpecial
         ) {
+          this.characterSetsInUse = [];
+
+          if (rawValue.useUpperAlpha) {
+            this.characterSetsInUse.push(this.upperAlpha)
+          }
+      
+          if (rawValue.useLowerAlpha) {
+            this.characterSetsInUse.push(this.lowerAlpha);
+          }
+      
+          if (rawValue.useNumeric) {
+            this.characterSetsInUse.push(this.numeric);
+          }
+      
+          if (rawValue.useSimpleSpecial) {
+            this.characterSetsInUse.push(this.simpleSpecial);
+          }
+      
+          if (rawValue.useComplexSpecial) {
+            this.characterSetsInUse.push(this.complexSpecial);
+          }
+
           this.form.get("generatedPassword").patchValue(this.generatePassword(), { emitEvent: false });
+          this.form.get("passwordEntropy").patchValue(PasswordUtil.computePasswordEntropy(this.characterSetsInUse, rawValue?.length).toString() + " bits", {  emitEvent: false })
         } else {
-          this.form.get("generatedPassword").patchValue("", { emitEvent: false })
+          this.form.get("generatedPassword").patchValue("", { emitEvent: false });
+          this.form.get("passwordEntropy").patchValue("0 bits", { emitEvent: false});
         }
       })
   }
   
   public generatePassword(): string {
-    const sets = [];
     const rawValue = this.form.getRawValue();
-
-    if (rawValue.useUpperAlpha) {
-      sets.push(this.upperAlpha)
-    }
-
-    if (rawValue.useLowerAlpha) {
-      sets.push(this.lowerAlpha);
-    }
-
-    if (rawValue.useNumeric) {
-      sets.push(this.numeric);
-    }
-
-    if (rawValue.useSimpleSpecial) {
-      sets.push(this.simpleSpecial);
-    }
-
-    if (rawValue.useComplexSpecial) {
-      sets.push(this.complexSpecial);
-    }
 
     const generatedPassword = [];
     for (let i = 0; i < rawValue.length; i++) {
@@ -105,8 +112,8 @@ export class GeneratePasswordComponent extends BaseFormComponent implements OnIn
       crypto.getRandomValues(randomValueArray);
 
       // Select character set randomly
-      const randomSetIndex = randomValueArray[0] % sets.length;
-      const randomSet = sets[randomSetIndex];
+      const randomSetIndex = randomValueArray[0] % this.characterSetsInUse.length;
+      const randomSet = this.characterSetsInUse[randomSetIndex];
 
       // Select character randomly
       crypto.getRandomValues(randomValueArray);
